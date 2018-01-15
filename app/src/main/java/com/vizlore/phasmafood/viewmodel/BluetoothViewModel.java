@@ -43,6 +43,7 @@ public class BluetoothViewModel extends ViewModel {
 	private MutableLiveData<ConnectionStateEvent> connectionStateLiveData;
 	private MutableLiveData<List<BluetoothDevice>> bluetoothDevicesLiveData;
 	private MutableLiveData<BondStateEvent> bondStateEventLiveData;
+	private MutableLiveData<Integer> bluetoothStateLiveData;
 
 	private CompositeDisposable compositeDisposable = new CompositeDisposable();
 	private Disposable disposable = new CompositeDisposable();
@@ -180,8 +181,6 @@ public class BluetoothViewModel extends ViewModel {
 				}));
 		return discoveryEventLiveData;
 	}
-
-	private MutableLiveData<Integer> bluetoothStateLiveData;
 
 	public LiveData<Integer> getBluetoothState() {
 
