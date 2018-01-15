@@ -1,5 +1,7 @@
 package com.vizlore.phasmafood.bluetooth;
 
+import android.content.BroadcastReceiver;
+
 import io.reactivex.functions.Predicate;
 
 /**

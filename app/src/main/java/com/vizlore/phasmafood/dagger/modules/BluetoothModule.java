@@ -1,6 +1,6 @@
 package com.vizlore.phasmafood.dagger.modules;
 
-import android.content.Context;
+import android.app.Application;
 
 import com.vizlore.phasmafood.bluetooth.RxBluetooth;
 
@@ -16,9 +16,15 @@ import dagger.Provides;
 @Module
 public class BluetoothModule {
 
+	private Application mApplication;
+
+	public BluetoothModule(Application application) {
+		mApplication = application;
+	}
+
 	@Provides
 	@Singleton
-	RxBluetooth provideRxBluetooth(Context context) {
-		return new RxBluetooth(context);
+	RxBluetooth provideRxBluetooth() {
+		return new RxBluetooth(mApplication);
 	}
 }

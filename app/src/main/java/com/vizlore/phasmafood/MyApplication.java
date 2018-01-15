@@ -9,6 +9,7 @@ import android.app.Application;
 import com.vizlore.phasmafood.dagger.AppComponent;
 import com.vizlore.phasmafood.dagger.DaggerAppComponent;
 import com.vizlore.phasmafood.dagger.modules.AppModule;
+import com.vizlore.phasmafood.dagger.modules.BluetoothModule;
 import com.vizlore.phasmafood.dagger.modules.NetworkModule;
 import com.vizlore.phasmafood.dagger.modules.UserModule;
 
@@ -26,6 +27,7 @@ public class MyApplication extends Application {
 				.userModule(new UserModule())
 				.appModule(new AppModule(this))
 				.networkModule(new NetworkModule())
+				.bluetoothModule(new BluetoothModule(this))
 				.build();
 	}
 

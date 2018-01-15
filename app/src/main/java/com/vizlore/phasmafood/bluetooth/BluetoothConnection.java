@@ -199,11 +199,8 @@ public class BluetoothConnection {
 		if (!connected) return false;
 		Log.d(TAG, "send: output stream: " + outputStream);
 		try {
-			Log.d(TAG, "send: 111");
 			outputStream.write(bytes);
-			Log.d(TAG, "send: 222");
 			outputStream.flush();
-			Log.d(TAG, "send: 333");
 			return true;
 		} catch (IOException e) {
 			// Error occurred. Better to close terminate the connection
