@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +25,12 @@ import butterknife.OnClick;
 public class WizardActivity extends FragmentActivity {
 
 	private static final String TAG = "SMEDIC";
+
+	private int[] analysisType = {R.string.selectTypeOfAnalysis,
+			R.string.selectTypeOfFood,
+			R.string.specifyScanningConditions,
+			R.string.measurementGuide,
+			R.string.analysisResults};
 
 	@BindView(R.id.step1)
 	ImageView firstStep;
@@ -46,6 +53,12 @@ public class WizardActivity extends FragmentActivity {
 	@BindView(R.id.viewPager)
 	ViewPager viewPager;
 
+	@BindView(R.id.step)
+	TextView stepNumber;
+
+	@BindView(R.id.title)
+	TextView title;
+
 	private int currentStep = 1;
 	private View animatedView = null;
 
@@ -59,6 +72,9 @@ public class WizardActivity extends FragmentActivity {
 		currentStep = step;
 		setStepsProgress(step);
 		viewPager.setCurrentItem(step - 1);
+
+		stepNumber.setText("STEP " + step);
+		title.setText(analysisType[step - 1]);
 	}
 
 	private void setStepsProgress(int step) {
@@ -101,7 +117,7 @@ public class WizardActivity extends FragmentActivity {
 
 		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-		getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.greyHeader));
+		getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.grey));
 
 		adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
 		viewPager.setAdapter(adapterViewPager);
