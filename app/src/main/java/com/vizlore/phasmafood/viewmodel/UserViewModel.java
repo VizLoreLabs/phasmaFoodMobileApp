@@ -74,7 +74,7 @@ public class UserViewModel extends ViewModel {
 		return hasSessionLiveData;
 	}
 
-	public LiveData<Boolean> signIn() {
+	public LiveData<Boolean> signIn(final String email, final String password) {
 
 		if (signInLiveData == null) {
 			signInLiveData = new MutableLiveData<>();
