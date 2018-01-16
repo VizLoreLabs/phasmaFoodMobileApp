@@ -36,18 +36,19 @@ public class ProfileMainFragment extends ProfileBaseFragment {
 			userViewModel.signIn(email.getText().toString(), password.getText().toString()).observe(this,
 					result -> {
 						Log.d(TAG, "onLogInClicked: " + result);
+						profileSetupViewModel.setSelected(ProfileAction.SIGNED_IN);
 					});
 		}
 	}
 
 	@OnClick(R.id.forgotPassword)
 	void onForgotPasswordClicked() {
-		// TODO: 1/16/18
+		profileSetupViewModel.setSelected(ProfileAction.RECOVER_PASSWORD);
 	}
 
 	@OnClick(R.id.register)
 	void onRegisterClicked() {
-		// TODO: 1/16/18
+		profileSetupViewModel.setSelected(ProfileAction.CREATE_ACCOUNT_CLICKED);
 	}
 
 	@Override
