@@ -17,7 +17,7 @@
         <activity android:name=".MainActivity">
 
         </activity>
-        <activity android:name=".WizardActivity" >
+        <activity android:name=".analysis_wizard.WizardActivity" >
 
         </activity>
         <activity android:name=".profile_setup.ProfileSetupActivity" >

@@ -1,4 +1,4 @@
-package com.vizlore.phasmafood;
+package com.vizlore.phasmafood.analysis_wizard;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +13,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.vizlore.phasmafood.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

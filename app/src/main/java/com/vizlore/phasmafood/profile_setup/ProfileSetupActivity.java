@@ -11,7 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.WindowManager;
 
 import com.vizlore.phasmafood.R;
-import com.vizlore.phasmafood.WizardActivity;
+import com.vizlore.phasmafood.analysis_wizard.WizardActivity;
 import com.vizlore.phasmafood.profile_setup.viewmodel.ProfileSetupViewModel;
 
 import butterknife.ButterKnife;

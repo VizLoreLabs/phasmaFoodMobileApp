@@ -1,4 +1,4 @@
-package com.vizlore.phasmafood;
+package com.vizlore.phasmafood.analysis_wizard;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,16 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.vizlore.phasmafood.R;
+
 /**
  * Created by smedic on 1/15/18.
  */
 
-public class FragmentSecondStep extends Fragment {
+public class FragmentFourthStep extends Fragment {
 
 	@Nullable
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_second_step, container, false);
+		return inflater.inflate(R.layout.fragment_fourth_step, container, false);
 	}
 
 	@Override
