@@ -53,9 +53,6 @@ public class WizardActivity extends FragmentActivity {
 	@BindView(R.id.viewPager)
 	ViewPager viewPager;
 
-	@BindView(R.id.step)
-	TextView stepNumber;
-
 	@BindView(R.id.title)
 	TextView title;
 
@@ -73,8 +70,12 @@ public class WizardActivity extends FragmentActivity {
 		setStepsProgress(step);
 		viewPager.setCurrentItem(step - 1);
 
-		stepNumber.setText("STEP " + step);
 		title.setText(analysisType[step - 1]);
+	}
+
+	@OnClick(R.id.close)
+	void onCloseClicked() {
+		finish();
 	}
 
 	private void setStepsProgress(int step) {

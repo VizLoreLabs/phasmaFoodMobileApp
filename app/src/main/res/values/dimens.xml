@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="buttonHeight">58dp</dimen>
+    <dimen name="buttonCornerRadius">29dp</dimen>
+    <dimen name="buttonHorizontalMargin">32dp</dimen>
+    <dimen name="buttonsSpacing">16dp</dimen>
+</resources>
