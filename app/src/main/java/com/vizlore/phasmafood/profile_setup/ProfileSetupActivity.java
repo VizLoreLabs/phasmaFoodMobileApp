@@ -43,7 +43,7 @@ public class ProfileSetupActivity extends FragmentActivity {
 						// TODO: 1/16/18
 						break;
 					case CREATE_ACCOUNT_CLICKED:
-						// TODO: 1/16/18  
+						replaceFragment(new CreateAccountFragment());
 						break;
 					case START_MEASUREMENT_CLICKED:
 						// TODO: 1/16/18
@@ -57,6 +57,7 @@ public class ProfileSetupActivity extends FragmentActivity {
 						break;
 					case LEARN_MORE_CLICKED:
 						// TODO: 1/16/18
+						break;
 					case GO_BACK:
 						if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
 							getSupportFragmentManager().popBackStack();

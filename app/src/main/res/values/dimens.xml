@@ -4,4 +4,5 @@
     <dimen name="buttonCornerRadius">29dp</dimen>
     <dimen name="buttonHorizontalMargin">32dp</dimen>
     <dimen name="buttonsSpacing">16dp</dimen>
+    <dimen name="titleTextSize">30sp</dimen>
 </resources>
