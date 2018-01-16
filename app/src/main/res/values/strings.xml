@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">PhasmaFood</string>
 
-    <string name="selectTypeOfAnalysis">Please select type of analysis</string>
+    <string name="selectTypeOfAnalysis">Please select type\nof analysis</string>
     <string name="selectTypeOfFood">Please select type of food\nbeing analysed</string>
     <string name="specifyScanningConditions">Please specify scanning conditions</string>
     <string name="measurementGuide">Measurement guide</string>

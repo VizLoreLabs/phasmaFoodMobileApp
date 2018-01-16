@@ -7,46 +7,58 @@
     <RadioGroup
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
-        android:padding="30dp"
+        android:divider="@drawable/radio_buttons_divider"
+        android:showDividers="middle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <RadioButton
             android:id="@+id/radioButton"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
             android:layout_weight="1"
             android:background="@drawable/radio_button_selector"
             android:button="@null"
             android:gravity="center"
+            android:shadowColor="@color/text_shadow"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"
             android:text="Mycotoxin"
-            android:textColor="@drawable/radio_button_text_selector" />
+            android:textColor="@drawable/radio_button_text_selector"
+            android:textSize="18sp" />
 
         <RadioButton
             android:id="@+id/radioButton2"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="70dp"
             android:layout_weight="1"
             android:background="@drawable/radio_button_selector"
             android:button="@null"
             android:gravity="center"
+            android:shadowColor="@color/text_shadow"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"
             android:text="Spoilage and shelf life"
-            android:textColor="@drawable/radio_button_text_selector" />
+            android:textColor="@drawable/radio_button_text_selector"
+            android:textSize="18sp" />
 
         <RadioButton
             android:id="@+id/radioButton3"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="70dp"
             android:layout_weight="1"
             android:background="@drawable/radio_button_selector"
             android:button="@null"
             android:gravity="center"
+            android:shadowColor="@color/text_shadow"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"
             android:text="Food fraud"
-            android:textColor="@drawable/radio_button_text_selector" />
+            android:textColor="@drawable/radio_button_text_selector"
+            android:textSize="18sp" />
 
     </RadioGroup>
 
