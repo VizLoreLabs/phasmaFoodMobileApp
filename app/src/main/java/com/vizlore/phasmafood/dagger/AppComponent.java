@@ -23,7 +23,4 @@ public interface AppComponent {
 
 	void inject(BluetoothViewModel bluetoothViewModel);
 
-	//void inject(MainActivityViewModel activity);
-
-	//void inject(RetrofitInterceptor interceptor);
 }

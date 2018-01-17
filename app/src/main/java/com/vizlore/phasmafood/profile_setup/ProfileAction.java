@@ -14,6 +14,7 @@ public enum ProfileAction {
 	CONFIRM_EMAIL_CLICKED,
 	SIGNED_IN,
 	RECOVER_PASSWORD,
+	SIGN_OUT_CLICKED,
 
 	// main screen actions
 	START_MEASUREMENT_CLICKED,

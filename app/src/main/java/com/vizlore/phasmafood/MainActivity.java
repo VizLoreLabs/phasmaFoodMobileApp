@@ -72,9 +72,6 @@ public class MainActivity extends AppCompatActivity {
 		bondedListView.setAdapter(bondedAdapter);
 
 		UserViewModel userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
-		userViewModel.hasSession().observe(this, hasSession -> {
-			Log.d(TAG, "onCreate: has session: " + hasSession);
-		});
 
 		// bluetooth view model
 		bluetoothViewModel = ViewModelProviders.of(this).get(BluetoothViewModel.class);

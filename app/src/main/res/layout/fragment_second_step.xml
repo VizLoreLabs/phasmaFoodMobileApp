@@ -7,46 +7,42 @@
     <RadioGroup
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
-        android:padding="30dp"
+        android:divider="@drawable/radio_buttons_divider"
+        android:showDividers="middle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <RadioButton
             android:id="@+id/radioButton"
+            style="@style/PFRadioButton"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/buttonHeight"
+            android:layout_marginEnd="@dimen/buttonHorizontalMargin"
+            android:layout_marginStart="@dimen/buttonHorizontalMargin"
             android:layout_weight="1"
-            android:background="@drawable/radio_button_selector"
-            android:button="@null"
-            android:gravity="center"
-            android:text="Mycotoxin"
-            android:textColor="@drawable/radio_button_text_selector" />
+            android:text="Mycotoxin" />
 
         <RadioButton
             android:id="@+id/radioButton2"
+            style="@style/PFRadioButton"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="@dimen/buttonHeight"
+            android:layout_marginEnd="@dimen/buttonHorizontalMargin"
+            android:layout_marginStart="@dimen/buttonHorizontalMargin"
+            android:layout_marginTop="@dimen/buttonsSpacing"
             android:layout_weight="1"
-            android:background="@drawable/radio_button_selector"
-            android:button="@null"
-            android:gravity="center"
-            android:text="Spoilage and shelf life"
-            android:textColor="@drawable/radio_button_text_selector" />
+            android:text="Spoilage and shelf life" />
 
         <RadioButton
             android:id="@+id/radioButton3"
+            style="@style/PFRadioButton"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="@dimen/buttonHeight"
+            android:layout_marginEnd="@dimen/buttonHorizontalMargin"
+            android:layout_marginStart="@dimen/buttonHorizontalMargin"
+            android:layout_marginTop="@dimen/buttonsSpacing"
             android:layout_weight="1"
-            android:background="@drawable/radio_button_selector"
-            android:button="@null"
-            android:gravity="center"
-            android:text="Food fraud"
-            android:textColor="@drawable/radio_button_text_selector" />
+            android:text="Food fraud" />
 
     </RadioGroup>
 

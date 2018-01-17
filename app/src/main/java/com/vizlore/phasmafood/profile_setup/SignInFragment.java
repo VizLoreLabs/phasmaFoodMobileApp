@@ -3,9 +3,9 @@ package com.vizlore.phasmafood.profile_setup;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
@@ -17,7 +17,7 @@ import butterknife.OnClick;
  * Created by smedic on 1/16/18.
  */
 
-public class ProfileMainFragment extends ProfileBaseFragment {
+public class SignInFragment extends ProfileBaseFragment {
 
 	private UserViewModel userViewModel;
 
@@ -31,14 +31,17 @@ public class ProfileMainFragment extends ProfileBaseFragment {
 
 	@OnClick(R.id.logIn)
 	void onLogInClicked() {
-		Log.d(TAG, "onLogInClicked: ");
 		// TODO: 1/16/18 add proper checks
 		if (email.getText() != null && password.getText() != null) {
-			userViewModel.signIn(email.getText().toString(), password.getText().toString()).observe(this,
+			userViewModel.getToken(email.getText().toString(), password.getText().toString()).observe(this,
 					result -> {
-						// TODO: 1/17/18 check if token is there
-						profileSetupViewModel.setSelected(ProfileAction.SIGNED_IN);
+						if (result != null && result) {
+							profileSetupViewModel.setSelected(ProfileAction.SIGNED_IN);
+						} else {
+							Toast.makeText(getContext(), "Error. Not logged in!", Toast.LENGTH_SHORT).show();
+						}
 					});
+
 		}
 	}
 
