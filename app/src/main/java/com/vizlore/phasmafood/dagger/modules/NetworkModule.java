@@ -1,5 +1,7 @@
 package com.vizlore.phasmafood.dagger.modules;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vizlore.phasmafood.api.AutoValueGsonFactory;
@@ -8,6 +10,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -27,13 +31,26 @@ public class NetworkModule {
 		return new GsonBuilder().serializeNulls().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
 	}
 
-//	@Provides
-//	@Singleton
-//	OkHttpClient provideOkHttpClient() {
-//		return new OkHttpClient.Builder()
-//				//.addInterceptor(new RetrofitInterceptor()).build();
-//				.build();
-//	}
+	@Provides
+	@Singleton
+	HttpLoggingInterceptor provideHttpLoggingInterceptor() {
+		HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+			@Override
+			public void log(String message) {
+				Log.d("SMEDIC", "log: " + message);
+			}
+		});
+		logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+		return logging;
+	}
+
+	@Provides
+	@Singleton
+	OkHttpClient provideOkHttpClient(HttpLoggingInterceptor loggingInterceptor) {
+		return new OkHttpClient.Builder()
+				.addInterceptor(loggingInterceptor)
+				.build();
+	}
 
 	@Provides
 	@Singleton
@@ -49,10 +66,12 @@ public class NetworkModule {
 
 	@Provides
 	@Singleton
-	Retrofit provideRetrofit(RxJava2CallAdapterFactory rxJava2CallAdapterFactory, GsonConverterFactory factory) {
+	Retrofit provideRetrofit(RxJava2CallAdapterFactory rxJava2CallAdapterFactory, GsonConverterFactory factory,
+							 OkHttpClient okHttpClient) {
 		return new Retrofit.Builder()
 				.addCallAdapterFactory(rxJava2CallAdapterFactory)
 				.addConverterFactory(factory)
+				.client(okHttpClient)
 				.baseUrl(BASE_URL)
 				.build();
 	}

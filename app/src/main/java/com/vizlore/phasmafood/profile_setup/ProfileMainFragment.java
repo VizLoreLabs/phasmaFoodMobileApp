@@ -31,11 +31,12 @@ public class ProfileMainFragment extends ProfileBaseFragment {
 
 	@OnClick(R.id.logIn)
 	void onLogInClicked() {
+		Log.d(TAG, "onLogInClicked: ");
 		// TODO: 1/16/18 add proper checks
 		if (email.getText() != null && password.getText() != null) {
 			userViewModel.signIn(email.getText().toString(), password.getText().toString()).observe(this,
 					result -> {
-						Log.d(TAG, "onLogInClicked: " + result);
+						// TODO: 1/17/18 check if token is there
 						profileSetupViewModel.setSelected(ProfileAction.SIGNED_IN);
 					});
 		}

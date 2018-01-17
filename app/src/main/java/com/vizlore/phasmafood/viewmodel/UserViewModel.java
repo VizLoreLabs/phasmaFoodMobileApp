@@ -9,12 +9,13 @@ import android.util.Log;
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.api.UserApi;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import io.reactivex.CompletableObserver;
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -96,26 +97,21 @@ public class UserViewModel extends ViewModel {
 			createAccountLiveData = new MutableLiveData<>();
 		}
 
-		JSONObject paramObject = new JSONObject();
-		try {
-			if (!firstName.isEmpty()) {
-				paramObject.put("first_name", firstName);
-			}
-			if (!lastName.isEmpty()) {
-				paramObject.put("last_name", lastName);
-			}
-			paramObject.put("username", username);
-			paramObject.put("company", company);
-			paramObject.put("email", email);
-			paramObject.put("company", company);
-			paramObject.put("password", password);
+		Map<String, String> requestBody = new HashMap<>();
 
-			Log.d(TAG, "onCreateAccountClicked: json: " + paramObject.toString());
-		} catch (JSONException e) {
-			e.printStackTrace();
+		if (!firstName.isEmpty()) {
+			requestBody.put("first_name", firstName);
 		}
+		if (!lastName.isEmpty()) {
+			requestBody.put("last_name", lastName);
+		}
+		requestBody.put("username", username);
+		requestBody.put("company", company);
+		requestBody.put("email", email);
+		requestBody.put("company", company);
+		requestBody.put("password", password);
 
-		userApi.createAccount(paramObject.toString())
+		userApi.createAccount(requestBody)
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(new CompletableObserver() {
@@ -125,13 +121,12 @@ public class UserViewModel extends ViewModel {
 
 					@Override
 					public void onComplete() {
-						Log.d(TAG, "onComplete: ");
 						createAccountLiveData.postValue(true);
 					}
 
 					@Override
 					public void onError(Throwable e) {
-						Log.d(TAG, "onError: e: " + e.getMessage());
+						Log.d(TAG, "onError: e: " + e.toString());
 						createAccountLiveData.postValue(false);
 					}
 				});
@@ -145,8 +140,32 @@ public class UserViewModel extends ViewModel {
 			signInLiveData = new MutableLiveData<>();
 		}
 
+		Map<String, String> requestBody = new HashMap<>();
+		requestBody.put("email", email);
+		requestBody.put("password", password);
+
+		userApi.getToken(requestBody)
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(new SingleObserver<Object>() {
+					@Override
+					public void onSubscribe(Disposable d) {
+						Log.d(TAG, "onSubscribe: ");
+					}
+
+					@Override
+					public void onSuccess(Object o) {
+						Log.d(TAG, "onSuccess: object: " + o);
+					}
+
+					@Override
+					public void onError(Throwable e) {
+						Log.d(TAG, "onError: " + e.toString());
+					}
+				});
+
 		// TODO: 1/5/18 call sign in
-		new Handler().postDelayed(() -> signInLiveData.setValue(true), 1500);
+		//new Handler().postDelayed(() -> signInLiveData.setValue(true), 1500);
 
 		return signInLiveData;
 	}

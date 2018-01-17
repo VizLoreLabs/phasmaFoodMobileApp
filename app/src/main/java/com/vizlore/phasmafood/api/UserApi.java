@@ -2,11 +2,12 @@ package com.vizlore.phasmafood.api;
 
 import com.vizlore.phasmafood.model.User;
 
+import java.util.Map;
+
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 /**
@@ -18,9 +19,11 @@ public interface UserApi {
 	@GET("/bins/eey2r")
 	Single<User> hasSession();
 
-	@Headers("Content-Type: application/json")
-	@POST("/api/v1/auth/users/create")
-	Completable createAccount(@Body String body);
+	@POST("/api/v1/auth/users/create/")
+	Completable createAccount(@Body Map<String, String> body);
+
+	@POST("/api/v1/auth/jwt/create/")
+	Single<Object> getToken(@Body Map<String, String> body);
 
 	// TODO: 1/4/18
 	@GET("/bins/eey2r")
