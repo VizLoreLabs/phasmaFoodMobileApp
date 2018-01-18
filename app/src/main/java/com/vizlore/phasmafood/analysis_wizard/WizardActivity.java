@@ -75,7 +75,7 @@ public class WizardActivity extends FragmentActivity {
 		title.setText(analysisType[step - 1]);
 	}
 
-	@OnClick(R.id.close)
+	@OnClick(R.id.backButton)
 	void onCloseClicked() {
 		finish();
 	}

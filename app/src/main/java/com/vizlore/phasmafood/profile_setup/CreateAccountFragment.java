@@ -39,7 +39,7 @@ public class CreateAccountFragment extends ProfileBaseFragment {
 	@BindView(R.id.confirmPassword)
 	EditText confirmPasswordEditText;
 
-	@OnClick(R.id.back)
+	@OnClick(R.id.backButton)
 	void onBackClicked() {
 		profileSetupViewModel.setSelected(ProfileAction.GO_BACK);
 	}
