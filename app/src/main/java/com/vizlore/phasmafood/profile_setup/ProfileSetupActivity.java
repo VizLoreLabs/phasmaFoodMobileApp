@@ -4,13 +4,13 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.WindowManager;
 
+import com.vizlore.phasmafood.BaseActivity;
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.analysis_wizard.WizardActivity;
 import com.vizlore.phasmafood.profile_setup.viewmodel.ProfileSetupViewModel;
@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
  * Created by smedic on 1/16/18.
  */
 
-public class ProfileSetupActivity extends FragmentActivity {
+public class ProfileSetupActivity extends BaseActivity {
 
 	private static final String TAG = "SMEDIC";
 
@@ -51,6 +51,7 @@ public class ProfileSetupActivity extends FragmentActivity {
 						break;
 					case START_MEASUREMENT_CLICKED:
 						startActivity(new Intent(this, WizardActivity.class));
+						overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
 						break;
 					case MEASUREMENT_HISTORY_CLICKED:
 						// TODO: 1/16/18  
@@ -100,7 +101,7 @@ public class ProfileSetupActivity extends FragmentActivity {
 	public void replaceFragment(Fragment fragment) {
 		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 		transaction.setCustomAnimations(R.anim.slide_from_right, R.anim.slide_to_left,
-				R.anim.slide_from_left, R.anim.slide_to_right);
+			R.anim.slide_from_left, R.anim.slide_to_right);
 		transaction.addToBackStack(null);
 		transaction.replace(R.id.fragmentContainer, fragment);
 		transaction.commit();
@@ -109,7 +110,7 @@ public class ProfileSetupActivity extends FragmentActivity {
 	public void replaceBaseFragment2(Fragment fragment) {
 		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 		transaction.setCustomAnimations(R.anim.slide_from_right, R.anim.slide_to_left,
-				R.anim.slide_from_left, R.anim.slide_to_right);
+			R.anim.slide_from_left, R.anim.slide_to_right);
 		transaction.replace(R.id.fragmentContainer, fragment);
 		transaction.commit();
 	}
@@ -117,7 +118,7 @@ public class ProfileSetupActivity extends FragmentActivity {
 	public void replaceBaseFragment(Fragment fragment) {
 		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 		transaction.setCustomAnimations(R.anim.slide_from_left, R.anim.slide_to_right,
-				R.anim.slide_from_right, R.anim.slide_to_left);
+			R.anim.slide_from_right, R.anim.slide_to_left);
 		transaction.replace(R.id.fragmentContainer, fragment);
 		transaction.commit();
 	}

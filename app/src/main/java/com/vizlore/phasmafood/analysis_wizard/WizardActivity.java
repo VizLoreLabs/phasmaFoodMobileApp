@@ -3,7 +3,6 @@ package com.vizlore.phasmafood.analysis_wizard;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
@@ -14,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.vizlore.phasmafood.BaseActivity;
 import com.vizlore.phasmafood.R;
 
 import butterknife.BindView;
@@ -24,15 +24,15 @@ import butterknife.OnClick;
  * Created by smedic on 1/15/18.
  */
 
-public class WizardActivity extends FragmentActivity {
+public class WizardActivity extends BaseActivity {
 
 	private static final String TAG = "SMEDIC";
 
 	private int[] analysisType = {R.string.selectTypeOfAnalysis,
-			R.string.selectTypeOfFood,
-			R.string.specifyScanningConditions,
-			R.string.measurementGuide,
-			R.string.analysisResults};
+		R.string.selectTypeOfFood,
+		R.string.specifyScanningConditions,
+		R.string.measurementGuide,
+		R.string.analysisResults};
 
 	@BindView(R.id.step1)
 	ImageView firstStep;
