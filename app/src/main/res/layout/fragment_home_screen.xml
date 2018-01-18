@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fruits">
@@ -49,8 +50,8 @@
         style="@style/PFTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:text="Home Screen"
+        app:layout_constraintBottom_toTopOf="@+id/startMeasurement"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -62,14 +63,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.11" />
-
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="16dp"
-    android:src="@android:drawable/ic_menu_close_clear_cancel"
-    app:layout_constraintBottom_toTopOf="@+id/guideline3"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -90,14 +83,14 @@
         style="@style/PFButtonWhite"
         android:layout_width="0dp"
         android:layout_height="@dimen/buttonHeight"
+        android:layout_marginBottom="@dimen/buttonsSpacing"
         android:layout_marginEnd="@dimen/buttonHorizontalMargin"
         android:layout_marginStart="@dimen/buttonHorizontalMargin"
-        android:layout_marginTop="50dp"
         android:text="Start measurement"
+        app:layout_constraintBottom_toTopOf="@+id/measurementHistory"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintRight_toRightOf="parent" />
 
     <Button
         android:id="@+id/measurementHistory"
@@ -106,12 +99,12 @@
         android:layout_height="@dimen/buttonHeight"
         android:layout_marginEnd="@dimen/buttonHorizontalMargin"
         android:layout_marginStart="@dimen/buttonHorizontalMargin"
-        android:layout_marginTop="16dp"
         android:text="Measurement history"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startMeasurement" />
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <Button
         android:id="@+id/yourProfile"
@@ -120,7 +113,7 @@
         android:layout_height="@dimen/buttonHeight"
         android:layout_marginEnd="@dimen/buttonHorizontalMargin"
         android:layout_marginStart="@dimen/buttonHorizontalMargin"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/buttonsSpacing"
         android:text="Your Profile"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
