@@ -1,16 +1,24 @@
 package com.vizlore.phasmafood.profile_setup;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.bluetooth.BluetoothDevice;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
 import com.vizlore.phasmafood.R;
+import com.vizlore.phasmafood.adapters.DevicesAdapter;
 import com.vizlore.phasmafood.profile_setup.viewmodel.ProfileSetupViewModel;
+import com.vizlore.phasmafood.viewmodel.BluetoothViewModel;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -19,26 +27,39 @@ import butterknife.OnClick;
 
 public class YourProfileFragment extends ProfileBaseFragment {
 
-	private UserViewModel userViewModel;
-	private ProfileSetupViewModel profileSetupViewModel;
-
 	private static final String TAG = "SMEDIC";
 
-	@OnClick(R.id.logOut)
-	void onLogInClicked() {
-		userViewModel.signOut().observe(this, signedOut -> {
-			if (signedOut != null && signedOut) {
-				Log.d(TAG, "onLogInClicked: log out");
-				profileSetupViewModel.setSelected(ProfileAction.SIGN_OUT_CLICKED);
-			} else {
-				Toast.makeText(getContext(), "Signed out", Toast.LENGTH_SHORT).show();
-			}
-		});
-	}
+	private UserViewModel userViewModel;
+	private ProfileSetupViewModel profileSetupViewModel;
+	private List<BluetoothDevice> devicesList = new ArrayList<>();
+	private DevicesAdapter devicesAdapter;
 
-	@Override
-	protected int getFragmentLayout() {
-		return R.layout.fragment_your_profile;
+	@BindView(R.id.devicesList)
+	RecyclerView devicesRecyclerView;
+
+	@OnClick({R.id.editProfile, R.id.addNewDevice, R.id.backButton, R.id.logOut})
+	void onClick(View view) {
+		switch (view.getId()) {
+			case R.id.editProfile:
+				// TODO: 1/18/18
+				break;
+			case R.id.addNewDevice:
+				// TODO: 1/18/18
+				break;
+			case R.id.backButton:
+				profileSetupViewModel.setSelected(ProfileAction.GO_BACK);
+				break;
+			case R.id.logOut:
+				userViewModel.signOut().observe(this, signedOut -> {
+					if (signedOut != null && signedOut) {
+						profileSetupViewModel.setSelected(ProfileAction.SIGN_OUT_CLICKED);
+						// TODO: 1/18/18 show dialog
+					} else {
+						Toast.makeText(getContext(), "Signing out failed!", Toast.LENGTH_SHORT).show();
+					}
+				});
+				break;
+		}
 	}
 
 	@Override
@@ -47,5 +68,22 @@ public class YourProfileFragment extends ProfileBaseFragment {
 
 		profileSetupViewModel = ViewModelProviders.of(getActivity()).get(ProfileSetupViewModel.class);
 		userViewModel = ViewModelProviders.of(getActivity()).get(UserViewModel.class);
+
+		devicesAdapter = new DevicesAdapter(devicesList);
+		devicesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+		devicesRecyclerView.setAdapter(devicesAdapter);
+
+		BluetoothViewModel bluetoothViewModel = ViewModelProviders.of(getActivity()).get(BluetoothViewModel.class);
+		bluetoothViewModel.getBondedDevices().observe(this, devices -> {
+			devicesList.clear();
+			devicesList.addAll(devices);
+			devicesList.addAll(devices);
+		});
+
+	}
+
+	@Override
+	protected int getFragmentLayout() {
+		return R.layout.fragment_your_profile;
 	}
 }

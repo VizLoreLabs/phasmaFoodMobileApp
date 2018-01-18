@@ -35,7 +35,16 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:background">@drawable/button_white_border_selector</item>
         <item name="android:textColor">@drawable/button_text_selector</item>
+        <item name="android:layout_marginStart">@dimen/buttonHorizontalMargin</item>
+        <item name="android:layout_marginEnd">@dimen/buttonHorizontalMargin</item>
         <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="PFButtonWhiteSmall" parent="ComponentShadow">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:background">@drawable/button_white_border_selector</item>
+        <item name="android:textColor">@drawable/button_text_selector</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="PFButtonBlue" parent="ComponentShadow">
@@ -49,6 +58,13 @@
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/light_grey</item>
         <item name="android:textSize">@dimen/titleTextSize</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="PFSubtitle" parent="ComponentShadow">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/light_grey</item>
+        <item name="android:textSize">@dimen/subtitleTextSize</item>
         <item name="android:textStyle">bold</item>
     </style>
 </resources>
