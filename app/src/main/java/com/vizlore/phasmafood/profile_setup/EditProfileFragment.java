@@ -4,13 +4,17 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.model.User;
 import com.vizlore.phasmafood.utils.Validator;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
+
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -34,7 +38,7 @@ public class EditProfileFragment extends ProfileBaseFragment {
 	EditText username;
 
 	@BindView(R.id.company)
-	EditText company;
+	Spinner company;
 
 	@OnClick({R.id.backButton, R.id.save})
 	void onClick(View v) {
@@ -43,11 +47,11 @@ public class EditProfileFragment extends ProfileBaseFragment {
 				profileSetupViewModel.setSelected(ProfileAction.GO_BACK);
 				break;
 			case R.id.save:
-				if (Validator.validateFields(new EditText[]{firstName, lastName, company, username})) {
+				if (Validator.validateFields(new EditText[]{firstName, lastName, username})) {
 
 					// create new user
 					User user = User.builder()
-						.company(company.getText().toString())
+						.company(company.getSelectedItem().toString())
 						.firstName(firstName.getText().toString())
 						.lastName(lastName.getText().toString())
 						.username(username.getText().toString())
@@ -77,12 +81,17 @@ public class EditProfileFragment extends ProfileBaseFragment {
 
 		userViewModel = ViewModelProviders.of(getActivity()).get(UserViewModel.class);
 
+		// Creating adapter for spinner
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.companies, R.layout.spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		company.setAdapter(adapter);
+
 		userViewModel.getUserProfile().observe(this, user -> {
 			if (user != null) {
 				firstName.setText(user.firstName());
 				lastName.setText(user.lastName());
 				username.setText(user.username());
-				company.setText(user.company());
+				company.setSelection(getCurrentCompanyPosition(user.company()));
 
 				//save user for later check if anything is changed
 				currentUser = user;
@@ -93,6 +102,18 @@ public class EditProfileFragment extends ProfileBaseFragment {
 	@Override
 	protected int getFragmentLayout() {
 		return R.layout.fragment_edit_profile;
+	}
+
+	private int getCurrentCompanyPosition(String currentCompany) {
+		String[] companies = getResources().getStringArray(R.array.companies);
+		if (Arrays.asList(companies).contains(currentCompany)) {
+			for (int i = 0; i < companies.length; i++) {
+				if (companies[i].equals(currentCompany)) {
+					return i;
+				}
+			}
+		}
+		return 0;
 	}
 
 }

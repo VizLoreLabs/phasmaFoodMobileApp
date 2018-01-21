@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="companies">
+        <item>WINGS</item>
+        <item>INTRA</item>
+        <item>AUA</item>
+        <item>DLO</item>
+        <item>IPMS</item>
+        <item>CNR</item>
+        <item>UTOV</item>
+        <item>FUB</item>
+        <item>VLF</item>
+    </string-array>
+</resources>
