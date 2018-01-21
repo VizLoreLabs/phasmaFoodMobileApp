@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.vizlore.phasmafood.R;
+import com.vizlore.phasmafood.utils.Validator;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
 
 import butterknife.BindView;
@@ -31,16 +32,21 @@ public class SignInFragment extends ProfileBaseFragment {
 
 	@OnClick(R.id.logIn)
 	void onLogInClicked() {
+
 		// TODO: 1/16/18 add proper checks
-		if (email.getText() != null && password.getText() != null) {
-			userViewModel.getToken(email.getText().toString(), password.getText().toString()).observe(this,
-					result -> {
-						if (result != null && result) {
-							profileSetupViewModel.setSelected(ProfileAction.SIGNED_IN);
-						} else {
-							Toast.makeText(getContext(), "Error. Not logged in!", Toast.LENGTH_SHORT).show();
-						}
-					});
+		if (Validator.validateFields(new EditText[]{email, password})) {
+
+			final String emailText = email.getText().toString();
+			final String passwordText = password.getText().toString();
+
+			userViewModel.getToken(emailText, passwordText).observe(this,
+				result -> {
+					if (result != null && result) {
+						profileSetupViewModel.setSelected(ProfileAction.SIGNED_IN);
+					} else {
+						Toast.makeText(getContext(), getString(R.string.signingInError), Toast.LENGTH_SHORT).show();
+					}
+				});
 
 		}
 	}
@@ -65,5 +71,9 @@ public class SignInFragment extends ProfileBaseFragment {
 		super.onViewCreated(view, savedInstanceState);
 
 		userViewModel = ViewModelProviders.of(getActivity()).get(UserViewModel.class);
+
+		// testing values
+		email.setText("vanste25@gmail.com");
+		password.setText("username123");
 	}
 }

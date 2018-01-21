@@ -7,8 +7,12 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.api.UserApi;
+import com.vizlore.phasmafood.model.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,18 +41,22 @@ public class UserViewModel extends ViewModel {
 	public static final String TOKEN_KEY = "TOKEN";
 	public static final String USER_KEY = "USER";
 
+	private MutableLiveData<Boolean> signOutLiveData;
+
+	private MutableLiveData<Boolean> createAccountLiveData;
+	private MutableLiveData<Boolean> getTokenLiveData;
+	private MutableLiveData<Boolean> getRefreshTokenLiveData;
+	private MutableLiveData<User> getProfileLiveData;
+	private MutableLiveData<Boolean> updateProfileLiveData;
+
 	@Inject
 	SharedPreferences sharedPreferences;
 
 	@Inject
 	UserApi userApi;
 
-	private MutableLiveData<Boolean> signOutLiveData;
-
-	private MutableLiveData<Boolean> createAccountLiveData;
-	private MutableLiveData<Boolean> getTokenLiveData;
-	private MutableLiveData<Boolean> getRefreshTokenLiveData;
-	private MutableLiveData<String> getProfileLiveData;
+	@Inject
+	Gson gson;
 
 	public UserViewModel() {
 		MyApplication.getComponent().inject(this);
@@ -56,6 +64,18 @@ public class UserViewModel extends ViewModel {
 
 	public boolean hasSession() {
 		return sharedPreferences.contains(TOKEN_KEY);
+	}
+
+	public String getSavedToken() {
+		return sharedPreferences.getString(TOKEN_KEY, null);
+	}
+
+	public void saveToken(@NonNull String token) {
+		sharedPreferences.edit().putString(TOKEN_KEY, token).apply();
+	}
+
+	public void clearToken() {
+		sharedPreferences.edit().remove(TOKEN_KEY).apply();
 	}
 
 	public String createHeader() {
@@ -94,24 +114,24 @@ public class UserViewModel extends ViewModel {
 		requestBody.put("password", password);
 
 		userApi.createAccount(requestBody)
-				.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(new CompletableObserver() {
-					@Override
-					public void onSubscribe(Disposable d) {
-					}
+			.subscribeOn(Schedulers.io())
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribe(new CompletableObserver() {
+				@Override
+				public void onSubscribe(Disposable d) {
+				}
 
-					@Override
-					public void onComplete() {
-						createAccountLiveData.postValue(true);
-					}
+				@Override
+				public void onComplete() {
+					createAccountLiveData.postValue(true);
+				}
 
-					@Override
-					public void onError(Throwable e) {
-						Log.d(TAG, "onError: e: " + e.toString());
-						createAccountLiveData.postValue(false);
-					}
-				});
+				@Override
+				public void onError(Throwable e) {
+					Log.d(TAG, "onError: e: " + e.toString());
+					createAccountLiveData.postValue(false);
+				}
+			});
 
 		return createAccountLiveData;
 	}
@@ -134,37 +154,36 @@ public class UserViewModel extends ViewModel {
 		requestBody.put("password", password);
 
 		userApi.getToken(requestBody)
-				.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(new SingleObserver<ResponseBody>() {
-					@Override
-					public void onSubscribe(Disposable d) {
-						Log.d(TAG, "onSubscribe: ");
-					}
+			.subscribeOn(Schedulers.io())
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribe(new SingleObserver<ResponseBody>() {
+				@Override
+				public void onSubscribe(Disposable d) {
+				}
 
-					@Override
-					public void onSuccess(ResponseBody responseBody) {
+				@Override
+				public void onSuccess(ResponseBody responseBody) {
 
-						// save received token and user
-						try {
-							JSONObject jsonObject = new JSONObject(responseBody.string());
-							SharedPreferences.Editor editor = sharedPreferences.edit();
-							editor.putString(TOKEN_KEY, jsonObject.getString("token"));
-							editor.putString(USER_KEY, jsonObject.getString("user"));
-							editor.apply();
-							getTokenLiveData.postValue(true);
-						} catch (IOException | JSONException e) {
-							Log.d(TAG, "onSuccess exception: " + e.getMessage());
-							e.printStackTrace();
-						}
+					// save received token and user
+					try {
+						JSONObject jsonObject = new JSONObject(responseBody.string());
+						SharedPreferences.Editor editor = sharedPreferences.edit();
+						editor.putString(TOKEN_KEY, jsonObject.getString("token"));
+						editor.putString(USER_KEY, jsonObject.getString("user"));
+						editor.apply();
+						getTokenLiveData.postValue(true);
+					} catch (IOException | JSONException e) {
+						Log.d(TAG, "onSuccess exception: " + e.getMessage());
+						e.printStackTrace();
 					}
+				}
 
-					@Override
-					public void onError(Throwable e) {
-						Log.d(TAG, "onError: " + e.toString());
-						getTokenLiveData.postValue(false);
-					}
-				});
+				@Override
+				public void onError(Throwable e) {
+					Log.d(TAG, "onError: " + e.toString());
+					getTokenLiveData.postValue(false);
+				}
+			});
 
 		return getTokenLiveData;
 	}
@@ -172,39 +191,45 @@ public class UserViewModel extends ViewModel {
 	/**
 	 * Gets refresh token for given current token
 	 *
-	 * @param token field
 	 * @return observable live data
 	 */
-	public LiveData<Boolean> getRefreshToken(@NonNull final String token) {
+	public LiveData<Boolean> getRefreshToken() {
 
 		if (getRefreshTokenLiveData == null) {
 			getRefreshTokenLiveData = new MutableLiveData<>();
 		}
 
 		Map<String, String> requestBody = new HashMap<>();
-		requestBody.put("token", token);
+		requestBody.put("token", getSavedToken());
 
 		userApi.getRefreshToken(requestBody)
-				.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(new SingleObserver<ResponseBody>() {
-					@Override
-					public void onSubscribe(Disposable d) {
-						Log.d(TAG, "onSubscribe: ");
-					}
+			.subscribeOn(Schedulers.io())
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribe(new SingleObserver<ResponseBody>() {
+				@Override
+				public void onSubscribe(Disposable d) {
+				}
 
-					@Override
-					public void onSuccess(ResponseBody responseBody) {
-						// TODO: 1/17/18 get refresh token from response
-						getRefreshTokenLiveData.postValue(true);
+				@Override
+				public void onSuccess(ResponseBody responseBody) {
+					if (responseBody != null) {
+						try {
+							JsonObject object = new JsonParser().parse(responseBody.string()).getAsJsonObject();
+							saveToken(object.get("token").getAsString());
+							getRefreshTokenLiveData.postValue(true);
+						} catch (IOException e) {
+							getRefreshTokenLiveData.postValue(false);
+							e.printStackTrace();
+						}
 					}
+				}
 
-					@Override
-					public void onError(Throwable e) {
-						Log.d(TAG, "onError: " + e.toString());
-						getRefreshTokenLiveData.postValue(false);
-					}
-				});
+				@Override
+				public void onError(Throwable e) {
+					Log.d(TAG, "onError: " + e.toString());
+					getRefreshTokenLiveData.postValue(false);
+				}
+			});
 
 		return getRefreshTokenLiveData;
 	}
@@ -213,9 +238,9 @@ public class UserViewModel extends ViewModel {
 	/**
 	 * Get current profile
 	 *
-	 * @return observable live data with profile json string
+	 * @return observable live data with User profile
 	 */
-	public LiveData<String> getProfile() {
+	public LiveData<User> getUserProfile() {
 		if (!hasSession()) {
 			throw new IllegalStateException("Get profile called for not logged user");
 		}
@@ -226,30 +251,71 @@ public class UserViewModel extends ViewModel {
 
 		// provide header token
 		userApi.getProfile(createHeader())
-				.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(new SingleObserver<ResponseBody>() {
-					@Override
-					public void onSubscribe(Disposable d) {
-					}
+			.subscribeOn(Schedulers.io())
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribe(new SingleObserver<ResponseBody>() {
+				@Override
+				public void onSubscribe(Disposable d) {
+				}
 
-					@Override
-					public void onSuccess(ResponseBody responseBody) {
-						try {
-							getProfileLiveData.postValue(responseBody.string());
-						} catch (IOException e) {
-							getProfileLiveData.postValue("");
-							e.printStackTrace();
-						}
+				@Override
+				public void onSuccess(ResponseBody responseBody) {
+					try {
+						User user = gson.fromJson(responseBody.string(), User.class);
+						getProfileLiveData.postValue(user);
+					} catch (IOException e) {
+						getProfileLiveData.postValue(null);
+						e.printStackTrace();
 					}
+				}
 
-					@Override
-					public void onError(Throwable e) {
-						getProfileLiveData.postValue("");
-					}
-				});
+				@Override
+				public void onError(Throwable e) {
+					getProfileLiveData.postValue(null);
+				}
+			});
 
 		return getProfileLiveData;
+	}
+
+	/**
+	 * Updates user profile
+	 *
+	 * @param user profile
+	 * @return observable live data with boolean result
+	 */
+	public LiveData<Boolean> updateProfile(@NonNull final User user) {
+
+		if (updateProfileLiveData == null) {
+			updateProfileLiveData = new MutableLiveData<>();
+		}
+
+		Map<String, String> requestBody = new HashMap<>();
+		requestBody.put("first_name", user.firstName());
+		requestBody.put("last_name", user.lastName());
+		requestBody.put("username", user.username());
+		requestBody.put("company", user.company());
+
+		userApi.updateProfile(createHeader(), requestBody)
+			.subscribeOn(Schedulers.io())
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribe(new CompletableObserver() {
+				@Override
+				public void onSubscribe(Disposable d) {
+				}
+
+				@Override
+				public void onComplete() {
+					updateProfileLiveData.postValue(true);
+				}
+
+				@Override
+				public void onError(Throwable e) {
+					updateProfileLiveData.postValue(false);
+				}
+			});
+
+		return updateProfileLiveData;
 	}
 
 	/**
@@ -265,7 +331,7 @@ public class UserViewModel extends ViewModel {
 
 		// TODO: 1/17/18 do some saving if needed
 		if (hasSession()) {
-			sharedPreferences.edit().remove(TOKEN_KEY).apply();
+			clearToken();
 			signOutLiveData.postValue(true);
 		} else {
 			signOutLiveData.postValue(false);

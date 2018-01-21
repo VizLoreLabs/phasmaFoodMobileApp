@@ -5,27 +5,38 @@ package com.vizlore.phasmafood.model;
 import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.SerializedName;
 
 @AutoValue
 public abstract class User {
 
-	public abstract String name();
+	@SerializedName("first_name")
+	public abstract String firstName();
 
+	@SerializedName("last_name")
 	public abstract String lastName();
 
-	public abstract Integer height();
+	public abstract String username();
 
-	public abstract Integer weight();
+	public abstract String company();
+
+	public abstract String id();
+
+	public static Builder builder() {
+		return new AutoValue_User.Builder();
+	}
 
 	@AutoValue.Builder
 	public abstract static class Builder {
-		public abstract Builder name(String name);
+		public abstract Builder firstName(String firstName);
 
 		public abstract Builder lastName(String lastName);
 
-		public abstract Builder height(Integer height);
+		public abstract Builder username(String username);
 
-		public abstract Builder weight(Integer weight);
+		public abstract Builder company(String company);
+
+		public abstract Builder id(String id);
 
 		public abstract User build();
 	}

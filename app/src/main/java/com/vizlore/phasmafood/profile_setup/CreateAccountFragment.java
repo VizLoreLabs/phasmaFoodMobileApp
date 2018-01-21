@@ -3,12 +3,12 @@ package com.vizlore.phasmafood.profile_setup;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.vizlore.phasmafood.R;
+import com.vizlore.phasmafood.utils.Validator;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
 
 import butterknife.BindView;
@@ -47,25 +47,28 @@ public class CreateAccountFragment extends ProfileBaseFragment {
 	@OnClick(R.id.createAccount)
 	void onCreateAccountClicked() {
 
-		final String firstName = firstNameEditText.getText().toString();
-		final String lastName = lastNameEditText.getText().toString();
-		final String username = usernameEditText.getText().toString();
-		final String company = companyEditText.getText().toString();
-		final String email = emailEditText.getText().toString();
-		final String password = passwordEditText.getText().toString();
-		final String confirmPassword = confirmPasswordEditText.getText().toString();
+		if (Validator.validateFields(new EditText[]{firstNameEditText, lastNameEditText, usernameEditText,
+			companyEditText, emailEditText, passwordEditText, confirmPasswordEditText})) {
 
-		if (!username.isEmpty() && !company.isEmpty() && !email.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()) {
+			final String firstName = firstNameEditText.getText().toString();
+			final String lastName = lastNameEditText.getText().toString();
+			final String username = usernameEditText.getText().toString();
+			final String company = companyEditText.getText().toString();
+			final String email = emailEditText.getText().toString();
+			final String password = passwordEditText.getText().toString();
+			final String confirmPassword = confirmPasswordEditText.getText().toString();
 
-			if (!password.equals(confirmPassword)) {
-				Toast.makeText(getContext(), "Passwords don't match", Toast.LENGTH_SHORT).show();
+			if (!password.equals(confirmPassword)) { //check if passwords match
+				Toast.makeText(getContext(), getString(R.string.passwordsDoNotMatch), Toast.LENGTH_SHORT).show();
 				return;
 			}
 			userViewModel.createAccount(firstName, lastName, username, company, email, password)
-					.observe(this, status -> Log.d(TAG, "onChanged: boolean: " + status));
+				.observe(this, status -> {
+					Toast.makeText(getContext(), getString(R.string.accountCreated), Toast.LENGTH_SHORT).show();
+				});
 
 		} else {
-			Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getContext(), getString(R.string.fillAllFields), Toast.LENGTH_SHORT).show();
 		}
 	}
 

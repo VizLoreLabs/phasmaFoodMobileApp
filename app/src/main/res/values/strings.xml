@@ -6,4 +6,11 @@
     <string name="specifyScanningConditions">Please specify scanning conditions</string>
     <string name="measurementGuide">Measurement guide</string>
     <string name="analysisResults">Analysis results</string>
+    <string name="profileSaved">Profile data saved</string>
+    <string name="profileSavingError">Error while saving profile data</string>
+    <string name="fillAllFields">Please fill all fields</string>
+    <string name="signingInError">Error while signing in</string>
+    <string name="signingOutError">Error while signing out</string>
+    <string name="passwordsDoNotMatch">Passwords don\'t match</string>
+    <string name="accountCreated">Account successfully created</string>
 </resources>

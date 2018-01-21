@@ -41,7 +41,7 @@ public class YourProfileFragment extends ProfileBaseFragment {
 	void onClick(View view) {
 		switch (view.getId()) {
 			case R.id.editProfile:
-				// TODO: 1/18/18
+				profileSetupViewModel.setSelected(ProfileAction.EDIT_PROFILE);
 				break;
 			case R.id.addNewDevice:
 				// TODO: 1/18/18
@@ -55,7 +55,7 @@ public class YourProfileFragment extends ProfileBaseFragment {
 						profileSetupViewModel.setSelected(ProfileAction.SIGN_OUT_CLICKED);
 						// TODO: 1/18/18 show dialog
 					} else {
-						Toast.makeText(getContext(), "Signing out failed!", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getContext(), getString(R.string.signingOutError), Toast.LENGTH_SHORT).show();
 					}
 				});
 				break;

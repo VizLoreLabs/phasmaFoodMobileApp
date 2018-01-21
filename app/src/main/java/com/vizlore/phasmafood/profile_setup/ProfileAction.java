@@ -22,6 +22,8 @@ public enum ProfileAction {
 	YOUR_PROFILE_CLICKED,
 	LEARN_MORE_CLICKED,
 
+	EDIT_PROFILE,
+
 	// back navigation
 	BACK_TO_SIGN_IN,
 	GO_BACK_TO_ROOT,

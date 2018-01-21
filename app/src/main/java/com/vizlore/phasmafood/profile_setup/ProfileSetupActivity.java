@@ -51,7 +51,6 @@ public class ProfileSetupActivity extends BaseActivity {
 						break;
 					case START_MEASUREMENT_CLICKED:
 						startActivity(new Intent(this, WizardActivity.class));
-						overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
 						break;
 					case MEASUREMENT_HISTORY_CLICKED:
 						// TODO: 1/16/18  
@@ -61,6 +60,9 @@ public class ProfileSetupActivity extends BaseActivity {
 						break;
 					case LEARN_MORE_CLICKED:
 						// TODO: 1/16/18
+						break;
+					case EDIT_PROFILE:
+						replaceFragment(new EditProfileFragment());
 						break;
 					case SIGN_OUT_CLICKED:
 						clearBackstack();
@@ -81,8 +83,16 @@ public class ProfileSetupActivity extends BaseActivity {
 
 		UserViewModel userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
 		if (userViewModel.hasSession()) {
-			Log.d(TAG, "onCreate: " + "LOGGED IN!");
-			addFragment(new ProfileHomeScreenFragment());
+			userViewModel.getRefreshToken().observe(this, isTokenSaved -> {
+				Log.d(TAG, "onCreate: " + "LOGGED IN! token saved: " + isTokenSaved);
+				if (isTokenSaved != null && isTokenSaved) {
+					addFragment(new ProfileHomeScreenFragment());
+				} else {
+					Log.d(TAG, "onCreate: Token not saved!");
+					userViewModel.clearToken();
+					addFragment(new SignInFragment());
+				}
+			});
 		} else {
 			Log.d(TAG, "onCreate: " + "NOT LOGGED IN!");
 			addFragment(new SignInFragment());
