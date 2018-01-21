@@ -5,44 +5,12 @@
     android:layout_height="match_parent">
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:divider="@drawable/radio_buttons_divider"
         android:showDividers="middle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <RadioButton
-            android:id="@+id/radioButton"
-            style="@style/PFRadioButton"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/buttonHeight"
-            android:layout_marginEnd="@dimen/buttonHorizontalMargin"
-            android:layout_marginStart="@dimen/buttonHorizontalMargin"
-            android:layout_weight="1"
-            android:text="Mycotoxin" />
-
-        <RadioButton
-            android:id="@+id/radioButton2"
-            style="@style/PFRadioButton"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/buttonHeight"
-            android:layout_marginEnd="@dimen/buttonHorizontalMargin"
-            android:layout_marginStart="@dimen/buttonHorizontalMargin"
-            android:layout_marginTop="@dimen/buttonsSpacing"
-            android:layout_weight="1"
-            android:text="Spoilage and shelf life" />
-
-        <RadioButton
-            android:id="@+id/radioButton3"
-            style="@style/PFRadioButton"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/buttonHeight"
-            android:layout_marginEnd="@dimen/buttonHorizontalMargin"
-            android:layout_marginStart="@dimen/buttonHorizontalMargin"
-            android:layout_marginTop="@dimen/buttonsSpacing"
-            android:layout_weight="1"
-            android:text="Food fraud" />
-
-    </RadioGroup>
 </android.support.constraint.ConstraintLayout>

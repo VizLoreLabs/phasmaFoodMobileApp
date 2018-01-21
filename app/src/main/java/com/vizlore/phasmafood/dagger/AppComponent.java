@@ -6,6 +6,7 @@ import com.vizlore.phasmafood.dagger.modules.NetworkModule;
 import com.vizlore.phasmafood.dagger.modules.UserModule;
 import com.vizlore.phasmafood.viewmodel.BluetoothViewModel;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
+import com.vizlore.phasmafood.viewmodel.WizardViewModel;
 
 import javax.inject.Singleton;
 
@@ -23,4 +24,5 @@ public interface AppComponent {
 
 	void inject(BluetoothViewModel bluetoothViewModel);
 
+	void inject(WizardViewModel wizardViewModel);
 }

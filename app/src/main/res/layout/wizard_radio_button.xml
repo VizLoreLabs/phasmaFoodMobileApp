@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioButton xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/PFRadioButton"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/buttonHeight"
+    android:layout_marginEnd="@dimen/buttonHorizontalMargin"
+    android:layout_marginStart="@dimen/buttonHorizontalMargin"
+    android:layout_weight="1" />

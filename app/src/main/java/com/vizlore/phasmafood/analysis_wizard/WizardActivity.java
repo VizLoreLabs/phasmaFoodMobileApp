@@ -4,13 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.vizlore.phasmafood.BaseActivity;
@@ -31,58 +30,17 @@ public class WizardActivity extends BaseActivity {
 	private int[] analysisType = {R.string.selectTypeOfAnalysis,
 		R.string.selectTypeOfFood,
 		R.string.specifyScanningConditions,
-		R.string.measurementGuide,
-		R.string.analysisResults};
-
-	@BindView(R.id.step1)
-	ImageView firstStep;
-
-	@BindView(R.id.step2)
-	ImageView secondStep;
-
-	@BindView(R.id.step3)
-	ImageView thirdStep;
-
-	@BindView(R.id.step4)
-	ImageView fourthStep;
-
-	@BindView(R.id.step5)
-	ImageView fifthStep;
-
-	@BindView(R.id.pb)
-	ProgressBar percentage;
-
-	@BindView(R.id.viewPager)
-	ViewPager viewPager;
+		R.string.scanningParamsSummary};
 
 	@BindView(R.id.title)
 	TextView title;
 
-	private int currentStep = 1;
+	private int currentStep = 0;
 	private View animatedView = null;
-
-	private FragmentPagerAdapter adapterViewPager;
-
-	@OnClick({R.id.step1, R.id.step2, R.id.step3, R.id.step4, R.id.step5})
-	void onClick(ImageView v) {
-
-		int step = viewIdToStep(v.getId());
-		scaleUp(v);
-		currentStep = step;
-		setStepsProgress(step);
-		viewPager.setCurrentItem(step - 1);
-
-		title.setText(analysisType[step - 1]);
-	}
 
 	@OnClick(R.id.backButton)
 	void onCloseClicked() {
 		finish();
-	}
-
-	private void setStepsProgress(int step) {
-		int newValue = (step * 100) / 6;
-		percentage.setProgress(newValue);
 	}
 
 	private void scaleUp(View v) {
@@ -101,14 +59,36 @@ public class WizardActivity extends BaseActivity {
 	void onNextButtonClick() {
 		((ImageView) findViewById(stepToViewId(currentStep))).setImageResource(R.drawable.ic_checkmark);
 		if (currentStep + 1 <= 5) {
-			onClick(findViewById(stepToViewId(currentStep + 1)));
+			if (currentStep == 0) {
+				replaceFragment(new FragmentSecondStep());
+				currentStep++;
+				setTitle();
+				setIndicator();
+			} else if (currentStep == 1) {
+				replaceFragment(new FragmentThirdStep());
+				currentStep++;
+				setTitle();
+				setIndicator();
+			} else if (currentStep == 2) {
+				replaceFragment(new FragmentSummary());
+				currentStep++;
+				setTitle();
+				setIndicator();
+
+				((Button) findViewById(R.id.nextButton)).setText("START ANALYSIS");
+			}
 		}
 	}
 
 	@OnClick(R.id.previousButton)
 	void onPrevButtonClick() {
-		if (currentStep - 1 > 0) {
-			onClick(findViewById(stepToViewId(currentStep - 1)));
+		if (currentStep > 0) {
+			getSupportFragmentManager().popBackStack();
+			currentStep--;
+			setTitle();
+			setIndicator();
+
+			((Button) findViewById(R.id.nextButton)).setText("NEXT");
 		}
 	}
 
@@ -122,77 +102,50 @@ public class WizardActivity extends BaseActivity {
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 		getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.grey));
 
-		adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
-		viewPager.setAdapter(adapterViewPager);
-
-		//set initial position
-		onClick(firstStep);
+		addFragment(new FragmentFirstStep());
+		setTitle();
+		setIndicator();
 	}
 
-	public static class MyPagerAdapter extends FragmentPagerAdapter {
-		private static int NUM_ITEMS = 5;
-
-		public MyPagerAdapter(FragmentManager fragmentManager) {
-			super(fragmentManager);
-		}
-
-		// Returns total number of pages
-		@Override
-		public int getCount() {
-			return NUM_ITEMS;
-		}
-
-		// Returns the fragment to display for that page
-		@Override
-		public Fragment getItem(int position) {
-			switch (position) {
-				case 0: // Fragment # 0 - This will show FirstFragment
-					return new FragmentFirstStep();
-				case 1: // Fragment # 0 - This will show FirstFragment different title
-					return new FragmentSecondStep();
-				case 2: // Fragment # 1 - This will show SecondFragment
-					return new FragmentThirdStep();
-				case 3: // Fragment # 1 - This will show SecondFragment
-					return new FragmentFourthStep();
-				case 4: // Fragment # 1 - This will show SecondFragment
-					return new FragmentFifthStep();
-				default:
-					return null;
-			}
-		}
+	private void setTitle() {
+		title.setText(analysisType[currentStep]);
 	}
 
-	private int viewIdToStep(final int viewId) {
-		switch (viewId) {
-			case R.id.step1:
-				return 1;
-			case R.id.step2:
-				return 2;
-			case R.id.step3:
-				return 3;
-			case R.id.step4:
-				return 4;
-			case R.id.step5:
-				return 5;
-			default:
-				throw new IllegalArgumentException("Wrong view id provided!");
-		}
+	private void setIndicator() {
+		scaleUp(findViewById(stepToViewId(currentStep)));
 	}
 
 	private int stepToViewId(int step) {
 		switch (step) {
-			case 1:
+			case 0:
 				return R.id.step1;
-			case 2:
+			case 1:
 				return R.id.step2;
-			case 3:
+			case 2:
 				return R.id.step3;
-			case 4:
+			case 3:
 				return R.id.step4;
-			case 5:
-				return R.id.step5;
 			default:
 				throw new IllegalArgumentException("Wrong step provided");
 		}
 	}
+
+	public void addFragment(Fragment fragment) {
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+		fragmentTransaction.add(R.id.fragmentContainer, fragment);
+		fragmentTransaction.commit();
+
+	}
+
+	public void replaceFragment(Fragment fragment) {
+		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+		transaction.setCustomAnimations(R.anim.slide_from_right, R.anim.slide_to_left,
+			R.anim.slide_from_left, R.anim.slide_to_right);
+		transaction.addToBackStack(null);
+		transaction.replace(R.id.fragmentContainer, fragment);
+		transaction.commit();
+	}
+
 }

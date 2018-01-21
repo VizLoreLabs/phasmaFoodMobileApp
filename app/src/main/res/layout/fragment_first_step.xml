@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:divider="@drawable/radio_buttons_divider"
@@ -12,7 +13,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <RadioButton
+       <!-- <RadioButton
             android:id="@+id/radioButton"
             style="@style/PFRadioButton"
             android:layout_width="match_parent"
@@ -42,7 +43,7 @@
             android:layout_marginStart="@dimen/buttonHorizontalMargin"
             android:layout_marginTop="@dimen/buttonsSpacing"
             android:layout_weight="1"
-            android:text="Food fraud" />
+            android:text="Food fraud" />-->
 
     </RadioGroup>
 

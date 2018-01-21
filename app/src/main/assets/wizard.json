@@ -1,0 +1,152 @@
+[
+  {
+    "id": 0,
+    "name": "Mycotoxin",
+    "subcases": [
+      {
+        "id": 0,
+        "name": "Maize flour",
+        "subproblems": [
+          {
+            "name": "AF B1"
+          },
+          {
+            "name": "Total Afs"
+          },
+          {
+            "name": "DON"
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "Skimmed milk powder",
+        "subproblems": [
+          {
+            "name": "Total Afs M"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Paprika powder",
+        "subproblems": [
+          {
+            "name": "AF B1"
+          },
+          {
+            "name": "Total Afs"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Pistachios (whole nuts)",
+        "subproblems": [
+          {
+            "name": "AF B1"
+          },
+          {
+            "name": "Total Afs"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "Food Spoilage",
+    "subcases": [
+      {
+        "id": 0,
+        "name": "Meat",
+        "subproblems": [
+          {
+            "name": "TVC"
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "Fish",
+        "subproblems": [
+          {
+            "name": "TVC"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Fruits & Vegetables",
+        "subproblems": [
+          {
+            "name": "TVC"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Food Fraud",
+    "subcases": [
+      {
+        "id": 0,
+        "name": "Alcoholic beverages",
+        "subproblems": [
+          {
+            "name": "Dilution"
+          },
+          {
+            "name": "Tech. alc"
+          },
+          {
+            "name": "Counterfeit"
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "name": "Edible oils",
+        "subproblems": [
+          {
+            "name": "Olive oil dilution"
+          },
+          {
+            "name": "Olive oil counterfeit"
+          },
+          {
+            "name": "Sunflower oil dilution"
+          },
+          {
+            "name": "Sunflow oil pollution"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Skimmed milk powder",
+        "subproblems": [
+          {
+            "name": "Milk powder dilution"
+          },
+          {
+            "name": "Nitrogen enhancers"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Meat",
+        "subproblems": [
+          {
+            "name": "Meat species"
+          },
+          {
+            "name": "Low-value additives"
+          }
+        ]
+      }
+    ]
+  }
+]
