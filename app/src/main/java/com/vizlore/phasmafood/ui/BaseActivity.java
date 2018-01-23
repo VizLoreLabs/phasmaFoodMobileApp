@@ -1,7 +1,9 @@
-package com.vizlore.phasmafood;
+package com.vizlore.phasmafood.ui;
 
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
+
+import com.vizlore.phasmafood.R;
 
 /**
  * Created by smedic on 1/18/18.

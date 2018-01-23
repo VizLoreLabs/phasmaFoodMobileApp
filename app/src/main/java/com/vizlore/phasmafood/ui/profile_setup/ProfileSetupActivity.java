@@ -1,7 +1,10 @@
-package com.vizlore.phasmafood.profile_setup;
+package com.vizlore.phasmafood.ui.profile_setup;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,10 +13,11 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.WindowManager;
 
-import com.vizlore.phasmafood.BaseActivity;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.vizlore.phasmafood.R;
-import com.vizlore.phasmafood.analysis_wizard.WizardActivity;
-import com.vizlore.phasmafood.profile_setup.viewmodel.ProfileSetupViewModel;
+import com.vizlore.phasmafood.ui.BaseActivity;
+import com.vizlore.phasmafood.ui.profile_setup.viewmodel.ProfileSetupViewModel;
+import com.vizlore.phasmafood.ui.wizard.WizardActivity;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
 
 import butterknife.ButterKnife;
@@ -97,6 +101,8 @@ public class ProfileSetupActivity extends BaseActivity {
 			Log.d(TAG, "onCreate: " + "NOT LOGGED IN!");
 			addFragment(new SignInFragment());
 		}
+
+		Log.d(TAG, "onCreate: token: " + FirebaseInstanceId.getInstance().getToken());
 	}
 
 	public void addFragment(Fragment fragment) {
@@ -137,5 +143,11 @@ public class ProfileSetupActivity extends BaseActivity {
 		while (getSupportFragmentManager().getBackStackEntryCount() > 0) {
 			getSupportFragmentManager().popBackStackImmediate();
 		}
+	}
+
+	public static boolean isNetworkEnabled(Context context) {
+		ConnectivityManager androidConnectivityManager = (android.net.ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetwork = androidConnectivityManager.getActiveNetworkInfo();
+		return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 	}
 }

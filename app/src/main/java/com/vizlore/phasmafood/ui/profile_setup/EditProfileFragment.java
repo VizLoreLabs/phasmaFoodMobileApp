@@ -1,4 +1,4 @@
-package com.vizlore.phasmafood.profile_setup;
+package com.vizlore.phasmafood.ui.profile_setup;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;

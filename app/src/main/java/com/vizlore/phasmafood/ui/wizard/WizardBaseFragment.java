@@ -1,4 +1,4 @@
-package com.vizlore.phasmafood.analysis_wizard;
+package com.vizlore.phasmafood.ui.wizard;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

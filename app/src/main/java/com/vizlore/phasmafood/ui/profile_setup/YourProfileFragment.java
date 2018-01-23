@@ -1,4 +1,4 @@
-package com.vizlore.phasmafood.profile_setup;
+package com.vizlore.phasmafood.ui.profile_setup;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.bluetooth.BluetoothDevice;
@@ -10,8 +10,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.vizlore.phasmafood.R;
-import com.vizlore.phasmafood.adapters.DevicesAdapter;
-import com.vizlore.phasmafood.profile_setup.viewmodel.ProfileSetupViewModel;
+import com.vizlore.phasmafood.ui.adapters.DevicesAdapter;
+import com.vizlore.phasmafood.ui.profile_setup.viewmodel.ProfileSetupViewModel;
 import com.vizlore.phasmafood.viewmodel.BluetoothViewModel;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
 

@@ -1,4 +1,4 @@
-package com.vizlore.phasmafood.analysis_wizard;
+package com.vizlore.phasmafood.ui.wizard;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.vizlore.phasmafood.BaseActivity;
+import com.vizlore.phasmafood.ui.BaseActivity;
 import com.vizlore.phasmafood.R;
 
 import butterknife.BindView;

@@ -1,4 +1,4 @@
-package com.vizlore.phasmafood.adapters;
+package com.vizlore.phasmafood.ui.adapters;
 
 import android.bluetooth.BluetoothDevice;
 import android.support.v7.widget.RecyclerView;

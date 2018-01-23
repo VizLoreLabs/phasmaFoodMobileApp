@@ -1,4 +1,4 @@
-package com.vizlore.phasmafood.profile_setup;
+package com.vizlore.phasmafood.ui.profile_setup;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

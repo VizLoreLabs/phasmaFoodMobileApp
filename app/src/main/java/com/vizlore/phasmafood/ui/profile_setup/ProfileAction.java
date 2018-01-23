@@ -1,4 +1,4 @@
-package com.vizlore.phasmafood.profile_setup;
+package com.vizlore.phasmafood.ui.profile_setup;
 
 /**
  * Created by smedic on 1/16/18.

@@ -1,9 +1,9 @@
-package com.vizlore.phasmafood.profile_setup.viewmodel;
+package com.vizlore.phasmafood.ui.profile_setup.viewmodel;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.vizlore.phasmafood.profile_setup.ProfileAction;
+import com.vizlore.phasmafood.ui.profile_setup.ProfileAction;
 import com.vizlore.phasmafood.utils.SingleLiveEvent;
 
 /**

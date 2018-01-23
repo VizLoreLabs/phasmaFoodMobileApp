@@ -16,7 +16,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.vizlore.phasmafood.Config.BASE_URL;
+import static com.vizlore.phasmafood.utils.Config.BASE_URL;
 
 /**
  * Created by smedic on 1/4/18.

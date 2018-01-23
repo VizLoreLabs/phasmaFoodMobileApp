@@ -1,4 +1,4 @@
-package com.vizlore.phasmafood.profile_setup;
+package com.vizlore.phasmafood.ui.profile_setup;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.vizlore.phasmafood.profile_setup.viewmodel.ProfileSetupViewModel;
+import com.vizlore.phasmafood.ui.profile_setup.viewmodel.ProfileSetupViewModel;
 
 import butterknife.ButterKnife;
 

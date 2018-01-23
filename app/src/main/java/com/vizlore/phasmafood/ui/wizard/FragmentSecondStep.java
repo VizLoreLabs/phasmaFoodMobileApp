@@ -1,16 +1,15 @@
-package com.vizlore.phasmafood.analysis_wizard;
+package com.vizlore.phasmafood.ui.wizard;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.vizlore.phasmafood.R;
-import com.vizlore.phasmafood.model.UseCase;
+import com.vizlore.phasmafood.model.Subcase;
 import com.vizlore.phasmafood.viewmodel.WizardViewModel;
 
 import java.util.List;
@@ -21,7 +20,7 @@ import butterknife.BindView;
  * Created by smedic on 1/15/18.
  */
 
-public class FragmentFirstStep extends WizardBaseFragment {
+public class FragmentSecondStep extends WizardBaseFragment {
 
 	private static final String TAG = "SMEDIC";
 
@@ -33,13 +32,12 @@ public class FragmentFirstStep extends WizardBaseFragment {
 		super.onViewCreated(view, savedInstanceState);
 
 		WizardViewModel wizardViewModel = ViewModelProviders.of(getActivity()).get(WizardViewModel.class);
+		final List<Subcase> subcases = wizardViewModel.getSubcases();
 
-		final List<UseCase> useCases = wizardViewModel.getUseCases();
-
-		if (useCases != null) {
-			for (int i = 0; i < useCases.size(); i++) {
+		if (subcases != null) {
+			for (int k = 0; k < subcases.size(); k++) {
 				RadioButton radioButtonView = (RadioButton) getLayoutInflater().inflate(R.layout.wizard_radio_button, null);
-				radioButtonView.setText(useCases.get(i).getName());
+				radioButtonView.setText(subcases.get(k).getName());
 
 				RadioGroup.LayoutParams param = new RadioGroup.LayoutParams(
 					RadioGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.buttonHeight), 1.0f);
@@ -55,11 +53,11 @@ public class FragmentFirstStep extends WizardBaseFragment {
 		wizardOptions.setOnCheckedChangeListener((radioGroup, i) -> {
 			View radioButton = radioGroup.findViewById(i);
 			int index = radioGroup.indexOfChild(radioButton);
-			wizardViewModel.setSelection1(index);
+			wizardViewModel.setSelection2(index);
 		});
 
 		// mark previously chosen option
-		int selection = wizardViewModel.getSelection1();
+		int selection = wizardViewModel.getSelection2();
 		if (selection != -1 && wizardOptions.getChildAt(selection) != null) {
 			((RadioButton) wizardOptions.getChildAt(selection)).setChecked(true);
 		}
@@ -67,8 +65,6 @@ public class FragmentFirstStep extends WizardBaseFragment {
 
 	@Override
 	protected int getFragmentLayout() {
-		return R.layout.fragment_first_step;
+		return R.layout.fragment_second_step;
 	}
-
 }
-

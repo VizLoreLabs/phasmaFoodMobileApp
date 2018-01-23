@@ -1,10 +1,9 @@
-package com.vizlore.phasmafood.analysis_wizard;
+package com.vizlore.phasmafood.ui.wizard;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;

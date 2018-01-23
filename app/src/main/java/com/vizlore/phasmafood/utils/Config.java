@@ -1,4 +1,4 @@
-package com.vizlore.phasmafood;
+package com.vizlore.phasmafood.utils;
 
 /**
  * Created by smedic on 1/4/18.
