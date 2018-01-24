@@ -3,12 +3,15 @@ package com.vizlore.phasmafood.ui.profile_setup;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.utils.Validator;
+import com.vizlore.phasmafood.viewmodel.FcmMobileViewModel;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
 
 import butterknife.BindView;
@@ -21,6 +24,7 @@ import butterknife.OnClick;
 public class SignInFragment extends ProfileBaseFragment {
 
 	private UserViewModel userViewModel;
+	private FcmMobileViewModel configViewModel;
 
 	private static final String TAG = "SMEDIC";
 
@@ -42,7 +46,12 @@ public class SignInFragment extends ProfileBaseFragment {
 			userViewModel.getToken(emailText, passwordText).observe(this,
 				result -> {
 					if (result != null && result) {
+						// TODO: 1/23/18 add additional checks if necessary
+						Log.d(TAG, "onLogInClicked: token: " + FirebaseInstanceId.getInstance().getToken());
+						//configViewModel.readFcmToken().observe(this, booleanResult -> {
+						//Log.d(TAG, "onLogInClicked: createFcmMobile: " + booleanResult);
 						profileSetupViewModel.setSelected(ProfileAction.SIGNED_IN);
+						//});
 					} else {
 						Toast.makeText(getContext(), getString(R.string.signingInError), Toast.LENGTH_SHORT).show();
 					}
@@ -71,6 +80,8 @@ public class SignInFragment extends ProfileBaseFragment {
 		super.onViewCreated(view, savedInstanceState);
 
 		userViewModel = ViewModelProviders.of(getActivity()).get(UserViewModel.class);
+
+		configViewModel = ViewModelProviders.of(getActivity()).get(FcmMobileViewModel.class);
 
 		// testing values
 		email.setText("vanste25@gmail.com");

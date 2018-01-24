@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "343489805749",
-    "firebase_url": "https://phasmafood-99e80.firebaseio.com",
-    "project_id": "phasmafood-99e80",
-    "storage_bucket": "phasmafood-99e80.appspot.com"
+    "project_number": "481311527776",
+    "firebase_url": "https://phasmafood-cloud.firebaseio.com",
+    "project_id": "phasmafood-cloud",
+    "storage_bucket": "phasmafood-cloud.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:343489805749:android:9f1d5a132443c78a",
+        "mobilesdk_app_id": "1:481311527776:android:9f1d5a132443c78a",
         "android_client_info": {
           "package_name": "com.vizlore.phasmafood"
         }
       },
       "oauth_client": [
         {
-          "client_id": "343489805749-pnfvnardhnbuaot28lt2salvvlcm5klr.apps.googleusercontent.com",
+          "client_id": "481311527776-eccilujgo2u6p51cgreiufe1k0pemqfk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.vizlore.phasmafood",
@@ -23,13 +23,13 @@
           }
         },
         {
-          "client_id": "343489805749-r1luub7im5vfjsfrmuvhm3medcu2m2gh.apps.googleusercontent.com",
+          "client_id": "481311527776-brp2p60erekhgni47bkjogp6i24g2vtq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA-mxVv9VtDiBfha3mmqBeVe_wt8XbPooE"
+          "current_key": "AIzaSyBK2gP7Y4KC9eCZahv0w5q5cjWPVPFUHE4"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "343489805749-r1luub7im5vfjsfrmuvhm3medcu2m2gh.apps.googleusercontent.com",
+              "client_id": "481311527776-brp2p60erekhgni47bkjogp6i24g2vtq.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

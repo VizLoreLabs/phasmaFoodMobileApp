@@ -1,9 +1,23 @@
 package com.vizlore.phasmafood.ui.services;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.vizlore.phasmafood.MyApplication;
+import com.vizlore.phasmafood.api.FcmMobileApi;
+import com.vizlore.phasmafood.utils.Utils;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.inject.Inject;
+
+import io.reactivex.CompletableObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by smedic on 1/23/18.
@@ -12,6 +26,17 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
 	private static final String TAG = "SMEDIC FCM Service";
+
+	@Inject
+	SharedPreferences sharedPreferences;
+
+	@Inject
+	FcmMobileApi mobileApi;
+
+	public MyFirebaseInstanceIDService() {
+		super();
+		MyApplication.getComponent().inject(this);
+	}
 
 	/**
 	 * Called if InstanceID token is updated. This may occur if the security of
@@ -41,6 +66,27 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 	 * @param token The new token.
 	 */
 	private void sendRegistrationToServer(String token) {
-		// TODO: Implement this method to send token to your app server.
+		Map<String, String> requestBody = new HashMap<>();
+		requestBody.put("name", "Samsung A5");
+		requestBody.put("registration_id", token);
+		requestBody.put("type", "android");
+
+		mobileApi.sendFcmData(Utils.getHeader(sharedPreferences), requestBody).observeOn(AndroidSchedulers.mainThread())
+			.subscribeOn(Schedulers.io()).subscribe(new CompletableObserver() {
+			@Override
+			public void onSubscribe(Disposable d) {
+				Log.d(TAG, "onSubscribe: ");
+			}
+
+			@Override
+			public void onComplete() {
+				Log.d(TAG, "onComplete: ");
+			}
+
+			@Override
+			public void onError(Throwable e) {
+				Log.d(TAG, "onError: " + e.toString());
+			}
+		});
 	}
 }

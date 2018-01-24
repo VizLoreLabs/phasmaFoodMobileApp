@@ -9,4 +9,6 @@ public class Config {
 	public static final String AUTH_SUBURL = "/api/v1/auth/";
 	public static final String USERS_URL = "users/create/";
 	public static final String TAG = "SMEDIC";
+
+	public static final String UUID_KEY = "RANDOM_UUID";
 }
