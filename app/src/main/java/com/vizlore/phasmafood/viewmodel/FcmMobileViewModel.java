@@ -59,7 +59,7 @@ public class FcmMobileViewModel extends AndroidViewModel {
 		}
 
 		Map<String, String> requestBody = new HashMap<>();
-		requestBody.put("name", "Samsung A5");
+		requestBody.put("name", "Samsung A5_A520F");
 		requestBody.put("registration_id", FirebaseInstanceId.getInstance().getToken());
 		requestBody.put("device_id", Utils.getUUID(prefs));
 		//requestBody.put("active", "true");
@@ -75,11 +75,13 @@ public class FcmMobileViewModel extends AndroidViewModel {
 			@Override
 			public void onComplete() {
 				Log.d(TAG, "onComplete: ");
+				createFcmMobileLiveData.postValue(true);
 			}
 
 			@Override
 			public void onError(Throwable e) {
 				Log.d(TAG, "onError: " + e.toString());
+				createFcmMobileLiveData.postValue(false);
 			}
 		});
 
@@ -105,14 +107,18 @@ public class FcmMobileViewModel extends AndroidViewModel {
 				public void onSuccess(ResponseBody responseBody) {
 					try {
 						Log.d(TAG, "onSuccess: " + responseBody.string());
+						readFcmTokenLiveData.postValue(true);
 					} catch (IOException e) {
+						readFcmTokenLiveData.postValue(false);
 						e.printStackTrace();
 					}
+
 				}
 
 				@Override
 				public void onError(Throwable e) {
 					Log.d(TAG, "onError: " + e.toString());
+					readFcmTokenLiveData.postValue(false);
 				}
 			});
 
@@ -146,11 +152,13 @@ public class FcmMobileViewModel extends AndroidViewModel {
 				@Override
 				public void onComplete() {
 					Log.d(TAG, "onComplete updateFcmData: ");
+					updateFcmDataLiveData.postValue(true);
 				}
 
 				@Override
 				public void onError(Throwable e) {
 					Log.d(TAG, "onError updateFcmData: " + e.toString());
+					updateFcmDataLiveData.postValue(false);
 				}
 			});
 		return updateFcmDataLiveData;
@@ -183,11 +191,13 @@ public class FcmMobileViewModel extends AndroidViewModel {
 				@Override
 				public void onComplete() {
 					Log.d(TAG, "onComplete partialUpdateFcmData: ");
+					partialUpdateFcmDataLiveData.postValue(true);
 				}
 
 				@Override
 				public void onError(Throwable e) {
 					Log.d(TAG, "onError partialUpdateFcmData: " + e.toString());
+					partialUpdateFcmDataLiveData.postValue(false);
 				}
 			});
 
@@ -212,11 +222,13 @@ public class FcmMobileViewModel extends AndroidViewModel {
 				@Override
 				public void onComplete() {
 					Log.d(TAG, "onComplete deleteFcmToken: ");
+					deleteFcmTokenLiveData.postValue(true);
 				}
 
 				@Override
 				public void onError(Throwable e) {
 					Log.d(TAG, "onError deleteFcmToken: " + e.getMessage());
+					deleteFcmTokenLiveData.postValue(false);
 				}
 			});
 

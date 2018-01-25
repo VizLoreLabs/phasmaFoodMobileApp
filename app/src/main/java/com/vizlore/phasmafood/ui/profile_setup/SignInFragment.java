@@ -48,10 +48,10 @@ public class SignInFragment extends ProfileBaseFragment {
 					if (result != null && result) {
 						// TODO: 1/23/18 add additional checks if necessary
 						Log.d(TAG, "onLogInClicked: token: " + FirebaseInstanceId.getInstance().getToken());
-						//configViewModel.readFcmToken().observe(this, booleanResult -> {
-						//Log.d(TAG, "onLogInClicked: createFcmMobile: " + booleanResult);
-						profileSetupViewModel.setSelected(ProfileAction.SIGNED_IN);
-						//});
+						configViewModel.sendFcmToken().observe(this, booleanResult -> {
+							Log.d(TAG, "onLogInClicked: createFcmMobile: " + booleanResult);
+							profileSetupViewModel.setSelected(ProfileAction.SIGNED_IN);
+						});
 					} else {
 						Toast.makeText(getContext(), getString(R.string.signingInError), Toast.LENGTH_SHORT).show();
 					}
