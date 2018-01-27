@@ -13,7 +13,6 @@ import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.api.FcmMobileApi;
 import com.vizlore.phasmafood.utils.Utils;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -69,12 +68,10 @@ public class FcmMobileViewModel extends AndroidViewModel {
 			.subscribeOn(Schedulers.io()).subscribe(new CompletableObserver() {
 			@Override
 			public void onSubscribe(Disposable d) {
-				Log.d(TAG, "onSubscribe: ");
 			}
 
 			@Override
 			public void onComplete() {
-				Log.d(TAG, "onComplete: ");
 				createFcmMobileLiveData.postValue(true);
 			}
 
@@ -88,6 +85,7 @@ public class FcmMobileViewModel extends AndroidViewModel {
 		return createFcmMobileLiveData;
 	}
 
+	// validate current token
 	public LiveData<Boolean> readFcmToken() {
 
 		if (readFcmTokenLiveData == null) {
@@ -100,24 +98,16 @@ public class FcmMobileViewModel extends AndroidViewModel {
 			.subscribe(new SingleObserver<ResponseBody>() {
 				@Override
 				public void onSubscribe(Disposable d) {
-					Log.d(TAG, "onSubscribe: ");
 				}
 
 				@Override
 				public void onSuccess(ResponseBody responseBody) {
-					try {
-						Log.d(TAG, "onSuccess: " + responseBody.string());
-						readFcmTokenLiveData.postValue(true);
-					} catch (IOException e) {
-						readFcmTokenLiveData.postValue(false);
-						e.printStackTrace();
-					}
-
+					//do nothing with data (for now)
+					readFcmTokenLiveData.postValue(true);
 				}
 
 				@Override
 				public void onError(Throwable e) {
-					Log.d(TAG, "onError: " + e.toString());
 					readFcmTokenLiveData.postValue(false);
 				}
 			});
@@ -146,7 +136,6 @@ public class FcmMobileViewModel extends AndroidViewModel {
 			.subscribe(new CompletableObserver() {
 				@Override
 				public void onSubscribe(Disposable d) {
-					Log.d(TAG, "onSubscribe updateFcmData: ");
 				}
 
 				@Override
@@ -185,7 +174,6 @@ public class FcmMobileViewModel extends AndroidViewModel {
 			.subscribe(new CompletableObserver() {
 				@Override
 				public void onSubscribe(Disposable d) {
-					Log.d(TAG, "onSubscribe partialUpdateFcmData: ");
 				}
 
 				@Override
@@ -216,7 +204,6 @@ public class FcmMobileViewModel extends AndroidViewModel {
 			.subscribe(new CompletableObserver() {
 				@Override
 				public void onSubscribe(Disposable d) {
-					Log.d(TAG, "onSubscribe deleteFcmToken: ");
 				}
 
 				@Override

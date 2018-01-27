@@ -13,6 +13,7 @@ import com.google.gson.JsonParser;
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.api.UserApi;
 import com.vizlore.phasmafood.model.User;
+import com.vizlore.phasmafood.utils.SingleLiveEvent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,7 +45,7 @@ public class UserViewModel extends ViewModel {
 	private MutableLiveData<Boolean> signOutLiveData;
 
 	private MutableLiveData<Boolean> createAccountLiveData;
-	private MutableLiveData<Boolean> getTokenLiveData;
+	private SingleLiveEvent<String> getTokenLiveData;
 	private MutableLiveData<Boolean> getRefreshTokenLiveData;
 	private MutableLiveData<User> getProfileLiveData;
 	private MutableLiveData<Boolean> updateProfileLiveData;
@@ -143,10 +144,10 @@ public class UserViewModel extends ViewModel {
 	 * @param password field
 	 * @return observable live data
 	 */
-	public LiveData<Boolean> getToken(@NonNull final String email, @NonNull final String password) {
+	public LiveData<String> getToken(@NonNull final String email, @NonNull final String password) {
 
 		if (getTokenLiveData == null) {
-			getTokenLiveData = new MutableLiveData<>();
+			getTokenLiveData = new SingleLiveEvent<>();
 		}
 
 		Map<String, String> requestBody = new HashMap<>();
@@ -156,32 +157,38 @@ public class UserViewModel extends ViewModel {
 		userApi.getToken(requestBody)
 			.subscribeOn(Schedulers.io())
 			.observeOn(AndroidSchedulers.mainThread())
-			.subscribe(new SingleObserver<ResponseBody>() {
+			.map(responseBody -> {
+				JSONObject jsonObject = new JSONObject(responseBody.string());
+				if (jsonObject.has("token") && jsonObject.has("user")) {
+					try {
+						String token = jsonObject.getString("token");
+						String user = jsonObject.getString("user");
+						// save received token and user
+						SharedPreferences.Editor editor = sharedPreferences.edit();
+						editor.putString(TOKEN_KEY, token);
+						editor.putString(USER_KEY, user);
+						editor.apply();
+						return token;
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+				return null;
+			})
+			.subscribe(new SingleObserver<String>() {
 				@Override
 				public void onSubscribe(Disposable d) {
 				}
 
 				@Override
-				public void onSuccess(ResponseBody responseBody) {
-
-					// save received token and user
-					try {
-						JSONObject jsonObject = new JSONObject(responseBody.string());
-						SharedPreferences.Editor editor = sharedPreferences.edit();
-						editor.putString(TOKEN_KEY, jsonObject.getString("token"));
-						editor.putString(USER_KEY, jsonObject.getString("user"));
-						editor.apply();
-						getTokenLiveData.postValue(true);
-					} catch (IOException | JSONException e) {
-						Log.d(TAG, "onSuccess exception: " + e.getMessage());
-						e.printStackTrace();
-					}
+				public void onSuccess(String token) {
+					getTokenLiveData.postValue(token);
 				}
 
 				@Override
 				public void onError(Throwable e) {
 					Log.d(TAG, "onError: " + e.toString());
-					getTokenLiveData.postValue(false);
+					getTokenLiveData.postValue(null);
 				}
 			});
 

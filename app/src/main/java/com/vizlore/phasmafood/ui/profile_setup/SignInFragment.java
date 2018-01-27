@@ -3,12 +3,10 @@ package com.vizlore.phasmafood.ui.profile_setup;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.utils.Validator;
 import com.vizlore.phasmafood.viewmodel.FcmMobileViewModel;
@@ -26,8 +24,6 @@ public class SignInFragment extends ProfileBaseFragment {
 	private UserViewModel userViewModel;
 	private FcmMobileViewModel configViewModel;
 
-	private static final String TAG = "SMEDIC";
-
 	@BindView(R.id.email)
 	EditText email;
 
@@ -43,20 +39,27 @@ public class SignInFragment extends ProfileBaseFragment {
 			final String emailText = email.getText().toString();
 			final String passwordText = password.getText().toString();
 
-			userViewModel.getToken(emailText, passwordText).observe(this,
-				result -> {
-					if (result != null && result) {
-						// TODO: 1/23/18 add additional checks if necessary
-						Log.d(TAG, "onLogInClicked: token: " + FirebaseInstanceId.getInstance().getToken());
-						configViewModel.sendFcmToken().observe(this, booleanResult -> {
-							Log.d(TAG, "onLogInClicked: createFcmMobile: " + booleanResult);
-							profileSetupViewModel.setSelected(ProfileAction.SIGNED_IN);
-						});
-					} else {
-						Toast.makeText(getContext(), getString(R.string.signingInError), Toast.LENGTH_SHORT).show();
-					}
-				});
+			userViewModel.getToken(emailText, passwordText).observe(this, receivedToken -> {
 
+				if (receivedToken != null) {
+					configViewModel.readFcmToken().observe(this, isTokenValid -> {
+
+						if (isTokenValid != null && isTokenValid) {
+							profileSetupViewModel.setSelected(ProfileAction.SIGNED_IN);
+						} else { //send FCM token to server
+							configViewModel.sendFcmToken().observe(this, sendResult -> {
+								if (sendResult != null && sendResult) {
+									profileSetupViewModel.setSelected(ProfileAction.SIGNED_IN);
+								} else {
+									Toast.makeText(getContext(), getString(R.string.errorSendingToken), Toast.LENGTH_SHORT).show();
+								}
+							});
+						}
+					});
+				} else {
+					Toast.makeText(getContext(), getString(R.string.signingInError), Toast.LENGTH_SHORT).show();
+				}
+			});
 		}
 	}
 
