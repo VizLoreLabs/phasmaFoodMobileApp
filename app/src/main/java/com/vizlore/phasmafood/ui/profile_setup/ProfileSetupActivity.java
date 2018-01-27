@@ -3,9 +3,12 @@ package com.vizlore.phasmafood.ui.profile_setup;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -29,6 +32,7 @@ import butterknife.ButterKnife;
 public class ProfileSetupActivity extends BaseActivity {
 
 	private static final String TAG = "SMEDIC";
+	private static final int REQUEST_PERMISSION_COARSE_LOCATION = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +49,14 @@ public class ProfileSetupActivity extends BaseActivity {
 			if (actionSelection != null) {
 				switch (actionSelection) {
 					case SIGNED_IN:
-						replaceBaseFragment2(new ProfileHomeScreenFragment());
+						if (ContextCompat.checkSelfPermission(this,
+							android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+							ActivityCompat.requestPermissions(this,
+								new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
+								REQUEST_PERMISSION_COARSE_LOCATION);
+						} else {
+							replaceBaseFragment2(new ProfileHomeScreenFragment());
+						}
 						break;
 					case RECOVER_PASSWORD:
 						// TODO: 1/16/18
@@ -71,6 +82,9 @@ public class ProfileSetupActivity extends BaseActivity {
 					case SIGN_OUT_CLICKED:
 						clearBackstack();
 						replaceBaseFragment(new SignInFragment());
+						break;
+					case ADD_NEW_DEVICE_CLICKED:
+						replaceFragment(new AddNewDeviceFragment());
 						break;
 					case GO_BACK:
 						if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
@@ -149,5 +163,18 @@ public class ProfileSetupActivity extends BaseActivity {
 		ConnectivityManager androidConnectivityManager = (android.net.ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo activeNetwork = androidConnectivityManager.getActiveNetworkInfo();
 		return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
+										   @NonNull int[] grantResults) {
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+		if (requestCode == REQUEST_PERMISSION_COARSE_LOCATION) {
+			for (String permission : permissions) {
+				if (android.Manifest.permission.ACCESS_COARSE_LOCATION.equals(permission)) {
+					replaceBaseFragment2(new ProfileHomeScreenFragment());
+				}
+			}
+		}
 	}
 }

@@ -23,6 +23,7 @@ public enum ProfileAction {
 	LEARN_MORE_CLICKED,
 
 	EDIT_PROFILE,
+	ADD_NEW_DEVICE_CLICKED,
 
 	// back navigation
 	BACK_TO_SIGN_IN,

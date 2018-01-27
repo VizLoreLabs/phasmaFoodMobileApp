@@ -44,7 +44,7 @@ public class YourProfileFragment extends ProfileBaseFragment {
 				profileSetupViewModel.setSelected(ProfileAction.EDIT_PROFILE);
 				break;
 			case R.id.addNewDevice:
-				// TODO: 1/18/18
+				profileSetupViewModel.setSelected(ProfileAction.ADD_NEW_DEVICE_CLICKED);
 				break;
 			case R.id.backButton:
 				profileSetupViewModel.setSelected(ProfileAction.GO_BACK);
@@ -76,7 +76,6 @@ public class YourProfileFragment extends ProfileBaseFragment {
 		BluetoothViewModel bluetoothViewModel = ViewModelProviders.of(getActivity()).get(BluetoothViewModel.class);
 		bluetoothViewModel.getBondedDevices().observe(this, devices -> {
 			devicesList.clear();
-			devicesList.addAll(devices);
 			devicesList.addAll(devices);
 		});
 

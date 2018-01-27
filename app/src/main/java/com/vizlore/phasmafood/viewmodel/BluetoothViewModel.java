@@ -90,6 +90,10 @@ public class BluetoothViewModel extends ViewModel {
 		rxBluetooth.cancelDiscovery();
 	}
 
+	public boolean isDiscovering() {
+		return rxBluetooth.isDiscovering();
+	}
+
 	public void sendData(String data) {
 		Log.d(TAG, "onCreate: SEND DATA");
 		Log.d(TAG, "onCreate: bt socket: " + btSocket);
@@ -140,12 +144,12 @@ public class BluetoothViewModel extends ViewModel {
 		}
 
 		disposable = connection.observeString()
-				.observeOn(Schedulers.newThread())
-				.subscribeOn(Schedulers.computation())
-				.subscribe(t -> Log.d(TAG, "onCreate: READ: " + t), e -> {
-					e.printStackTrace();
-					Log.d(TAG, "onCreate: error: " + e.getMessage());
-				});
+			.observeOn(Schedulers.newThread())
+			.subscribeOn(Schedulers.computation())
+			.subscribe(t -> Log.d(TAG, "onCreate: READ: " + t), e -> {
+				e.printStackTrace();
+				Log.d(TAG, "onCreate: error: " + e.getMessage());
+			});
 	}
 
 	public LiveData<BluetoothDevice> getFoundDevices() {
@@ -155,12 +159,12 @@ public class BluetoothViewModel extends ViewModel {
 		}
 
 		compositeDisposable.add(rxBluetooth.observeDevices()
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.computation())
-				.subscribe(bluetoothDevice -> {
-					Log.d(TAG, "getFoundDevices - Device found: " + bluetoothDevice.getAddress() + " - " + bluetoothDevice.getName());
-					foundBluetoothDeviceLiveData.setValue(bluetoothDevice);
-				}));
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribeOn(Schedulers.computation())
+			.subscribe(bluetoothDevice -> {
+				Log.d(TAG, "getFoundDevices - Device found: " + bluetoothDevice.getAddress() + " - " + bluetoothDevice.getName());
+				foundBluetoothDeviceLiveData.setValue(bluetoothDevice);
+			}));
 		return foundBluetoothDeviceLiveData;
 	}
 
@@ -171,14 +175,14 @@ public class BluetoothViewModel extends ViewModel {
 		}
 
 		compositeDisposable.add(rxBluetooth.observeDiscovery()
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.computation())
-				.filter(BtPredicate.in(BluetoothAdapter.ACTION_DISCOVERY_STARTED, BluetoothAdapter.ACTION_DISCOVERY_FINISHED))
-				.subscribe(action -> {
-					//start.setText(R.string.button_searching);
-					Log.d(TAG, "observerDiscovery EVENT: " + action);
-					discoveryEventLiveData.setValue(action);
-				}));
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribeOn(Schedulers.computation())
+			.filter(BtPredicate.in(BluetoothAdapter.ACTION_DISCOVERY_STARTED, BluetoothAdapter.ACTION_DISCOVERY_FINISHED))
+			.subscribe(action -> {
+				//start.setText(R.string.button_searching);
+				//Log.d(TAG, "observerDiscovery EVENT: " + action);
+				discoveryEventLiveData.setValue(action);
+			}));
 		return discoveryEventLiveData;
 	}
 
@@ -188,15 +192,15 @@ public class BluetoothViewModel extends ViewModel {
 			bluetoothStateLiveData = new MutableLiveData<>();
 		}
 		compositeDisposable.add(rxBluetooth.observeBluetoothState()
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.computation())
-				.filter(BtPredicate.in(BluetoothAdapter.STATE_ON, BluetoothAdapter.STATE_OFF, BluetoothAdapter.STATE_TURNING_OFF,
-						BluetoothAdapter.STATE_TURNING_ON))
-				.subscribe(state -> {
-					//start.setBackgroundColor(getResources().getColor(R.color.colorActive));
-					Log.d(TAG, "observeBluetoothState EVENT: state on");
-					bluetoothStateLiveData.setValue(state);
-				}));
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribeOn(Schedulers.computation())
+			.filter(BtPredicate.in(BluetoothAdapter.STATE_ON, BluetoothAdapter.STATE_OFF, BluetoothAdapter.STATE_TURNING_OFF,
+				BluetoothAdapter.STATE_TURNING_ON))
+			.subscribe(state -> {
+				//start.setBackgroundColor(getResources().getColor(R.color.colorActive));
+				Log.d(TAG, "observeBluetoothState EVENT: state on");
+				bluetoothStateLiveData.setValue(state);
+			}));
 		return bluetoothStateLiveData;
 	}
 
@@ -207,15 +211,15 @@ public class BluetoothViewModel extends ViewModel {
 		}
 
 		compositeDisposable.add(rxBluetooth.observeConnectionState()
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.computation())
-				.filter(BtPredicate.in(BluetoothAdapter.STATE_CONNECTED, BluetoothAdapter.STATE_DISCONNECTED))
-				.subscribe(event -> {
-					//start.setBackgroundColor(getResources().getColor(R.color.colorInactive));
-					Log.d(TAG, "observeBondState EVENT: connection: " + event.toString());
-					connectionStateLiveData.setValue(event);
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribeOn(Schedulers.computation())
+			.filter(BtPredicate.in(BluetoothAdapter.STATE_CONNECTED, BluetoothAdapter.STATE_DISCONNECTED))
+			.subscribe(event -> {
+				//start.setBackgroundColor(getResources().getColor(R.color.colorInactive));
+				Log.d(TAG, "observeBondState EVENT: connection: " + event.toString());
+				connectionStateLiveData.setValue(event);
 
-				}));
+			}));
 		return connectionStateLiveData;
 	}
 
@@ -226,13 +230,13 @@ public class BluetoothViewModel extends ViewModel {
 		}
 
 		compositeDisposable.add(rxBluetooth.observeBondState()
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.computation())
-				.filter(BtPredicate.in(BluetoothDevice.ACTION_BOND_STATE_CHANGED))
-				.subscribe(event -> {
-					//start.setBackgroundColor(getResources().getColor(R.color.colorInactive));
-					bondStateEventLiveData.setValue(event);
-				}));
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribeOn(Schedulers.computation())
+			.filter(BtPredicate.in(BluetoothDevice.ACTION_BOND_STATE_CHANGED))
+			.subscribe(event -> {
+				//start.setBackgroundColor(getResources().getColor(R.color.colorInactive));
+				bondStateEventLiveData.setValue(event);
+			}));
 		return bondStateEventLiveData;
 	}
 
