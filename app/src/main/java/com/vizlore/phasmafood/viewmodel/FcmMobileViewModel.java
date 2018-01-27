@@ -3,7 +3,6 @@ package com.vizlore.phasmafood.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -11,6 +10,7 @@ import android.util.Log;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.api.FcmMobileApi;
+import com.vizlore.phasmafood.utils.SingleLiveEvent;
 import com.vizlore.phasmafood.utils.Utils;
 
 import java.util.HashMap;
@@ -33,11 +33,11 @@ public class FcmMobileViewModel extends AndroidViewModel {
 
 	private static final String TAG = "SMEDIC ConfigViewModel";
 
-	private MutableLiveData<Boolean> createFcmMobileLiveData;
-	private MutableLiveData<Boolean> readFcmTokenLiveData;
-	private MutableLiveData<Boolean> updateFcmDataLiveData;
-	private MutableLiveData<Boolean> partialUpdateFcmDataLiveData;
-	private MutableLiveData<Boolean> deleteFcmTokenLiveData;
+	private SingleLiveEvent<Boolean> createFcmMobileLiveData;
+	private SingleLiveEvent<Boolean> readFcmTokenLiveData;
+	private SingleLiveEvent<Boolean> updateFcmDataLiveData;
+	private SingleLiveEvent<Boolean> partialUpdateFcmDataLiveData;
+	private SingleLiveEvent<Boolean> deleteFcmTokenLiveData;
 
 	@Inject
 	SharedPreferences prefs;
@@ -54,7 +54,7 @@ public class FcmMobileViewModel extends AndroidViewModel {
 	public LiveData<Boolean> sendFcmToken() {
 
 		if (createFcmMobileLiveData == null) {
-			createFcmMobileLiveData = new MutableLiveData<>();
+			createFcmMobileLiveData = new SingleLiveEvent<>();
 		}
 
 		Map<String, String> requestBody = new HashMap<>();
@@ -89,7 +89,7 @@ public class FcmMobileViewModel extends AndroidViewModel {
 	public LiveData<Boolean> readFcmToken() {
 
 		if (readFcmTokenLiveData == null) {
-			readFcmTokenLiveData = new MutableLiveData<>();
+			readFcmTokenLiveData = new SingleLiveEvent<>();
 		}
 
 		mobileApi.readFcmToken(Utils.getHeader(prefs), FirebaseInstanceId.getInstance().getToken())
@@ -118,7 +118,7 @@ public class FcmMobileViewModel extends AndroidViewModel {
 	public LiveData<Boolean> updateFcmData() {
 
 		if (updateFcmDataLiveData == null) {
-			updateFcmDataLiveData = new MutableLiveData<>();
+			updateFcmDataLiveData = new SingleLiveEvent<>();
 		}
 
 		String regId = FirebaseInstanceId.getInstance().getToken();
@@ -156,7 +156,7 @@ public class FcmMobileViewModel extends AndroidViewModel {
 	public LiveData<Boolean> partialUpdateFcmData() {
 
 		if (partialUpdateFcmDataLiveData == null) {
-			partialUpdateFcmDataLiveData = new MutableLiveData<>();
+			partialUpdateFcmDataLiveData = new SingleLiveEvent<>();
 		}
 
 		String regId = FirebaseInstanceId.getInstance().getToken();
@@ -195,7 +195,7 @@ public class FcmMobileViewModel extends AndroidViewModel {
 	public LiveData<Boolean> deleteFcmToken() {
 
 		if (deleteFcmTokenLiveData == null) {
-			deleteFcmTokenLiveData = new MutableLiveData<>();
+			deleteFcmTokenLiveData = new SingleLiveEvent<>();
 		}
 
 		mobileApi.deleteFcmToken(Utils.getHeader(prefs), FirebaseInstanceId.getInstance().getToken())
