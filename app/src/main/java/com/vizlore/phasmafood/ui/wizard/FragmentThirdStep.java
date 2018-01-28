@@ -56,6 +56,9 @@ public class FragmentThirdStep extends WizardBaseFragment {
 			wizardViewModel.setSelection3(index);
 		});
 
+		//set default option - 0
+		wizardViewModel.setSelection3(0);
+
 		// mark previously chosen option
 		int selection = wizardViewModel.getSelection3();
 		if (selection != -1 && wizardOptions.getChildAt(selection) != null) {

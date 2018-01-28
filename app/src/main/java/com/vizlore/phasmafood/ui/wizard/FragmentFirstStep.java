@@ -34,7 +34,6 @@ public class FragmentFirstStep extends WizardBaseFragment {
 		WizardViewModel wizardViewModel = ViewModelProviders.of(getActivity()).get(WizardViewModel.class);
 
 		final List<UseCase> useCases = wizardViewModel.getUseCases();
-
 		if (useCases != null) {
 			for (int i = 0; i < useCases.size(); i++) {
 				RadioButton radioButtonView = (RadioButton) getLayoutInflater().inflate(R.layout.wizard_radio_button, null);
@@ -56,6 +55,9 @@ public class FragmentFirstStep extends WizardBaseFragment {
 			int index = radioGroup.indexOfChild(radioButton);
 			wizardViewModel.setSelection1(index);
 		});
+
+		//set default option - 0
+		wizardViewModel.setSelection1(0);
 
 		// mark previously chosen option
 		int selection = wizardViewModel.getSelection1();

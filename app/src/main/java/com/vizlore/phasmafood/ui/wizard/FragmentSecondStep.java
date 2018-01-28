@@ -56,6 +56,9 @@ public class FragmentSecondStep extends WizardBaseFragment {
 			wizardViewModel.setSelection2(index);
 		});
 
+		//set default option - 0
+		wizardViewModel.setSelection2(0);
+
 		// mark previously chosen option
 		int selection = wizardViewModel.getSelection2();
 		if (selection != -1 && wizardOptions.getChildAt(selection) != null) {
