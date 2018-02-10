@@ -37,7 +37,7 @@ public class FragmentFirstStep extends WizardBaseFragment {
 		if (useCases != null) {
 			for (int i = 0; i < useCases.size(); i++) {
 				RadioButton radioButtonView = (RadioButton) getLayoutInflater().inflate(R.layout.wizard_radio_button, null);
-				radioButtonView.setText(useCases.get(i).getName());
+				radioButtonView.setText(useCases.get(i).name());
 
 				RadioGroup.LayoutParams param = new RadioGroup.LayoutParams(
 					RadioGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.buttonHeight), 1.0f);

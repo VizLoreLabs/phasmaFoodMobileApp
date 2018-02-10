@@ -1,21 +1,18 @@
 
 package com.vizlore.phasmafood.model;
 
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Subproblem {
+@AutoValue
+public abstract class Subproblem {
 
-	@SerializedName("name")
-	@Expose
-	private String name;
+	public abstract String name();
 
-	public String getName() {
-		return name;
+	public static TypeAdapter<Subproblem> typeAdapter(Gson gson) {
+		return new AutoValue_Subproblem.GsonTypeAdapter(gson);
 	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 }

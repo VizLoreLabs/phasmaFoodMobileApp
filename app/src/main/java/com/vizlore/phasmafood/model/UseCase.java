@@ -1,45 +1,20 @@
 
 package com.vizlore.phasmafood.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
 import java.util.List;
 
-public class UseCase {
+@AutoValue
+public abstract class UseCase {
 
-	@SerializedName("id")
-	@Expose
-	private Integer id;
-	@SerializedName("name")
-	@Expose
-	private String name;
-	@SerializedName("subcases")
-	@Expose
-	private List<Subcase> subcases = null;
+	public abstract Integer id();
+	public abstract String name();
+	public abstract List<Subcase> subcases();
 
-	public Integer getId() {
-		return id;
+	public static TypeAdapter<UseCase> typeAdapter(Gson gson) {
+		return new AutoValue_UseCase.GsonTypeAdapter(gson);
 	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public List<Subcase> getSubcases() {
-		return subcases;
-	}
-
-	public void setSubcases(List<Subcase> subcases) {
-		this.subcases = subcases;
-	}
-
 }

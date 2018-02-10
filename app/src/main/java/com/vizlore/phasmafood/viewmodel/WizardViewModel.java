@@ -3,7 +3,8 @@ package com.vizlore.phasmafood.viewmodel;
 import android.arch.lifecycle.ViewModel;
 
 import com.google.gson.Gson;
-import com.vizlore.phasmafood.MyApplication;
+import com.google.gson.GsonBuilder;
+import com.vizlore.phasmafood.api.AutoValueGsonFactory;
 import com.vizlore.phasmafood.model.Subcase;
 import com.vizlore.phasmafood.model.Subproblem;
 import com.vizlore.phasmafood.model.UseCase;
@@ -11,8 +12,6 @@ import com.vizlore.phasmafood.utils.JsonFileLoader;
 
 import java.util.Arrays;
 import java.util.List;
-
-import javax.inject.Inject;
 
 /**
  * Created by smedic on 1/21/18.
@@ -27,12 +26,8 @@ public class WizardViewModel extends ViewModel {
 	private int selection2 = -1;
 	private int selection3 = -1;
 
-	@Inject
-	Gson gson;
-
 	public WizardViewModel() {
-
-		MyApplication.getComponent().inject(this);
+		Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
 		String json = new JsonFileLoader().fromAsset("assets/wizard.json");
 		useCases = Arrays.asList(gson.fromJson(json, UseCase[].class));
 	}
@@ -43,14 +38,14 @@ public class WizardViewModel extends ViewModel {
 
 	public List<Subcase> getSubcases() {
 		if (selection1 != -1 && useCases.get(selection1) != null) {
-			return useCases.get(selection1).getSubcases();
+			return useCases.get(selection1).subcases();
 		}
 		return null;
 	}
 
 	public List<Subproblem> getSubproblems() {
 		if (selection2 != -1 && getSubcases().get(selection2) != null) {
-			return getSubcases().get(selection2).getSubproblems();
+			return getSubcases().get(selection2).subproblems();
 		}
 		return null;
 	}
@@ -60,7 +55,7 @@ public class WizardViewModel extends ViewModel {
 	}
 
 	public String getSelection1Text() {
-		return useCases.get(selection1).getName();
+		return useCases.get(selection1).name();
 	}
 
 	public void setSelection1(int selection1) {
@@ -76,7 +71,7 @@ public class WizardViewModel extends ViewModel {
 	}
 
 	public String getSelection2Text() {
-		return getSubcases().get(selection2).getName();
+		return getSubcases().get(selection2).name();
 	}
 
 	public void setSelection2(int selection2) {
@@ -91,7 +86,7 @@ public class WizardViewModel extends ViewModel {
 	}
 
 	public String getSelection3Text() {
-		return getSubproblems().get(selection3).getName();
+		return getSubproblems().get(selection3).name();
 	}
 
 	public void setSelection3(int selection3) {

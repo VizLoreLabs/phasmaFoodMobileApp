@@ -37,7 +37,7 @@ public class FragmentSecondStep extends WizardBaseFragment {
 		if (subcases != null) {
 			for (int k = 0; k < subcases.size(); k++) {
 				RadioButton radioButtonView = (RadioButton) getLayoutInflater().inflate(R.layout.wizard_radio_button, null);
-				radioButtonView.setText(subcases.get(k).getName());
+				radioButtonView.setText(subcases.get(k).name());
 
 				RadioGroup.LayoutParams param = new RadioGroup.LayoutParams(
 					RadioGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.buttonHeight), 1.0f);
