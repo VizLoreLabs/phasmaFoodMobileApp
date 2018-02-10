@@ -9,7 +9,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.vizlore.phasmafood.R;
-import com.vizlore.phasmafood.model.UseCase;
+import com.vizlore.phasmafood.model.wizard.UseCase;
 import com.vizlore.phasmafood.viewmodel.WizardViewModel;
 
 import java.util.List;

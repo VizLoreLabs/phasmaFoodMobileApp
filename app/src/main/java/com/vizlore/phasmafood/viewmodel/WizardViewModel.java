@@ -5,9 +5,9 @@ import android.arch.lifecycle.ViewModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vizlore.phasmafood.api.AutoValueGsonFactory;
-import com.vizlore.phasmafood.model.Subcase;
-import com.vizlore.phasmafood.model.Subproblem;
-import com.vizlore.phasmafood.model.UseCase;
+import com.vizlore.phasmafood.model.wizard.Subcase;
+import com.vizlore.phasmafood.model.wizard.Subproblem;
+import com.vizlore.phasmafood.model.wizard.UseCase;
 import com.vizlore.phasmafood.utils.JsonFileLoader;
 
 import java.util.Arrays;

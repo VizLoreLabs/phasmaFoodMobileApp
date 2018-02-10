@@ -1,0 +1,1172 @@
+{
+  "sample_id": "10356io04",
+  "laboratory": "VizloreLaboratory",
+  "user_id": "10",
+  "device_id": "d946a1ce-af55-41d2-9aa0-e",
+  "food_type": "fish",
+  "use_case": "usecase1",
+  "temperature": 4.55,
+  "temp_profile": "constant",
+  "temp_exp_hours": 32,
+  "package_type": "no_package",
+  "sample_status": "in_store",
+  "measurement_freq": 200,
+  "tvc": 1,
+  "date_time": "2018-04-10T13:40:23.83-05:00",
+  "uv_vis": [
+    {
+      "wavelength": 452,
+      "value": 5058
+    },
+    {
+      "wavelength": 455,
+      "value": 5069
+    },
+    {
+      "wavelength": 457,
+      "value": 5070
+    },
+    {
+      "wavelength": 460,
+      "value": 5020
+    },
+    {
+      "wavelength": 462,
+      "value": 5108
+    },
+    {
+      "wavelength": 465,
+      "value": 5011
+    },
+    {
+      "wavelength": 467,
+      "value": 5048
+    },
+    {
+      "wavelength": 470,
+      "value": 5124
+    },
+    {
+      "wavelength": 472,
+      "value": 4993
+    },
+    {
+      "wavelength": 475,
+      "value": 5196
+    },
+    {
+      "wavelength": 477,
+      "value": 5061
+    },
+    {
+      "wavelength": 480,
+      "value": 5084
+    },
+    {
+      "wavelength": 482,
+      "value": 5077
+    },
+    {
+      "wavelength": 485,
+      "value": 5082
+    },
+    {
+      "wavelength": 487,
+      "value": 5206
+    },
+    {
+      "wavelength": 490,
+      "value": 5018
+    },
+    {
+      "wavelength": 492,
+      "value": 5057
+    },
+    {
+      "wavelength": 494,
+      "value": 5203
+    },
+    {
+      "wavelength": 497,
+      "value": 5050
+    },
+    {
+      "wavelength": 499,
+      "value": 5101
+    },
+    {
+      "wavelength": 502,
+      "value": 5142
+    },
+    {
+      "wavelength": 504,
+      "value": 5205
+    },
+    {
+      "wavelength": 507,
+      "value": 5198
+    },
+    {
+      "wavelength": 509,
+      "value": 5095
+    },
+    {
+      "wavelength": 511,
+      "value": 5151
+    },
+    {
+      "wavelength": 514,
+      "value": 5185
+    },
+    {
+      "wavelength": 516,
+      "value": 5054
+    },
+    {
+      "wavelength": 519,
+      "value": 5188
+    },
+    {
+      "wavelength": 521,
+      "value": 5038
+    },
+    {
+      "wavelength": 523,
+      "value": 5176
+    },
+    {
+      "wavelength": 526,
+      "value": 5224
+    },
+    {
+      "wavelength": 528,
+      "value": 5091
+    },
+    {
+      "wavelength": 531,
+      "value": 5253
+    },
+    {
+      "wavelength": 533,
+      "value": 5167
+    },
+    {
+      "wavelength": 535,
+      "value": 5000
+    },
+    {
+      "wavelength": 538,
+      "value": 5206
+    },
+    {
+      "wavelength": 540,
+      "value": 5127
+    },
+    {
+      "wavelength": 542,
+      "value": 5063
+    },
+    {
+      "wavelength": 545,
+      "value": 5151
+    },
+    {
+      "wavelength": 547,
+      "value": 5151
+    },
+    {
+      "wavelength": 549,
+      "value": 5105
+    },
+    {
+      "wavelength": 552,
+      "value": 5143
+    },
+    {
+      "wavelength": 554,
+      "value": 5235
+    },
+    {
+      "wavelength": 556,
+      "value": 5200
+    },
+    {
+      "wavelength": 558,
+      "value": 5164
+    },
+    {
+      "wavelength": 561,
+      "value": 5103
+    },
+    {
+      "wavelength": 563,
+      "value": 5201
+    },
+    {
+      "wavelength": 565,
+      "value": 5145
+    },
+    {
+      "wavelength": 568,
+      "value": 5097
+    },
+    {
+      "wavelength": 570,
+      "value": 5141
+    },
+    {
+      "wavelength": 572,
+      "value": 5118
+    },
+    {
+      "wavelength": 574,
+      "value": 5149
+    },
+    {
+      "wavelength": 577,
+      "value": 5127
+    },
+    {
+      "wavelength": 579,
+      "value": 5097
+    },
+    {
+      "wavelength": 581,
+      "value": 5191
+    },
+    {
+      "wavelength": 583,
+      "value": 5080
+    },
+    {
+      "wavelength": 586,
+      "value": 5098
+    },
+    {
+      "wavelength": 588,
+      "value": 5188
+    },
+    {
+      "wavelength": 590,
+      "value": 5043
+    },
+    {
+      "wavelength": 592,
+      "value": 5180
+    },
+    {
+      "wavelength": 594,
+      "value": 5150
+    },
+    {
+      "wavelength": 597,
+      "value": 5134
+    },
+    {
+      "wavelength": 599,
+      "value": 5247
+    },
+    {
+      "wavelength": 601,
+      "value": 5158
+    },
+    {
+      "wavelength": 603,
+      "value": 5183
+    },
+    {
+      "wavelength": 605,
+      "value": 5190
+    },
+    {
+      "wavelength": 608,
+      "value": 5057
+    },
+    {
+      "wavelength": 610,
+      "value": 5171
+    },
+    {
+      "wavelength": 612,
+      "value": 5125
+    },
+    {
+      "wavelength": 614,
+      "value": 5158
+    },
+    {
+      "wavelength": 616,
+      "value": 5227
+    },
+    {
+      "wavelength": 618,
+      "value": 5142
+    },
+    {
+      "wavelength": 620,
+      "value": 5183
+    },
+    {
+      "wavelength": 623,
+      "value": 5087
+    },
+    {
+      "wavelength": 625,
+      "value": 5066
+    },
+    {
+      "wavelength": 627,
+      "value": 5109
+    },
+    {
+      "wavelength": 629,
+      "value": 5116
+    },
+    {
+      "wavelength": 631,
+      "value": 5022
+    },
+    {
+      "wavelength": 633,
+      "value": 5271
+    },
+    {
+      "wavelength": 635,
+      "value": 5088
+    },
+    {
+      "wavelength": 637,
+      "value": 5111
+    },
+    {
+      "wavelength": 639,
+      "value": 5193
+    },
+    {
+      "wavelength": 641,
+      "value": 5133
+    },
+    {
+      "wavelength": 644,
+      "value": 5161
+    },
+    {
+      "wavelength": 646,
+      "value": 5051
+    },
+    {
+      "wavelength": 648,
+      "value": 5035
+    },
+    {
+      "wavelength": 650,
+      "value": 5249
+    },
+    {
+      "wavelength": 652,
+      "value": 5139
+    },
+    {
+      "wavelength": 654,
+      "value": 5159
+    },
+    {
+      "wavelength": 656,
+      "value": 5090
+    },
+    {
+      "wavelength": 658,
+      "value": 5034
+    },
+    {
+      "wavelength": 660,
+      "value": 5289
+    },
+    {
+      "wavelength": 662,
+      "value": 5079
+    },
+    {
+      "wavelength": 664,
+      "value": 5016
+    },
+    {
+      "wavelength": 666,
+      "value": 5168
+    },
+    {
+      "wavelength": 668,
+      "value": 5183
+    },
+    {
+      "wavelength": 670,
+      "value": 5100
+    },
+    {
+      "wavelength": 672,
+      "value": 5126
+    },
+    {
+      "wavelength": 674,
+      "value": 5089
+    },
+    {
+      "wavelength": 676,
+      "value": 5225
+    },
+    {
+      "wavelength": 678,
+      "value": 5055
+    },
+    {
+      "wavelength": 680,
+      "value": 5062
+    },
+    {
+      "wavelength": 682,
+      "value": 5242
+    },
+    {
+      "wavelength": 684,
+      "value": 5251
+    },
+    {
+      "wavelength": 685,
+      "value": 5193
+    },
+    {
+      "wavelength": 687,
+      "value": 5105
+    },
+    {
+      "wavelength": 689,
+      "value": 5100
+    },
+    {
+      "wavelength": 691,
+      "value": 5193
+    },
+    {
+      "wavelength": 693,
+      "value": 5240
+    },
+    {
+      "wavelength": 695,
+      "value": 5080
+    },
+    {
+      "wavelength": 697,
+      "value": 5253
+    },
+    {
+      "wavelength": 699,
+      "value": 5084
+    },
+    {
+      "wavelength": 701,
+      "value": 5136
+    },
+    {
+      "wavelength": 703,
+      "value": 5138
+    },
+    {
+      "wavelength": 704,
+      "value": 4941
+    },
+    {
+      "wavelength": 706,
+      "value": 5267
+    },
+    {
+      "wavelength": 708,
+      "value": 5036
+    },
+    {
+      "wavelength": 710,
+      "value": 5124
+    },
+    {
+      "wavelength": 712,
+      "value": 5229
+    },
+    {
+      "wavelength": 714,
+      "value": 5084
+    },
+    {
+      "wavelength": 716,
+      "value": 5107
+    },
+    {
+      "wavelength": 717,
+      "value": 5166
+    },
+    {
+      "wavelength": 719,
+      "value": 4977
+    },
+    {
+      "wavelength": 721,
+      "value": 5207
+    },
+    {
+      "wavelength": 723,
+      "value": 5070
+    },
+    {
+      "wavelength": 725,
+      "value": 5087
+    },
+    {
+      "wavelength": 726,
+      "value": 5225
+    },
+    {
+      "wavelength": 728,
+      "value": 5155
+    },
+    {
+      "wavelength": 730,
+      "value": 5139
+    },
+    {
+      "wavelength": 732,
+      "value": 5174
+    },
+    {
+      "wavelength": 734,
+      "value": 4956
+    },
+    {
+      "wavelength": 735,
+      "value": 5243
+    },
+    {
+      "wavelength": 737,
+      "value": 5107
+    },
+    {
+      "wavelength": 739,
+      "value": 5062
+    },
+    {
+      "wavelength": 741,
+      "value": 5105
+    },
+    {
+      "wavelength": 742,
+      "value": 5032
+    },
+    {
+      "wavelength": 744,
+      "value": 5077
+    },
+    {
+      "wavelength": 746,
+      "value": 5227
+    },
+    {
+      "wavelength": 747,
+      "value": 5004
+    },
+    {
+      "wavelength": 749,
+      "value": 5181
+    },
+    {
+      "wavelength": 751,
+      "value": 5142
+    },
+    {
+      "wavelength": 753,
+      "value": 5083
+    },
+    {
+      "wavelength": 754,
+      "value": 5157
+    },
+    {
+      "wavelength": 756,
+      "value": 5178
+    },
+    {
+      "wavelength": 758,
+      "value": 5033
+    },
+    {
+      "wavelength": 759,
+      "value": 5094
+    },
+    {
+      "wavelength": 761,
+      "value": 4983
+    },
+    {
+      "wavelength": 763,
+      "value": 5247
+    },
+    {
+      "wavelength": 764,
+      "value": 5038
+    },
+    {
+      "wavelength": 766,
+      "value": 5084
+    },
+    {
+      "wavelength": 768,
+      "value": 5153
+    },
+    {
+      "wavelength": 769,
+      "value": 5049
+    },
+    {
+      "wavelength": 771,
+      "value": 5114
+    },
+    {
+      "wavelength": 772,
+      "value": 5214
+    },
+    {
+      "wavelength": 774,
+      "value": 5024
+    },
+    {
+      "wavelength": 776,
+      "value": 5220
+    },
+    {
+      "wavelength": 777,
+      "value": 5147
+    },
+    {
+      "wavelength": 779,
+      "value": 5054
+    },
+    {
+      "wavelength": 780,
+      "value": 5180
+    },
+    {
+      "wavelength": 782,
+      "value": 5172
+    },
+    {
+      "wavelength": 784,
+      "value": 5189
+    },
+    {
+      "wavelength": 785,
+      "value": 5189
+    },
+    {
+      "wavelength": 787,
+      "value": 5028
+    },
+    {
+      "wavelength": 788,
+      "value": 5174
+    },
+    {
+      "wavelength": 790,
+      "value": 5109
+    },
+    {
+      "wavelength": 791,
+      "value": 5142
+    },
+    {
+      "wavelength": 793,
+      "value": 5173
+    },
+    {
+      "wavelength": 795,
+      "value": 5118
+    },
+    {
+      "wavelength": 796,
+      "value": 5325
+    },
+    {
+      "wavelength": 798,
+      "value": 5183
+    },
+    {
+      "wavelength": 799,
+      "value": 5185
+    },
+    {
+      "wavelength": 801,
+      "value": 5238
+    },
+    {
+      "wavelength": 802,
+      "value": 5100
+    },
+    {
+      "wavelength": 804,
+      "value": 5122
+    },
+    {
+      "wavelength": 805,
+      "value": 5286
+    },
+    {
+      "wavelength": 807,
+      "value": 5041
+    },
+    {
+      "wavelength": 808,
+      "value": 5070
+    },
+    {
+      "wavelength": 810,
+      "value": 5182
+    },
+    {
+      "wavelength": 811,
+      "value": 5079
+    },
+    {
+      "wavelength": 813,
+      "value": 5209
+    },
+    {
+      "wavelength": 814,
+      "value": 5168
+    },
+    {
+      "wavelength": 815,
+      "value": 5128
+    },
+    {
+      "wavelength": 817,
+      "value": 5100
+    },
+    {
+      "wavelength": 818,
+      "value": 5045
+    },
+    {
+      "wavelength": 820,
+      "value": 5145
+    },
+    {
+      "wavelength": 821,
+      "value": 5123
+    },
+    {
+      "wavelength": 823,
+      "value": 5039
+    },
+    {
+      "wavelength": 824,
+      "value": 5238
+    },
+    {
+      "wavelength": 825,
+      "value": 5155
+    },
+    {
+      "wavelength": 827,
+      "value": 5159
+    },
+    {
+      "wavelength": 828,
+      "value": 5355
+    },
+    {
+      "wavelength": 830,
+      "value": 5105
+    },
+    {
+      "wavelength": 831,
+      "value": 5110
+    },
+    {
+      "wavelength": 832,
+      "value": 5187
+    },
+    {
+      "wavelength": 834,
+      "value": 5205
+    },
+    {
+      "wavelength": 835,
+      "value": 5161
+    },
+    {
+      "wavelength": 837,
+      "value": 5154
+    },
+    {
+      "wavelength": 838,
+      "value": 5097
+    },
+    {
+      "wavelength": 839,
+      "value": 5281
+    },
+    {
+      "wavelength": 841,
+      "value": 5092
+    },
+    {
+      "wavelength": 842,
+      "value": 5183
+    },
+    {
+      "wavelength": 843,
+      "value": 5125
+    },
+    {
+      "wavelength": 845,
+      "value": 5043
+    },
+    {
+      "wavelength": 846,
+      "value": 5168
+    },
+    {
+      "wavelength": 847,
+      "value": 5214
+    },
+    {
+      "wavelength": 849,
+      "value": 5046
+    },
+    {
+      "wavelength": 850,
+      "value": 5225
+    },
+    {
+      "wavelength": 851,
+      "value": 5038
+    },
+    {
+      "wavelength": 853,
+      "value": 5194
+    },
+    {
+      "wavelength": 854,
+      "value": 5372
+    },
+    {
+      "wavelength": 855,
+      "value": 5045
+    },
+    {
+      "wavelength": 856,
+      "value": 5233
+    },
+    {
+      "wavelength": 858,
+      "value": 5069
+    },
+    {
+      "wavelength": 859,
+      "value": 5100
+    },
+    {
+      "wavelength": 860,
+      "value": 5355
+    },
+    {
+      "wavelength": 862,
+      "value": 5156
+    },
+    {
+      "wavelength": 863,
+      "value": 5190
+    },
+    {
+      "wavelength": 864,
+      "value": 5254
+    },
+    {
+      "wavelength": 865,
+      "value": 5109
+    },
+    {
+      "wavelength": 867,
+      "value": 5340
+    },
+    {
+      "wavelength": 868,
+      "value": 5172
+    },
+    {
+      "wavelength": 869,
+      "value": 5128
+    },
+    {
+      "wavelength": 870,
+      "value": 5215
+    },
+    {
+      "wavelength": 871,
+      "value": 5121
+    },
+    {
+      "wavelength": 873,
+      "value": 5182
+    },
+    {
+      "wavelength": 874,
+      "value": 5219
+    },
+    {
+      "wavelength": 875,
+      "value": 5125
+    },
+    {
+      "wavelength": 876,
+      "value": 5171
+    },
+    {
+      "wavelength": 877,
+      "value": 5176
+    },
+    {
+      "wavelength": 879,
+      "value": 5168
+    },
+    {
+      "wavelength": 880,
+      "value": 5315
+    },
+    {
+      "wavelength": 881,
+      "value": 5190
+    },
+    {
+      "wavelength": 882,
+      "value": 5191
+    },
+    {
+      "wavelength": 883,
+      "value": 5283
+    },
+    {
+      "wavelength": 885,
+      "value": 5201
+    }
+  ],
+  "nir": [
+    {
+      "wavelength": 313,
+      "value": 5220
+    },
+    {
+      "wavelength": 316,
+      "value": 5108
+    },
+    {
+      "wavelength": 319,
+      "value": 5095
+    },
+    {
+      "wavelength": 321,
+      "value": 5214
+    },
+    {
+      "wavelength": 324,
+      "value": 5023
+    },
+    {
+      "wavelength": 327,
+      "value": 5026
+    },
+    {
+      "wavelength": 329,
+      "value": 5107
+    },
+    {
+      "wavelength": 332,
+      "value": 4941
+    },
+    {
+      "wavelength": 335,
+      "value": 5112
+    },
+    {
+      "wavelength": 337,
+      "value": 5053
+    },
+    {
+      "wavelength": 340,
+      "value": 4979
+    },
+    {
+      "wavelength": 343,
+      "value": 5188
+    },
+    {
+      "wavelength": 345,
+      "value": 5057
+    },
+    {
+      "wavelength": 348,
+      "value": 5152
+    },
+    {
+      "wavelength": 351,
+      "value": 5142
+    },
+    {
+      "wavelength": 353,
+      "value": 4947
+    },
+    {
+      "wavelength": 356,
+      "value": 5150
+    },
+    {
+      "wavelength": 359,
+      "value": 5069
+    },
+    {
+      "wavelength": 361,
+      "value": 5001
+    },
+    {
+      "wavelength": 364,
+      "value": 5079
+    },
+    {
+      "wavelength": 367,
+      "value": 5054
+    },
+    {
+      "wavelength": 369,
+      "value": 5027
+    },
+    {
+      "wavelength": 372,
+      "value": 5151
+    },
+    {
+      "wavelength": 375,
+      "value": 5065
+    },
+    {
+      "wavelength": 377,
+      "value": 5068
+    },
+    {
+      "wavelength": 380,
+      "value": 5089
+    },
+    {
+      "wavelength": 383,
+      "value": 5033
+    },
+    {
+      "wavelength": 385,
+      "value": 5137
+    },
+    {
+      "wavelength": 388,
+      "value": 5035
+    },
+    {
+      "wavelength": 390,
+      "value": 5058
+    },
+    {
+      "wavelength": 393,
+      "value": 5147
+    },
+    {
+      "wavelength": 396,
+      "value": 5004
+    },
+    {
+      "wavelength": 398,
+      "value": 5106
+    },
+    {
+      "wavelength": 401,
+      "value": 5222
+    },
+    {
+      "wavelength": 404,
+      "value": 5073
+    },
+    {
+      "wavelength": 406,
+      "value": 5134
+    },
+    {
+      "wavelength": 409,
+      "value": 5148
+    },
+    {
+      "wavelength": 411,
+      "value": 5073
+    },
+    {
+      "wavelength": 414,
+      "value": 5123
+    },
+    {
+      "wavelength": 416,
+      "value": 4886
+    },
+    {
+      "wavelength": 419,
+      "value": 5175
+    },
+    {
+      "wavelength": 422,
+      "value": 5066
+    },
+    {
+      "wavelength": 424,
+      "value": 5023
+    },
+    {
+      "wavelength": 427,
+      "value": 5163
+    },
+    {
+      "wavelength": 429,
+      "value": 5033
+    },
+    {
+      "wavelength": 432,
+      "value": 5017
+    },
+    {
+      "wavelength": 434,
+      "value": 5214
+    },
+    {
+      "wavelength": 437,
+      "value": 5084
+    },
+    {
+      "wavelength": 440,
+      "value": 5161
+    },
+    {
+      "wavelength": 442,
+      "value": 5051
+    },
+    {
+      "wavelength": 445,
+      "value": 5086
+    },
+    {
+      "wavelength": 447,
+      "value": 5139
+    },
+    {
+      "wavelength": 450,
+      "value": 5044
+    }
+  ]
+}

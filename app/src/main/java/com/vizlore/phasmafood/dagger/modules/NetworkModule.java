@@ -6,6 +6,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vizlore.phasmafood.api.AutoValueGsonFactory;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -48,8 +50,10 @@ public class NetworkModule {
 	@Singleton
 	OkHttpClient provideOkHttpClient(HttpLoggingInterceptor loggingInterceptor) {
 		return new OkHttpClient.Builder()
-				.addInterceptor(loggingInterceptor)
-				.build();
+			.writeTimeout(60, TimeUnit.SECONDS)
+			.readTimeout(60, TimeUnit.SECONDS)
+			.addInterceptor(loggingInterceptor)
+			.build();
 	}
 
 	@Provides
@@ -69,10 +73,10 @@ public class NetworkModule {
 	Retrofit provideRetrofit(RxJava2CallAdapterFactory rxJava2CallAdapterFactory, GsonConverterFactory factory,
 							 OkHttpClient okHttpClient) {
 		return new Retrofit.Builder()
-				.addCallAdapterFactory(rxJava2CallAdapterFactory)
-				.addConverterFactory(factory)
-				.client(okHttpClient)
-				.baseUrl(BASE_URL)
-				.build();
+			.addCallAdapterFactory(rxJava2CallAdapterFactory)
+			.addConverterFactory(factory)
+			.client(okHttpClient)
+			.baseUrl(BASE_URL)
+			.build();
 	}
 }

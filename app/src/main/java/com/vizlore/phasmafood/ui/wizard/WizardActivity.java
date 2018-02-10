@@ -1,19 +1,22 @@
 package com.vizlore.phasmafood.ui.wizard;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.vizlore.phasmafood.ui.BaseActivity;
 import com.vizlore.phasmafood.R;
+import com.vizlore.phasmafood.ui.BaseActivity;
+import com.vizlore.phasmafood.viewmodel.ExaminationViewModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,6 +79,16 @@ public class WizardActivity extends BaseActivity {
 				setIndicator();
 
 				((Button) findViewById(R.id.nextButton)).setText("START ANALYSIS");
+
+			} else if (currentStep == 3) {
+				Log.d(TAG, "onNextButtonClick: start analyzis now!");
+
+				// testing TODO: 2/10/18 remove
+				ExaminationViewModel examinationViewModel = ViewModelProviders.of(this).get(ExaminationViewModel.class);
+				examinationViewModel.getExamination().observe(this, examination -> {
+					examinationViewModel.createExaminationRequest().observe(this,
+						result -> Log.d(TAG, "onChanged: result: " + result));
+				});
 			}
 		}
 	}

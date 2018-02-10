@@ -1,5 +1,5 @@
 
-package com.vizlore.phasmafood.model;
+package com.vizlore.phasmafood.model.wizard;
 
 import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
