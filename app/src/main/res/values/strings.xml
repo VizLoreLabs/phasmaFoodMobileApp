@@ -15,4 +15,6 @@
     <string name="passwordsDoNotMatch">Passwords don\'t match</string>
     <string name="accountCreated">Account successfully created</string>
     <string name="errorSendingToken">Error sending token!</string>
+    <string name="networkNotEnabled">Network not enabled</string>
+    <string name="bluetoothNotEnabled">Bluetooth not enabled</string>
 </resources>

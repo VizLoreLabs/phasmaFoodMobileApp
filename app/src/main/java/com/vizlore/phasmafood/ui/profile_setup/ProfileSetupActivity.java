@@ -1,11 +1,9 @@
 package com.vizlore.phasmafood.ui.profile_setup;
 
+import android.Manifest;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -13,10 +11,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.WindowManager;
 
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.ui.BaseActivity;
 import com.vizlore.phasmafood.ui.profile_setup.viewmodel.ProfileSetupViewModel;
@@ -49,6 +45,7 @@ public class ProfileSetupActivity extends BaseActivity {
 			if (actionSelection != null) {
 				switch (actionSelection) {
 					case SIGNED_IN:
+
 						if (ContextCompat.checkSelfPermission(this,
 							android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 							ActivityCompat.requestPermissions(this,
@@ -98,25 +95,28 @@ public class ProfileSetupActivity extends BaseActivity {
 				}
 			}
 		});
+		if (isLocationPermissionEnabled()) {
+			checkUserStatus();
+		}
+	}
 
+	public void checkUserStatus() {
 		UserViewModel userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
 		if (userViewModel.hasSession()) {
-			userViewModel.getRefreshToken().observe(this, isTokenSaved -> {
-				Log.d(TAG, "onCreate: " + "LOGGED IN! token saved: " + isTokenSaved);
-				if (isTokenSaved != null && isTokenSaved) {
-					addFragment(new ProfileHomeScreenFragment());
-				} else {
-					Log.d(TAG, "onCreate: Token not saved!");
-					userViewModel.clearToken();
-					addFragment(new SignInFragment());
-				}
-			});
+			addFragment(new ProfileHomeScreenFragment());
 		} else {
-			Log.d(TAG, "onCreate: " + "NOT LOGGED IN!");
 			addFragment(new SignInFragment());
 		}
+	}
 
-		Log.d(TAG, "onCreate: token: " + FirebaseInstanceId.getInstance().getToken());
+	public boolean isLocationPermissionEnabled() {
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+			// Request the permission.
+			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_PERMISSION_COARSE_LOCATION);
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	public void addFragment(Fragment fragment) {
@@ -159,12 +159,6 @@ public class ProfileSetupActivity extends BaseActivity {
 		}
 	}
 
-	public static boolean isNetworkEnabled(Context context) {
-		ConnectivityManager androidConnectivityManager = (android.net.ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo activeNetwork = androidConnectivityManager.getActiveNetworkInfo();
-		return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-	}
-
 	@Override
 	public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
 										   @NonNull int[] grantResults) {
@@ -172,7 +166,7 @@ public class ProfileSetupActivity extends BaseActivity {
 		if (requestCode == REQUEST_PERMISSION_COARSE_LOCATION) {
 			for (String permission : permissions) {
 				if (android.Manifest.permission.ACCESS_COARSE_LOCATION.equals(permission)) {
-					replaceBaseFragment2(new ProfileHomeScreenFragment());
+					checkUserStatus();
 				}
 			}
 		}
