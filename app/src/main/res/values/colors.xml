@@ -17,4 +17,15 @@
     <color name="text_shadow_white">#FFFFFF</color>
     <color name="light_grey">#e4e4e4</color>
     <color name="middleBlue">#457E9F</color>
+
+    <!-- wizard -->
+    <color name="primary">#2196F3</color>
+    <color name="primaryDark">#0D47A1</color>
+    <color name="accent">#1565C0</color>
+    <color name="step_pager_previous_tab_color">#6633b5e5</color>
+    <color name="step_pager_selected_tab_color">#ff19a3d1</color>
+    <color name="step_pager_selected_last_tab_color">#ff669900</color>
+    <color name="step_pager_next_tab_color">#10000000</color>
+    <color name="text_light">#66000000</color>
+
 </resources>

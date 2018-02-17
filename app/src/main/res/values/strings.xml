@@ -17,4 +17,10 @@
     <string name="errorSendingToken">Error sending token!</string>
     <string name="networkNotEnabled">Network not enabled</string>
     <string name="bluetoothNotEnabled">Bluetooth not enabled</string>
+    <string name="submit_confirm_message">Send date to device?</string>
+    <string name="submit_confirm_button">Yes</string>
+    <string name="finish">Finish</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
+    <string name="summary">Summary</string>
 </resources>

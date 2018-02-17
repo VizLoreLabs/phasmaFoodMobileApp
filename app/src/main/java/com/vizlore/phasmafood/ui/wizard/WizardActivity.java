@@ -1,164 +1,274 @@
 package com.vizlore.phasmafood.ui.wizard;
 
-import android.arch.lifecycle.ViewModelProviders;
+import android.app.AlertDialog;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.vizlore.phasmafood.R;
-import com.vizlore.phasmafood.ui.BaseActivity;
-import com.vizlore.phasmafood.viewmodel.ExaminationViewModel;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import wizardpager.model.AbstractWizardModel;
+import wizardpager.model.ModelCallbacks;
+import wizardpager.model.Page;
+import wizardpager.model.ReviewItem;
+import wizardpager.ui.PageFragmentCallbacks;
+import wizardpager.ui.ReviewFragment;
+import wizardpager.ui.StepPagerStrip;
 
-/**
- * Created by smedic on 1/15/18.
- */
+public class WizardActivity extends FragmentActivity implements
+	PageFragmentCallbacks, ReviewFragment.Callbacks, ModelCallbacks {
 
-public class WizardActivity extends BaseActivity {
+	private MyPagerAdapter pagerAdapter;
+	private boolean editingAfterReview;
+	private AbstractWizardModel wizardModel = new PhasmaFoodWizardModel(this);
+	private boolean consumePageSelectedEvent;
+	private List<Page> currentPageSequence;
 
-	private static final String TAG = "SMEDIC";
+	@BindView(R.id.nextButton)
+	Button nextButton;
 
-	private int[] analysisType = {R.string.selectTypeOfAnalysis,
-		R.string.selectTypeOfFood,
-		R.string.specifyScanningConditions,
-		R.string.scanningParamsSummary};
+	@BindView(R.id.previousButton)
+	Button prevButton;
 
-	@BindView(R.id.title)
-	TextView title;
+	@BindView(R.id.pager)
+	ViewPager pager;
 
-	private int currentStep = 0;
-	private View animatedView = null;
+	@BindView(R.id.strip)
+	StepPagerStrip stepPagerStrip;
 
-	@OnClick(R.id.backButton)
-	void onCloseClicked() {
-		finish();
-	}
-
-	private void scaleUp(View v) {
-		scaleDown();
-		v.animate().scaleX(1.4f).scaleY(1.4f).setDuration(200).start();
-		animatedView = v;
-	}
-
-	private void scaleDown() {
-		if (animatedView != null) {
-			animatedView.animate().scaleX(1.0f).scaleY(1.0f).start();
+	@OnClick({R.id.backButton, R.id.nextButton, R.id.previousButton})
+	void onClick(View v) {
+		switch (v.getId()) {
+			case R.id.backButton:
+				finish();
+				break;
+			case R.id.nextButton:
+				if (pager.getCurrentItem() == currentPageSequence.size()) {
+					AlertDialog alertDialog = new AlertDialog.Builder(WizardActivity.this).create();
+					alertDialog.setTitle("Alert");
+					alertDialog.setMessage(getString(R.string.submit_confirm_message));
+					alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.submit_confirm_button), (dialog, which) -> dialog.dismiss());
+					alertDialog.show();
+				} else {
+					if (editingAfterReview) {
+						pager.setCurrentItem(pagerAdapter.getCount() - 1);
+					} else {
+						pager.setCurrentItem(pager.getCurrentItem() + 1);
+					}
+				}
+				break;
+			case R.id.previousButton:
+				pager.setCurrentItem(pager.getCurrentItem() - 1);
+				break;
 		}
 	}
 
-	@OnClick(R.id.nextButton)
-	void onNextButtonClick() {
-		((ImageView) findViewById(stepToViewId(currentStep))).setImageResource(R.drawable.ic_checkmark);
-		if (currentStep + 1 <= 5) {
-			if (currentStep == 0) {
-				replaceFragment(new FragmentSecondStep());
-				currentStep++;
-				setTitle();
-				setIndicator();
-			} else if (currentStep == 1) {
-				replaceFragment(new FragmentThirdStep());
-				currentStep++;
-				setTitle();
-				setIndicator();
-			} else if (currentStep == 2) {
-				replaceFragment(new FragmentSummary());
-				currentStep++;
-				setTitle();
-				setIndicator();
 
-				((Button) findViewById(R.id.nextButton)).setText("START ANALYSIS");
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_wizard_2);
+		ButterKnife.bind(this);
 
-			} else if (currentStep == 3) {
-				Log.d(TAG, "onNextButtonClick: start analyzis now!");
+		if (savedInstanceState != null) {
+			wizardModel.load(savedInstanceState.getBundle("model"));
+		}
 
-				// testing TODO: 2/10/18 remove
-				ExaminationViewModel examinationViewModel = ViewModelProviders.of(this).get(ExaminationViewModel.class);
-				examinationViewModel.getExamination().observe(this, examination -> {
-					examinationViewModel.createExaminationRequest().observe(this,
-						result -> Log.d(TAG, "onChanged: result: " + result));
-				});
+		wizardModel.registerListener(this);
+
+		pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
+		pager.setAdapter(pagerAdapter);
+		stepPagerStrip.setOnPageSelectedListener(position -> {
+			position = Math.min(pagerAdapter.getCount() - 1, position);
+			if (pager.getCurrentItem() != position) {
+				pager.setCurrentItem(position);
+			}
+		});
+
+		pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+			@Override
+			public void onPageSelected(int position) {
+				stepPagerStrip.setCurrentPage(position);
+
+				if (consumePageSelectedEvent) {
+					consumePageSelectedEvent = false;
+					return;
+				}
+
+				editingAfterReview = false;
+				updateBottomBar();
+			}
+		});
+
+		onPageTreeChanged();
+		updateBottomBar();
+	}
+
+	private static final String TAG = "SMEDIC";
+	@Override
+	public void onPageTreeChanged() {
+		currentPageSequence = wizardModel.getCurrentPageSequence();
+
+		Log.d(TAG, "onPageTreeChanged: " + currentPageSequence.size());
+
+		recalculateCutOffPage();
+		stepPagerStrip.setPageCount(currentPageSequence.size() + 1); // + 1 =
+		// review
+		// step
+		pagerAdapter.notifyDataSetChanged();
+		updateBottomBar();
+	}
+
+	private void updateBottomBar() {
+		int position = pager.getCurrentItem();
+		if (position == currentPageSequence.size()) {
+			nextButton.setText(R.string.finish);
+			nextButton.setBackgroundColor(getResources().getColor(R.color.step_pager_selected_tab_color));
+			nextButton.setTextAppearance(this, R.style.TextAppearanceFinish);
+
+			Object o = pager.getAdapter().instantiateItem(pager, pager.getCurrentItem());
+			if (o instanceof ReviewFragment) {
+				List<ReviewItem> items = ((ReviewFragment) o).getReviewItems();
+				if (items != null) {
+					for (ReviewItem item : items) {
+						Log.d("SMEDIC", "Item: " + item.getTitle() + "\t" + item.getDisplayValue());
+					}
+				}
+			}
+		} else {
+			nextButton.setText(editingAfterReview ? R.string.summary : R.string.next);
+			nextButton.setBackgroundResource(R.drawable.selectable_item_background);
+			nextButton.setEnabled(position != pagerAdapter.getCutOffPage());
+		}
+
+		prevButton.setVisibility(position <= 0 ? View.INVISIBLE : View.VISIBLE);
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		wizardModel.unregisterListener(this);
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putBundle("model", wizardModel.save());
+	}
+
+	@Override
+	public AbstractWizardModel onGetModel() {
+		return wizardModel;
+	}
+
+	@Override
+	public void onEditScreenAfterReview(String key) {
+		for (int i = currentPageSequence.size() - 1; i >= 0; i--) {
+			if (currentPageSequence.get(i).getKey().equals(key)) {
+				consumePageSelectedEvent = true;
+				editingAfterReview = true;
+				pager.setCurrentItem(i);
+				updateBottomBar();
+				break;
 			}
 		}
 	}
 
-	@OnClick(R.id.previousButton)
-	void onPrevButtonClick() {
-		if (currentStep > 0) {
-			getSupportFragmentManager().popBackStack();
-			currentStep--;
-			setTitle();
-			setIndicator();
-
-			((Button) findViewById(R.id.nextButton)).setText("NEXT");
+	@Override
+	public void onPageDataChanged(Page page) {
+		if (page.isRequired()) {
+			if (recalculateCutOffPage()) {
+				pagerAdapter.notifyDataSetChanged();
+				updateBottomBar();
+			}
 		}
 	}
 
 	@Override
-	protected void onCreate(@Nullable Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_wizard);
-		ButterKnife.bind(this);
-
-		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-		getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.grey));
-
-		addFragment(new FragmentFirstStep());
-		setTitle();
-		setIndicator();
+	public Page onGetPage(String key) {
+		return wizardModel.findByKey(key);
 	}
 
-	private void setTitle() {
-		title.setText(analysisType[currentStep]);
+	private boolean recalculateCutOffPage() {
+		// Cut off the pager adapter at first required page that isn't completed
+		int cutOffPage = currentPageSequence.size() + 1;
+		for (int i = 0; i < currentPageSequence.size(); i++) {
+			Page page = currentPageSequence.get(i);
+			if (page.isRequired() && !page.isCompleted()) {
+				cutOffPage = i;
+				break;
+			}
+		}
+
+		if (pagerAdapter.getCutOffPage() != cutOffPage) {
+			pagerAdapter.setCutOffPage(cutOffPage);
+			return true;
+		}
+
+		return false;
 	}
 
-	private void setIndicator() {
-		scaleUp(findViewById(stepToViewId(currentStep)));
-	}
+	public class MyPagerAdapter extends FragmentStatePagerAdapter {
+		private int mCutOffPage;
+		private Fragment mPrimaryItem;
 
-	private int stepToViewId(int step) {
-		switch (step) {
-			case 0:
-				return R.id.step1;
-			case 1:
-				return R.id.step2;
-			case 2:
-				return R.id.step3;
-			case 3:
-				return R.id.step4;
-			default:
-				throw new IllegalArgumentException("Wrong step provided");
+		public MyPagerAdapter(FragmentManager fm) {
+			super(fm);
+		}
+
+		@Override
+		public Fragment getItem(int i) {
+			if (i >= currentPageSequence.size()) {
+				return new ReviewFragment();
+			}
+
+			return currentPageSequence.get(i).createFragment();
+		}
+
+		@Override
+		public int getItemPosition(Object object) {
+			// TODO: be smarter about this
+			if (object == mPrimaryItem) {
+				// Re-use the current fragment (its position never changes)
+				return POSITION_UNCHANGED;
+			}
+
+			return POSITION_NONE;
+		}
+
+		@Override
+		public void setPrimaryItem(ViewGroup container, int position,
+								   Object object) {
+			super.setPrimaryItem(container, position, object);
+			mPrimaryItem = (Fragment) object;
+		}
+
+		@Override
+		public int getCount() {
+			return Math.min(mCutOffPage + 1, currentPageSequence == null ? 1
+				: currentPageSequence.size() + 1);
+		}
+
+		public void setCutOffPage(int cutOffPage) {
+			if (cutOffPage < 0) {
+				cutOffPage = Integer.MAX_VALUE;
+			}
+			mCutOffPage = cutOffPage;
+		}
+
+		public int getCutOffPage() {
+			return mCutOffPage;
 		}
 	}
-
-	public void addFragment(Fragment fragment) {
-		FragmentManager fragmentManager = getSupportFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-		fragmentTransaction.add(R.id.fragmentContainer, fragment);
-		fragmentTransaction.commit();
-
-	}
-
-	public void replaceFragment(Fragment fragment) {
-		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-		transaction.setCustomAnimations(R.anim.slide_from_right, R.anim.slide_to_left,
-			R.anim.slide_from_left, R.anim.slide_to_right);
-		transaction.addToBackStack(null);
-		transaction.replace(R.id.fragmentContainer, fragment);
-		transaction.commit();
-	}
-
 }
