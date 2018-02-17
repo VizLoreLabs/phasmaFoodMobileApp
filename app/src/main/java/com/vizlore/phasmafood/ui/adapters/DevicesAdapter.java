@@ -58,7 +58,12 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHold
 	@Override
 	public void onBindViewHolder(ViewHolder holder, final int position) {
 		BluetoothDevice device = devices.get(position);
-		holder.name.setText(!device.getName().isEmpty() ? device.getName() : "no name");
+
+		if (device != null && device.getName() != null) {
+			holder.name.setText(!device.getName().isEmpty() ? device.getName() : "No name");
+		} else {
+			holder.name.setText("No name");
+		}
 
 		if (adapterListType == PAIRED_DEVICES) {
 			holder.status.setText("Status");

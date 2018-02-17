@@ -116,6 +116,7 @@ public class BluetoothViewModel extends ViewModel {
 			if (disposable != null) {
 				disposable.dispose();
 			}
+			Log.d(TAG, "connectToDevice: close previous connection");
 			connection.closeConnection();
 		}
 
@@ -129,13 +130,13 @@ public class BluetoothViewModel extends ViewModel {
 			try {
 				connection = new BluetoothConnection(btSocket);
 			} catch (Exception e) {
-				Log.d(TAG, "onCreate: socket error: " + e.getMessage());
+				Log.d(TAG, "connectToDevice socket error: " + e.getMessage());
 				e.printStackTrace();
 			}
 
 		} catch (IOException e2) {
 			//insert code to deal with this
-			Log.d(TAG, "Exception: " + e2.getMessage());
+			Log.d(TAG, "connectToDevice exception: " + e2.getMessage());
 			try {
 				btSocket.close();
 			} catch (IOException e) {
@@ -146,9 +147,9 @@ public class BluetoothViewModel extends ViewModel {
 		disposable = connection.observeString()
 			.observeOn(Schedulers.newThread())
 			.subscribeOn(Schedulers.computation())
-			.subscribe(t -> Log.d(TAG, "onCreate: READ: " + t), e -> {
+			.subscribe(t -> Log.d(TAG, "connectToDevice: READ: " + t), e -> {
 				e.printStackTrace();
-				Log.d(TAG, "onCreate: error: " + e.getMessage());
+				Log.d(TAG, "connectToDevice: error: " + e.getMessage());
 			});
 	}
 
@@ -250,7 +251,6 @@ public class BluetoothViewModel extends ViewModel {
 		if (bluetoothDevicesLiveData == null) {
 			bluetoothDevicesLiveData = new MutableLiveData<>();
 		}
-
 		List<BluetoothDevice> list = new ArrayList<>(rxBluetooth.getBondedDevices());
 		bluetoothDevicesLiveData.setValue(list);
 		return bluetoothDevicesLiveData;

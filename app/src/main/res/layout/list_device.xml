@@ -12,9 +12,9 @@
         android:ellipsize="marquee"
         android:text="RPi"
         android:textColor="@color/light_grey"
-        android:textSize="18sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/config"
-        app:layout_constraintEnd_toStartOf="@+id/config"
+        app:layout_constraintEnd_toStartOf="@+id/status"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@+id/config" />
 
