@@ -41,4 +41,12 @@ public class Utils {
 	public static String getHeader(@NonNull SharedPreferences prefs) {
 		return "JWT " + prefs.getString(TOKEN_KEY, "");
 	}
+
+	public static String removeMagicChar(String string) {
+		if (string.contains("!")) {
+			int magicCharPos = string.indexOf("!");
+			return string.substring(magicCharPos + 1);
+		}
+		return string;
+	}
 }

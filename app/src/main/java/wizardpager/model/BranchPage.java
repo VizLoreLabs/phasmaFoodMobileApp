@@ -29,6 +29,7 @@ import wizardpager.ui.SingleChoiceFragment;
  * next set of steps in the wizard may change.
  */
 public class BranchPage extends SingleFixedChoicePage {
+
 	private List<Branch> mBranches = new ArrayList<>();
 
 	public BranchPage(ModelCallbacks callbacks, String title) {
@@ -67,15 +68,6 @@ public class BranchPage extends SingleFixedChoicePage {
 		PageList childPageList = new PageList(childPages);
 		for (Page page : childPageList) {
 			page.setParentKey(choice);
-		}
-		mBranches.add(new Branch(choice, childPageList));
-		return this;
-	}
-
-	public BranchPage addBranch(String key, String choice, Page... childPages) {
-		PageList childPageList = new PageList(childPages);
-		for (Page page : childPageList) {
-			page.setParentKey(key);
 		}
 		mBranches.add(new Branch(choice, childPageList));
 		return this;

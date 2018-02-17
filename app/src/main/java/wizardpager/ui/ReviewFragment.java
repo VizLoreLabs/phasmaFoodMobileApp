@@ -167,11 +167,19 @@ public class ReviewFragment extends ListFragment implements ModelCallbacks {
 			View rootView = inflater.inflate(R.layout.list_item_review, container, false);
 
 			ReviewItem reviewItem = mCurrentReviewItems.get(position);
-			String value = reviewItem.getDisplayValue();
-			if (TextUtils.isEmpty(value)) {
+
+			//remove magic ID (format "number!Title")
+			final String title = removeMagicChar(reviewItem.getTitle());
+
+			final String value;
+			if (TextUtils.isEmpty(reviewItem.getDisplayValue())) {
 				value = "(None)";
+			} else {
+				//remove magic ID
+				value = removeMagicChar(reviewItem.getDisplayValue());
 			}
-			((TextView) rootView.findViewById(android.R.id.text1)).setText(reviewItem.getTitle());
+
+			((TextView) rootView.findViewById(android.R.id.text1)).setText(title);
 			((TextView) rootView.findViewById(android.R.id.text2)).setText(value);
 			return rootView;
 		}
@@ -180,5 +188,13 @@ public class ReviewFragment extends ListFragment implements ModelCallbacks {
 		public int getCount() {
 			return mCurrentReviewItems.size();
 		}
+	}
+
+	private String removeMagicChar(String string) {
+		if (string.contains("!")) {
+			int magicCharPos = string.indexOf("!");
+			return string.substring(magicCharPos + 1);
+		}
+		return string;
 	}
 }

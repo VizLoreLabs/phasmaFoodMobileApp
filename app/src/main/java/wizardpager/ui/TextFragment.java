@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.vizlore.phasmafood.R;
+import com.vizlore.phasmafood.utils.Utils;
 
 import wizardpager.model.Page;
 
@@ -50,7 +51,8 @@ public class TextFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_page_text, container, false);
-		((TextView) rootView.findViewById(android.R.id.title)).setText(mPage.getTitle());
+		final String title = Utils.removeMagicChar(mPage.getTitle());
+		((TextView) rootView.findViewById(android.R.id.title)).setText(title);
 
 		mEditTextInput = rootView.findViewById(R.id.editTextInput);
 		mEditTextInput.setText(mPage.getData().getString(Page.SIMPLE_DATA_KEY));

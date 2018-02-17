@@ -29,6 +29,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.vizlore.phasmafood.R;
+import com.vizlore.phasmafood.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -39,104 +40,102 @@ import wizardpager.model.MultipleFixedChoicePage;
 import wizardpager.model.Page;
 
 public class MultipleChoiceFragment extends ListFragment {
-    private static final String ARG_KEY = "key";
+	private static final String ARG_KEY = "key";
 
-    private PageFragmentCallbacks mCallbacks;
-    private String mKey;
-    private List<String> mChoices;
-    private Page mPage;
+	private PageFragmentCallbacks mCallbacks;
+	private String mKey;
+	private List<String> mChoices;
+	private Page mPage;
 
-    public static MultipleChoiceFragment create(String key) {
-        Bundle args = new Bundle();
-        args.putString(ARG_KEY, key);
+	public static MultipleChoiceFragment create(String key) {
+		Bundle args = new Bundle();
+		args.putString(ARG_KEY, key);
 
-        MultipleChoiceFragment fragment = new MultipleChoiceFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
+		MultipleChoiceFragment fragment = new MultipleChoiceFragment();
+		fragment.setArguments(args);
+		return fragment;
+	}
 
-    public MultipleChoiceFragment() {
-    }
+	public MultipleChoiceFragment() {
+	}
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-        Bundle args = getArguments();
-        mKey = args.getString(ARG_KEY);
-        mPage = mCallbacks.onGetPage(mKey);
+		Bundle args = getArguments();
+		mKey = args.getString(ARG_KEY);
+		mPage = mCallbacks.onGetPage(mKey);
 
-        MultipleFixedChoicePage fixedChoicePage = (MultipleFixedChoicePage) mPage;
-        mChoices = new ArrayList<String>();
-        for (int i = 0; i < fixedChoicePage.getOptionCount(); i++) {
-            mChoices.add(fixedChoicePage.getOptionAt(i));
-        }
-    }
+		MultipleFixedChoicePage fixedChoicePage = (MultipleFixedChoicePage) mPage;
+		mChoices = new ArrayList<>();
+		for (int i = 0; i < fixedChoicePage.getOptionCount(); i++) {
+			mChoices.add(fixedChoicePage.getOptionAt(i));
+		}
+	}
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_page, container, false);
-        ((TextView) rootView.findViewById(android.R.id.title)).setText(mPage.getTitle());
+		View rootView = inflater.inflate(R.layout.fragment_page, container, false);
+		final String title = Utils.removeMagicChar(mPage.getTitle());
+		((TextView) rootView.findViewById(android.R.id.title)).setText(title);
 
-        final ListView listView = (ListView) rootView.findViewById(android.R.id.list);
-        setListAdapter(new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_multiple_choice,
-                android.R.id.text1,
-                mChoices));
-        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+		final ListView listView = rootView.findViewById(android.R.id.list);
+		setListAdapter(new ArrayAdapter<>(getActivity(),
+			android.R.layout.simple_list_item_multiple_choice,
+			android.R.id.text1,
+			mChoices));
+		listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
-        // Pre-select currently selected items.
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                ArrayList<String> selectedItems = mPage.getData().getStringArrayList(
-                        Page.SIMPLE_DATA_KEY);
-                if (selectedItems == null || selectedItems.size() == 0) {
-                    return;
-                }
+		// Pre-select currently selected items.
+		new Handler().post(() -> {
+			ArrayList<String> selectedItems = mPage.getData().getStringArrayList(
+				Page.SIMPLE_DATA_KEY);
+			if (selectedItems == null || selectedItems.size() == 0) {
+				return;
+			}
 
-                Set<String> selectedSet = new HashSet<String>(selectedItems);
+			Set<String> selectedSet = new HashSet<>(selectedItems);
 
-                for (int i = 0; i < mChoices.size(); i++) {
-                    if (selectedSet.contains(mChoices.get(i))) {
-                        listView.setItemChecked(i, true);
-                    }
-                }
-            }
-        });
+			for (int i = 0; i < mChoices.size(); i++) {
+				if (selectedSet.contains(mChoices.get(i))) {
+					listView.setItemChecked(i, true);
+				}
+			}
+		});
 
-        return rootView;
-    }
+		return rootView;
+	}
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
 
-        if (!(activity instanceof PageFragmentCallbacks)) {
-            throw new ClassCastException("Activity must implement PageFragmentCallbacks");
-        }
+		if (!(activity instanceof PageFragmentCallbacks)) {
+			throw new ClassCastException("Activity must implement PageFragmentCallbacks");
+		}
 
-        mCallbacks = (PageFragmentCallbacks) activity;
-    }
+		mCallbacks = (PageFragmentCallbacks) activity;
+	}
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mCallbacks = null;
-    }
+	@Override
+	public void onDetach() {
+		super.onDetach();
+		mCallbacks = null;
+	}
 
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        SparseBooleanArray checkedPositions = getListView().getCheckedItemPositions();
-        ArrayList<String> selections = new ArrayList<String>();
-        for (int i = 0; i < checkedPositions.size(); i++) {
-            if (checkedPositions.valueAt(i)) {
-                selections.add(getListAdapter().getItem(checkedPositions.keyAt(i)).toString());
-            }
-        }
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		SparseBooleanArray checkedPositions = getListView().getCheckedItemPositions();
+		ArrayList<String> selections = new ArrayList<String>();
+		for (int i = 0; i < checkedPositions.size(); i++) {
+			if (checkedPositions.valueAt(i)) {
+				selections.add(getListAdapter().getItem(checkedPositions.keyAt(i)).toString());
+			}
+		}
 
-        mPage.getData().putStringArrayList(Page.SIMPLE_DATA_KEY, selections);
-        mPage.notifyDataChanged();
-    }
+		mPage.getData().putStringArrayList(Page.SIMPLE_DATA_KEY, selections);
+		mPage.notifyDataChanged();
+	}
 }

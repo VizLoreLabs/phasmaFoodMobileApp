@@ -6,7 +6,6 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="myRadioButtonStyle">@style/PFRadioButton</item>
     </style>
 
     <style name="ComponentShadow">
@@ -26,14 +25,6 @@
 
     <style name="PFTextView" parent="ComponentShadow">
         <item name="android:textColor">@color/light_grey</item>
-        <item name="android:textSize">18sp</item>
-    </style>
-
-    <style name="PFRadioButton" parent="ComponentShadow">
-        <item name="android:background">@drawable/button_white_border_selector</item>
-        <item name="android:button">@null</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textColor">@drawable/radio_button_text_selector</item>
         <item name="android:textSize">18sp</item>
     </style>
 

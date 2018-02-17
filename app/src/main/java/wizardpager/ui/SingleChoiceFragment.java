@@ -28,6 +28,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.vizlore.phasmafood.R;
+import com.vizlore.phasmafood.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,9 +73,9 @@ public class SingleChoiceFragment extends ListFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
 		View rootView = inflater.inflate(R.layout.fragment_page, container, false);
-		((TextView) rootView.findViewById(android.R.id.title)).setText(mPage.getTitle());
+		final String title = Utils.removeMagicChar(mPage.getTitle());
+		((TextView) rootView.findViewById(android.R.id.title)).setText(title);
 
 		final ListView listView = rootView.findViewById(android.R.id.list);
 		setListAdapter(new ArrayAdapter<>(getActivity(),

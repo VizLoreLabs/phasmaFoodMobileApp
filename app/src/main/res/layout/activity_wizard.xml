@@ -25,71 +25,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
-        android:gravity="center"
-        android:shadowColor="@color/text_shadow"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="2"
-        android:text="Make a selection"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
-
-    <ImageView
-        android:id="@+id/step1"
-        android:layout_width="@dimen/indicatorSize"
-        android:layout_height="@dimen/indicatorSize"
-        android:layout_marginBottom="@dimen/indicatorMarginBottom"
-        android:layout_marginEnd="@dimen/indicatorSpacing"
-        android:src="@drawable/ic_step_1"
-        app:layout_constraintBottom_toTopOf="@+id/divider1"
-        app:layout_constraintEnd_toStartOf="@+id/step2"
-        app:layout_constraintHorizontal_weight="1" />
-
-    <ImageView
-        android:id="@+id/step2"
-        android:layout_width="@dimen/indicatorSize"
-        android:layout_height="@dimen/indicatorSize"
-        android:layout_marginBottom="@dimen/indicatorMarginBottom"
-        android:layout_marginEnd="@dimen/indicatorSpacing"
-        android:src="@drawable/ic_step_2"
-        app:layout_constraintBottom_toTopOf="@+id/divider1"
-        app:layout_constraintEnd_toStartOf="@+id/step3"
-        app:layout_constraintHorizontal_weight="1" />
-
-    <ImageView
-        android:id="@+id/step3"
-        android:layout_width="@dimen/indicatorSize"
-        android:layout_height="@dimen/indicatorSize"
-        android:layout_marginBottom="@dimen/indicatorMarginBottom"
-        android:layout_marginStart="30dp"
-        android:src="@drawable/ic_step_3"
-        app:layout_constraintBottom_toTopOf="@+id/divider1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/step4"
-        android:layout_width="@dimen/indicatorSize"
-        android:layout_height="@dimen/indicatorSize"
-        android:layout_marginBottom="@dimen/indicatorMarginBottom"
-        android:layout_marginStart="@dimen/indicatorSpacing"
-        android:src="@drawable/ic_step_4"
-        app:layout_constraintBottom_toTopOf="@+id/divider1"
-        app:layout_constraintStart_toEndOf="@+id/step3" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"
@@ -105,16 +40,27 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.11" />
 
-    <FrameLayout
-        android:id="@+id/fragmentContainer"
+    <wizardpager.ui.StepPagerStrip
+        android:id="@+id/strip"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:gravity="center_horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/divider1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
         android:layout_marginTop="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/step3"
+        app:layout_constraintBottom_toTopOf="@+id/strip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <ImageView
         android:id="@+id/divider1"
@@ -129,7 +75,7 @@
         android:id="@+id/nextButton"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:background="@android:color/transparent"
+        android:background="@drawable/selectable_item_background"
         android:shadowColor="@color/text_shadow"
         android:shadowDx="1"
         android:shadowDy="1"
@@ -144,7 +90,7 @@
         android:id="@+id/previousButton"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:background="@android:color/transparent"
+        android:background="@drawable/selectable_item_background"
         android:shadowColor="@color/text_shadow"
         android:shadowDx="1"
         android:shadowDy="1"
