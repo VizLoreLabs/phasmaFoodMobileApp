@@ -4,8 +4,8 @@ import android.app.Service;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.vizlore.phasmafood.MyApplication;
@@ -26,6 +26,8 @@ import io.reactivex.schedulers.Schedulers;
 public class BluetoothService extends Service {
 
 	private static final String TAG = "SMEDIC BS";
+
+	private final IBinder mBinder = new LocalBinder();
 
 	@Inject
 	RxBluetooth rxBluetooth;
@@ -52,48 +54,18 @@ public class BluetoothService extends Service {
 			Log.d(TAG, "Bluetooth should be enabled first!");
 			stopSelf();
 		}
+
 	}
+
+	private boolean started = false;
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-
-		if (intent != null && intent.getExtras() != null) {
-
-			final String data = intent.getStringExtra("DATA");
-			Log.d(TAG, "onStartCommand: DATA TO SEND: " + data);
-
-			// TODO: 2/17/18 check if device is there (shared prefs and getBondedDevices match)
-			if (rxBluetooth.getBondedDevices().size() > 0) {
-				// get first device - FIXME: 2/17/18 add selected
-				BluetoothDevice device = rxBluetooth.getBondedDevices().get(0);
-				try {
-					connectToDevice(device.getAddress());
-					sendData(data);
-
-					if (!disposable.isDisposed()) {
-						disposable = connection.observeString()
-							.observeOn(Schedulers.newThread())
-							.subscribeOn(Schedulers.computation())
-							.subscribe(t -> Log.d(TAG, "connectToDevice: READ: " + t), e -> {
-								e.printStackTrace();
-								Log.d(TAG, "connectToDevice: error: " + e.getMessage());
-							});
-					}
-
-				} catch (ConnectionErrorException e) {
-					e.printStackTrace();
-					try {
-						btSocket.close();
-					} catch (IOException e2) {
-						e2.printStackTrace();
-					}
-				}
-			}
-		}
-
-		return START_STICKY;
+		Log.d(TAG, "onStartCommand: ");
+		// TODO: 2/17/18 check if device is there (shared prefs and getBondedDevices match)
+		connect();
+		return START_NOT_STICKY;
 	}
-
 
 	@Override
 	public void onDestroy() {
@@ -103,10 +75,71 @@ public class BluetoothService extends Service {
 		Log.d(TAG, "BluetoothService stopped!");
 	}
 
-	@Nullable
 	@Override
 	public IBinder onBind(Intent intent) {
-		return null;
+		return mBinder;
+	}
+
+	//returns the instance of the service
+	public class LocalBinder extends Binder {
+		public BluetoothService getServiceInstance() {
+			return BluetoothService.this;
+		}
+	}
+
+	public void connect() {
+		rxBluetooth.cancelDiscovery();
+
+		if (rxBluetooth.getBondedDevices().size() > 0) {
+			// get first device - FIXME: 2/17/18 add selected
+			BluetoothDevice device = rxBluetooth.getBondedDevices().get(0);
+			Log.d(TAG, "connect: device: " + device);
+			try {
+				connectToDevice(device.getAddress());
+
+				if (!disposable.isDisposed()) {
+					disposable = connection.observeString()
+						.observeOn(Schedulers.newThread())
+						.subscribeOn(Schedulers.computation())
+						.subscribe(t -> Log.d(TAG, "connectToDevice: READ: " + t), e -> {
+							e.printStackTrace();
+							Log.d(TAG, "connectToDevice: error: " + e.getMessage());
+						});
+					/*connection.observeStringStream()
+						.observeOn(Schedulers.newThread())
+						.subscribeOn(Schedulers.computation())
+						.subscribe(new FlowableSubscriber<String>() {
+							@Override
+							public void onSubscribe(Subscription s) {
+								Log.d(TAG, "onSubscribe: ");
+							}
+
+							@Override
+							public void onNext(String aByte) {
+								Log.d(TAG, "onNext: " + aByte);
+							}
+
+							@Override
+							public void onError(Throwable t) {
+								Log.d(TAG, "onError: " + t.toString());
+							}
+
+							@Override
+							public void onComplete() {
+								Log.d(TAG, "onComplete: ");
+							}
+						});*/
+				}
+			} catch (ConnectionErrorException e) {
+				Log.d(TAG, "ConnectionErrorException: " + e.getMessage());
+				e.printStackTrace();
+				try {
+					btSocket.close();
+				} catch (IOException e2) {
+					e2.printStackTrace();
+				}
+			}
+		}
 	}
 
 	public void connectToDevice(final String deviceAddress) throws ConnectionErrorException {
@@ -127,28 +160,37 @@ public class BluetoothService extends Service {
 
 		try {
 			btSocket = device.createInsecureRfcommSocketToServiceRecord(device.getUuids()[0].getUuid());
-			btSocket.connect();
-			try {
-				connection = new BluetoothConnection(btSocket);
-			} catch (Exception e) {
-				Log.d(TAG, "connectToDevice socket error: " + e.getMessage());
-				e.printStackTrace();
-				throw new ConnectionErrorException(e.getMessage());
-			}
-
 		} catch (IOException e2) {
-			//insert code to deal with this
-			Log.d(TAG, "connectToDevice exception: " + e2.getMessage());
 			throw new ConnectionErrorException(e2.getMessage());
+		}
+
+		try {
+			btSocket.connect();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new ConnectionErrorException(e.getMessage());
+		}
+		try {
+			connection = new BluetoothConnection(btSocket);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ConnectionErrorException(e.getMessage());
 		}
 	}
 
 	public void sendData(String data) {
-		Log.d(TAG, "onCreate: SEND DATA");
-		Log.d(TAG, "onCreate: bt socket: " + btSocket);
-		Log.d(TAG, "onCreate: connection: " + connection);
+		Log.d(TAG, "sendData: " + data);
 		if (connection != null) {
 			connection.send(data);
+		}
+	}
+
+	public void closeConnection() {
+		if (connection != null) {
+			if (disposable != null) {
+				disposable.dispose();
+			}
+			connection.closeConnection();
 		}
 	}
 }

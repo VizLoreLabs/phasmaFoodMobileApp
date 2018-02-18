@@ -70,8 +70,9 @@ public class BluetoothConnection {
 		if (observeInputStream == null) {
 			observeInputStream = Flowable.create((FlowableOnSubscribe<Byte>) subscriber -> {
 				while (!subscriber.isCancelled()) {
+					byte[] buffer = new byte[512];
 					try {
-						subscriber.onNext((byte) inputStream.read());
+						subscriber.onNext((byte) inputStream.read(buffer));
 					} catch (IOException e) {
 						connected = false;
 						subscriber.onError(new ConnectionClosedException("Can't read stream"));
@@ -92,7 +93,7 @@ public class BluetoothConnection {
 		return Observable.create(emitter -> {
 
 			// Keep looping to listen for received messages
-			while (true) {
+			while (!emitter.isDisposed()) {
 				byte[] buffer = new byte[512];
 				int bytes;
 				if (inputStream != null) {
@@ -195,9 +196,8 @@ public class BluetoothConnection {
 	 * @param bytes data to send
 	 * @return true if success, false if there was error occurred or disconnected
 	 */
-	public boolean send(byte[] bytes) {
+	private boolean send(byte[] bytes) {
 		if (!connected) return false;
-		Log.d(TAG, "send: output stream: " + outputStream);
 		try {
 			outputStream.write(bytes);
 			outputStream.flush();

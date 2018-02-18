@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.vizlore.phasmafood.R;
+import com.vizlore.phasmafood.bluetooth.exceptions.ConnectionErrorException;
 import com.vizlore.phasmafood.utils.Utils;
 import com.vizlore.phasmafood.viewmodel.BluetoothViewModel;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
@@ -93,8 +94,12 @@ public class MainActivity extends AppCompatActivity {
 
 		// connect to device
 		bondedListView.setOnItemClickListener((adapterView, view, i, l) -> {
-			//bluetoothViewModel.connectToDevice(bondedList.get(i));
-
+			try {
+				bluetoothViewModel.connectToDevice(bondedList.get(i));
+			} catch (ConnectionErrorException e) {
+				Log.d(TAG, "onCreate: error: " + e.getMessage());
+				e.printStackTrace();
+			}
 		});
 
 		// start discovery
@@ -103,11 +108,11 @@ public class MainActivity extends AppCompatActivity {
 			devices.clear();
 			//setAdapter(devices);
 			if (ContextCompat.checkSelfPermission(MainActivity.this,
-					android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+				android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 				Log.d(TAG, "onClick: request permissions");
 				ActivityCompat.requestPermissions(MainActivity.this,
-						new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
-						REQUEST_PERMISSION_COARSE_LOCATION);
+					new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
+					REQUEST_PERMISSION_COARSE_LOCATION);
 			} else {
 				Log.d(TAG, "onClick: start discovery");
 				bluetoothViewModel.startDiscovery();
@@ -120,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 		});
 
 		perform.setOnClickListener(view -> {
-			//bluetoothViewModel.sendData("Example data to be sent!");
+			bluetoothViewModel.sendData("Example data to be sent!");
 		});
 
 		bluetoothViewModel.getFoundDevices().observe(this, bluetoothDevice -> {

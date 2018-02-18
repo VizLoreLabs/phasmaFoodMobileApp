@@ -5,14 +5,18 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.util.Log;
 
 import com.vizlore.phasmafood.MyApplication;
+import com.vizlore.phasmafood.bluetooth.BluetoothConnection;
 import com.vizlore.phasmafood.bluetooth.BtPredicate;
 import com.vizlore.phasmafood.bluetooth.RxBluetooth;
 import com.vizlore.phasmafood.bluetooth.events.BondStateEvent;
 import com.vizlore.phasmafood.bluetooth.events.ConnectionStateEvent;
+import com.vizlore.phasmafood.bluetooth.exceptions.ConnectionErrorException;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -43,6 +47,9 @@ public class BluetoothViewModel extends ViewModel {
 
 	private CompositeDisposable compositeDisposable = new CompositeDisposable();
 	private Disposable disposable = new CompositeDisposable();
+
+	private BluetoothSocket btSocket = null;
+	private BluetoothConnection connection = null;
 
 	public BluetoothViewModel() {
 		MyApplication.getComponent().inject(this);
@@ -208,5 +215,57 @@ public class BluetoothViewModel extends ViewModel {
 		disposable.dispose();
 		compositeDisposable.dispose();
 		super.onCleared();
+	}
+
+	public void connectToDevice(final String deviceAddress) throws ConnectionErrorException {
+
+		if (connection != null) {
+			if (disposable != null) {
+				disposable.dispose();
+			}
+			Log.d(TAG, "connectToDevice: close previous connection");
+			connection.closeConnection();
+		}
+
+		if (rxBluetooth.isDiscovering()) {
+			rxBluetooth.cancelDiscovery();
+		}
+
+		BluetoothDevice device = rxBluetooth.getRemoteDevice(deviceAddress);
+
+		try {
+			Log.d(TAG, "connectToDevice: uuid 0: " + device.getUuids()[0].getUuid());
+			btSocket = device.createInsecureRfcommSocketToServiceRecord(device.getUuids()[0].getUuid());
+		} catch (IOException e2) {
+			//insert code to deal with this
+			Log.d(TAG, "connectToDevice exception: " + e2.getMessage());
+			throw new ConnectionErrorException(e2.getMessage());
+		}
+
+		Log.d(TAG, "connectToDevice: btSocket: " + btSocket.isConnected());
+
+		try {
+			btSocket.connect();
+		} catch (IOException e) {
+			Log.d(TAG, "connectToDevice: errorr here: " + e.getMessage());
+			e.printStackTrace();
+			throw new ConnectionErrorException(e.getMessage());
+		}
+		try {
+			connection = new BluetoothConnection(btSocket);
+		} catch (Exception e) {
+			Log.d(TAG, "connectToDevice socket error: " + e.getMessage());
+			e.printStackTrace();
+			throw new ConnectionErrorException(e.getMessage());
+		}
+	}
+
+	public void sendData(String data) {
+		Log.d(TAG, "onCreate: SEND DATA");
+		Log.d(TAG, "onCreate: bt socket: " + btSocket);
+		Log.d(TAG, "onCreate: connection: " + connection);
+		if (connection != null) {
+			connection.send(data);
+		}
 	}
 }

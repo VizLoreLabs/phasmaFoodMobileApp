@@ -78,6 +78,7 @@ public class AddNewDeviceFragment extends ProfileBaseFragment {
 		devicesAdapter.getClickEventObservable().observe(this, actionPair -> {
 			if (actionPair.second == DevicesAdapter.AdapterAction.ACTION_PAIR) {
 				BluetoothDevice device = devicesList.get(actionPair.first);
+				Log.d(TAG, "onViewCreated: bond to: " + device.getAddress());
 				bluetoothViewModel.createBond(device.getAddress());
 			} else if (actionPair.second == DevicesAdapter.AdapterAction.ACTION_CONFIG) {
 				// TODO: 1/28/18
@@ -104,10 +105,10 @@ public class AddNewDeviceFragment extends ProfileBaseFragment {
 		});
 
 		bluetoothViewModel.getFoundDevices().observe(this, bluetoothDevice -> {
-			if (!devicesList.contains(bluetoothDevice)) {
+			//if (!devicesList.contains(bluetoothDevice)) {
 				devicesList.add(bluetoothDevice);
 				devicesAdapter.notifyDataSetChanged();
-			}
+			//}
 		});
 
 		bluetoothViewModel.getBondState().observe(this, bondStateEvent -> {
