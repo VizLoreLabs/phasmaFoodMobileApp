@@ -5,18 +5,14 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.util.Log;
 
 import com.vizlore.phasmafood.MyApplication;
-import com.vizlore.phasmafood.bluetooth.BluetoothConnection;
 import com.vizlore.phasmafood.bluetooth.BtPredicate;
 import com.vizlore.phasmafood.bluetooth.RxBluetooth;
 import com.vizlore.phasmafood.bluetooth.events.BondStateEvent;
 import com.vizlore.phasmafood.bluetooth.events.ConnectionStateEvent;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -47,8 +43,6 @@ public class BluetoothViewModel extends ViewModel {
 
 	private CompositeDisposable compositeDisposable = new CompositeDisposable();
 	private Disposable disposable = new CompositeDisposable();
-	private BluetoothSocket btSocket = null;
-	private BluetoothConnection connection = null;
 
 	public BluetoothViewModel() {
 		MyApplication.getComponent().inject(this);
@@ -94,63 +88,11 @@ public class BluetoothViewModel extends ViewModel {
 		return rxBluetooth.isDiscovering();
 	}
 
-	public void sendData(String data) {
-		Log.d(TAG, "onCreate: SEND DATA");
-		Log.d(TAG, "onCreate: bt socket: " + btSocket);
-		Log.d(TAG, "onCreate: connection: " + connection);
-		if (connection != null) {
-			connection.send(data);
-		}
-	}
-
 	public void createBond(final String deviceAddress) {
 		BluetoothDevice device = rxBluetooth.getRemoteDevice(deviceAddress);
 		if (device != null) {
 			device.createBond();
 		}
-	}
-
-	public void connectToDevice(final String deviceAddress) {
-
-		if (connection != null) {
-			if (disposable != null) {
-				disposable.dispose();
-			}
-			Log.d(TAG, "connectToDevice: close previous connection");
-			connection.closeConnection();
-		}
-
-		rxBluetooth.cancelDiscovery();
-
-		BluetoothDevice device = rxBluetooth.getRemoteDevice(deviceAddress);
-
-		try {
-			btSocket = device.createInsecureRfcommSocketToServiceRecord(device.getUuids()[0].getUuid());
-			btSocket.connect();
-			try {
-				connection = new BluetoothConnection(btSocket);
-			} catch (Exception e) {
-				Log.d(TAG, "connectToDevice socket error: " + e.getMessage());
-				e.printStackTrace();
-			}
-
-		} catch (IOException e2) {
-			//insert code to deal with this
-			Log.d(TAG, "connectToDevice exception: " + e2.getMessage());
-			try {
-				btSocket.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		disposable = connection.observeString()
-			.observeOn(Schedulers.newThread())
-			.subscribeOn(Schedulers.computation())
-			.subscribe(t -> Log.d(TAG, "connectToDevice: READ: " + t), e -> {
-				e.printStackTrace();
-				Log.d(TAG, "connectToDevice: error: " + e.getMessage());
-			});
 	}
 
 	public LiveData<BluetoothDevice> getFoundDevices() {
@@ -251,8 +193,7 @@ public class BluetoothViewModel extends ViewModel {
 		if (bluetoothDevicesLiveData == null) {
 			bluetoothDevicesLiveData = new MutableLiveData<>();
 		}
-		List<BluetoothDevice> list = new ArrayList<>(rxBluetooth.getBondedDevices());
-		bluetoothDevicesLiveData.setValue(list);
+		bluetoothDevicesLiveData.setValue(rxBluetooth.getBondedDevices());
 		return bluetoothDevicesLiveData;
 	}
 

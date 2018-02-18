@@ -19,7 +19,8 @@ import com.vizlore.phasmafood.bluetooth.events.ServiceEvent;
 import com.vizlore.phasmafood.bluetooth.exceptions.GetProfileProxyException;
 
 import java.io.IOException;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import io.reactivex.Observable;
@@ -111,8 +112,8 @@ public class RxBluetooth {
 	 *
 	 * @return unmodifiable set of {@link BluetoothDevice}, or null on error
 	 */
-	public Set<BluetoothDevice> getBondedDevices() {
-		return bluetoothAdapter.getBondedDevices();
+	public List<BluetoothDevice> getBondedDevices() {
+		return new ArrayList<>(bluetoothAdapter.getBondedDevices());
 	}
 
 	/**
@@ -400,7 +401,7 @@ public class RxBluetooth {
 				public void onReceive(Context context, Intent intent) {
 					int state = intent.getIntExtra(BluetoothDevice.EXTRA_BOND_STATE, BluetoothDevice.BOND_NONE);
 					int previousState = intent.getIntExtra(BluetoothDevice.EXTRA_PREVIOUS_BOND_STATE,
-							BluetoothDevice.BOND_NONE);
+						BluetoothDevice.BOND_NONE);
 					BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 
 					emitter.onNext(new BondStateEvent(state, previousState, device));
@@ -432,7 +433,7 @@ public class RxBluetooth {
 		return Observable.defer(() -> Observable.create((ObservableOnSubscribe<BluetoothSocket>) emitter -> {
 			try {
 				BluetoothServerSocket bluetoothServerSocket =
-						bluetoothAdapter.listenUsingRfcommWithServiceRecord(name, uuid);
+					bluetoothAdapter.listenUsingRfcommWithServiceRecord(name, uuid);
 				emitter.onNext(bluetoothServerSocket.accept());
 				bluetoothServerSocket.close();
 			} catch (IOException e) {

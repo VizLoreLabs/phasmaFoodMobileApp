@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
 		// connect to device
 		bondedListView.setOnItemClickListener((adapterView, view, i, l) -> {
-			bluetoothViewModel.connectToDevice(bondedList.get(i));
+			//bluetoothViewModel.connectToDevice(bondedList.get(i));
 
 		});
 
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 		});
 
 		perform.setOnClickListener(view -> {
-			bluetoothViewModel.sendData("Example data to be sent!");
+			//bluetoothViewModel.sendData("Example data to be sent!");
 		});
 
 		bluetoothViewModel.getFoundDevices().observe(this, bluetoothDevice -> {

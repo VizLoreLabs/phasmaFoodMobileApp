@@ -1,5 +1,6 @@
 package com.vizlore.phasmafood.dagger;
 
+import com.vizlore.phasmafood.bluetooth.BluetoothService;
 import com.vizlore.phasmafood.dagger.modules.AppModule;
 import com.vizlore.phasmafood.dagger.modules.BluetoothModule;
 import com.vizlore.phasmafood.dagger.modules.ExaminationModule;
@@ -37,4 +38,6 @@ public interface AppComponent {
 	void inject(MyFirebaseInstanceIDService myFirebaseInstanceIDService);
 
 	void inject(ExaminationViewModel examinationViewModel);
+
+	void inject(BluetoothService bluetoothService);
 }

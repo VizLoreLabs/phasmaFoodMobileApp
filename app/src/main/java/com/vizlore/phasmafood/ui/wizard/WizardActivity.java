@@ -1,6 +1,7 @@
 package com.vizlore.phasmafood.ui.wizard;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -12,7 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.google.gson.JsonObject;
 import com.vizlore.phasmafood.R;
+import com.vizlore.phasmafood.bluetooth.BluetoothService;
+import com.vizlore.phasmafood.utils.Utils;
 
 import java.util.List;
 
@@ -27,8 +31,8 @@ import wizardpager.ui.PageFragmentCallbacks;
 import wizardpager.ui.ReviewFragment;
 import wizardpager.ui.StepPagerStrip;
 
-public class WizardActivity extends FragmentActivity implements
-	PageFragmentCallbacks, ReviewFragment.Callbacks, ModelCallbacks {
+public class WizardActivity extends FragmentActivity implements PageFragmentCallbacks,
+	ReviewFragment.Callbacks, ModelCallbacks {
 
 	private MyPagerAdapter pagerAdapter;
 	private boolean editingAfterReview;
@@ -57,9 +61,12 @@ public class WizardActivity extends FragmentActivity implements
 			case R.id.nextButton:
 				if (pager.getCurrentItem() == currentPageSequence.size()) {
 					AlertDialog alertDialog = new AlertDialog.Builder(WizardActivity.this).create();
-					alertDialog.setTitle("Alert");
-					alertDialog.setMessage(getString(R.string.submit_confirm_message));
-					alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.submit_confirm_button), (dialog, which) -> dialog.dismiss());
+					alertDialog.setMessage(getString(R.string.sendDataMessage));
+					alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(android.R.string.yes), (dialog, which) -> {
+						sendToBluetoothDevice();
+						dialog.dismiss();
+					});
+					alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(android.R.string.no), (dialog, which) -> dialog.dismiss());
 					alertDialog.show();
 				} else {
 					if (editingAfterReview) {
@@ -72,6 +79,36 @@ public class WizardActivity extends FragmentActivity implements
 			case R.id.previousButton:
 				pager.setCurrentItem(pager.getCurrentItem() - 1);
 				break;
+		}
+	}
+
+	/**
+	 * Connect to bluetooth device and send data
+	 */
+	private void sendToBluetoothDevice() {
+		if (pager.getAdapter() != null) {
+
+			Object o = pager.getAdapter().instantiateItem(pager, pager.getCurrentItem());
+			if (o instanceof ReviewFragment) {
+
+				List<ReviewItem> items = ((ReviewFragment) o).getReviewItems();
+				if (items != null) {
+					JsonObject jsonObject = new JsonObject();
+					for (ReviewItem item : items) {
+						Log.d("SMEDIC", "Item: " + item.getTitle() + "\t" + item.getDisplayValue());
+						String title = Utils.removeMagicChar(item.getTitle());
+						String value = Utils.removeMagicChar(item.getDisplayValue());
+						jsonObject.addProperty(title, value);
+					}
+					Intent intent = new Intent(this, BluetoothService.class);
+					Bundle bundle = new Bundle();
+					bundle.putString("DATA", jsonObject.toString());
+					intent.putExtras(bundle);
+					startService(intent);
+				}
+			}
+		} else {
+			throw new IllegalStateException("Pager adapter null");
 		}
 	}
 
@@ -115,13 +152,9 @@ public class WizardActivity extends FragmentActivity implements
 		updateBottomBar();
 	}
 
-	private static final String TAG = "SMEDIC";
 	@Override
 	public void onPageTreeChanged() {
 		currentPageSequence = wizardModel.getCurrentPageSequence();
-
-		Log.d(TAG, "onPageTreeChanged: " + currentPageSequence.size());
-
 		recalculateCutOffPage();
 		stepPagerStrip.setPageCount(currentPageSequence.size() + 1); // + 1 =
 		// review
@@ -136,16 +169,6 @@ public class WizardActivity extends FragmentActivity implements
 			nextButton.setText(R.string.finish);
 			nextButton.setBackgroundColor(getResources().getColor(R.color.step_pager_selected_tab_color));
 			nextButton.setTextAppearance(this, R.style.TextAppearanceFinish);
-
-			Object o = pager.getAdapter().instantiateItem(pager, pager.getCurrentItem());
-			if (o instanceof ReviewFragment) {
-				List<ReviewItem> items = ((ReviewFragment) o).getReviewItems();
-				if (items != null) {
-					for (ReviewItem item : items) {
-						Log.d("SMEDIC", "Item: " + item.getTitle() + "\t" + item.getDisplayValue());
-					}
-				}
-			}
 		} else {
 			nextButton.setText(editingAfterReview ? R.string.summary : R.string.next);
 			nextButton.setBackgroundResource(R.drawable.selectable_item_background);
