@@ -15,6 +15,7 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -54,14 +55,10 @@ public class BluetoothService extends Service {
 			Log.d(TAG, "Bluetooth should be enabled first!");
 			stopSelf();
 		}
-
 	}
-
-	private boolean started = false;
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		Log.d(TAG, "onStartCommand: ");
 		// TODO: 2/17/18 check if device is there (shared prefs and getBondedDevices match)
 		connect();
 		return START_NOT_STICKY;
@@ -96,40 +93,7 @@ public class BluetoothService extends Service {
 			Log.d(TAG, "connect: device: " + device);
 			try {
 				connectToDevice(device.getAddress());
-
-				if (!disposable.isDisposed()) {
-					disposable = connection.observeString()
-						.observeOn(Schedulers.newThread())
-						.subscribeOn(Schedulers.computation())
-						.subscribe(t -> Log.d(TAG, "connectToDevice: READ: " + t), e -> {
-							e.printStackTrace();
-							Log.d(TAG, "connectToDevice: error: " + e.getMessage());
-						});
-					/*connection.observeStringStream()
-						.observeOn(Schedulers.newThread())
-						.subscribeOn(Schedulers.computation())
-						.subscribe(new FlowableSubscriber<String>() {
-							@Override
-							public void onSubscribe(Subscription s) {
-								Log.d(TAG, "onSubscribe: ");
-							}
-
-							@Override
-							public void onNext(String aByte) {
-								Log.d(TAG, "onNext: " + aByte);
-							}
-
-							@Override
-							public void onError(Throwable t) {
-								Log.d(TAG, "onError: " + t.toString());
-							}
-
-							@Override
-							public void onComplete() {
-								Log.d(TAG, "onComplete: ");
-							}
-						});*/
-				}
+				listenInputStream();
 			} catch (ConnectionErrorException e) {
 				Log.d(TAG, "ConnectionErrorException: " + e.getMessage());
 				e.printStackTrace();
@@ -183,6 +147,33 @@ public class BluetoothService extends Service {
 		if (connection != null) {
 			connection.send(data);
 		}
+	}
+
+	private void listenInputStream() {
+		connection.observeStringDataObservable()
+			.observeOn(Schedulers.newThread())
+			.subscribeOn(Schedulers.computation())
+			.subscribe(new Observer<String>() {
+				@Override
+				public void onSubscribe(Disposable d) {
+
+				}
+
+				@Override
+				public void onNext(String s) {
+					Log.d(TAG, "onNext:" + s);
+				}
+
+				@Override
+				public void onError(Throwable e) {
+					Log.d(TAG, "onError: " + e.toString());
+				}
+
+				@Override
+				public void onComplete() {
+
+				}
+			});
 	}
 
 	public void closeConnection() {

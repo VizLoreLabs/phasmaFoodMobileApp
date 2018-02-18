@@ -34,6 +34,8 @@ public class BluetoothConnection {
 	private OutputStream outputStream;
 
 	private Flowable<Byte> observeInputStream;
+	private Flowable<String> observeInputStream2;
+	private Observable<String> observeInputStreamObservable;
 
 	private boolean connected = false;
 
@@ -86,6 +88,55 @@ public class BluetoothConnection {
 		}
 
 		return observeInputStream;
+	}
+
+	public Flowable<String> observeStringData() {
+		if (observeInputStream2 == null) {
+			observeInputStream2 = Flowable.create(subscriber -> {
+				while (!subscriber.isCancelled()) {
+					byte[] buffer = new byte[512];
+					try {
+						int bytes = inputStream.read(buffer); //read bytes from input buffer
+						String readMessage = new String(buffer, 0, bytes);
+						Log.d(TAG, "observeStringData: read: " + readMessage);
+						subscriber.onNext(readMessage);
+					} catch (IOException e) {
+						Log.d(TAG, "observeStringData: exc: " + e.getMessage());
+						connected = false;
+						subscriber.onError(new ConnectionClosedException("Can't read stream"));
+					} finally {
+						if (!connected) {
+							closeConnection();
+						}
+					}
+				}
+			}, BackpressureStrategy.BUFFER);
+		}
+		return observeInputStream2;
+	}
+
+	public Observable<String> observeStringDataObservable() {
+		if (observeInputStreamObservable == null) {
+			observeInputStreamObservable = Observable.create(subscriber -> {
+				while (!subscriber.isDisposed()) {
+					byte[] buffer = new byte[512];
+					try {
+						int bytes = inputStream.read(buffer); //read bytes from input buffer
+						String readMessage = new String(buffer, 0, bytes);
+						Log.d(TAG, "observeStringDataObservable: read: " + readMessage);
+						subscriber.onNext(readMessage);
+					} catch (IOException e) {
+						connected = false;
+						subscriber.onError(new ConnectionClosedException("Can't read stream"));
+					} finally {
+						if (!connected) {
+							closeConnection();
+						}
+					}
+				}
+			});
+		}
+		return observeInputStreamObservable;
 	}
 
 	public Observable<String> observeString() {
