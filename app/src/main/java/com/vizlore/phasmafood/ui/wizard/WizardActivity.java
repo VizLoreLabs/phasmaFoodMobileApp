@@ -2,8 +2,6 @@ package com.vizlore.phasmafood.ui.wizard;
 
 import android.app.AlertDialog;
 import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -43,6 +41,7 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 	private AbstractWizardModel wizardModel = new PhasmaFoodWizardModel(this);
 	private boolean consumePageSelectedEvent;
 	private List<Page> currentPageSequence;
+	private boolean isRoot;
 
 	@BindView(R.id.nextButton)
 	Button nextButton;
@@ -69,7 +68,8 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 					AlertDialog alertDialog = new AlertDialog.Builder(WizardActivity.this).create();
 					alertDialog.setMessage(getString(R.string.sendDataMessage));
 					alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(android.R.string.yes), (dialog, which) -> {
-						sendToBluetoothDevice();
+						// TODO: 2/19/18 uncomment
+						//sendToBluetoothDevice();
 						dialog.dismiss();
 					});
 					alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(android.R.string.no), (dialog, which) -> dialog.dismiss());
@@ -167,9 +167,10 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 		onPageTreeChanged();
 		updateBottomBar();
 
-		Intent intent = new Intent(this, BluetoothService.class);
-		startService(intent); //Starting the service
-		bindService(intent, connection, Context.BIND_AUTO_CREATE); //Binding to the service!
+		// TODO: 2/19/18 uncomment
+//		Intent intent = new Intent(this, BluetoothService.class);
+//		startService(intent); //Starting the service
+//		bindService(intent, connection, Context.BIND_AUTO_CREATE); //Binding to the service!
 
 	}
 
@@ -197,6 +198,7 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 		}
 
 		prevButton.setVisibility(position <= 0 ? View.INVISIBLE : View.VISIBLE);
+		isRoot = position <= 0;
 	}
 
 	@Override
@@ -266,6 +268,15 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 		}
 
 		return false;
+	}
+
+	@Override
+	public void onBackPressed() {
+		if (!isRoot) {
+			pager.setCurrentItem(pager.getCurrentItem() - 1);
+		} else {
+			finish();
+		}
 	}
 
 	public class MyPagerAdapter extends FragmentStatePagerAdapter {

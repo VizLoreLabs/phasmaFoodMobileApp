@@ -23,7 +23,6 @@ import wizardpager.model.BranchPage;
 import wizardpager.model.NumberPage;
 import wizardpager.model.PageList;
 import wizardpager.model.SingleFixedChoicePage;
-import wizardpager.model.TextPage;
 
 public class PhasmaFoodWizardModel extends AbstractWizardModel {
 
@@ -36,7 +35,7 @@ public class PhasmaFoodWizardModel extends AbstractWizardModel {
 		return new PageList(
 			new BranchPage(this, "Use cases")
 				.addBranch("Mycotoxin detection",
-					new BranchPage(this, "Mycotoxin detection")
+					new BranchPage(this, "1!Food type")
 						.addBranch("Maize flour",
 							new SingleFixedChoicePage(this, "1!Granularity").setChoices("Low", "Medium", "High").setRequired(true),
 							new SingleFixedChoicePage(this, "1!Mycotoxins").setChoices("AF B1", "Total AFs", "DON").setRequired(true))
@@ -53,84 +52,60 @@ public class PhasmaFoodWizardModel extends AbstractWizardModel {
 						.setRequired(true))
 
 				.addBranch("Food spoilage",
-					new BranchPage(this, "Food spoilage")
-						.addBranch("Food spoilage", new BranchPage(this, "1!Food spoilage")
-							.addBranch("Meat", new BranchPage(this, "1!Choose meat spoilage")
-								.addBranch("Exposure time", new NumberPage(this, "1!Exposure time"))
-								.addBranch("Sample temperature", new NumberPage(this, "1!Sample temperature"))
-								.addBranch("Packaging", new TextPage(this, "1!Packaging"))
-								.addBranch("Meat type", new TextPage(this, "1!Meat type"))
-								.addBranch("Sample state", new TextPage(this, "1!Sample state"))
-							)
-							.addBranch("Fish", new BranchPage(this, "2!Fish")
-								.addBranch("Exposure time", new NumberPage(this, "2!Exposure time"))
-								.addBranch("Sample temperature", new NumberPage(this, "2!Sample temperature"))
-								.addBranch("Packaging", new TextPage(this, "2!Packaging"))
-								.addBranch("Meat type", new TextPage(this, "2!Meat type"))
-								.addBranch("Sample state", new TextPage(this, "2!Sample state"))
-							)
-							.addBranch("Fruits and vegetables", new BranchPage(this, "3!Fruits and vegetables")
-								.addBranch("Ready-to-eat rocket", new BranchPage(this, "3!Ready-to-eat rocket")
-									.addBranch("Exposure time", new NumberPage(this, "3!Exposure time"))
-									.addBranch("Sample temperature", new NumberPage(this, "3!Sample temperature"))
-								)
-								.addBranch("Ready-to-eat pineapple", new BranchPage(this, "4!Ready-to-eat pineapple")
-									.addBranch("Exposure time", new NumberPage(this, "4!Exposure time"))
-									.addBranch("Sample temperature", new NumberPage(this, "4!Sample temperature"))
-								)
-							).setRequired(true))
+					new BranchPage(this, "2!Food type")
+						.addBranch("Meat",
+							new SingleFixedChoicePage(this, "1!Meat type")
+								.setChoices("Chicken", "Pork", "Beef"),
+							new SingleFixedChoicePage(this, "1!Sample state")
+								.setChoices("Minced", "Whole piece"),
+							new SingleFixedChoicePage(this, "1!Packaging")
+								.setChoices("Foil", "No package"),
+							new NumberPage(this, "1!Exposure time"),
+							new NumberPage(this, "1!Sample temperature"))
+						.addBranch("Fish",
+							new SingleFixedChoicePage(this, "2!Fish type")
+								.setChoices("Gilthead Seabream"), // TODO: 2/19/18 add more options later
+							new SingleFixedChoicePage(this, "2!Sample state")
+								.setChoices("Fillet", "Whole fish"),
+							new SingleFixedChoicePage(this, "2!Packaging")
+								.setChoices("Foil", "No package"),
+							new NumberPage(this, "2!Exposure time"),
+							new NumberPage(this, "2!Sample temperature"))
+						.addBranch("Fruits and vegetables", new BranchPage(this, "3!Fruits and vegetables")
+							.addBranch("Ready-to-eat rocket",
+								new NumberPage(this, "3!Exposure time"),
+								new NumberPage(this, "3!Sample temperature"))
+							.addBranch("Ready-to-eat pineapple",
+								new NumberPage(this, "4!Exposure time"),
+								new NumberPage(this, "4!Sample temperature"))
+						).setRequired(true))
 
-						.addBranch("Shelf Life estimation", new BranchPage(this, "Shelf Life estimation")
-							.addBranch("Meat", new BranchPage(this, "5!Meat")
-								.addBranch("Exposure time", new NumberPage(this, "5!Exposure time"))
-								.addBranch("Sample temperature", new NumberPage(this, "5!Sample temperature"))
-								.addBranch("Packaging", new TextPage(this, "5!Packaging"))
-								.addBranch("Meat type", new TextPage(this, "5!Meat type"))
-								.addBranch("Sample state", new TextPage(this, "5!Sample state"))
-							)
-							.addBranch("Fish", new BranchPage(this, "6!Fish")
-								.addBranch("Exposure time", new NumberPage(this, "6!Exposure time"))
-								.addBranch("Sample temperature", new NumberPage(this, "6!Sample temperature"))
-								.addBranch("Packaging", new TextPage(this, "6!Packaging"))
-								.addBranch("Meat type", new TextPage(this, "6!Meat type"))
-								.addBranch("Sample state", new TextPage(this, "6!Sample state"))
-							)
-							.addBranch("Fruits and vegetables", new BranchPage(this, "Fruits and vegetables")
-								.addBranch("Ready-to-eat rocket", new BranchPage(this, "7!Ready-to-eat rocket")
-									.addBranch("Exposure time", new NumberPage(this, "7!Exposure time"))
-									.addBranch("Sample temperature", new NumberPage(this, "7!Sample temperature"))
-								)
-								.addBranch("Ready-to-eat pineapple", new BranchPage(this, "Ready-to-eat pineapple")
-									.addBranch("Exposure time", new NumberPage(this, "8!Exposure time"))
-									.addBranch("Sample temperature", new NumberPage(this, "8!Sample temperature"))
-								)
-							)))
+				.addBranch("Food adulteration",
+					new BranchPage(this, "3!Food type")
+						.addBranch("Alcoholic beverages", new BranchPage(this, "Alcoholic beverages")
+							.addBranch("Spirits",
+								new SingleFixedChoicePage(this, "9!Analysis type")
+									.setChoices("Dilution", "Technical alcohol", "Counterfeit").setRequired(true))
+							.addBranch("Wines and beers",
+								new SingleFixedChoicePage(this, "10!Analysis type")
+									.setChoices("Sugar", "Acid", "Alcohol (alcohol by volume)").setRequired(true))
+						)
+						.addBranch("Edible oils", new BranchPage(this, "Edible oils")
+							.addBranch("Olive oil",
+								new SingleFixedChoicePage(this, "11!Analysis type")
+									.setChoices("Dilution", "Counterfeit").setRequired(true))
+							.addBranch("SunfLower oil",
+								new SingleFixedChoicePage(this, "12!Analysis type")
+									.setChoices("Dilution", "Counterfeit").setRequired(true))
+						)
+						.addBranch("Skimmed milk powder",
+							new SingleFixedChoicePage(this, "13!Analysis type")
+								.setChoices("Milk powder dilution", "Nitrogen enhancers").setRequired(true))
 
-				.addBranch("Food adulteration", new BranchPage(this, "Food adulteration")
-					.addBranch("Alcoholic beverages", new BranchPage(this, "Alcoholic beverages")
-						.addBranch("Spirits",
-							new SingleFixedChoicePage(this, "9!Spirits")
-								.setChoices("Dilution", "Technical alcohol", "Counterfeit").setRequired(true))
-						.addBranch("Wines and beers",
-							new SingleFixedChoicePage(this, "9!Wines and beers")
-								.setChoices("Sugar", "Acid", "Alcohol (alcohol by volume)").setRequired(true))
-					)
-					.addBranch("Edible oils", new BranchPage(this, "Edible oils")
-						.addBranch("Olive oil",
-							new SingleFixedChoicePage(this, "10!Spirits")
-								.setChoices("Dilution", "Counterfeit").setRequired(true))
-						.addBranch("SunfLower oil",
-							new SingleFixedChoicePage(this, "10!Wines and beers")
-								.setChoices("Dilution", "Counterfeit").setRequired(true))
-					)
-					.addBranch("Skimmed milk powder",
-						new SingleFixedChoicePage(this, "11!Skimmed milk powder")
-							.setChoices("Milk powder dilution", "Nitrogen enhancers").setRequired(true))
-
-					.addBranch("Meat",
-						new SingleFixedChoicePage(this, "12!Meat")
-							.setChoices("Adulteration with unspecified meat species", "Adulteration with Low value additives")
-							.setRequired(true))
+						.addBranch("Meat",
+							new SingleFixedChoicePage(this, "14!Analysis type")
+								.setChoices("Adulteration with unspecified meat species", "Adulteration with Low value additives")
+								.setRequired(true))
 				));
 	}
 }
