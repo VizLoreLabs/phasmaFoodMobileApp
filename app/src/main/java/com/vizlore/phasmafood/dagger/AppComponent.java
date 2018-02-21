@@ -12,7 +12,6 @@ import com.vizlore.phasmafood.viewmodel.BluetoothViewModel;
 import com.vizlore.phasmafood.viewmodel.ExaminationViewModel;
 import com.vizlore.phasmafood.viewmodel.FcmMobileViewModel;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
-import com.vizlore.phasmafood.viewmodel.WizardViewModel;
 
 import javax.inject.Singleton;
 
@@ -30,8 +29,6 @@ public interface AppComponent {
 	void inject(UserViewModel userViewModel);
 
 	void inject(BluetoothViewModel bluetoothViewModel);
-
-	void inject(WizardViewModel wizardViewModel);
 
 	void inject(FcmMobileViewModel configViewModel);
 
