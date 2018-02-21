@@ -2,10 +2,12 @@ package com.vizlore.phasmafood.ui.profile_setup;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -33,6 +35,17 @@ public class YourProfileFragment extends ProfileBaseFragment {
 	private ProfileSetupViewModel profileSetupViewModel;
 	private List<BluetoothDevice> devicesList = new ArrayList<>();
 	private DevicesAdapter devicesAdapter;
+
+	private OnConnect onConnectListener;
+
+	@Override
+	public void onAttach(Context context) {
+		super.onAttach(context);
+		if (context instanceof ProfileSetupActivity) {
+			Log.d(TAG, "onAttach: it is instance!");
+			onConnectListener = (ProfileSetupActivity) context;
+		}
+	}
 
 	@BindView(R.id.devicesList)
 	RecyclerView devicesRecyclerView;
@@ -79,10 +92,26 @@ public class YourProfileFragment extends ProfileBaseFragment {
 			devicesList.addAll(devices);
 		});
 
+		devicesAdapter.getClickEventObservable().observe(this, actionPair -> {
+			if (actionPair.second == DevicesAdapter.AdapterAction.ACTION_PAIR) {
+				BluetoothDevice device = devicesList.get(actionPair.first);
+				Log.d(TAG, "onViewCreated: connect to: " + device.getAddress());
+				onConnectListener.onConnectClick(device);
+			} else if (actionPair.second == DevicesAdapter.AdapterAction.ACTION_CONFIG) {
+				Log.d(TAG, "onViewCreated: disconnect");
+				onConnectListener.onDisconnectClick();
+			}
+		});
 	}
 
 	@Override
 	protected int getFragmentLayout() {
 		return R.layout.fragment_your_profile;
+	}
+
+	public interface OnConnect {
+		void onConnectClick(BluetoothDevice device);
+
+		void onDisconnectClick();
 	}
 }

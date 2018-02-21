@@ -2,18 +2,25 @@ package com.vizlore.phasmafood.ui.profile_setup;
 
 import android.Manifest;
 import android.arch.lifecycle.ViewModelProviders;
+import android.bluetooth.BluetoothDevice;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.vizlore.phasmafood.R;
+import com.vizlore.phasmafood.bluetooth.BluetoothService;
 import com.vizlore.phasmafood.ui.BaseActivity;
 import com.vizlore.phasmafood.ui.profile_setup.viewmodel.ProfileSetupViewModel;
 import com.vizlore.phasmafood.ui.wizard.WizardActivity;
@@ -25,10 +32,12 @@ import butterknife.ButterKnife;
  * Created by smedic on 1/16/18.
  */
 
-public class ProfileSetupActivity extends BaseActivity {
+public class ProfileSetupActivity extends BaseActivity implements YourProfileFragment.OnConnect {
 
 	private static final String TAG = "SMEDIC";
 	private static final int REQUEST_PERMISSION_COARSE_LOCATION = 0;
+
+	private BluetoothService bluetoothService;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +107,26 @@ public class ProfileSetupActivity extends BaseActivity {
 		if (isLocationPermissionEnabled()) {
 			checkUserStatus();
 		}
+
+		// TODO: 2/19/18 uncomment
+		Intent intent = new Intent(this, BluetoothService.class);
+		startService(intent); //Starting the service
+		bindService(intent, connection, Context.BIND_AUTO_CREATE); //Binding to the service!
 	}
+
+	private ServiceConnection connection = new ServiceConnection() {
+		@Override
+		public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+			Log.d(TAG, "onServiceConnected: ");
+			BluetoothService.LocalBinder binder = (BluetoothService.LocalBinder) iBinder;
+			bluetoothService = binder.getServiceInstance(); //Get instance of your service!
+		}
+
+		@Override
+		public void onServiceDisconnected(ComponentName componentName) {
+			bluetoothService = null;
+		}
+	};
 
 	public void checkUserStatus() {
 		UserViewModel userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
@@ -169,6 +197,28 @@ public class ProfileSetupActivity extends BaseActivity {
 					checkUserStatus();
 				}
 			}
+		}
+	}
+
+	// reconsider
+	// FIXME: 2/21/18 this is just for testing
+	// TODO: 2/21/18 implement callbacks from service
+	private boolean isConnected;
+
+	@Override
+	public void onConnectClick(BluetoothDevice device) {
+		Log.d(TAG, "onConnectClick");
+		if (!isConnected) {
+			bluetoothService.connectToCommunicationController(device.getAddress());
+			isConnected = !isConnected;
+		}
+	}
+
+	@Override
+	public void onDisconnectClick() {
+		Log.d(TAG, "onDisconnectClick: ");
+		if (isConnected) {
+			bluetoothService.disconnectFromCommunicationController();
 		}
 	}
 }

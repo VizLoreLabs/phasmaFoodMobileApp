@@ -2,6 +2,8 @@ package com.vizlore.phasmafood.ui.wizard;
 
 import android.app.AlertDialog;
 import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -69,7 +71,7 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 					alertDialog.setMessage(getString(R.string.sendDataMessage));
 					alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(android.R.string.yes), (dialog, which) -> {
 						// TODO: 2/19/18 uncomment
-						//sendToBluetoothDevice();
+						sendToBluetoothDevice();
 						dialog.dismiss();
 					});
 					alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(android.R.string.no), (dialog, which) -> dialog.dismiss());
@@ -120,7 +122,7 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 						jsonObject.addProperty(title, value);
 					}
 
-					bluetoothService.sendData(jsonObject.toString());
+					bluetoothService.sendMessage(jsonObject.toString());
 				}
 			}
 		} else {
@@ -168,9 +170,9 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 		updateBottomBar();
 
 		// TODO: 2/19/18 uncomment
-//		Intent intent = new Intent(this, BluetoothService.class);
-//		startService(intent); //Starting the service
-//		bindService(intent, connection, Context.BIND_AUTO_CREATE); //Binding to the service!
+		Intent intent = new Intent(this, BluetoothService.class);
+		//startService(intent); //Starting the service
+		bindService(intent, connection, Context.BIND_AUTO_CREATE); //Binding to the service!
 
 	}
 

@@ -66,9 +66,15 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHold
 		}
 
 		if (adapterListType == PAIRED_DEVICES) {
-			holder.status.setText("Status");
+			holder.status.setText("Connect");
 		} else if (adapterListType == AdapterListType.AVAILABLE_DEVICES) {
 			holder.status.setText("Pair");
+		}
+
+		if (adapterListType == PAIRED_DEVICES) {
+			holder.config.setText("Disconnect");
+		} else if (adapterListType == AdapterListType.AVAILABLE_DEVICES) {
+			holder.config.setText("Config");
 		}
 
 		holder.status.setOnClickListener(view -> post(new Pair<>(position, AdapterAction.ACTION_PAIR)));
