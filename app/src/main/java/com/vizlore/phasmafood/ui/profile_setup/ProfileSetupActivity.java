@@ -74,6 +74,14 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 						startActivity(new Intent(this, WizardActivity.class));
 						break;
 					case MEASUREMENT_HISTORY_CLICKED:
+						//just for testing - remove later TODO: 2/23/18
+//						ExaminationViewModel model = ViewModelProviders.of(this).get(ExaminationViewModel.class);
+//						model.createExaminationRequest().observe(this, new Observer<Boolean>() {
+//							@Override
+//							public void onChanged(@Nullable Boolean aBoolean) {
+//								Log.d(TAG, "onChanged: examination request:" + aBoolean);
+//							}
+//						});
 						// TODO: 1/16/18  
 						break;
 					case YOUR_PROFILE_CLICKED:

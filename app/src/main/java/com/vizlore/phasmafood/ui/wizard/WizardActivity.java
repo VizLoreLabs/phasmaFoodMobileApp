@@ -121,7 +121,8 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 						Log.d("SMEDIC", "Item: " + title + "\t" + value);
 						jsonObject.addProperty(title, value);
 					}
-
+					JsonObject jsonObjectRequest = new JsonObject();
+					jsonObjectRequest.add("Request", jsonObject);
 					bluetoothService.sendMessage(jsonObject.toString());
 				}
 			}
@@ -169,7 +170,6 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 		onPageTreeChanged();
 		updateBottomBar();
 
-		// TODO: 2/19/18 uncomment
 		Intent intent = new Intent(this, BluetoothService.class);
 		//startService(intent); //Starting the service
 		bindService(intent, connection, Context.BIND_AUTO_CREATE); //Binding to the service!
