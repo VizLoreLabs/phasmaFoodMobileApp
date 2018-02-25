@@ -3,6 +3,7 @@ package com.vizlore.phasmafood.dagger;
 import com.vizlore.phasmafood.bluetooth.BluetoothService;
 import com.vizlore.phasmafood.dagger.modules.AppModule;
 import com.vizlore.phasmafood.dagger.modules.BluetoothModule;
+import com.vizlore.phasmafood.dagger.modules.DeviceModule;
 import com.vizlore.phasmafood.dagger.modules.ExaminationModule;
 import com.vizlore.phasmafood.dagger.modules.MobileModule;
 import com.vizlore.phasmafood.dagger.modules.NetworkModule;
@@ -23,7 +24,7 @@ import dagger.Component;
 
 @Singleton
 @Component(modules = {AppModule.class, NetworkModule.class, UserModule.class, BluetoothModule.class,
-	MobileModule.class, ExaminationModule.class})
+	MobileModule.class, ExaminationModule.class, DeviceModule.class})
 public interface AppComponent {
 
 	void inject(UserViewModel userViewModel);

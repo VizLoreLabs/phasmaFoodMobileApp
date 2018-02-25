@@ -57,6 +57,7 @@ public class FcmMobileViewModel extends AndroidViewModel {
 			createFcmMobileLiveData = new SingleLiveEvent<>();
 		}
 
+		// FIXME: 2/25/18 
 		Map<String, String> requestBody = new HashMap<>();
 		requestBody.put("name", "Samsung A5_A520F");
 		requestBody.put("registration_id", FirebaseInstanceId.getInstance().getToken());

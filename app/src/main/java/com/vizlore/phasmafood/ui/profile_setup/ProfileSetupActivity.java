@@ -82,7 +82,7 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 //								Log.d(TAG, "onChanged: examination request:" + aBoolean);
 //							}
 //						});
-						// TODO: 1/16/18  
+						// TODO: 1/16/18
 						break;
 					case YOUR_PROFILE_CLICKED:
 						replaceFragment(new YourProfileFragment());

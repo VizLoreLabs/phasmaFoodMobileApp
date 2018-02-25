@@ -129,7 +129,7 @@ public class UserViewModel extends ViewModel {
 
 				@Override
 				public void onError(Throwable e) {
-					Log.d(TAG, "onError: e: " + e.toString());
+					Log.d(TAG, "onError: " + e.getMessage());
 					createAccountLiveData.postValue(false);
 				}
 			});
