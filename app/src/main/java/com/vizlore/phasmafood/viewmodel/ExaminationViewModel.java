@@ -12,6 +12,8 @@ import com.vizlore.phasmafood.api.AutoValueGsonFactory;
 import com.vizlore.phasmafood.api.ExaminationApi;
 import com.vizlore.phasmafood.model.results.Examination;
 import com.vizlore.phasmafood.utils.JsonFileLoader;
+import com.vizlore.phasmafood.utils.SingleLiveEvent;
+import com.vizlore.phasmafood.utils.Utils;
 
 import java.util.Date;
 
@@ -35,7 +37,7 @@ public class ExaminationViewModel extends ViewModel {
 	private Examination examination;
 
 	private MutableLiveData<Examination> examinationLiveData;
-	private MutableLiveData<Boolean> createExaminationRequestLiveData;
+	private SingleLiveEvent<Boolean> createExaminationRequestLiveData;
 
 	@Inject
 	ExaminationApi examinationApi;
@@ -45,10 +47,10 @@ public class ExaminationViewModel extends ViewModel {
 		MyApplication.getComponent().inject(this);
 
 		Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
+
+		//// FIXME: 3/1/18 remove test results sending
 		String json = new JsonFileLoader().fromAsset("assets/results.json");
 		examination = gson.fromJson(json, Examination.class);
-
-		Log.d(TAG, "ExaminationViewModel: examination: " + examination);
 	}
 
 	public LiveData<Examination> getExamination() {
@@ -59,20 +61,19 @@ public class ExaminationViewModel extends ViewModel {
 		return examinationLiveData;
 	}
 
-	public LiveData<Boolean> createExaminationRequest() {
+	public LiveData<Boolean> createExaminationRequest(String userId) {
 
 		if (createExaminationRequestLiveData == null) {
-			createExaminationRequestLiveData = new MutableLiveData<>();
+			createExaminationRequestLiveData = new SingleLiveEvent<>();
 		}
 
 		// TODO: 2/10/18 find better solution
 		String sampleId = String.valueOf(new Date().getTime() % 1000000000);
 		examination.setSampleId(sampleId);
-		Log.d(TAG, "createExaminationRequest: time: " + sampleId);
-		examination.setUserId("10"); // FIXME: 2/10/18
-		examination.setDeviceId(EXAMPLE_DEVICE_ID); // FIXME: 2/10/18
+		examination.setUserId(userId);
+		examination.setDeviceId(Utils.getUUID()); // FIXME: 2/10/18
 
-		examinationApi.createExaminationRequest(examination)
+		examinationApi.createExaminationRequest(Utils.getHeader(), examination)
 			.subscribeOn(Schedulers.io())
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribe(new CompletableObserver() {

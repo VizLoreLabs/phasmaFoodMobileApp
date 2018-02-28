@@ -8,6 +8,7 @@ import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -20,21 +21,20 @@ import retrofit2.http.Path;
 public interface DeviceApi {
 
 	@GET("/api/v1/device/")
-	Single<ResponseBody> listDevice();
+	Single<ResponseBody> listDevice(@Header("Authorization") String token);
 
-	//@NonNull final String serialCpu, @NonNull final String bluetoothAddress
 	@POST("/api/v1/device/")
-	Completable createDevice(@Body Map<String, String> body);
+	Completable createDevice(@Header("Authorization") String token, @Body Map<String, String> body);
 
 	@GET("/api/v1/device/{serial_cpu}")
-	Completable readDevice(@Path("serial_cpu") String serialCpu);
+	Completable readDevice(@Header("Authorization") String token, @Path("serial_cpu") String serialCpu);
 
 	@PUT("/api/v1/device/{serial_cpu}")
-	Completable updateDevice(@Path("serial_cpu") String serialCpu);
+	Completable updateDevice(@Header("Authorization") String token, @Path("serial_cpu") String serialCpu);
 
 	@PATCH("/api/v1/device/{serial_cpu}/")
-	Completable partialUpdateDevice(@Path("serial_cpu") String serialCpu, @Body Map<String, String> body);
+	Completable partialUpdateDevice(@Header("Authorization") String token, @Path("serial_cpu") String serialCpu, @Body Map<String, String> body);
 
 	@DELETE("/api/v1/device/{serial_cpu}")
-	Completable deleteDevice(@Path("serial_cpu") String serialCpu);
+	Completable deleteDevice(@Header("Authorization") String token, @Path("serial_cpu") String serialCpu);
 }

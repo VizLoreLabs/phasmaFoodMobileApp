@@ -1,10 +1,10 @@
 {
-  "sample_id": "10356io04",
+  "sampleID": "10356io04",
   "laboratory": "VizloreLaboratory",
-  "user_id": "10",
-  "device_id": "d946a1ce-af55-41d2-9aa0-e",
-  "food_type": "fish",
-  "use_case": "usecase1",
+  "UserID": "10",
+  "deviceID": "d946a1ce-af55-41d2-9aa0-e",
+  "foodType": "fish",
+  "useCase": "usecase1",
   "temperature": 4.55,
   "temp_profile": "constant",
   "temp_exp_hours": 32,
@@ -13,7 +13,7 @@
   "measurement_freq": 200,
   "tvc": 1,
   "date_time": "2018-04-10T13:40:23.83-05:00",
-  "uv_vis": [
+  "VIS": [
     {
       "wavelength": 452,
       "value": 5058
@@ -955,7 +955,7 @@
       "value": 5201
     }
   ],
-  "nir": [
+  "NIR": [
     {
       "wavelength": 313,
       "value": 5220

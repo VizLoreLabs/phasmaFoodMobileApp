@@ -129,8 +129,6 @@ public class BluetoothViewModel extends ViewModel {
 			.subscribeOn(Schedulers.computation())
 			.filter(BtPredicate.in(BluetoothAdapter.ACTION_DISCOVERY_STARTED, BluetoothAdapter.ACTION_DISCOVERY_FINISHED))
 			.subscribe(action -> {
-				//start.setText(R.string.button_searching);
-				//Log.d(TAG, "observerDiscovery EVENT: " + action);
 				discoveryEventLiveData.setValue(action);
 			}));
 		return discoveryEventLiveData;
@@ -147,7 +145,6 @@ public class BluetoothViewModel extends ViewModel {
 			.filter(BtPredicate.in(BluetoothAdapter.STATE_ON, BluetoothAdapter.STATE_OFF, BluetoothAdapter.STATE_TURNING_OFF,
 				BluetoothAdapter.STATE_TURNING_ON))
 			.subscribe(state -> {
-				//start.setBackgroundColor(getResources().getColor(R.color.colorActive));
 				Log.d(TAG, "observeBluetoothState EVENT: state on");
 				bluetoothStateLiveData.setValue(state);
 			}));
@@ -165,7 +162,6 @@ public class BluetoothViewModel extends ViewModel {
 			.subscribeOn(Schedulers.computation())
 			.filter(BtPredicate.in(BluetoothAdapter.STATE_CONNECTED, BluetoothAdapter.STATE_DISCONNECTED))
 			.subscribe(event -> {
-				//start.setBackgroundColor(getResources().getColor(R.color.colorInactive));
 				Log.d(TAG, "observeBondState EVENT: connection: " + event.toString());
 				connectionStateLiveData.setValue(event);
 
@@ -184,7 +180,6 @@ public class BluetoothViewModel extends ViewModel {
 			.subscribeOn(Schedulers.computation())
 			.filter(BtPredicate.in(BluetoothDevice.ACTION_BOND_STATE_CHANGED))
 			.subscribe(event -> {
-				//start.setBackgroundColor(getResources().getColor(R.color.colorInactive));
 				bondStateEventLiveData.setValue(event);
 			}));
 		return bondStateEventLiveData;
@@ -242,8 +237,6 @@ public class BluetoothViewModel extends ViewModel {
 			throw new ConnectionErrorException(e2.getMessage());
 		}
 
-		Log.d(TAG, "connectToDevice: btSocket: " + btSocket.isConnected());
-
 		try {
 			btSocket.connect();
 		} catch (IOException e) {
@@ -261,9 +254,7 @@ public class BluetoothViewModel extends ViewModel {
 	}
 
 	public void sendData(String data) {
-		Log.d(TAG, "onCreate: SEND DATA");
-		Log.d(TAG, "onCreate: bt socket: " + btSocket);
-		Log.d(TAG, "onCreate: connection: " + connection);
+		Log.d(TAG, "onCreate: SEND DATA TO: " + btSocket);
 		if (connection != null) {
 			connection.send(data);
 		}

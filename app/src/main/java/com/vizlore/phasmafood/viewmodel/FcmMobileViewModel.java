@@ -3,7 +3,6 @@ package com.vizlore.phasmafood.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -40,9 +39,6 @@ public class FcmMobileViewModel extends AndroidViewModel {
 	private SingleLiveEvent<Boolean> deleteFcmTokenLiveData;
 
 	@Inject
-	SharedPreferences prefs;
-
-	@Inject
 	FcmMobileApi mobileApi;
 
 	public FcmMobileViewModel(@NonNull Application application) {
@@ -61,27 +57,29 @@ public class FcmMobileViewModel extends AndroidViewModel {
 		Map<String, String> requestBody = new HashMap<>();
 		requestBody.put("name", "Samsung A5_A520F");
 		requestBody.put("registration_id", FirebaseInstanceId.getInstance().getToken());
-		requestBody.put("device_id", Utils.getUUID(prefs));
+		requestBody.put("device_id", Utils.getUUID());
 		//requestBody.put("active", "true");
 		requestBody.put("type", "android");
 
-		mobileApi.sendFcmData(Utils.getHeader(prefs), requestBody).observeOn(AndroidSchedulers.mainThread())
-			.subscribeOn(Schedulers.io()).subscribe(new CompletableObserver() {
-			@Override
-			public void onSubscribe(Disposable d) {
-			}
+		mobileApi.sendFcmData(Utils.getHeader(), requestBody)
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribeOn(Schedulers.io())
+			.subscribe(new CompletableObserver() {
+				@Override
+				public void onSubscribe(Disposable d) {
+				}
 
-			@Override
-			public void onComplete() {
-				createFcmMobileLiveData.postValue(true);
-			}
+				@Override
+				public void onComplete() {
+					createFcmMobileLiveData.postValue(true);
+				}
 
-			@Override
-			public void onError(Throwable e) {
-				Log.d(TAG, "onError: " + e.toString());
-				createFcmMobileLiveData.postValue(false);
-			}
-		});
+				@Override
+				public void onError(Throwable e) {
+					Log.d(TAG, "onError: " + e.toString());
+					createFcmMobileLiveData.postValue(false);
+				}
+			});
 
 		return createFcmMobileLiveData;
 	}
@@ -93,7 +91,7 @@ public class FcmMobileViewModel extends AndroidViewModel {
 			readFcmTokenLiveData = new SingleLiveEvent<>();
 		}
 
-		mobileApi.readFcmToken(Utils.getHeader(prefs), FirebaseInstanceId.getInstance().getToken())
+		mobileApi.readFcmToken(Utils.getHeader(), FirebaseInstanceId.getInstance().getToken())
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribeOn(Schedulers.io())
 			.subscribe(new SingleObserver<ResponseBody>() {
@@ -127,11 +125,11 @@ public class FcmMobileViewModel extends AndroidViewModel {
 		Map<String, String> requestBody = new HashMap<>();
 		requestBody.put("name", "Samsung A5");
 		requestBody.put("registration_id", regId);
-		requestBody.put("device_id", Utils.getUUID(prefs));
+		requestBody.put("device_id", Utils.getUUID());
 		//requestBody.put("active", "true");
 		requestBody.put("type", "android");
 
-		mobileApi.updateFcmData(Utils.getHeader(prefs), regId, requestBody)
+		mobileApi.updateFcmData(Utils.getHeader(), regId, requestBody)
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribeOn(Schedulers.io())
 			.subscribe(new CompletableObserver() {
@@ -165,11 +163,11 @@ public class FcmMobileViewModel extends AndroidViewModel {
 		Map<String, String> requestBody = new HashMap<>();
 		requestBody.put("name", "Samsung A5");
 		requestBody.put("registration_id", regId);
-		requestBody.put("device_id", Utils.getUUID(prefs));
+		requestBody.put("device_id", Utils.getUUID());
 		//requestBody.put("active", "true");
 		requestBody.put("type", "android");
 
-		mobileApi.partialUpdateFcmData(Utils.getHeader(prefs), regId, requestBody)
+		mobileApi.partialUpdateFcmData(Utils.getHeader(), regId, requestBody)
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribeOn(Schedulers.io())
 			.subscribe(new CompletableObserver() {
@@ -179,13 +177,11 @@ public class FcmMobileViewModel extends AndroidViewModel {
 
 				@Override
 				public void onComplete() {
-					Log.d(TAG, "onComplete partialUpdateFcmData: ");
 					partialUpdateFcmDataLiveData.postValue(true);
 				}
 
 				@Override
 				public void onError(Throwable e) {
-					Log.d(TAG, "onError partialUpdateFcmData: " + e.toString());
 					partialUpdateFcmDataLiveData.postValue(false);
 				}
 			});
@@ -199,7 +195,7 @@ public class FcmMobileViewModel extends AndroidViewModel {
 			deleteFcmTokenLiveData = new SingleLiveEvent<>();
 		}
 
-		mobileApi.deleteFcmToken(Utils.getHeader(prefs), FirebaseInstanceId.getInstance().getToken())
+		mobileApi.deleteFcmToken(Utils.getHeader(), FirebaseInstanceId.getInstance().getToken())
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribeOn(Schedulers.io())
 			.subscribe(new CompletableObserver() {
@@ -209,13 +205,11 @@ public class FcmMobileViewModel extends AndroidViewModel {
 
 				@Override
 				public void onComplete() {
-					Log.d(TAG, "onComplete deleteFcmToken: ");
 					deleteFcmTokenLiveData.postValue(true);
 				}
 
 				@Override
 				public void onError(Throwable e) {
-					Log.d(TAG, "onError deleteFcmToken: " + e.getMessage());
 					deleteFcmTokenLiveData.postValue(false);
 				}
 			});

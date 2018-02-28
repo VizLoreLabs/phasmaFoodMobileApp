@@ -8,22 +8,22 @@ import java.util.List;
 
 public class Examination {
 
-    @SerializedName("sample_id")
+    @SerializedName("sampleID")
     @Expose
     private String sampleId;
     @SerializedName("laboratory")
     @Expose
     private String laboratory;
-    @SerializedName("user_id")
+    @SerializedName("UserID")
     @Expose
     private String userId;
-    @SerializedName("device_id")
+    @SerializedName("deviceID")
     @Expose
     private String deviceId;
-    @SerializedName("food_type")
+    @SerializedName("foodType")
     @Expose
     private String foodType;
-    @SerializedName("use_case")
+    @SerializedName("useCase")
     @Expose
     private String useCase;
     @SerializedName("temperature")
@@ -50,10 +50,10 @@ public class Examination {
     @SerializedName("date_time")
     @Expose
     private String dateTime;
-    @SerializedName("uv_vis")
+    @SerializedName("VIS")
     @Expose
     private List<UvVi> uvVis = null;
-    @SerializedName("nir")
+    @SerializedName("NIR")
     @Expose
     private List<Nir> nir = null;
 

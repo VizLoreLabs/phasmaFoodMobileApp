@@ -18,12 +18,15 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.bluetooth.BluetoothService;
 import com.vizlore.phasmafood.ui.BaseActivity;
 import com.vizlore.phasmafood.ui.profile_setup.viewmodel.ProfileSetupViewModel;
 import com.vizlore.phasmafood.ui.wizard.WizardActivity;
+import com.vizlore.phasmafood.viewmodel.DeviceViewModel;
+import com.vizlore.phasmafood.viewmodel.ExaminationViewModel;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
 
 import butterknife.ButterKnife;
@@ -75,13 +78,17 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 						break;
 					case MEASUREMENT_HISTORY_CLICKED:
 						//just for testing - remove later TODO: 2/23/18
-//						ExaminationViewModel model = ViewModelProviders.of(this).get(ExaminationViewModel.class);
-//						model.createExaminationRequest().observe(this, new Observer<Boolean>() {
-//							@Override
-//							public void onChanged(@Nullable Boolean aBoolean) {
-//								Log.d(TAG, "onChanged: examination request:" + aBoolean);
-//							}
-//						});
+						ExaminationViewModel model = ViewModelProviders.of(this).get(ExaminationViewModel.class);
+						UserViewModel userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+
+						userViewModel.getUserProfile().observe(this, user -> {
+							model.createExaminationRequest(user.id()).observe(this, result -> {
+								if (result != null && !result) {
+									Toast.makeText(ProfileSetupActivity.this, "Examination request failed!", Toast.LENGTH_SHORT).show();
+								}
+							});
+						});
+
 						// TODO: 1/16/18
 						break;
 					case YOUR_PROFILE_CLICKED:
@@ -116,7 +123,18 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 			checkUserStatus();
 		}
 
-		// TODO: 2/19/18 uncomment
+		// check if device is already saved on server
+		// if not, create it
+		// FIXME: 3/1/18 this is just for testing - move it to other place
+		DeviceViewModel deviceViewModel = ViewModelProviders.of(this).get(DeviceViewModel.class);
+		deviceViewModel.readDevice().observe(this, result -> {
+			if (result != null && !result) {
+				deviceViewModel.createDevice().observe(this, result2 -> {
+					Log.d(TAG, "onCreate: " + result2);
+				});
+			}
+		});
+
 		Intent intent = new Intent(this, BluetoothService.class);
 		startService(intent); //Starting the service
 		bindService(intent, connection, Context.BIND_AUTO_CREATE); //Binding to the service!
@@ -125,7 +143,6 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 	private ServiceConnection connection = new ServiceConnection() {
 		@Override
 		public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-			Log.d(TAG, "onServiceConnected: ");
 			BluetoothService.LocalBinder binder = (BluetoothService.LocalBinder) iBinder;
 			bluetoothService = binder.getServiceInstance(); //Get instance of your service!
 		}

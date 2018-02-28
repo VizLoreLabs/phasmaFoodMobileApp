@@ -1,5 +1,7 @@
 package com.vizlore.phasmafood.ui.services;
 
+import android.util.Log;
+
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -13,9 +15,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 		super();
 	}
 
+	private static final String TAG = "SMEDIC";
+
 	@Override
 	public void onMessageReceived(RemoteMessage remoteMessage) {
 		super.onMessageReceived(remoteMessage);
+
+		Log.d(TAG, "******************* onMessageReceived: ");
 	}
 
 	@Override

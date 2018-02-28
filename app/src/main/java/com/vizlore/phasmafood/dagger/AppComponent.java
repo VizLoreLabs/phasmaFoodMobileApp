@@ -10,6 +10,7 @@ import com.vizlore.phasmafood.dagger.modules.NetworkModule;
 import com.vizlore.phasmafood.dagger.modules.UserModule;
 import com.vizlore.phasmafood.ui.services.MyFirebaseInstanceIDService;
 import com.vizlore.phasmafood.viewmodel.BluetoothViewModel;
+import com.vizlore.phasmafood.viewmodel.DeviceViewModel;
 import com.vizlore.phasmafood.viewmodel.ExaminationViewModel;
 import com.vizlore.phasmafood.viewmodel.FcmMobileViewModel;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
@@ -38,4 +39,6 @@ public interface AppComponent {
 	void inject(ExaminationViewModel examinationViewModel);
 
 	void inject(BluetoothService bluetoothService);
+
+	void inject(DeviceViewModel deviceViewModel);
 }

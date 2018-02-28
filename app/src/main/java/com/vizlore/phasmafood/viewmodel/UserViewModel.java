@@ -14,6 +14,7 @@ import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.api.UserApi;
 import com.vizlore.phasmafood.model.User;
 import com.vizlore.phasmafood.utils.SingleLiveEvent;
+import com.vizlore.phasmafood.utils.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,7 +48,7 @@ public class UserViewModel extends ViewModel {
 	private MutableLiveData<Boolean> createAccountLiveData;
 	private SingleLiveEvent<String> getTokenLiveData;
 	private MutableLiveData<Boolean> getRefreshTokenLiveData;
-	private MutableLiveData<User> getProfileLiveData;
+	private SingleLiveEvent<User> getProfileLiveData;
 	private MutableLiveData<Boolean> updateProfileLiveData;
 
 	@Inject
@@ -77,10 +78,6 @@ public class UserViewModel extends ViewModel {
 
 	public void clearToken() {
 		sharedPreferences.edit().remove(TOKEN_KEY).apply();
-	}
-
-	public String createHeader() {
-		return "JWT " + sharedPreferences.getString(TOKEN_KEY, "");
 	}
 
 	/**
@@ -253,11 +250,11 @@ public class UserViewModel extends ViewModel {
 		}
 
 		if (getProfileLiveData == null) {
-			getProfileLiveData = new MutableLiveData<>();
+			getProfileLiveData = new SingleLiveEvent<>();
 		}
 
 		// provide header token
-		userApi.getProfile(createHeader())
+		userApi.getProfile(Utils.getHeader())
 			.subscribeOn(Schedulers.io())
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribe(new SingleObserver<ResponseBody>() {
@@ -303,7 +300,7 @@ public class UserViewModel extends ViewModel {
 		requestBody.put("username", user.username());
 		requestBody.put("company", user.company());
 
-		userApi.updateProfile(createHeader(), requestBody)
+		userApi.updateProfile(Utils.getHeader(), requestBody)
 			.subscribeOn(Schedulers.io())
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribe(new CompletableObserver() {

@@ -71,7 +71,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 		requestBody.put("registration_id", token);
 		requestBody.put("type", "android");
 
-		mobileApi.sendFcmData(Utils.getHeader(sharedPreferences), requestBody).observeOn(AndroidSchedulers.mainThread())
+		mobileApi.sendFcmData(Utils.getHeader(), requestBody).observeOn(AndroidSchedulers.mainThread())
 			.subscribeOn(Schedulers.io()).subscribe(new CompletableObserver() {
 			@Override
 			public void onSubscribe(Disposable d) {

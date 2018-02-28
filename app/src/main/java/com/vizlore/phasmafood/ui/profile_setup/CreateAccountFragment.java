@@ -66,7 +66,7 @@ public class CreateAccountFragment extends ProfileBaseFragment {
 			}
 			userViewModel.createAccount(firstName, lastName, username, company, email, password)
 				.observe(this, result -> {
-					if (result.status) {
+					if (result) {
 						Toast.makeText(getContext(), getString(R.string.accountCreated), Toast.LENGTH_SHORT).show();
 					} else {
 						// TODO: 2/25/18 fix error fetching and displaying
