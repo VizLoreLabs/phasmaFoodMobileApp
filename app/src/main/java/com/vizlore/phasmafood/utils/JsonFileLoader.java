@@ -1,5 +1,9 @@
 package com.vizlore.phasmafood.utils;
 
+import android.content.res.AssetManager;
+
+import com.vizlore.phasmafood.MyApplication;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -15,12 +19,10 @@ public class JsonFileLoader {
 	public String fromAsset(final String fileName) {
 		String json = null;
 		try {
-
-			InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
-
+			AssetManager am = MyApplication.getAppContext().getAssets();
+			InputStream inputStream = am.open(fileName);
 			if (inputStream != null) {
 				int size = inputStream.available();
-
 				if (size > 0) {
 					byte[] buffer = new byte[size];
 					inputStream.read(buffer);
@@ -28,7 +30,6 @@ public class JsonFileLoader {
 					json = new String(buffer, "UTF-8");
 				}
 			}
-
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			return null;
@@ -37,7 +38,13 @@ public class JsonFileLoader {
 	}
 
 	public boolean fileExists(final String fileName) {
-		InputStream is = getClass().getClassLoader().getResourceAsStream(fileName);
+		AssetManager am = MyApplication.getAppContext().getAssets();
+		InputStream is = null;
+		try {
+			is = am.open(fileName);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return is != null;
 	}
 }

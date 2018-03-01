@@ -123,17 +123,6 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 			checkUserStatus();
 		}
 
-		// check if device is already saved on server
-		// if not, create it
-		// FIXME: 3/1/18 this is just for testing - move it to other place
-		DeviceViewModel deviceViewModel = ViewModelProviders.of(this).get(DeviceViewModel.class);
-		deviceViewModel.readDevice().observe(this, result -> {
-			if (result != null && !result) {
-				deviceViewModel.createDevice().observe(this, result2 -> {
-					Log.d(TAG, "onCreate: " + result2);
-				});
-			}
-		});
 
 		Intent intent = new Intent(this, BluetoothService.class);
 		startService(intent); //Starting the service
@@ -156,6 +145,19 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 	public void checkUserStatus() {
 		UserViewModel userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
 		if (userViewModel.hasSession()) {
+
+			// check if device is already saved on server
+			// if not, create it
+			// FIXME: 3/1/18 this is just for testing - move it to other place
+			DeviceViewModel deviceViewModel = ViewModelProviders.of(this).get(DeviceViewModel.class);
+			deviceViewModel.readDevice().observe(this, result -> {
+				if (result != null && !result) {
+					deviceViewModel.createDevice().observe(this, result2 -> {
+						Log.d(TAG, "onCreate: " + result2);
+					});
+				}
+			});
+
 			addFragment(new ProfileHomeScreenFragment());
 		} else {
 			addFragment(new SignInFragment());
@@ -165,7 +167,7 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 	public boolean isLocationPermissionEnabled() {
 		if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 			// Request the permission.
-			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_PERMISSION_COARSE_LOCATION);
+			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_PERMISSION_COARSE_LOCATION);
 			return false;
 		} else {
 			return true;

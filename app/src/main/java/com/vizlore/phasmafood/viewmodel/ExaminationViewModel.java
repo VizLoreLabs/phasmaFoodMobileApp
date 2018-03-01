@@ -48,8 +48,8 @@ public class ExaminationViewModel extends ViewModel {
 
 		Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
 
-		//// FIXME: 3/1/18 remove test results sending
-		String json = new JsonFileLoader().fromAsset("assets/results.json");
+		// FIXME: 3/1/18 remove test results sending
+		String json = new JsonFileLoader().fromAsset("results.json");
 		examination = gson.fromJson(json, Examination.class);
 	}
 
@@ -69,9 +69,10 @@ public class ExaminationViewModel extends ViewModel {
 
 		// TODO: 2/10/18 find better solution
 		String sampleId = String.valueOf(new Date().getTime() % 1000000000);
-		examination.setSampleId(sampleId);
-		examination.setUserId(userId);
-		examination.setDeviceId(Utils.getUUID()); // FIXME: 2/10/18
+		examination.setSampleID(sampleId);
+		examination.setUserID(userId);
+		examination.setDeviceID(Utils.getBluetoothDeviceUUID());
+		examination.setMobileID(Utils.getMobileUUID());
 
 		examinationApi.createExaminationRequest(Utils.getHeader(), examination)
 			.subscribeOn(Schedulers.io())

@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.ui.adapters.DevicesAdapter;
 import com.vizlore.phasmafood.ui.profile_setup.viewmodel.ProfileSetupViewModel;
+import com.vizlore.phasmafood.utils.Utils;
 import com.vizlore.phasmafood.viewmodel.BluetoothViewModel;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
 
@@ -42,7 +43,6 @@ public class YourProfileFragment extends ProfileBaseFragment {
 	public void onAttach(Context context) {
 		super.onAttach(context);
 		if (context instanceof ProfileSetupActivity) {
-			Log.d(TAG, "onAttach: it is instance!");
 			onConnectListener = (ProfileSetupActivity) context;
 		}
 	}
@@ -66,6 +66,7 @@ public class YourProfileFragment extends ProfileBaseFragment {
 				userViewModel.signOut().observe(this, signedOut -> {
 					if (signedOut != null && signedOut) {
 						profileSetupViewModel.setSelected(ProfileAction.SIGN_OUT_CLICKED);
+						Utils.clearUuids();
 						// TODO: 1/18/18 show dialog
 					} else {
 						Toast.makeText(getContext(), getString(R.string.signingOutError), Toast.LENGTH_SHORT).show();

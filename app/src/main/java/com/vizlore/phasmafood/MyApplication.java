@@ -14,6 +14,8 @@ import com.vizlore.phasmafood.dagger.modules.BluetoothModule;
 import com.vizlore.phasmafood.dagger.modules.NetworkModule;
 import com.vizlore.phasmafood.dagger.modules.UserModule;
 
+import timber.log.Timber;
+
 /**
  * Main application class. Initializes dagger.
  */
@@ -25,6 +27,9 @@ public class MyApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+
+		Timber.plant(new Timber.DebugTree());
+
 		component = DaggerAppComponent.builder()
 			.userModule(new UserModule())
 			.appModule(new AppModule(this))

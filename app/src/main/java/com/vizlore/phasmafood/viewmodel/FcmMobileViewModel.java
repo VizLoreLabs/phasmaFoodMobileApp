@@ -57,7 +57,7 @@ public class FcmMobileViewModel extends AndroidViewModel {
 		Map<String, String> requestBody = new HashMap<>();
 		requestBody.put("name", "Samsung A5_A520F");
 		requestBody.put("registration_id", FirebaseInstanceId.getInstance().getToken());
-		requestBody.put("device_id", Utils.getUUID());
+		requestBody.put("device_id", Utils.getMobileUUID());
 		//requestBody.put("active", "true");
 		requestBody.put("type", "android");
 
@@ -125,7 +125,7 @@ public class FcmMobileViewModel extends AndroidViewModel {
 		Map<String, String> requestBody = new HashMap<>();
 		requestBody.put("name", "Samsung A5");
 		requestBody.put("registration_id", regId);
-		requestBody.put("device_id", Utils.getUUID());
+		requestBody.put("device_id", Utils.getMobileUUID());
 		//requestBody.put("active", "true");
 		requestBody.put("type", "android");
 
@@ -163,7 +163,7 @@ public class FcmMobileViewModel extends AndroidViewModel {
 		Map<String, String> requestBody = new HashMap<>();
 		requestBody.put("name", "Samsung A5");
 		requestBody.put("registration_id", regId);
-		requestBody.put("device_id", Utils.getUUID());
+		requestBody.put("device_id", Utils.getMobileUUID());
 		//requestBody.put("active", "true");
 		requestBody.put("type", "android");
 

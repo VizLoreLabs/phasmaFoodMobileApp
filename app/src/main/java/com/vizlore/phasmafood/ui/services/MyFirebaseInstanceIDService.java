@@ -19,6 +19,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.vizlore.phasmafood.viewmodel.UserViewModel.TOKEN_KEY;
+
 /**
  * Created by smedic on 1/23/18.
  */
@@ -48,12 +50,14 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 	public void onTokenRefresh() {
 		// Get updated InstanceID token.
 		String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-		Log.d(TAG, "Refreshed token: " + refreshedToken);
+		Log.d(TAG, "Refreshed FCM token: " + refreshedToken);
 
 		// If you want to send messages to this application instance or
 		// manage this apps subscriptions on the server side, send the
 		// Instance ID token to your app server.
-		sendRegistrationToServer(refreshedToken);
+		if (hasSession()) {
+			sendRegistrationToServer(refreshedToken);
+		}
 	}
 	// [END refresh_token]
 
@@ -88,5 +92,9 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 				Log.d(TAG, "onError: " + e.toString());
 			}
 		});
+	}
+
+	public boolean hasSession() {
+		return sharedPreferences.contains(TOKEN_KEY);
 	}
 }

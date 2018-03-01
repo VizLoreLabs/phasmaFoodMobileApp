@@ -9,7 +9,8 @@ public class Config {
 	public static final String AUTH_SUBURL = "/api/v1/auth/";
 	public static final String USERS_URL = "users/create/";
 
-	public static final String UUID_KEY = "RANDOM_UUID";
+	public static final String BT_DEVICE_UUID_KEY = "BLUETOOTH_DEVICE_UUID";
+	public static final String MOBILE_DEVICE_UUID_KEY = "MOBILE_DEVICE_UUID";
 
 	public static final String DEVICE_SERIAL_ID = "serial_cpu";
 	public static final String DEVICE_BLUETOOTH_ADDRESS = "bluetooth_address";
