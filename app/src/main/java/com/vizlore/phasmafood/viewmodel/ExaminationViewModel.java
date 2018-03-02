@@ -5,13 +5,9 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.vizlore.phasmafood.MyApplication;
-import com.vizlore.phasmafood.api.AutoValueGsonFactory;
 import com.vizlore.phasmafood.api.ExaminationApi;
 import com.vizlore.phasmafood.model.results.Examination;
-import com.vizlore.phasmafood.utils.JsonFileLoader;
 import com.vizlore.phasmafood.utils.SingleLiveEvent;
 import com.vizlore.phasmafood.utils.Utils;
 
@@ -34,8 +30,6 @@ public class ExaminationViewModel extends ViewModel {
 
 	private static final String EXAMPLE_DEVICE_ID = "d946a1ce-af55-41d2-9aa0-e";
 
-	private Examination examination;
-
 	private MutableLiveData<Examination> examinationLiveData;
 	private SingleLiveEvent<Boolean> createExaminationRequestLiveData;
 
@@ -45,23 +39,9 @@ public class ExaminationViewModel extends ViewModel {
 	public ExaminationViewModel() {
 
 		MyApplication.getComponent().inject(this);
-
-		Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
-
-		// FIXME: 3/1/18 remove test results sending
-		String json = new JsonFileLoader().fromAsset("results.json");
-		examination = gson.fromJson(json, Examination.class);
 	}
 
-	public LiveData<Examination> getExamination() {
-		if (examinationLiveData == null) {
-			examinationLiveData = new MutableLiveData<>();
-		}
-		examinationLiveData.postValue(examination);
-		return examinationLiveData;
-	}
-
-	public LiveData<Boolean> createExaminationRequest(String userId) {
+	public LiveData<Boolean> createExaminationRequest(String userId, Examination examination) {
 
 		if (createExaminationRequestLiveData == null) {
 			createExaminationRequestLiveData = new SingleLiveEvent<>();

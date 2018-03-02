@@ -28,6 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.wizard.WizardActivity" />
+        <activity android:name=".ui.ResultsActivity" />
 
         <service android:name=".ui.services.MyFirebaseInstanceIDService">
             <intent-filter>

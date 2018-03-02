@@ -20,11 +20,18 @@ import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.R;
+import com.vizlore.phasmafood.api.AutoValueGsonFactory;
 import com.vizlore.phasmafood.bluetooth.BluetoothService;
+import com.vizlore.phasmafood.model.results.Examination;
 import com.vizlore.phasmafood.ui.BaseActivity;
+import com.vizlore.phasmafood.ui.ResultsActivity;
 import com.vizlore.phasmafood.ui.profile_setup.viewmodel.ProfileSetupViewModel;
 import com.vizlore.phasmafood.ui.wizard.WizardActivity;
+import com.vizlore.phasmafood.utils.JsonFileLoader;
 import com.vizlore.phasmafood.viewmodel.DeviceViewModel;
 import com.vizlore.phasmafood.viewmodel.ExaminationViewModel;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
@@ -77,17 +84,9 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 						startActivity(new Intent(this, WizardActivity.class));
 						break;
 					case MEASUREMENT_HISTORY_CLICKED:
-						//just for testing - remove later TODO: 2/23/18
-						ExaminationViewModel model = ViewModelProviders.of(this).get(ExaminationViewModel.class);
-						UserViewModel userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
 
-						userViewModel.getUserProfile().observe(this, user -> {
-							model.createExaminationRequest(user.id()).observe(this, result -> {
-								if (result != null && !result) {
-									Toast.makeText(ProfileSetupActivity.this, "Examination request failed!", Toast.LENGTH_SHORT).show();
-								}
-							});
-						});
+						// TODO: 2/23/18 remove
+						performTestMeasurement();
 
 						// TODO: 1/16/18
 						break;
@@ -247,5 +246,33 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 		if (isConnected) {
 			bluetoothService.disconnectFromCommunicationController();
 		}
+	}
+
+	// just for testing
+	private void performTestMeasurement() {
+		ExaminationViewModel model = ViewModelProviders.of(this).get(ExaminationViewModel.class);
+		UserViewModel userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+
+		userViewModel.getUserProfile().observe(this, user -> {
+
+			Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
+			String json = new JsonFileLoader().fromAsset("results.json");
+			Examination examination = gson.fromJson(json, Examination.class);
+			//save examination
+			MyApplication.getInstance().saveExamination(examination);
+
+			model.createExaminationRequest(user.id(), examination).observe(this, result -> {
+				if (result != null && !result) {
+					Toast.makeText(ProfileSetupActivity.this, "Examination request failed!", Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(ProfileSetupActivity.this, "Examination successful!", Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent(this, ResultsActivity.class);
+					intent.putExtra("vis", "IPO3");
+					intent.putExtra("nir", "IPO3");
+					intent.putExtra("flou", "N/A");
+					startActivity(intent);
+				}
+			});
+		});
 	}
 }

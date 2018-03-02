@@ -1,9 +1,12 @@
 package com.vizlore.phasmafood.ui.services;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.vizlore.phasmafood.ui.ResultsActivity;
 
 import java.util.Map;
 
@@ -23,12 +26,23 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 	public void onMessageReceived(RemoteMessage remoteMessage) {
 		super.onMessageReceived(remoteMessage);
 
-		Log.d(TAG, "******************* onMessageReceived: " + remoteMessage);
+		Log.d(TAG, "*** onMessageReceived: " + remoteMessage);
+		Log.d(TAG, "*** onMessageReceived: " + remoteMessage.getNotification().getTitle());
+		Log.d(TAG, "*** onMessageReceived: " + remoteMessage.getNotification().getBody());
 
-		Map<String, String>  data = remoteMessage.getData();
+		if (remoteMessage.getData() != null) {
+			Bundle bundle = new Bundle();
+			for (Map.Entry<String, String> entry : remoteMessage.getData().entrySet()) {
+				Log.d(TAG, "*** onMessageReceived: " + entry.getKey() + " - " + entry.getValue());
+				bundle.putString(entry.getKey(), entry.getValue());
+			}
 
-		Log.d(TAG, "onMessageReceived: " + remoteMessage.getNotification().getTitle());
-		Log.d(TAG, "onMessageReceived: " + remoteMessage.getNotification().getBody());
+			Intent intent = new Intent(this, ResultsActivity.class);
+			intent.putExtra("vis", remoteMessage.getData().get("VIS"));
+			intent.putExtra("nir", remoteMessage.getData().get("NIR"));
+			intent.putExtra("flou", remoteMessage.getData().get("FLOU"));
+			startActivity(intent);
+		}
 	}
 
 	@Override

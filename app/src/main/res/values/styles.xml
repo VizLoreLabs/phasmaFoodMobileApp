@@ -25,7 +25,7 @@
 
     <style name="PFTextView" parent="ComponentShadow">
         <item name="android:textColor">@color/light_grey</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">17sp</item>
     </style>
 
     <style name="PFButtonWhite" parent="ComponentShadow">
