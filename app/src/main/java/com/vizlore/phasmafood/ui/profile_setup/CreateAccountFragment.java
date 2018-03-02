@@ -68,6 +68,7 @@ public class CreateAccountFragment extends ProfileBaseFragment {
 				.observe(this, result -> {
 					if (result) {
 						Toast.makeText(getContext(), getString(R.string.accountCreated), Toast.LENGTH_SHORT).show();
+						profileSetupViewModel.setSelected(ProfileAction.GO_BACK);
 					} else {
 						// TODO: 2/25/18 fix error fetching and displaying
 						Toast.makeText(getContext(), "Account not created", Toast.LENGTH_SHORT).show();

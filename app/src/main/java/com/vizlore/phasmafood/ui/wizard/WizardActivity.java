@@ -38,6 +38,8 @@ import wizardpager.ui.StepPagerStrip;
 public class WizardActivity extends FragmentActivity implements PageFragmentCallbacks,
 	ReviewFragment.Callbacks, ModelCallbacks {
 
+	private static final String TAG = "SMEDIC";
+
 	private MyPagerAdapter pagerAdapter;
 	private boolean editingAfterReview;
 	private AbstractWizardModel wizardModel = new PhasmaFoodWizardModel(this);
@@ -118,12 +120,12 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 					for (ReviewItem item : items) {
 						String title = Utils.removeMagicChar(item.getTitle());
 						String value = Utils.removeMagicChar(item.getDisplayValue());
-						Log.d("SMEDIC", "Item: " + title + "\t" + value);
+						Log.d(TAG, "Item: " + title + "\t" + value);
 						jsonObject.addProperty(title, value);
 					}
 					JsonObject jsonObjectRequest = new JsonObject();
 					jsonObjectRequest.add("Request", jsonObject);
-					bluetoothService.sendMessage(jsonObject.toString());
+					bluetoothService.sendMessage(jsonObjectRequest.toString());
 				}
 			}
 		} else {
