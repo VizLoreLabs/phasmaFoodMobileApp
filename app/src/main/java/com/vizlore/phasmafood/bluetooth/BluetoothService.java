@@ -56,7 +56,7 @@ public class BluetoothService extends Service {
 	private BluetoothConnection connection = null;
 
 	//test
-	private String JsonReceive = " ";
+	private String jsonReceived = " ";
 	private int ack = 0;
 	private Handler handler = new Handler(new Handler.Callback() {
 
@@ -91,23 +91,20 @@ public class BluetoothService extends Service {
 					Log.e(TAG, "Me: " + writeMessage);
 					break;
 				case MESSAGE_READ:
+
 					byte[] readBuf = (byte[]) msg.obj;
-
-					String readMessage = new String(readBuf, 0, msg.arg1);
-
-					// chatMessages.add(connectingDevice.getName() + ":  " + readMessage);
-					//  chatAdapter.notifyDataSetChanged();
-					Toast.makeText(getApplicationContext(), readMessage,
-						Toast.LENGTH_SHORT).show();
-					// Log.e(LOG_TAG,connectingDevice.getName()+" Edw " + ":  " + readMessage);
-					JsonReceive += readMessage;
-					Log.e(TAG, connectingDevice.getName() + " Edw " + ":  " + readMessage);
-					ack++;
-
-					//SendAck(ack); // FIXME: 2/21/18
-
-					// Decode(readMessage);
+					final String readMessage = new String(readBuf, 0, msg.arg1);
+					Log.e(TAG, "Received: " + connectingDevice.getName() + ":  " + readMessage);
+					if (readMessage.equals("End of Response")) {
+						Toast.makeText(getApplicationContext(), readMessage, Toast.LENGTH_SHORT).show();
+					} else {
+						//append next message
+						jsonReceived += readMessage;
+						ack++;
+						sendAck(ack);
+					}
 					break;
+
 				case MESSAGE_DEVICE_OBJECT:
 					connectingDevice = msg.getData().getParcelable(DEVICE_OBJECT);
 					Toast.makeText(getApplicationContext(), "Connected to " + connectingDevice.getName(),
@@ -122,17 +119,16 @@ public class BluetoothService extends Service {
 		}
 	});
 
-	private void SendAck(int ack) {
+	private void sendAck(int ack) {
 		JSONObject request = null;
 		try {
 			request = new JSONObject();
 			JSONObject RequestBody = new JSONObject();
-			RequestBody.put("USE_CASE", "ACK");
+			RequestBody.put("Use cases", "ACK");
 			RequestBody.put("ACK_NUM", String.valueOf(ack));
 			request.put("Request", RequestBody);
 		} catch (JSONException e) {
 			Log.e(TAG, "unexpected JSON exception", e);
-			// Do something to recover ... or kill the app.
 		}
 		if (request.toString() != null) {
 			sendMessage(request.toString());
@@ -140,6 +136,11 @@ public class BluetoothService extends Service {
 	}
 
 	public void sendMessage(String message) {
+
+		//reset ack and received message
+		ack = 0;
+		jsonReceived = " ";
+
 		if (chatController.getState() != CommunicationController.STATE_CONNECTED) {
 			Toast.makeText(this, "Connection was lost!", Toast.LENGTH_SHORT).show();
 			return;
