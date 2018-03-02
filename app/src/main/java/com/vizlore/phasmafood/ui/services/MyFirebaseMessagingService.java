@@ -5,6 +5,8 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.util.Map;
+
 /**
  * Created by smedic on 1/23/18.
  */
@@ -21,7 +23,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 	public void onMessageReceived(RemoteMessage remoteMessage) {
 		super.onMessageReceived(remoteMessage);
 
-		Log.d(TAG, "******************* onMessageReceived: ");
+		Log.d(TAG, "******************* onMessageReceived: " + remoteMessage);
+
+		Map<String, String>  data = remoteMessage.getData();
+
+		Log.d(TAG, "onMessageReceived: " + remoteMessage.getNotification().getTitle());
+		Log.d(TAG, "onMessageReceived: " + remoteMessage.getNotification().getBody());
 	}
 
 	@Override

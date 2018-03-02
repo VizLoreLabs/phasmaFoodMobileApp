@@ -20,20 +20,20 @@ import retrofit2.http.Path;
 
 public interface FcmMobileApi {
 
-	@POST("/api/v1/mobile/")
+	@POST("/api/v1/mobile")
 	Completable sendFcmData(@Header("Authorization") String token, @Body Map<String, String> body);
 
-	@GET("/api/v1/mobile/{registration_id}/")
+	@GET("/api/v1/mobile/{registration_id}")
 	Single<ResponseBody> readFcmToken(@Header("Authorization") String token, @Path("registration_id") String regId);
 
-	@PUT("/api/v1/mobile/{registration_id}/")
+	@PUT("/api/v1/mobile/{registration_id}")
 	Completable updateFcmData(@Header("Authorization") String token, @Path("registration_id") String regId,
 							  @Body Map<String, String> body);
 
-	@PATCH("/api/v1/mobile/{registration_id}/")
+	@PATCH("/api/v1/mobile/{registration_id}")
 	Completable partialUpdateFcmData(@Header("Authorization") String token, @Path("registration_id") String regId,
 									 @Body Map<String, String> body);
 
-	@DELETE("/api/v1/mobile/{registration_id}/")
+	@DELETE("/api/v1/mobile/{registration_id}")
 	Completable deleteFcmToken(@Header("Authorization") String token, @Path("registration_id") String regId);
 }

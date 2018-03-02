@@ -14,7 +14,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.List;
-import java.util.UUID;
 
 import static com.vizlore.phasmafood.utils.Config.BT_DEVICE_UUID_KEY;
 import static com.vizlore.phasmafood.utils.Config.MOBILE_DEVICE_UUID_KEY;
@@ -44,27 +43,29 @@ public class Utils {
 	 * Get uuid of current mobile device
 	 */
 	public synchronized static String getMobileUUID() {
-		if (mobileDeviceUuid == null) {
-			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
-			mobileDeviceUuid = prefs.getString(MOBILE_DEVICE_UUID_KEY, null);
-			if (mobileDeviceUuid == null) {
-				mobileDeviceUuid = UUID.randomUUID().toString();
-				prefs.edit().putString(MOBILE_DEVICE_UUID_KEY, mobileDeviceUuid).apply();
-			}
-		}
-		return mobileDeviceUuid;
+		return "2527ff8d-54b1-4376-b3ee-30e0efb714ff";
+//		if (mobileDeviceUuid == null) {
+//			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
+//			mobileDeviceUuid = prefs.getString(MOBILE_DEVICE_UUID_KEY, null);
+//			if (mobileDeviceUuid == null) {
+//				mobileDeviceUuid = UUID.randomUUID().toString();
+//				prefs.edit().putString(MOBILE_DEVICE_UUID_KEY, mobileDeviceUuid).apply();
+//			}
+//		}
+//		return mobileDeviceUuid;
 	}
 
 	public synchronized static String getBluetoothDeviceUUID() {
-		if (btDeviceUuid == null) {
-			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
-			btDeviceUuid = prefs.getString(BT_DEVICE_UUID_KEY, null);
-			if (btDeviceUuid == null) {
-				btDeviceUuid = UUID.randomUUID().toString();
-				prefs.edit().putString(BT_DEVICE_UUID_KEY, btDeviceUuid).apply();
-			}
-		}
-		return btDeviceUuid;
+		return "40cff00a-11ad-4439-9047-08c5da711063";
+//		if (btDeviceUuid == null) {
+//			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
+//			btDeviceUuid = prefs.getString(BT_DEVICE_UUID_KEY, null);
+//			if (btDeviceUuid == null) {
+//				btDeviceUuid = UUID.randomUUID().toString();
+//				prefs.edit().putString(BT_DEVICE_UUID_KEY, btDeviceUuid).apply();
+//			}
+//		}
+//		return btDeviceUuid;
 	}
 
 	//do on logout

@@ -18,22 +18,22 @@ import retrofit2.http.PUT;
 
 public interface UserApi {
 
-	@POST("/api/v1/auth/users/create/")
+	@POST("/api/v1/auth/users/create")
 	Completable createAccount(@Body Map<String, String> body);
 
-	@POST("/api/v1/auth/jwt/create/")
+	@POST("/api/v1/auth/jwt/create")
 	Single<ResponseBody> getToken(@Body Map<String, String> body);
 
 	@Headers("Content-Type: application/json")
-	@POST("/api/v1/auth/jwt/refresh/")
+	@POST("/api/v1/auth/jwt/refresh")
 	Single<ResponseBody> getRefreshToken(@Body Map<String, String> body);
 
-	@POST("/api/v1/auth/jwt/verify/")
+	@POST("/api/v1/auth/jwt/verify")
 	Single<ResponseBody> verifyToken(@Body Map<String, String> body);
 
-	@GET("/api/v1/auth/me/")
+	@GET("/api/v1/auth/me")
 	Single<ResponseBody> getProfile(@Header("Authorization") String token);
 
-	@PUT("/api/v1/auth/me/")
+	@PUT("/api/v1/auth/me")
 	Completable updateProfile(@Header("Authorization") String token, @Body Map<String, String> body);
 }

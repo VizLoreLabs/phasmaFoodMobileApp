@@ -20,10 +20,10 @@ import retrofit2.http.Path;
 
 public interface DeviceApi {
 
-	@GET("/api/v1/device/")
+	@GET("/api/v1/device")
 	Single<ResponseBody> listDevice(@Header("Authorization") String token);
 
-	@POST("/api/v1/device/")
+	@POST("/api/v1/device")
 	Completable createDevice(@Header("Authorization") String token, @Body Map<String, String> body);
 
 	@GET("/api/v1/device/{serial_cpu}")
@@ -32,7 +32,7 @@ public interface DeviceApi {
 	@PUT("/api/v1/device/{serial_cpu}")
 	Completable updateDevice(@Header("Authorization") String token, @Path("serial_cpu") String serialCpu);
 
-	@PATCH("/api/v1/device/{serial_cpu}/")
+	@PATCH("/api/v1/device/{serial_cpu}")
 	Completable partialUpdateDevice(@Header("Authorization") String token, @Path("serial_cpu") String serialCpu, @Body Map<String, String> body);
 
 	@DELETE("/api/v1/device/{serial_cpu}")

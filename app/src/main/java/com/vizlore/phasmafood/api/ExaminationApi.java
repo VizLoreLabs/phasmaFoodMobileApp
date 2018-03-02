@@ -13,6 +13,6 @@ import retrofit2.http.POST;
 
 public interface ExaminationApi {
 
-	@POST("/api/v1/requests/")
+	@POST("/api/v1/requests")
 	Completable createExaminationRequest(@Header("Authorization") String token, @Body Examination examination);
 }
