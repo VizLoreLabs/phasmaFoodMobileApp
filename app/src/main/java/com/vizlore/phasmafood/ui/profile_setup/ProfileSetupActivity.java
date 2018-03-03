@@ -122,7 +122,6 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 			checkUserStatus();
 		}
 
-
 		Intent intent = new Intent(this, BluetoothService.class);
 		startService(intent); //Starting the service
 		bindService(intent, connection, Context.BIND_AUTO_CREATE); //Binding to the service!
@@ -166,7 +165,7 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 	public boolean isLocationPermissionEnabled() {
 		if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 			// Request the permission.
-			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_PERMISSION_COARSE_LOCATION);
+			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_PERMISSION_COARSE_LOCATION);
 			return false;
 		} else {
 			return true;

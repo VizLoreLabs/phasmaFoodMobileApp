@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.SharedPreferences;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.util.Log;
 
 import com.vizlore.phasmafood.MyApplication;
@@ -42,17 +43,10 @@ public class Utils {
 	/**
 	 * Get uuid of current mobile device
 	 */
+
 	public synchronized static String getMobileUUID() {
-		return "2527ff8d-54b1-4376-b3ee-30e0efb714ff";
-//		if (mobileDeviceUuid == null) {
-//			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
-//			mobileDeviceUuid = prefs.getString(MOBILE_DEVICE_UUID_KEY, null);
-//			if (mobileDeviceUuid == null) {
-//				mobileDeviceUuid = UUID.randomUUID().toString();
-//				prefs.edit().putString(MOBILE_DEVICE_UUID_KEY, mobileDeviceUuid).apply();
-//			}
-//		}
-//		return mobileDeviceUuid;
+		return Settings.Secure.getString(MyApplication.getAppContext().getContentResolver(),
+			Settings.Secure.ANDROID_ID);
 	}
 
 	public synchronized static String getBluetoothDeviceUUID() {

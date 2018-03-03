@@ -36,13 +36,8 @@ public class NetworkModule {
 	@Provides
 	@Singleton
 	HttpLoggingInterceptor provideHttpLoggingInterceptor() {
-		HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-			@Override
-			public void log(String message) {
-				Log.d("SMEDIC", "log: " + message);
-			}
-		});
-		logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+		HttpLoggingInterceptor logging = new HttpLoggingInterceptor(message -> Log.d("SMEDIC", "log: " + message));
+		logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
 		return logging;
 	}
 
