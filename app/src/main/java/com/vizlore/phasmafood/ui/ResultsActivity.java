@@ -67,8 +67,8 @@ public class ResultsActivity extends BaseActivity {
 				useCaseValue.setText(examination.getUseCase());
 				sampleValue.setText(examination.getFoodType());
 				granularityValue.setText(examination.getGranularity());
-				exposureTimeValue.setText("time");
-				storageTemperatureValue.setText("temp");
+				exposureTimeValue.setText("");
+				storageTemperatureValue.setText("");
 				datasetLabelValue.setText(examination.getMycotoxins());
 			}
 		}
