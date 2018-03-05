@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.model.results.Examination;
+import com.vizlore.phasmafood.model.results.Sample;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,12 +65,13 @@ public class ResultsActivity extends BaseActivity {
 
 			Examination examination = MyApplication.getInstance().getExamination();
 			if (examination != null) {
-				useCaseValue.setText(examination.getUseCase());
-				sampleValue.setText(examination.getFoodType());
-				granularityValue.setText(examination.getGranularity());
+				Sample sample = examination.getResponse().getSample();
+				useCaseValue.setText(sample.getUseCase());
+				sampleValue.setText(sample.getFoodType());
+				//granularityValue.setText(sample.getGranularity());
 				exposureTimeValue.setText("");
 				storageTemperatureValue.setText("");
-				datasetLabelValue.setText(examination.getMycotoxins());
+				//datasetLabelValue.setText(sample.getMycotoxins());
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 package com.vizlore.phasmafood.api;
 
-import com.vizlore.phasmafood.model.results.Examination;
+import com.vizlore.phasmafood.model.results.Sample;
 
 import io.reactivex.Completable;
 import retrofit2.http.Body;
@@ -14,5 +14,5 @@ import retrofit2.http.POST;
 public interface ExaminationApi {
 
 	@POST("/api/v1/requests")
-	Completable createExaminationRequest(@Header("Authorization") String token, @Body Examination examination);
+	Completable createExaminationRequest(@Header("Authorization") String token, @Body Sample examination);
 }

@@ -2,29 +2,46 @@ package com.vizlore.phasmafood.bluetooth;
 
 import android.app.Service;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.vizlore.phasmafood.MyApplication;
-import com.vizlore.phasmafood.bluetooth.exceptions.ConnectionErrorException;
+import com.vizlore.phasmafood.api.AutoValueGsonFactory;
+import com.vizlore.phasmafood.api.DeviceApi;
+import com.vizlore.phasmafood.api.ExaminationApi;
+import com.vizlore.phasmafood.api.UserApi;
+import com.vizlore.phasmafood.model.User;
+import com.vizlore.phasmafood.model.results.Examination;
+import com.vizlore.phasmafood.model.results.Sample;
+import com.vizlore.phasmafood.utils.Config;
+import com.vizlore.phasmafood.utils.JsonFileLoader;
+import com.vizlore.phasmafood.utils.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observer;
+import io.reactivex.CompletableObserver;
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
 
 /**
  * Created by smedic on 2/17/18.
@@ -42,19 +59,25 @@ public class BluetoothService extends Service {
 
 	private final IBinder mBinder = new LocalBinder();
 
-	private CommunicationController chatController;
+	private CommunicationController bluetoothController;
 	private BluetoothDevice connectingDevice;
 	public static final String DEVICE_OBJECT = "device_name";
 
 	@Inject
 	RxBluetooth rxBluetooth;
 
-	private CompositeDisposable compositeDisposable = new CompositeDisposable();
+	@Inject
+	DeviceApi deviceApi;
+
+	@Inject
+	ExaminationApi examinationApi;
+
+	@Inject
+	UserApi userApi;
+
 	private Disposable disposable = new CompositeDisposable();
 
-	private BluetoothSocket btSocket = null;
-	private BluetoothConnection connection = null;
-
+	int i = 0;
 	//test
 	private String jsonReceived = " ";
 	private int ack = 0;
@@ -67,36 +90,57 @@ public class BluetoothService extends Service {
 					switch (msg.arg1) {
 						case CommunicationController.STATE_CONNECTED:
 							Log.d(TAG, "Connected to: " + connectingDevice.getName());
-							//btnConnect.setEnabled(false);
-							//btnDisConnect.setEnabled(true);
+							registerBtDevice(connectingDevice);
 							break;
 						case CommunicationController.STATE_CONNECTING:
 							Log.d(TAG, "Connecting...");
-							//btnConnect.setEnabled(false);
 							break;
 						case CommunicationController.STATE_LISTEN:
 						case CommunicationController.STATE_NONE:
 							Log.d(TAG, "Not connected");
-							//btnConnect.setEnabled(true);
-							//btnDisConnect.setEnabled(false);
 							break;
 					}
 					break;
 				case MESSAGE_WRITE:
 					byte[] writeBuf = (byte[]) msg.obj;
-
 					String writeMessage = new String(writeBuf);
-					// chatMessages.add("Me: " + writeMessage);
-					// chatAdapter.notifyDataSetChanged();
 					Log.e(TAG, "Me: " + writeMessage);
 					break;
 				case MESSAGE_READ:
 
+					// message is here, parse it if it's last one
+					// or append if not
+
 					byte[] readBuf = (byte[]) msg.obj;
 					final String readMessage = new String(readBuf, 0, msg.arg1);
 					Log.e(TAG, "Received: " + connectingDevice.getName() + ":  " + readMessage);
-					if (readMessage.equals("End of Response")) {
+
+					if (readMessage.equals("End of Response") || i++ == 5) {
 						Toast.makeText(getApplicationContext(), readMessage, Toast.LENGTH_SHORT).show();
+
+						// TODO: 3/5/18 use examination
+						// TODO: 3/5/18 remove this fake
+						Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
+						String json = new JsonFileLoader().fromAsset("result2.json");
+						Examination examination = gson.fromJson(json, Examination.class);
+
+						Sample sample = examination.getResponse().getSample();
+						Log.d(TAG, "1 handleMessage: " + sample.getContamination());
+						Log.d(TAG, "1 handleMessage: " + sample.getGranularity());
+						Log.d(TAG, "1 handleMessage: " + sample.getMycotoxins());
+						Log.d(TAG, "2 handleMessage: " + sample.getTemperature());
+						Log.d(TAG, "2 handleMessage: " + sample.getMicrobiologicalValue());
+						Log.d(TAG, "2 handleMessage: " + sample.getMicrobiologicalUnit());
+
+						Log.d(TAG, "handleMessage: " + json);
+						//save examination
+						MyApplication.getInstance().saveExamination(examination);
+						if (examination != null) {
+							sendMeasurementToServer(examination.getResponse().getSample());
+						} else {
+							Toast.makeText(getApplicationContext(), "Parsing examination failed", Toast.LENGTH_SHORT).show();
+						}
+
 					} else {
 						//append next message
 						jsonReceived += readMessage;
@@ -119,6 +163,15 @@ public class BluetoothService extends Service {
 		}
 	});
 
+	//must be called just once from outside (activity for instance)
+	public void sendMessage(String message) {
+		//reset ack and received message
+		ack = 0;
+		jsonReceived = " ";
+		sendData(message);
+	}
+
+
 	private void sendAck(int ack) {
 		JSONObject request = null;
 		try {
@@ -131,43 +184,95 @@ public class BluetoothService extends Service {
 			Log.e(TAG, "unexpected JSON exception", e);
 		}
 		if (request.toString() != null) {
-			sendMessage(request.toString());
+			sendData(request.toString());
 		}
 	}
 
-	public void sendMessage(String message) {
-
-		//reset ack and received message
-		ack = 0;
-		jsonReceived = " ";
-
-		if (chatController.getState() != CommunicationController.STATE_CONNECTED) {
+	//called multiple times
+	private void sendData(String data) {
+		if (bluetoothController.getState() != CommunicationController.STATE_CONNECTED) {
 			Toast.makeText(this, "Connection was lost!", Toast.LENGTH_SHORT).show();
 			return;
 		}
-		if (message.length() > 0) {
-			byte[] send = message.getBytes();
-			chatController.write(send);
+		if (data.length() > 0) {
+			byte[] send = data.getBytes();
+			bluetoothController.write(send);
 		}
+	}
+
+	private void sendMeasurementToServer(@NonNull final Sample sample) {
+
+		userApi.getProfile(Utils.getHeader())
+			.subscribeOn(Schedulers.io())
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribe(new SingleObserver<ResponseBody>() {
+				@Override
+				public void onSubscribe(Disposable d) {
+				}
+
+				@Override
+				public void onSuccess(ResponseBody responseBody) {
+					try {
+						Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
+						User user = gson.fromJson(responseBody.string(), User.class);
+						createExaminationRequest(sample, user.id());
+
+					} catch (IOException e) {
+						Toast.makeText(BluetoothService.this, "Error parsing response", Toast.LENGTH_SHORT).show();
+						e.printStackTrace();
+					}
+				}
+
+				@Override
+				public void onError(Throwable e) {
+					Toast.makeText(BluetoothService.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+				}
+			});
+	}
+
+	private void createExaminationRequest(@NonNull Sample sample, @NonNull final String userId) {
+
+		Log.d(TAG, "createExaminationRequest: DEVICE ID: " + connectingDevice.getAddress());
+
+		String sampleId = String.valueOf(new Date().getTime() % 1000000000);
+		sample.setSampleID(sampleId);
+		sample.setUserID(userId);
+		sample.setDeviceID(connectingDevice.getAddress());
+		sample.setMobileID(Utils.getMobileUUID());
+
+		examinationApi.createExaminationRequest(Utils.getHeader(), sample)
+			.subscribeOn(Schedulers.io())
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribe(new CompletableObserver() {
+				@Override
+				public void onSubscribe(Disposable d) {
+				}
+
+				@Override
+				public void onComplete() {
+					Toast.makeText(BluetoothService.this, "Request created", Toast.LENGTH_SHORT).show();
+				}
+
+				@Override
+				public void onError(Throwable e) {
+					Log.d(TAG, "onError error: " + e.toString());
+					Toast.makeText(BluetoothService.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+				}
+			});
 	}
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		MyApplication.getComponent().inject(this);
+		Log.d(TAG, "BluetoothService started! service: " + rxBluetooth);
 
-//		Log.d(TAG, "BluetoothService started! service: " + rxBluetooth);
-//		if (!rxBluetooth.isBluetoothAvailable()) {
-//			// handle the lack of bluetooth support
-//			Log.d(TAG, "Bluetooth is not supported!");
-//			stopSelf();
-//		}
 //		// check if bluetooth is currently enabled and ready for use
 //		if (!rxBluetooth.isBluetoothEnabled()) {
 //			Log.d(TAG, "Bluetooth should be enabled first!");
 //			stopSelf();
 //		}
-		chatController = new CommunicationController(handler);
+		bluetoothController = new CommunicationController(handler);
 	}
 
 	@Override
@@ -183,8 +288,8 @@ public class BluetoothService extends Service {
 //		disposable.dispose();
 //		super.onDestroy();
 //		Log.d(TAG, "BluetoothService stopped!");
-		if (chatController != null)
-			chatController.stop();
+		if (bluetoothController != null)
+			bluetoothController.stop();
 	}
 
 	@Override
@@ -202,112 +307,65 @@ public class BluetoothService extends Service {
 	public void connectToCommunicationController(String deviceAddress) {
 		rxBluetooth.cancelDiscovery();
 		BluetoothDevice device = rxBluetooth.getRemoteDevice(deviceAddress);
-		chatController.connect(device);
+		bluetoothController.connect(device);
 	}
 
 	public void disconnectFromCommunicationController() {
 		Log.d(TAG, "disconnect");
-		chatController.stop();
+		bluetoothController.stop();
 	}
 
-	public void connect() {
-		rxBluetooth.cancelDiscovery();
-
-		if (rxBluetooth.getBondedDevices().size() > 0) {
-			// get first device - FIXME: 2/17/18 add selected
-			BluetoothDevice device = rxBluetooth.getBondedDevices().get(0);
-			Log.d(TAG, "connect: device: " + device);
-			try {
-				connectToDevice(device.getAddress());
-				listenInputStream();
-			} catch (ConnectionErrorException e) {
-				Log.d(TAG, "ConnectionErrorException: " + e.getMessage());
-				e.printStackTrace();
-				try {
-					btSocket.close();
-				} catch (IOException e2) {
-					e2.printStackTrace();
-				}
-			}
-		}
-	}
-
-	public void connectToDevice(final String deviceAddress) throws ConnectionErrorException {
-
-		if (connection != null) {
-			if (disposable != null) {
-				disposable.dispose();
-			}
-			Log.d(TAG, "connectToDevice: close previous connection");
-			connection.closeConnection();
-		}
-
-		if (rxBluetooth.isDiscovering()) {
-			rxBluetooth.cancelDiscovery();
-		}
-
-		BluetoothDevice device = rxBluetooth.getRemoteDevice(deviceAddress);
-
-		try {
-			btSocket = device.createInsecureRfcommSocketToServiceRecord(device.getUuids()[0].getUuid());
-		} catch (IOException e2) {
-			throw new ConnectionErrorException(e2.getMessage());
-		}
-
-		try {
-			btSocket.connect();
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new ConnectionErrorException(e.getMessage());
-		}
-		try {
-			connection = new BluetoothConnection(btSocket);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new ConnectionErrorException(e.getMessage());
-		}
-	}
-
-	public void sendData(String data) {
-		Log.d(TAG, "sendData: " + data);
-		if (connection != null) {
-			connection.send(data);
-		}
-	}
-
-	private void listenInputStream() {
-		connection.observeStringDataObservable()
-			.observeOn(Schedulers.newThread())
+	// TODO: 3/5/18 refactor in RxJava fashion
+	private void registerBtDevice(final BluetoothDevice device) {
+		deviceApi.readDevice(Utils.getHeader(), device.getAddress())
 			.subscribeOn(Schedulers.computation())
-			.subscribe(new Observer<String>() {
+			.subscribe(new CompletableObserver() {
 				@Override
 				public void onSubscribe(Disposable d) {
-
-				}
-
-				@Override
-				public void onNext(String s) {
-					Log.d(TAG, "onNext:" + s);
-				}
-
-				@Override
-				public void onError(Throwable e) {
-					Log.d(TAG, "onError: " + e.toString());
 				}
 
 				@Override
 				public void onComplete() {
+					//device found - already registered
+				}
+
+				@Override
+				public void onError(Throwable e) {
+					// device did not find, register it
+					final String deviceUuid = device.getUuids()[0].getUuid().toString();
+					Map<String, String> requestBody = new HashMap<>();
+					requestBody.put(Config.DEVICE_BLUETOOTH_ADDRESS, deviceUuid);
+					requestBody.put(Config.DEVICE_SERIAL_ID, device.getAddress());
+
+					deviceApi.createDevice(Utils.getHeader(), requestBody)
+						.subscribeOn(Schedulers.computation())
+						.subscribe(new CompletableObserver() {
+							@Override
+							public void onSubscribe(Disposable d) {
+							}
+
+							@Override
+							public void onComplete() {
+								Log.d(TAG, "onComplete: device created");
+							}
+
+							@Override
+							public void onError(Throwable e) {
+								Log.d(TAG, "onError: device not created:" + e.getMessage());
+							}
+						});
 
 				}
 			});
 	}
 
 	public void closeConnection() {
-		if (connection != null) {
+		if (bluetoothController != null) {
 			if (disposable != null) {
 				disposable.dispose();
 			}
-			connection.closeConnection();
+			bluetoothController.stop();
+			bluetoothController = null;
 		}
 	}
 }

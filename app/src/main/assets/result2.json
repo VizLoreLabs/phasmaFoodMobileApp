@@ -1,0 +1,4783 @@
+{
+  "Response": {
+    "Status": "OK",
+    "Result": "SUCCESS",
+    "Sample": {
+      "sampleID": "21212121",
+      "laboratory": "Beaglebone",
+      "UserID": "string",
+      "deviceID": "38:D2:69:DD:44:72",
+      "foodType": "Ready-to-eat rocket",
+      "useCase": "Food spoilage",
+      "temperature": "8",
+      "tempExposureHours": "206",
+      "microbiologicalValue": "8.243038049",
+      "microbiologicalUnit": "Total mesophiles log cfu/g",
+
+      "VIS": {
+        "Preprocessed": [
+          {
+            "wave": "320.469",
+            "measurement": "0.040100"
+          },
+          {
+            "wave": "323.166",
+            "measurement": "0.040888"
+          },
+          {
+            "wave": "325.861",
+            "measurement": "0.041745"
+          },
+          {
+            "wave": "328.553",
+            "measurement": "0.046479"
+          },
+          {
+            "wave": "331.243",
+            "measurement": "0.038453"
+          },
+          {
+            "wave": "333.93",
+            "measurement": "0.041288"
+          },
+          {
+            "wave": "336.615",
+            "measurement": "0.040222"
+          },
+          {
+            "wave": "339.297",
+            "measurement": "0.042152"
+          },
+          {
+            "wave": "341.976",
+            "measurement": "0.042525"
+          },
+          {
+            "wave": "344.653",
+            "measurement": "0.038886"
+          },
+          {
+            "wave": "347.327",
+            "measurement": "0.040381"
+          },
+          {
+            "wave": "349.998",
+            "measurement": "0.042048"
+          },
+          {
+            "wave": "352.666",
+            "measurement": "0.042408"
+          },
+          {
+            "wave": "355.331",
+            "measurement": "0.043500"
+          },
+          {
+            "wave": "357.994",
+            "measurement": "0.039970"
+          },
+          {
+            "wave": "360.653",
+            "measurement": "0.038542"
+          },
+          {
+            "wave": "363.309",
+            "measurement": "0.038809"
+          },
+          {
+            "wave": "365.962",
+            "measurement": "0.038617"
+          },
+          {
+            "wave": "368.612",
+            "measurement": "0.037274"
+          },
+          {
+            "wave": "371.259",
+            "measurement": "0.039680"
+          },
+          {
+            "wave": "373.903",
+            "measurement": "0.040486"
+          },
+          {
+            "wave": "376.543",
+            "measurement": "0.038786"
+          },
+          {
+            "wave": "379.18",
+            "measurement": "0.039368"
+          },
+          {
+            "wave": "381.813",
+            "measurement": "0.040380"
+          },
+          {
+            "wave": "384.443",
+            "measurement": "0.040374"
+          },
+          {
+            "wave": "387.07",
+            "measurement": "0.040280"
+          },
+          {
+            "wave": "389.693",
+            "measurement": "0.039585"
+          },
+          {
+            "wave": "392.313",
+            "measurement": "0.042719"
+          },
+          {
+            "wave": "394.929",
+            "measurement": "0.040047"
+          },
+          {
+            "wave": "397.541",
+            "measurement": "0.037633"
+          },
+          {
+            "wave": "400.15",
+            "measurement": "0.038127"
+          },
+          {
+            "wave": "402.755",
+            "measurement": "0.041419"
+          },
+          {
+            "wave": "405.356",
+            "measurement": "0.043241"
+          },
+          {
+            "wave": "407.954",
+            "measurement": "0.042986"
+          },
+          {
+            "wave": "410.547",
+            "measurement": "0.047788"
+          },
+          {
+            "wave": "413.137",
+            "measurement": "0.050759"
+          },
+          {
+            "wave": "415.723",
+            "measurement": "0.051300"
+          },
+          {
+            "wave": "418.305",
+            "measurement": "0.061140"
+          },
+          {
+            "wave": "420.883",
+            "measurement": "0.068268"
+          },
+          {
+            "wave": "423.457",
+            "measurement": "0.070592"
+          },
+          {
+            "wave": "426.027",
+            "measurement": "0.077068"
+          },
+          {
+            "wave": "428.593",
+            "measurement": "0.080853"
+          },
+          {
+            "wave": "431.154",
+            "measurement": "0.082689"
+          },
+          {
+            "wave": "433.712",
+            "measurement": "0.086698"
+          },
+          {
+            "wave": "436.265",
+            "measurement": "0.088799"
+          },
+          {
+            "wave": "438.814",
+            "measurement": "0.089753"
+          },
+          {
+            "wave": "441.359",
+            "measurement": "0.091658"
+          },
+          {
+            "wave": "443.9",
+            "measurement": "0.092660"
+          },
+          {
+            "wave": "446.436",
+            "measurement": "0.093991"
+          },
+          {
+            "wave": "448.967",
+            "measurement": "0.094963"
+          },
+          {
+            "wave": "451.495",
+            "measurement": "0.094801"
+          },
+          {
+            "wave": "454.018",
+            "measurement": "0.095669"
+          },
+          {
+            "wave": "456.536",
+            "measurement": "0.095418"
+          },
+          {
+            "wave": "459.05",
+            "measurement": "0.096150"
+          },
+          {
+            "wave": "461.559",
+            "measurement": "0.095539"
+          },
+          {
+            "wave": "464.064",
+            "measurement": "0.095806"
+          },
+          {
+            "wave": "466.564",
+            "measurement": "0.094668"
+          },
+          {
+            "wave": "469.06",
+            "measurement": "0.095025"
+          },
+          {
+            "wave": "471.551",
+            "measurement": "0.093667"
+          },
+          {
+            "wave": "474.037",
+            "measurement": "0.094475"
+          },
+          {
+            "wave": "476.518",
+            "measurement": "0.093253"
+          },
+          {
+            "wave": "478.995",
+            "measurement": "0.093995"
+          },
+          {
+            "wave": "481.467",
+            "measurement": "0.094626"
+          },
+          {
+            "wave": "483.934",
+            "measurement": "0.095122"
+          },
+          {
+            "wave": "486.396",
+            "measurement": "0.095629"
+          },
+          {
+            "wave": "488.853",
+            "measurement": "0.096815"
+          },
+          {
+            "wave": "491.305",
+            "measurement": "0.098217"
+          },
+          {
+            "wave": "493.753",
+            "measurement": "0.098936"
+          },
+          {
+            "wave": "496.195",
+            "measurement": "0.100706"
+          },
+          {
+            "wave": "498.632",
+            "measurement": "0.103242"
+          },
+          {
+            "wave": "501.065",
+            "measurement": "0.106741"
+          },
+          {
+            "wave": "503.492",
+            "measurement": "0.109853"
+          },
+          {
+            "wave": "505.914",
+            "measurement": "0.113063"
+          },
+          {
+            "wave": "508.332",
+            "measurement": "0.116621"
+          },
+          {
+            "wave": "510.743",
+            "measurement": "0.121561"
+          },
+          {
+            "wave": "513.15",
+            "measurement": "0.128745"
+          },
+          {
+            "wave": "515.552",
+            "measurement": "0.134291"
+          },
+          {
+            "wave": "517.948",
+            "measurement": "0.141647"
+          },
+          {
+            "wave": "520.339",
+            "measurement": "0.150697"
+          },
+          {
+            "wave": "522.725",
+            "measurement": "0.158238"
+          },
+          {
+            "wave": "525.106",
+            "measurement": "0.168510"
+          },
+          {
+            "wave": "527.481",
+            "measurement": "0.177140"
+          },
+          {
+            "wave": "529.851",
+            "measurement": "0.186967"
+          },
+          {
+            "wave": "532.216",
+            "measurement": "0.195798"
+          },
+          {
+            "wave": "534.575",
+            "measurement": "0.203698"
+          },
+          {
+            "wave": "536.929",
+            "measurement": "0.210465"
+          },
+          {
+            "wave": "539.277",
+            "measurement": "0.214896"
+          },
+          {
+            "wave": "541.62",
+            "measurement": "0.219131"
+          },
+          {
+            "wave": "543.957",
+            "measurement": "0.222702"
+          },
+          {
+            "wave": "546.289",
+            "measurement": "0.227025"
+          },
+          {
+            "wave": "548.616",
+            "measurement": "0.227874"
+          },
+          {
+            "wave": "550.936",
+            "measurement": "0.230808"
+          },
+          {
+            "wave": "553.252",
+            "measurement": "0.232549"
+          },
+          {
+            "wave": "555.561",
+            "measurement": "0.234170"
+          },
+          {
+            "wave": "557.865",
+            "measurement": "0.236184"
+          },
+          {
+            "wave": "560.164",
+            "measurement": "0.234238"
+          },
+          {
+            "wave": "562.457",
+            "measurement": "0.236697"
+          },
+          {
+            "wave": "564.744",
+            "measurement": "0.233902"
+          },
+          {
+            "wave": "567.025",
+            "measurement": "0.231644"
+          },
+          {
+            "wave": "569.301",
+            "measurement": "0.229768"
+          },
+          {
+            "wave": "571.571",
+            "measurement": "0.224497"
+          },
+          {
+            "wave": "573.835",
+            "measurement": "0.220716"
+          },
+          {
+            "wave": "576.093",
+            "measurement": "0.217923"
+          },
+          {
+            "wave": "578.346",
+            "measurement": "0.210032"
+          },
+          {
+            "wave": "580.593",
+            "measurement": "0.205517"
+          },
+          {
+            "wave": "582.834",
+            "measurement": "0.201591"
+          },
+          {
+            "wave": "585.069",
+            "measurement": "0.197803"
+          },
+          {
+            "wave": "587.299",
+            "measurement": "0.194304"
+          },
+          {
+            "wave": "589.522",
+            "measurement": "0.190219"
+          },
+          {
+            "wave": "591.74",
+            "measurement": "0.187441"
+          },
+          {
+            "wave": "593.952",
+            "measurement": "0.185089"
+          },
+          {
+            "wave": "596.158",
+            "measurement": "0.181282"
+          },
+          {
+            "wave": "598.358",
+            "measurement": "0.179243"
+          },
+          {
+            "wave": "600.551",
+            "measurement": "0.176800"
+          },
+          {
+            "wave": "602.739",
+            "measurement": "0.175175"
+          },
+          {
+            "wave": "604.922",
+            "measurement": "0.173375"
+          },
+          {
+            "wave": "607.098",
+            "measurement": "0.170466"
+          },
+          {
+            "wave": "609.268",
+            "measurement": "0.169250"
+          },
+          {
+            "wave": "611.432",
+            "measurement": "0.166354"
+          },
+          {
+            "wave": "613.59",
+            "measurement": "0.163394"
+          },
+          {
+            "wave": "615.742",
+            "measurement": "0.161179"
+          },
+          {
+            "wave": "617.887",
+            "measurement": "0.157813"
+          },
+          {
+            "wave": "620.027",
+            "measurement": "0.154567"
+          },
+          {
+            "wave": "622.161",
+            "measurement": "0.152270"
+          },
+          {
+            "wave": "624.289",
+            "measurement": "0.148707"
+          },
+          {
+            "wave": "626.41",
+            "measurement": "0.147334"
+          },
+          {
+            "wave": "628.526",
+            "measurement": "0.144903"
+          },
+          {
+            "wave": "630.635",
+            "measurement": "0.144099"
+          },
+          {
+            "wave": "632.738",
+            "measurement": "0.142549"
+          },
+          {
+            "wave": "634.835",
+            "measurement": "0.140923"
+          },
+          {
+            "wave": "636.926",
+            "measurement": "0.138608"
+          },
+          {
+            "wave": "639.011",
+            "measurement": "0.136352"
+          },
+          {
+            "wave": "641.089",
+            "measurement": "0.133967"
+          },
+          {
+            "wave": "643.162",
+            "measurement": "0.129664"
+          },
+          {
+            "wave": "645.228",
+            "measurement": "0.125808"
+          },
+          {
+            "wave": "647.288",
+            "measurement": "0.122595"
+          },
+          {
+            "wave": "649.341",
+            "measurement": "0.118906"
+          },
+          {
+            "wave": "651.389",
+            "measurement": "0.114186"
+          },
+          {
+            "wave": "653.43",
+            "measurement": "0.110856"
+          },
+          {
+            "wave": "655.465",
+            "measurement": "0.106614"
+          },
+          {
+            "wave": "657.494",
+            "measurement": "0.104096"
+          },
+          {
+            "wave": "659.516",
+            "measurement": "0.102519"
+          },
+          {
+            "wave": "661.532",
+            "measurement": "0.099334"
+          },
+          {
+            "wave": "663.542",
+            "measurement": "0.096267"
+          },
+          {
+            "wave": "665.546",
+            "measurement": "0.092600"
+          },
+          {
+            "wave": "667.543",
+            "measurement": "0.091065"
+          },
+          {
+            "wave": "669.535",
+            "measurement": "0.087652"
+          },
+          {
+            "wave": "671.519",
+            "measurement": "0.085276"
+          },
+          {
+            "wave": "673.498",
+            "measurement": "0.083676"
+          },
+          {
+            "wave": "675.47",
+            "measurement": "0.081895"
+          },
+          {
+            "wave": "677.436",
+            "measurement": "0.079666"
+          },
+          {
+            "wave": "679.396",
+            "measurement": "0.081033"
+          },
+          {
+            "wave": "681.349",
+            "measurement": "0.082819"
+          },
+          {
+            "wave": "683.296",
+            "measurement": "0.082405"
+          },
+          {
+            "wave": "685.236",
+            "measurement": "0.083421"
+          },
+          {
+            "wave": "687.171",
+            "measurement": "0.087577"
+          },
+          {
+            "wave": "689.099",
+            "measurement": "0.088792"
+          },
+          {
+            "wave": "691.02",
+            "measurement": "0.091534"
+          },
+          {
+            "wave": "692.935",
+            "measurement": "0.096082"
+          },
+          {
+            "wave": "694.844",
+            "measurement": "0.099010"
+          },
+          {
+            "wave": "696.747",
+            "measurement": "0.108060"
+          },
+          {
+            "wave": "698.643",
+            "measurement": "0.114329"
+          },
+          {
+            "wave": "700.533",
+            "measurement": "0.122331"
+          },
+          {
+            "wave": "702.416",
+            "measurement": "0.126876"
+          },
+          {
+            "wave": "704.293",
+            "measurement": "0.134789"
+          },
+          {
+            "wave": "706.164",
+            "measurement": "0.143155"
+          },
+          {
+            "wave": "708.029",
+            "measurement": "0.154074"
+          },
+          {
+            "wave": "709.887",
+            "measurement": "0.156032"
+          },
+          {
+            "wave": "711.738",
+            "measurement": "0.161397"
+          },
+          {
+            "wave": "713.584",
+            "measurement": "0.167752"
+          },
+          {
+            "wave": "715.423",
+            "measurement": "0.171600"
+          },
+          {
+            "wave": "717.255",
+            "measurement": "0.178106"
+          },
+          {
+            "wave": "719.082",
+            "measurement": "0.178548"
+          },
+          {
+            "wave": "720.901",
+            "measurement": "0.181238"
+          },
+          {
+            "wave": "722.715",
+            "measurement": "0.186555"
+          },
+          {
+            "wave": "724.522",
+            "measurement": "0.184147"
+          },
+          {
+            "wave": "726.323",
+            "measurement": "0.188848"
+          },
+          {
+            "wave": "728.117",
+            "measurement": "0.187587"
+          },
+          {
+            "wave": "729.905",
+            "measurement": "0.189277"
+          },
+          {
+            "wave": "731.687",
+            "measurement": "0.192595"
+          },
+          {
+            "wave": "733.462",
+            "measurement": "0.188174"
+          },
+          {
+            "wave": "735.232",
+            "measurement": "0.183230"
+          },
+          {
+            "wave": "736.994",
+            "measurement": "0.185174"
+          },
+          {
+            "wave": "738.751",
+            "measurement": "0.183209"
+          },
+          {
+            "wave": "740.501",
+            "measurement": "0.176879"
+          },
+          {
+            "wave": "742.244",
+            "measurement": "0.178379"
+          },
+          {
+            "wave": "743.982",
+            "measurement": "0.171127"
+          },
+          {
+            "wave": "745.713",
+            "measurement": "0.173869"
+          },
+          {
+            "wave": "747.437",
+            "measurement": "0.169835"
+          },
+          {
+            "wave": "749.156",
+            "measurement": "0.167932"
+          },
+          {
+            "wave": "750.868",
+            "measurement": "0.155561"
+          },
+          {
+            "wave": "752.573",
+            "measurement": "0.150071"
+          },
+          {
+            "wave": "754.273",
+            "measurement": "0.145865"
+          },
+          {
+            "wave": "755.966",
+            "measurement": "0.138434"
+          },
+          {
+            "wave": "757.653",
+            "measurement": "0.132359"
+          },
+          {
+            "wave": "759.333",
+            "measurement": "0.127113"
+          },
+          {
+            "wave": "761.008",
+            "measurement": "0.120361"
+          },
+          {
+            "wave": "762.676",
+            "measurement": "0.119772"
+          },
+          {
+            "wave": "764.337",
+            "measurement": "0.112778"
+          },
+          {
+            "wave": "765.993",
+            "measurement": "0.108372"
+          },
+          {
+            "wave": "767.642",
+            "measurement": "0.103636"
+          },
+          {
+            "wave": "769.285",
+            "measurement": "0.100061"
+          },
+          {
+            "wave": "770.922",
+            "measurement": "0.091010"
+          },
+          {
+            "wave": "772.552",
+            "measurement": "0.091373"
+          },
+          {
+            "wave": "774.176",
+            "measurement": "0.091638"
+          },
+          {
+            "wave": "775.795",
+            "measurement": "0.084372"
+          },
+          {
+            "wave": "777.406",
+            "measurement": "0.082131"
+          },
+          {
+            "wave": "779.012",
+            "measurement": "0.077096"
+          },
+          {
+            "wave": "780.611",
+            "measurement": "0.074366"
+          },
+          {
+            "wave": "782.205",
+            "measurement": "0.071705"
+          },
+          {
+            "wave": "783.792",
+            "measurement": "0.069829"
+          },
+          {
+            "wave": "785.373",
+            "measurement": "0.066447"
+          },
+          {
+            "wave": "786.947",
+            "measurement": "0.063555"
+          },
+          {
+            "wave": "788.516",
+            "measurement": "0.063050"
+          },
+          {
+            "wave": "790.078",
+            "measurement": "0.058996"
+          },
+          {
+            "wave": "791.635",
+            "measurement": "0.056214"
+          },
+          {
+            "wave": "793.185",
+            "measurement": "0.058647"
+          },
+          {
+            "wave": "794.729",
+            "measurement": "0.053110"
+          },
+          {
+            "wave": "796.267",
+            "measurement": "0.050054"
+          },
+          {
+            "wave": "797.799",
+            "measurement": "0.055050"
+          },
+          {
+            "wave": "799.325",
+            "measurement": "0.048787"
+          },
+          {
+            "wave": "800.844",
+            "measurement": "0.049878"
+          },
+          {
+            "wave": "802.358",
+            "measurement": "0.048784"
+          },
+          {
+            "wave": "803.866",
+            "measurement": "0.046850"
+          },
+          {
+            "wave": "805.368",
+            "measurement": "0.044918"
+          },
+          {
+            "wave": "806.863",
+            "measurement": "0.040319"
+          },
+          {
+            "wave": "808.353",
+            "measurement": "0.042796"
+          },
+          {
+            "wave": "809.836",
+            "measurement": "0.044064"
+          },
+          {
+            "wave": "811.314",
+            "measurement": "0.045463"
+          },
+          {
+            "wave": "812.786",
+            "measurement": "0.039615"
+          },
+          {
+            "wave": "814.252",
+            "measurement": "0.043735"
+          },
+          {
+            "wave": "815.711",
+            "measurement": "0.041648"
+          },
+          {
+            "wave": "817.165",
+            "measurement": "0.040561"
+          },
+          {
+            "wave": "818.613",
+            "measurement": "0.043204"
+          },
+          {
+            "wave": "820.055",
+            "measurement": "0.035459"
+          },
+          {
+            "wave": "821.491",
+            "measurement": "0.041904"
+          },
+          {
+            "wave": "822.922",
+            "measurement": "0.037486"
+          },
+          {
+            "wave": "824.346",
+            "measurement": "0.038189"
+          },
+          {
+            "wave": "825.765",
+            "measurement": "0.038970"
+          },
+          {
+            "wave": "827.178",
+            "measurement": "0.038339"
+          },
+          {
+            "wave": "828.585",
+            "measurement": "0.035434"
+          },
+          {
+            "wave": "829.986",
+            "measurement": "0.036482"
+          },
+          {
+            "wave": "831.381",
+            "measurement": "0.031574"
+          },
+          {
+            "wave": "832.771",
+            "measurement": "0.033392"
+          },
+          {
+            "wave": "834.155",
+            "measurement": "0.034915"
+          },
+          {
+            "wave": "835.533",
+            "measurement": "0.032457"
+          },
+          {
+            "wave": "836.906",
+            "measurement": "0.027913"
+          },
+          {
+            "wave": "838.272",
+            "measurement": "0.032629"
+          },
+          {
+            "wave": "839.633",
+            "measurement": "0.031815"
+          },
+          {
+            "wave": "840.989",
+            "measurement": "0.031111"
+          },
+          {
+            "wave": "842.339",
+            "measurement": "0.028700"
+          },
+          {
+            "wave": "843.683",
+            "measurement": "0.028128"
+          },
+          {
+            "wave": "845.021",
+            "measurement": "0.028903"
+          },
+          {
+            "wave": "846.354",
+            "measurement": "0.028984"
+          },
+          {
+            "wave": "847.682",
+            "measurement": "0.029128"
+          },
+          {
+            "wave": "849.004",
+            "measurement": "0.029336"
+          },
+          {
+            "wave": "850.32",
+            "measurement": "0.028118"
+          },
+          {
+            "wave": "851.631",
+            "measurement": "0.028778"
+          },
+          {
+            "wave": "852.936",
+            "measurement": "0.028261"
+          },
+          {
+            "wave": "854.236",
+            "measurement": "0.028376"
+          },
+          {
+            "wave": "855.53",
+            "measurement": "0.030029"
+          },
+          {
+            "wave": "856.819",
+            "measurement": "0.024498"
+          },
+          {
+            "wave": "858.102",
+            "measurement": "0.026663"
+          },
+          {
+            "wave": "859.38",
+            "measurement": "0.025587"
+          },
+          {
+            "wave": "860.653",
+            "measurement": "0.026969"
+          },
+          {
+            "wave": "861.92",
+            "measurement": "0.028097"
+          },
+          {
+            "wave": "863.182",
+            "measurement": "0.027450"
+          },
+          {
+            "wave": "864.439",
+            "measurement": "0.034317"
+          },
+          {
+            "wave": "865.69",
+            "measurement": "0.026189"
+          },
+          {
+            "wave": "866.936",
+            "measurement": "0.023338"
+          },
+          {
+            "wave": "868.177",
+            "measurement": "0.026781"
+          },
+          {
+            "wave": "869.412",
+            "measurement": "0.023224"
+          },
+          {
+            "wave": "870.642",
+            "measurement": "0.025480"
+          },
+          {
+            "wave": "871.867",
+            "measurement": "0.026680"
+          },
+          {
+            "wave": "873.087",
+            "measurement": "0.025770"
+          },
+          {
+            "wave": "874.302",
+            "measurement": "0.022828"
+          },
+          {
+            "wave": "875.512",
+            "measurement": "0.021331"
+          },
+          {
+            "wave": "876.716",
+            "measurement": "0.026261"
+          },
+          {
+            "wave": "877.916",
+            "measurement": "0.024351"
+          },
+          {
+            "wave": "879.11",
+            "measurement": "0.024673"
+          },
+          {
+            "wave": "880.299",
+            "measurement": "0.025633"
+          },
+          {
+            "wave": "881.483",
+            "measurement": "0.022636"
+          },
+          {
+            "wave": "882.663",
+            "measurement": "0.023396"
+          },
+          {
+            "wave": "883.837",
+            "measurement": "0.025137"
+          },
+          {
+            "wave": "885.006",
+            "measurement": "0.026135"
+          },
+          {
+            "wave": "886.17",
+            "measurement": "0.025883"
+          },
+          {
+            "wave": "887.33",
+            "measurement": "0.025255"
+          },
+          {
+            "wave": "888.484",
+            "measurement": "0.024245"
+          }
+        ]
+      },
+      "NIR": {
+        "averageAbsorbance": [
+          {
+            "wave": "1000",
+            "measurement": "0.281477"
+          },
+          {
+            "wave": "1001",
+            "measurement": "0.280623"
+          },
+          {
+            "wave": "1002",
+            "measurement": "0.278263"
+          },
+          {
+            "wave": "1003",
+            "measurement": "0.272908"
+          },
+          {
+            "wave": "1004",
+            "measurement": "0.272030"
+          },
+          {
+            "wave": "1005",
+            "measurement": "0.274447"
+          },
+          {
+            "wave": "1006",
+            "measurement": "0.274702"
+          },
+          {
+            "wave": "1007",
+            "measurement": "0.269622"
+          },
+          {
+            "wave": "1008",
+            "measurement": "0.269139"
+          },
+          {
+            "wave": "1009",
+            "measurement": "0.263893"
+          },
+          {
+            "wave": "1010",
+            "measurement": "0.263124"
+          },
+          {
+            "wave": "1011",
+            "measurement": "0.258571"
+          },
+          {
+            "wave": "1012",
+            "measurement": "0.265241"
+          },
+          {
+            "wave": "1013",
+            "measurement": "0.258592"
+          },
+          {
+            "wave": "1014",
+            "measurement": "0.259009"
+          },
+          {
+            "wave": "1015",
+            "measurement": "0.256174"
+          },
+          {
+            "wave": "1016",
+            "measurement": "0.256845"
+          },
+          {
+            "wave": "1017",
+            "measurement": "0.250043"
+          },
+          {
+            "wave": "1018",
+            "measurement": "0.245651"
+          },
+          {
+            "wave": "1019",
+            "measurement": "0.252440"
+          },
+          {
+            "wave": "1020",
+            "measurement": "0.250881"
+          },
+          {
+            "wave": "1021",
+            "measurement": "0.252093"
+          },
+          {
+            "wave": "1022",
+            "measurement": "0.253674"
+          },
+          {
+            "wave": "1023",
+            "measurement": "0.253256"
+          },
+          {
+            "wave": "1024",
+            "measurement": "0.247964"
+          },
+          {
+            "wave": "1025",
+            "measurement": "0.251446"
+          },
+          {
+            "wave": "1026",
+            "measurement": "0.252021"
+          },
+          {
+            "wave": "1027",
+            "measurement": "0.254106"
+          },
+          {
+            "wave": "1028",
+            "measurement": "0.259424"
+          },
+          {
+            "wave": "1029",
+            "measurement": "0.262803"
+          },
+          {
+            "wave": "1030",
+            "measurement": "0.261356"
+          },
+          {
+            "wave": "1031",
+            "measurement": "0.259820"
+          },
+          {
+            "wave": "1032",
+            "measurement": "0.263691"
+          },
+          {
+            "wave": "1033",
+            "measurement": "0.259437"
+          },
+          {
+            "wave": "1034",
+            "measurement": "0.256876"
+          },
+          {
+            "wave": "1035",
+            "measurement": "0.251475"
+          },
+          {
+            "wave": "1036",
+            "measurement": "0.252774"
+          },
+          {
+            "wave": "1037",
+            "measurement": "0.247260"
+          },
+          {
+            "wave": "1038",
+            "measurement": "0.247154"
+          },
+          {
+            "wave": "1039",
+            "measurement": "0.248511"
+          },
+          {
+            "wave": "1040",
+            "measurement": "0.251592"
+          },
+          {
+            "wave": "1041",
+            "measurement": "0.253491"
+          },
+          {
+            "wave": "1042",
+            "measurement": "0.251868"
+          },
+          {
+            "wave": "1043",
+            "measurement": "0.254212"
+          },
+          {
+            "wave": "1044",
+            "measurement": "0.255578"
+          },
+          {
+            "wave": "1045",
+            "measurement": "0.254046"
+          },
+          {
+            "wave": "1046",
+            "measurement": "0.248523"
+          },
+          {
+            "wave": "1047",
+            "measurement": "0.251192"
+          },
+          {
+            "wave": "1048",
+            "measurement": "0.250230"
+          },
+          {
+            "wave": "1049",
+            "measurement": "0.249548"
+          },
+          {
+            "wave": "1050",
+            "measurement": "0.250125"
+          },
+          {
+            "wave": "1051",
+            "measurement": "0.251025"
+          },
+          {
+            "wave": "1052",
+            "measurement": "0.249267"
+          },
+          {
+            "wave": "1053",
+            "measurement": "0.246435"
+          },
+          {
+            "wave": "1054",
+            "measurement": "0.246783"
+          },
+          {
+            "wave": "1055",
+            "measurement": "0.246202"
+          },
+          {
+            "wave": "1056",
+            "measurement": "0.251071"
+          },
+          {
+            "wave": "1057",
+            "measurement": "0.251995"
+          },
+          {
+            "wave": "1058",
+            "measurement": "0.254315"
+          },
+          {
+            "wave": "1059",
+            "measurement": "0.251939"
+          },
+          {
+            "wave": "1060",
+            "measurement": "0.252608"
+          },
+          {
+            "wave": "1061",
+            "measurement": "0.249238"
+          },
+          {
+            "wave": "1062",
+            "measurement": "0.250256"
+          },
+          {
+            "wave": "1063",
+            "measurement": "0.255073"
+          },
+          {
+            "wave": "1064",
+            "measurement": "0.255625"
+          },
+          {
+            "wave": "1065",
+            "measurement": "0.257185"
+          },
+          {
+            "wave": "1066",
+            "measurement": "0.260852"
+          },
+          {
+            "wave": "1067",
+            "measurement": "0.257626"
+          },
+          {
+            "wave": "1068",
+            "measurement": "0.251312"
+          },
+          {
+            "wave": "1069",
+            "measurement": "0.252169"
+          },
+          {
+            "wave": "1070",
+            "measurement": "0.248805"
+          },
+          {
+            "wave": "1071",
+            "measurement": "0.244172"
+          },
+          {
+            "wave": "1072",
+            "measurement": "0.245899"
+          },
+          {
+            "wave": "1073",
+            "measurement": "0.247895"
+          },
+          {
+            "wave": "1074",
+            "measurement": "0.246984"
+          },
+          {
+            "wave": "1075",
+            "measurement": "0.247166"
+          },
+          {
+            "wave": "1076",
+            "measurement": "0.246026"
+          },
+          {
+            "wave": "1077",
+            "measurement": "0.250126"
+          },
+          {
+            "wave": "1078",
+            "measurement": "0.248733"
+          },
+          {
+            "wave": "1079",
+            "measurement": "0.251510"
+          },
+          {
+            "wave": "1080",
+            "measurement": "0.253514"
+          },
+          {
+            "wave": "1081",
+            "measurement": "0.256632"
+          },
+          {
+            "wave": "1082",
+            "measurement": "0.254041"
+          },
+          {
+            "wave": "1083",
+            "measurement": "0.254259"
+          },
+          {
+            "wave": "1084",
+            "measurement": "0.251035"
+          },
+          {
+            "wave": "1085",
+            "measurement": "0.249354"
+          },
+          {
+            "wave": "1086",
+            "measurement": "0.253985"
+          },
+          {
+            "wave": "1087",
+            "measurement": "0.251497"
+          },
+          {
+            "wave": "1088",
+            "measurement": "0.251837"
+          },
+          {
+            "wave": "1089",
+            "measurement": "0.253327"
+          },
+          {
+            "wave": "1090",
+            "measurement": "0.254806"
+          },
+          {
+            "wave": "1091",
+            "measurement": "0.252598"
+          },
+          {
+            "wave": "1092",
+            "measurement": "0.252517"
+          },
+          {
+            "wave": "1093",
+            "measurement": "0.250049"
+          },
+          {
+            "wave": "1094",
+            "measurement": "0.250013"
+          },
+          {
+            "wave": "1095",
+            "measurement": "0.251076"
+          },
+          {
+            "wave": "1096",
+            "measurement": "0.249815"
+          },
+          {
+            "wave": "1097",
+            "measurement": "0.250396"
+          },
+          {
+            "wave": "1098",
+            "measurement": "0.252707"
+          },
+          {
+            "wave": "1099",
+            "measurement": "0.253401"
+          },
+          {
+            "wave": "1100",
+            "measurement": "0.250645"
+          },
+          {
+            "wave": "1101",
+            "measurement": "0.251982"
+          },
+          {
+            "wave": "1102",
+            "measurement": "0.254751"
+          },
+          {
+            "wave": "1103",
+            "measurement": "0.253305"
+          },
+          {
+            "wave": "1104",
+            "measurement": "0.254042"
+          },
+          {
+            "wave": "1105",
+            "measurement": "0.259784"
+          },
+          {
+            "wave": "1106",
+            "measurement": "0.256669"
+          },
+          {
+            "wave": "1107",
+            "measurement": "0.256476"
+          },
+          {
+            "wave": "1108",
+            "measurement": "0.260650"
+          },
+          {
+            "wave": "1109",
+            "measurement": "0.259042"
+          },
+          {
+            "wave": "1110",
+            "measurement": "0.257713"
+          },
+          {
+            "wave": "1111",
+            "measurement": "0.260083"
+          },
+          {
+            "wave": "1112",
+            "measurement": "0.256580"
+          },
+          {
+            "wave": "1113",
+            "measurement": "0.257826"
+          },
+          {
+            "wave": "1114",
+            "measurement": "0.258565"
+          },
+          {
+            "wave": "1115",
+            "measurement": "0.256481"
+          },
+          {
+            "wave": "1116",
+            "measurement": "0.258411"
+          },
+          {
+            "wave": "1117",
+            "measurement": "0.263404"
+          },
+          {
+            "wave": "1118",
+            "measurement": "0.262645"
+          },
+          {
+            "wave": "1119",
+            "measurement": "0.265971"
+          },
+          {
+            "wave": "1120",
+            "measurement": "0.270163"
+          },
+          {
+            "wave": "1121",
+            "measurement": "0.272373"
+          },
+          {
+            "wave": "1122",
+            "measurement": "0.268971"
+          },
+          {
+            "wave": "1123",
+            "measurement": "0.271780"
+          },
+          {
+            "wave": "1124",
+            "measurement": "0.269211"
+          },
+          {
+            "wave": "1125",
+            "measurement": "0.266604"
+          },
+          {
+            "wave": "1126",
+            "measurement": "0.265441"
+          },
+          {
+            "wave": "1127",
+            "measurement": "0.266946"
+          },
+          {
+            "wave": "1128",
+            "measurement": "0.264361"
+          },
+          {
+            "wave": "1129",
+            "measurement": "0.265789"
+          },
+          {
+            "wave": "1130",
+            "measurement": "0.268975"
+          },
+          {
+            "wave": "1131",
+            "measurement": "0.267457"
+          },
+          {
+            "wave": "1132",
+            "measurement": "0.270592"
+          },
+          {
+            "wave": "1133",
+            "measurement": "0.272518"
+          },
+          {
+            "wave": "1134",
+            "measurement": "0.272614"
+          },
+          {
+            "wave": "1135",
+            "measurement": "0.273665"
+          },
+          {
+            "wave": "1136",
+            "measurement": "0.275884"
+          },
+          {
+            "wave": "1137",
+            "measurement": "0.276064"
+          },
+          {
+            "wave": "1138",
+            "measurement": "0.275733"
+          },
+          {
+            "wave": "1139",
+            "measurement": "0.280514"
+          },
+          {
+            "wave": "1140",
+            "measurement": "0.283558"
+          },
+          {
+            "wave": "1141",
+            "measurement": "0.287276"
+          },
+          {
+            "wave": "1142",
+            "measurement": "0.290773"
+          },
+          {
+            "wave": "1143",
+            "measurement": "0.292511"
+          },
+          {
+            "wave": "1144",
+            "measurement": "0.294653"
+          },
+          {
+            "wave": "1145",
+            "measurement": "0.294852"
+          },
+          {
+            "wave": "1146",
+            "measurement": "0.291855"
+          },
+          {
+            "wave": "1147",
+            "measurement": "0.292375"
+          },
+          {
+            "wave": "1148",
+            "measurement": "0.292891"
+          },
+          {
+            "wave": "1149",
+            "measurement": "0.290496"
+          },
+          {
+            "wave": "1150",
+            "measurement": "0.289480"
+          },
+          {
+            "wave": "1151",
+            "measurement": "0.292906"
+          },
+          {
+            "wave": "1152",
+            "measurement": "0.292185"
+          },
+          {
+            "wave": "1153",
+            "measurement": "0.291790"
+          },
+          {
+            "wave": "1154",
+            "measurement": "0.292807"
+          },
+          {
+            "wave": "1155",
+            "measurement": "0.294280"
+          },
+          {
+            "wave": "1156",
+            "measurement": "0.294598"
+          },
+          {
+            "wave": "1157",
+            "measurement": "0.293703"
+          },
+          {
+            "wave": "1158",
+            "measurement": "0.293311"
+          },
+          {
+            "wave": "1159",
+            "measurement": "0.295068"
+          },
+          {
+            "wave": "1160",
+            "measurement": "0.296373"
+          },
+          {
+            "wave": "1161",
+            "measurement": "0.291728"
+          },
+          {
+            "wave": "1162",
+            "measurement": "0.292176"
+          },
+          {
+            "wave": "1163",
+            "measurement": "0.293003"
+          },
+          {
+            "wave": "1164",
+            "measurement": "0.294157"
+          },
+          {
+            "wave": "1165",
+            "measurement": "0.290768"
+          },
+          {
+            "wave": "1166",
+            "measurement": "0.296393"
+          },
+          {
+            "wave": "1167",
+            "measurement": "0.297179"
+          },
+          {
+            "wave": "1168",
+            "measurement": "0.297055"
+          },
+          {
+            "wave": "1169",
+            "measurement": "0.293736"
+          },
+          {
+            "wave": "1170",
+            "measurement": "0.295326"
+          },
+          {
+            "wave": "1171",
+            "measurement": "0.292791"
+          },
+          {
+            "wave": "1172",
+            "measurement": "0.295157"
+          },
+          {
+            "wave": "1173",
+            "measurement": "0.296471"
+          },
+          {
+            "wave": "1174",
+            "measurement": "0.295745"
+          },
+          {
+            "wave": "1175",
+            "measurement": "0.295111"
+          },
+          {
+            "wave": "1176",
+            "measurement": "0.298415"
+          },
+          {
+            "wave": "1177",
+            "measurement": "0.293212"
+          },
+          {
+            "wave": "1178",
+            "measurement": "0.291147"
+          },
+          {
+            "wave": "1179",
+            "measurement": "0.290505"
+          },
+          {
+            "wave": "1180",
+            "measurement": "0.292314"
+          },
+          {
+            "wave": "1181",
+            "measurement": "0.289395"
+          },
+          {
+            "wave": "1182",
+            "measurement": "0.291175"
+          },
+          {
+            "wave": "1183",
+            "measurement": "0.296776"
+          },
+          {
+            "wave": "1184",
+            "measurement": "0.299558"
+          },
+          {
+            "wave": "1185",
+            "measurement": "0.301071"
+          },
+          {
+            "wave": "1186",
+            "measurement": "0.302412"
+          },
+          {
+            "wave": "1187",
+            "measurement": "0.304870"
+          },
+          {
+            "wave": "1188",
+            "measurement": "0.301277"
+          },
+          {
+            "wave": "1189",
+            "measurement": "0.299269"
+          },
+          {
+            "wave": "1190",
+            "measurement": "0.295894"
+          },
+          {
+            "wave": "1191",
+            "measurement": "0.295372"
+          },
+          {
+            "wave": "1192",
+            "measurement": "0.292639"
+          },
+          {
+            "wave": "1193",
+            "measurement": "0.291045"
+          },
+          {
+            "wave": "1194",
+            "measurement": "0.289524"
+          },
+          {
+            "wave": "1195",
+            "measurement": "0.289475"
+          },
+          {
+            "wave": "1196",
+            "measurement": "0.286750"
+          },
+          {
+            "wave": "1197",
+            "measurement": "0.287243"
+          },
+          {
+            "wave": "1198",
+            "measurement": "0.286083"
+          },
+          {
+            "wave": "1199",
+            "measurement": "0.288464"
+          },
+          {
+            "wave": "1200",
+            "measurement": "0.289407"
+          },
+          {
+            "wave": "1201",
+            "measurement": "0.289925"
+          },
+          {
+            "wave": "1202",
+            "measurement": "0.290266"
+          },
+          {
+            "wave": "1203",
+            "measurement": "0.294262"
+          },
+          {
+            "wave": "1204",
+            "measurement": "0.294426"
+          },
+          {
+            "wave": "1205",
+            "measurement": "0.293622"
+          },
+          {
+            "wave": "1206",
+            "measurement": "0.294545"
+          },
+          {
+            "wave": "1207",
+            "measurement": "0.294281"
+          },
+          {
+            "wave": "1208",
+            "measurement": "0.291011"
+          },
+          {
+            "wave": "1209",
+            "measurement": "0.289397"
+          },
+          {
+            "wave": "1210",
+            "measurement": "0.287842"
+          },
+          {
+            "wave": "1211",
+            "measurement": "0.288657"
+          },
+          {
+            "wave": "1212",
+            "measurement": "0.291113"
+          },
+          {
+            "wave": "1213",
+            "measurement": "0.294353"
+          },
+          {
+            "wave": "1214",
+            "measurement": "0.297318"
+          },
+          {
+            "wave": "1215",
+            "measurement": "0.300405"
+          },
+          {
+            "wave": "1216",
+            "measurement": "0.301068"
+          },
+          {
+            "wave": "1217",
+            "measurement": "0.298516"
+          },
+          {
+            "wave": "1218",
+            "measurement": "0.294388"
+          },
+          {
+            "wave": "1219",
+            "measurement": "0.293095"
+          },
+          {
+            "wave": "1220",
+            "measurement": "0.290824"
+          },
+          {
+            "wave": "1221",
+            "measurement": "0.289109"
+          },
+          {
+            "wave": "1222",
+            "measurement": "0.286918"
+          },
+          {
+            "wave": "1223",
+            "measurement": "0.290061"
+          },
+          {
+            "wave": "1224",
+            "measurement": "0.290734"
+          },
+          {
+            "wave": "1225",
+            "measurement": "0.291037"
+          },
+          {
+            "wave": "1226",
+            "measurement": "0.293156"
+          },
+          {
+            "wave": "1227",
+            "measurement": "0.295408"
+          },
+          {
+            "wave": "1228",
+            "measurement": "0.295858"
+          },
+          {
+            "wave": "1229",
+            "measurement": "0.294460"
+          },
+          {
+            "wave": "1230",
+            "measurement": "0.295175"
+          },
+          {
+            "wave": "1231",
+            "measurement": "0.291795"
+          },
+          {
+            "wave": "1232",
+            "measurement": "0.292680"
+          },
+          {
+            "wave": "1233",
+            "measurement": "0.291293"
+          },
+          {
+            "wave": "1234",
+            "measurement": "0.288625"
+          },
+          {
+            "wave": "1235",
+            "measurement": "0.288272"
+          },
+          {
+            "wave": "1236",
+            "measurement": "0.289312"
+          },
+          {
+            "wave": "1237",
+            "measurement": "0.288506"
+          },
+          {
+            "wave": "1238",
+            "measurement": "0.287935"
+          },
+          {
+            "wave": "1239",
+            "measurement": "0.288214"
+          },
+          {
+            "wave": "1240",
+            "measurement": "0.292615"
+          },
+          {
+            "wave": "1241",
+            "measurement": "0.288491"
+          },
+          {
+            "wave": "1242",
+            "measurement": "0.289314"
+          },
+          {
+            "wave": "1243",
+            "measurement": "0.290284"
+          },
+          {
+            "wave": "1244",
+            "measurement": "0.292122"
+          },
+          {
+            "wave": "1245",
+            "measurement": "0.287661"
+          },
+          {
+            "wave": "1246",
+            "measurement": "0.289670"
+          },
+          {
+            "wave": "1247",
+            "measurement": "0.286691"
+          },
+          {
+            "wave": "1248",
+            "measurement": "0.285235"
+          },
+          {
+            "wave": "1249",
+            "measurement": "0.283357"
+          },
+          {
+            "wave": "1250",
+            "measurement": "0.282096"
+          },
+          {
+            "wave": "1251",
+            "measurement": "0.283485"
+          },
+          {
+            "wave": "1252",
+            "measurement": "0.283199"
+          },
+          {
+            "wave": "1253",
+            "measurement": "0.279626"
+          },
+          {
+            "wave": "1254",
+            "measurement": "0.282268"
+          },
+          {
+            "wave": "1255",
+            "measurement": "0.280683"
+          },
+          {
+            "wave": "1256",
+            "measurement": "0.277374"
+          },
+          {
+            "wave": "1257",
+            "measurement": "0.278548"
+          },
+          {
+            "wave": "1258",
+            "measurement": "0.283910"
+          },
+          {
+            "wave": "1259",
+            "measurement": "0.280173"
+          },
+          {
+            "wave": "1260",
+            "measurement": "0.281671"
+          },
+          {
+            "wave": "1261",
+            "measurement": "0.283459"
+          },
+          {
+            "wave": "1262",
+            "measurement": "0.284411"
+          },
+          {
+            "wave": "1263",
+            "measurement": "0.281944"
+          },
+          {
+            "wave": "1264",
+            "measurement": "0.285972"
+          },
+          {
+            "wave": "1265",
+            "measurement": "0.286092"
+          },
+          {
+            "wave": "1266",
+            "measurement": "0.286227"
+          },
+          {
+            "wave": "1267",
+            "measurement": "0.283307"
+          },
+          {
+            "wave": "1268",
+            "measurement": "0.284055"
+          },
+          {
+            "wave": "1269",
+            "measurement": "0.283241"
+          },
+          {
+            "wave": "1270",
+            "measurement": "0.284934"
+          },
+          {
+            "wave": "1271",
+            "measurement": "0.284920"
+          },
+          {
+            "wave": "1272",
+            "measurement": "0.289861"
+          },
+          {
+            "wave": "1273",
+            "measurement": "0.291538"
+          },
+          {
+            "wave": "1274",
+            "measurement": "0.290822"
+          },
+          {
+            "wave": "1275",
+            "measurement": "0.287754"
+          },
+          {
+            "wave": "1276",
+            "measurement": "0.287615"
+          },
+          {
+            "wave": "1277",
+            "measurement": "0.284224"
+          },
+          {
+            "wave": "1278",
+            "measurement": "0.282968"
+          },
+          {
+            "wave": "1279",
+            "measurement": "0.282865"
+          },
+          {
+            "wave": "1280",
+            "measurement": "0.286578"
+          },
+          {
+            "wave": "1281",
+            "measurement": "0.289197"
+          },
+          {
+            "wave": "1282",
+            "measurement": "0.291575"
+          },
+          {
+            "wave": "1283",
+            "measurement": "0.291493"
+          },
+          {
+            "wave": "1284",
+            "measurement": "0.290340"
+          },
+          {
+            "wave": "1285",
+            "measurement": "0.293312"
+          },
+          {
+            "wave": "1286",
+            "measurement": "0.290701"
+          },
+          {
+            "wave": "1287",
+            "measurement": "0.292277"
+          },
+          {
+            "wave": "1288",
+            "measurement": "0.293054"
+          },
+          {
+            "wave": "1289",
+            "measurement": "0.290842"
+          },
+          {
+            "wave": "1290",
+            "measurement": "0.291032"
+          },
+          {
+            "wave": "1291",
+            "measurement": "0.289380"
+          },
+          {
+            "wave": "1292",
+            "measurement": "0.289619"
+          },
+          {
+            "wave": "1293",
+            "measurement": "0.286927"
+          },
+          {
+            "wave": "1294",
+            "measurement": "0.292307"
+          },
+          {
+            "wave": "1295",
+            "measurement": "0.289859"
+          },
+          {
+            "wave": "1296",
+            "measurement": "0.295298"
+          },
+          {
+            "wave": "1297",
+            "measurement": "0.295924"
+          },
+          {
+            "wave": "1298",
+            "measurement": "0.300259"
+          },
+          {
+            "wave": "1299",
+            "measurement": "0.303800"
+          },
+          {
+            "wave": "1300",
+            "measurement": "0.305190"
+          },
+          {
+            "wave": "1301",
+            "measurement": "0.303263"
+          },
+          {
+            "wave": "1302",
+            "measurement": "0.302414"
+          },
+          {
+            "wave": "1303",
+            "measurement": "0.302671"
+          },
+          {
+            "wave": "1304",
+            "measurement": "0.300931"
+          },
+          {
+            "wave": "1305",
+            "measurement": "0.297770"
+          },
+          {
+            "wave": "1306",
+            "measurement": "0.300335"
+          },
+          {
+            "wave": "1307",
+            "measurement": "0.303814"
+          },
+          {
+            "wave": "1308",
+            "measurement": "0.302832"
+          },
+          {
+            "wave": "1309",
+            "measurement": "0.301172"
+          },
+          {
+            "wave": "1310",
+            "measurement": "0.306785"
+          },
+          {
+            "wave": "1311",
+            "measurement": "0.303300"
+          },
+          {
+            "wave": "1312",
+            "measurement": "0.300465"
+          },
+          {
+            "wave": "1313",
+            "measurement": "0.303908"
+          },
+          {
+            "wave": "1314",
+            "measurement": "0.307703"
+          },
+          {
+            "wave": "1315",
+            "measurement": "0.306457"
+          },
+          {
+            "wave": "1316",
+            "measurement": "0.312721"
+          },
+          {
+            "wave": "1317",
+            "measurement": "0.313931"
+          },
+          {
+            "wave": "1318",
+            "measurement": "0.311595"
+          },
+          {
+            "wave": "1319",
+            "measurement": "0.313704"
+          },
+          {
+            "wave": "1320",
+            "measurement": "0.311585"
+          },
+          {
+            "wave": "1321",
+            "measurement": "0.309025"
+          },
+          {
+            "wave": "1322",
+            "measurement": "0.307647"
+          },
+          {
+            "wave": "1323",
+            "measurement": "0.314619"
+          },
+          {
+            "wave": "1324",
+            "measurement": "0.314309"
+          },
+          {
+            "wave": "1325",
+            "measurement": "0.319508"
+          },
+          {
+            "wave": "1326",
+            "measurement": "0.323035"
+          },
+          {
+            "wave": "1327",
+            "measurement": "0.330357"
+          },
+          {
+            "wave": "1328",
+            "measurement": "0.332513"
+          },
+          {
+            "wave": "1329",
+            "measurement": "0.332807"
+          },
+          {
+            "wave": "1330",
+            "measurement": "0.335714"
+          },
+          {
+            "wave": "1331",
+            "measurement": "0.338837"
+          },
+          {
+            "wave": "1332",
+            "measurement": "0.343570"
+          },
+          {
+            "wave": "1333",
+            "measurement": "0.339886"
+          },
+          {
+            "wave": "1334",
+            "measurement": "0.341932"
+          },
+          {
+            "wave": "1335",
+            "measurement": "0.339707"
+          },
+          {
+            "wave": "1336",
+            "measurement": "0.336243"
+          },
+          {
+            "wave": "1337",
+            "measurement": "0.333381"
+          },
+          {
+            "wave": "1338",
+            "measurement": "0.338792"
+          },
+          {
+            "wave": "1339",
+            "measurement": "0.344245"
+          },
+          {
+            "wave": "1340",
+            "measurement": "0.348126"
+          },
+          {
+            "wave": "1341",
+            "measurement": "0.349944"
+          },
+          {
+            "wave": "1342",
+            "measurement": "0.350037"
+          },
+          {
+            "wave": "1343",
+            "measurement": "0.345925"
+          },
+          {
+            "wave": "1344",
+            "measurement": "0.342001"
+          },
+          {
+            "wave": "1345",
+            "measurement": "0.343678"
+          },
+          {
+            "wave": "1346",
+            "measurement": "0.348775"
+          },
+          {
+            "wave": "1347",
+            "measurement": "0.350225"
+          },
+          {
+            "wave": "1348",
+            "measurement": "0.357512"
+          },
+          {
+            "wave": "1349",
+            "measurement": "0.357265"
+          },
+          {
+            "wave": "1350",
+            "measurement": "0.355712"
+          },
+          {
+            "wave": "1351",
+            "measurement": "0.356278"
+          },
+          {
+            "wave": "1352",
+            "measurement": "0.356546"
+          },
+          {
+            "wave": "1353",
+            "measurement": "0.356752"
+          },
+          {
+            "wave": "1354",
+            "measurement": "0.359077"
+          },
+          {
+            "wave": "1355",
+            "measurement": "0.359179"
+          },
+          {
+            "wave": "1356",
+            "measurement": "0.358080"
+          },
+          {
+            "wave": "1357",
+            "measurement": "0.363537"
+          },
+          {
+            "wave": "1358",
+            "measurement": "0.362498"
+          },
+          {
+            "wave": "1359",
+            "measurement": "0.368481"
+          },
+          {
+            "wave": "1360",
+            "measurement": "0.379057"
+          },
+          {
+            "wave": "1361",
+            "measurement": "0.386896"
+          },
+          {
+            "wave": "1362",
+            "measurement": "0.382417"
+          },
+          {
+            "wave": "1363",
+            "measurement": "0.385821"
+          },
+          {
+            "wave": "1364",
+            "measurement": "0.388769"
+          },
+          {
+            "wave": "1365",
+            "measurement": "0.385423"
+          },
+          {
+            "wave": "1366",
+            "measurement": "0.380779"
+          },
+          {
+            "wave": "1367",
+            "measurement": "0.381426"
+          },
+          {
+            "wave": "1368",
+            "measurement": "0.385061"
+          },
+          {
+            "wave": "1369",
+            "measurement": "0.381836"
+          },
+          {
+            "wave": "1370",
+            "measurement": "0.384113"
+          },
+          {
+            "wave": "1371",
+            "measurement": "0.388803"
+          },
+          {
+            "wave": "1372",
+            "measurement": "0.392966"
+          },
+          {
+            "wave": "1373",
+            "measurement": "0.397877"
+          },
+          {
+            "wave": "1374",
+            "measurement": "0.401750"
+          },
+          {
+            "wave": "1375",
+            "measurement": "0.406717"
+          },
+          {
+            "wave": "1376",
+            "measurement": "0.410161"
+          },
+          {
+            "wave": "1377",
+            "measurement": "0.416600"
+          },
+          {
+            "wave": "1378",
+            "measurement": "0.419900"
+          },
+          {
+            "wave": "1379",
+            "measurement": "0.425306"
+          },
+          {
+            "wave": "1380",
+            "measurement": "0.429437"
+          },
+          {
+            "wave": "1381",
+            "measurement": "0.441252"
+          },
+          {
+            "wave": "1382",
+            "measurement": "0.450012"
+          },
+          {
+            "wave": "1383",
+            "measurement": "0.456520"
+          },
+          {
+            "wave": "1384",
+            "measurement": "0.469905"
+          },
+          {
+            "wave": "1385",
+            "measurement": "0.476310"
+          },
+          {
+            "wave": "1386",
+            "measurement": "0.489843"
+          },
+          {
+            "wave": "1387",
+            "measurement": "0.492993"
+          },
+          {
+            "wave": "1388",
+            "measurement": "0.507126"
+          },
+          {
+            "wave": "1389",
+            "measurement": "0.509111"
+          },
+          {
+            "wave": "1390",
+            "measurement": "0.523990"
+          },
+          {
+            "wave": "1391",
+            "measurement": "0.531179"
+          },
+          {
+            "wave": "1392",
+            "measurement": "0.545763"
+          },
+          {
+            "wave": "1393",
+            "measurement": "0.553265"
+          },
+          {
+            "wave": "1394",
+            "measurement": "0.569889"
+          },
+          {
+            "wave": "1395",
+            "measurement": "0.577989"
+          },
+          {
+            "wave": "1396",
+            "measurement": "0.586658"
+          },
+          {
+            "wave": "1397",
+            "measurement": "0.602396"
+          },
+          {
+            "wave": "1398",
+            "measurement": "0.604358"
+          },
+          {
+            "wave": "1399",
+            "measurement": "0.615242"
+          },
+          {
+            "wave": "1400",
+            "measurement": "0.636076"
+          },
+          {
+            "wave": "1401",
+            "measurement": "0.655336"
+          },
+          {
+            "wave": "1402",
+            "measurement": "0.660923"
+          },
+          {
+            "wave": "1403",
+            "measurement": "0.678352"
+          },
+          {
+            "wave": "1404",
+            "measurement": "0.682367"
+          },
+          {
+            "wave": "1405",
+            "measurement": "0.683298"
+          },
+          {
+            "wave": "1406",
+            "measurement": "0.683224"
+          },
+          {
+            "wave": "1407",
+            "measurement": "0.699936"
+          },
+          {
+            "wave": "1408",
+            "measurement": "0.707527"
+          },
+          {
+            "wave": "1409",
+            "measurement": "0.726480"
+          },
+          {
+            "wave": "1410",
+            "measurement": "0.745123"
+          },
+          {
+            "wave": "1411",
+            "measurement": "0.744308"
+          },
+          {
+            "wave": "1412",
+            "measurement": "0.738007"
+          },
+          {
+            "wave": "1413",
+            "measurement": "0.739622"
+          },
+          {
+            "wave": "1414",
+            "measurement": "0.741321"
+          },
+          {
+            "wave": "1415",
+            "measurement": "0.740989"
+          },
+          {
+            "wave": "1416",
+            "measurement": "0.754361"
+          },
+          {
+            "wave": "1417",
+            "measurement": "0.754852"
+          },
+          {
+            "wave": "1418",
+            "measurement": "0.760747"
+          },
+          {
+            "wave": "1419",
+            "measurement": "0.762279"
+          },
+          {
+            "wave": "1420",
+            "measurement": "0.766625"
+          },
+          {
+            "wave": "1421",
+            "measurement": "0.775048"
+          },
+          {
+            "wave": "1422",
+            "measurement": "0.794324"
+          },
+          {
+            "wave": "1423",
+            "measurement": "0.790118"
+          },
+          {
+            "wave": "1424",
+            "measurement": "0.794003"
+          },
+          {
+            "wave": "1425",
+            "measurement": "0.783050"
+          },
+          {
+            "wave": "1426",
+            "measurement": "0.778879"
+          },
+          {
+            "wave": "1427",
+            "measurement": "0.777329"
+          },
+          {
+            "wave": "1428",
+            "measurement": "0.782178"
+          },
+          {
+            "wave": "1429",
+            "measurement": "0.776337"
+          },
+          {
+            "wave": "1430",
+            "measurement": "0.769081"
+          },
+          {
+            "wave": "1431",
+            "measurement": "0.773948"
+          },
+          {
+            "wave": "1432",
+            "measurement": "0.771829"
+          },
+          {
+            "wave": "1433",
+            "measurement": "0.784835"
+          },
+          {
+            "wave": "1434",
+            "measurement": "0.786150"
+          },
+          {
+            "wave": "1435",
+            "measurement": "0.791726"
+          },
+          {
+            "wave": "1436",
+            "measurement": "0.790458"
+          },
+          {
+            "wave": "1437",
+            "measurement": "0.785142"
+          },
+          {
+            "wave": "1438",
+            "measurement": "0.772680"
+          },
+          {
+            "wave": "1439",
+            "measurement": "0.777757"
+          },
+          {
+            "wave": "1440",
+            "measurement": "0.783742"
+          },
+          {
+            "wave": "1441",
+            "measurement": "0.787360"
+          },
+          {
+            "wave": "1442",
+            "measurement": "0.788586"
+          },
+          {
+            "wave": "1443",
+            "measurement": "0.791274"
+          },
+          {
+            "wave": "1444",
+            "measurement": "0.785864"
+          },
+          {
+            "wave": "1445",
+            "measurement": "0.798157"
+          },
+          {
+            "wave": "1446",
+            "measurement": "0.784662"
+          },
+          {
+            "wave": "1447",
+            "measurement": "0.793978"
+          },
+          {
+            "wave": "1448",
+            "measurement": "0.798989"
+          },
+          {
+            "wave": "1449",
+            "measurement": "0.809837"
+          },
+          {
+            "wave": "1450",
+            "measurement": "0.798543"
+          },
+          {
+            "wave": "1451",
+            "measurement": "0.809862"
+          },
+          {
+            "wave": "1452",
+            "measurement": "0.810950"
+          },
+          {
+            "wave": "1453",
+            "measurement": "0.806940"
+          },
+          {
+            "wave": "1454",
+            "measurement": "0.802995"
+          },
+          {
+            "wave": "1455",
+            "measurement": "0.801478"
+          },
+          {
+            "wave": "1456",
+            "measurement": "0.801140"
+          },
+          {
+            "wave": "1457",
+            "measurement": "0.792128"
+          },
+          {
+            "wave": "1458",
+            "measurement": "0.787666"
+          },
+          {
+            "wave": "1459",
+            "measurement": "0.782403"
+          },
+          {
+            "wave": "1460",
+            "measurement": "0.779420"
+          },
+          {
+            "wave": "1461",
+            "measurement": "0.774838"
+          },
+          {
+            "wave": "1462",
+            "measurement": "0.767130"
+          },
+          {
+            "wave": "1463",
+            "measurement": "0.772449"
+          },
+          {
+            "wave": "1464",
+            "measurement": "0.772722"
+          },
+          {
+            "wave": "1465",
+            "measurement": "0.764606"
+          },
+          {
+            "wave": "1466",
+            "measurement": "0.770137"
+          },
+          {
+            "wave": "1467",
+            "measurement": "0.771581"
+          },
+          {
+            "wave": "1468",
+            "measurement": "0.770992"
+          },
+          {
+            "wave": "1469",
+            "measurement": "0.762332"
+          },
+          {
+            "wave": "1470",
+            "measurement": "0.766575"
+          },
+          {
+            "wave": "1471",
+            "measurement": "0.754669"
+          },
+          {
+            "wave": "1472",
+            "measurement": "0.753440"
+          },
+          {
+            "wave": "1473",
+            "measurement": "0.744382"
+          },
+          {
+            "wave": "1474",
+            "measurement": "0.736190"
+          },
+          {
+            "wave": "1475",
+            "measurement": "0.732876"
+          },
+          {
+            "wave": "1476",
+            "measurement": "0.728369"
+          },
+          {
+            "wave": "1477",
+            "measurement": "0.719251"
+          },
+          {
+            "wave": "1478",
+            "measurement": "0.721225"
+          },
+          {
+            "wave": "1479",
+            "measurement": "0.717118"
+          },
+          {
+            "wave": "1480",
+            "measurement": "0.717302"
+          },
+          {
+            "wave": "1481",
+            "measurement": "0.721391"
+          },
+          {
+            "wave": "1482",
+            "measurement": "0.713795"
+          },
+          {
+            "wave": "1483",
+            "measurement": "0.705436"
+          },
+          {
+            "wave": "1484",
+            "measurement": "0.721064"
+          },
+          {
+            "wave": "1485",
+            "measurement": "0.720861"
+          },
+          {
+            "wave": "1486",
+            "measurement": "0.717764"
+          },
+          {
+            "wave": "1487",
+            "measurement": "0.719814"
+          },
+          {
+            "wave": "1488",
+            "measurement": "0.716137"
+          },
+          {
+            "wave": "1489",
+            "measurement": "0.706047"
+          },
+          {
+            "wave": "1490",
+            "measurement": "0.705390"
+          },
+          {
+            "wave": "1491",
+            "measurement": "0.701218"
+          },
+          {
+            "wave": "1492",
+            "measurement": "0.701588"
+          },
+          {
+            "wave": "1493",
+            "measurement": "0.706177"
+          },
+          {
+            "wave": "1494",
+            "measurement": "0.694175"
+          },
+          {
+            "wave": "1495",
+            "measurement": "0.684169"
+          },
+          {
+            "wave": "1496",
+            "measurement": "0.673886"
+          },
+          {
+            "wave": "1497",
+            "measurement": "0.671559"
+          },
+          {
+            "wave": "1498",
+            "measurement": "0.661849"
+          },
+          {
+            "wave": "1499",
+            "measurement": "0.655356"
+          },
+          {
+            "wave": "1500",
+            "measurement": "0.656562"
+          },
+          {
+            "wave": "1501",
+            "measurement": "0.662829"
+          },
+          {
+            "wave": "1502",
+            "measurement": "0.659508"
+          },
+          {
+            "wave": "1503",
+            "measurement": "0.655680"
+          },
+          {
+            "wave": "1504",
+            "measurement": "0.661389"
+          },
+          {
+            "wave": "1505",
+            "measurement": "0.659325"
+          },
+          {
+            "wave": "1506",
+            "measurement": "0.650669"
+          },
+          {
+            "wave": "1507",
+            "measurement": "0.655391"
+          },
+          {
+            "wave": "1508",
+            "measurement": "0.653338"
+          },
+          {
+            "wave": "1509",
+            "measurement": "0.646699"
+          },
+          {
+            "wave": "1510",
+            "measurement": "0.642472"
+          },
+          {
+            "wave": "1511",
+            "measurement": "0.640418"
+          },
+          {
+            "wave": "1512",
+            "measurement": "0.624349"
+          },
+          {
+            "wave": "1513",
+            "measurement": "0.615382"
+          },
+          {
+            "wave": "1514",
+            "measurement": "0.611287"
+          },
+          {
+            "wave": "1515",
+            "measurement": "0.610803"
+          },
+          {
+            "wave": "1516",
+            "measurement": "0.601715"
+          },
+          {
+            "wave": "1517",
+            "measurement": "0.601274"
+          },
+          {
+            "wave": "1518",
+            "measurement": "0.603174"
+          },
+          {
+            "wave": "1519",
+            "measurement": "0.601270"
+          },
+          {
+            "wave": "1520",
+            "measurement": "0.589822"
+          },
+          {
+            "wave": "1521",
+            "measurement": "0.588820"
+          },
+          {
+            "wave": "1522",
+            "measurement": "0.583536"
+          },
+          {
+            "wave": "1523",
+            "measurement": "0.583003"
+          },
+          {
+            "wave": "1524",
+            "measurement": "0.575899"
+          },
+          {
+            "wave": "1525",
+            "measurement": "0.577559"
+          },
+          {
+            "wave": "1526",
+            "measurement": "0.579203"
+          },
+          {
+            "wave": "1527",
+            "measurement": "0.576700"
+          },
+          {
+            "wave": "1528",
+            "measurement": "0.567091"
+          },
+          {
+            "wave": "1529",
+            "measurement": "0.570173"
+          },
+          {
+            "wave": "1530",
+            "measurement": "0.561761"
+          },
+          {
+            "wave": "1531",
+            "measurement": "0.555118"
+          },
+          {
+            "wave": "1532",
+            "measurement": "0.549528"
+          },
+          {
+            "wave": "1533",
+            "measurement": "0.550447"
+          },
+          {
+            "wave": "1534",
+            "measurement": "0.552208"
+          },
+          {
+            "wave": "1535",
+            "measurement": "0.550922"
+          },
+          {
+            "wave": "1536",
+            "measurement": "0.546781"
+          },
+          {
+            "wave": "1537",
+            "measurement": "0.552724"
+          },
+          {
+            "wave": "1538",
+            "measurement": "0.545675"
+          },
+          {
+            "wave": "1539",
+            "measurement": "0.538739"
+          },
+          {
+            "wave": "1540",
+            "measurement": "0.538253"
+          },
+          {
+            "wave": "1541",
+            "measurement": "0.535755"
+          },
+          {
+            "wave": "1542",
+            "measurement": "0.527330"
+          },
+          {
+            "wave": "1543",
+            "measurement": "0.529285"
+          },
+          {
+            "wave": "1544",
+            "measurement": "0.523503"
+          },
+          {
+            "wave": "1545",
+            "measurement": "0.521242"
+          },
+          {
+            "wave": "1546",
+            "measurement": "0.518943"
+          },
+          {
+            "wave": "1547",
+            "measurement": "0.520293"
+          },
+          {
+            "wave": "1548",
+            "measurement": "0.517505"
+          },
+          {
+            "wave": "1549",
+            "measurement": "0.516058"
+          },
+          {
+            "wave": "1550",
+            "measurement": "0.512762"
+          },
+          {
+            "wave": "1551",
+            "measurement": "0.507607"
+          },
+          {
+            "wave": "1552",
+            "measurement": "0.506216"
+          },
+          {
+            "wave": "1553",
+            "measurement": "0.503169"
+          },
+          {
+            "wave": "1554",
+            "measurement": "0.501592"
+          },
+          {
+            "wave": "1555",
+            "measurement": "0.498725"
+          },
+          {
+            "wave": "1556",
+            "measurement": "0.497004"
+          },
+          {
+            "wave": "1557",
+            "measurement": "0.494763"
+          },
+          {
+            "wave": "1558",
+            "measurement": "0.494089"
+          },
+          {
+            "wave": "1559",
+            "measurement": "0.490753"
+          },
+          {
+            "wave": "1560",
+            "measurement": "0.491064"
+          },
+          {
+            "wave": "1561",
+            "measurement": "0.492567"
+          },
+          {
+            "wave": "1562",
+            "measurement": "0.489502"
+          },
+          {
+            "wave": "1563",
+            "measurement": "0.489937"
+          },
+          {
+            "wave": "1564",
+            "measurement": "0.489008"
+          },
+          {
+            "wave": "1565",
+            "measurement": "0.487219"
+          },
+          {
+            "wave": "1566",
+            "measurement": "0.482187"
+          },
+          {
+            "wave": "1567",
+            "measurement": "0.477706"
+          },
+          {
+            "wave": "1568",
+            "measurement": "0.475691"
+          },
+          {
+            "wave": "1569",
+            "measurement": "0.473469"
+          },
+          {
+            "wave": "1570",
+            "measurement": "0.470489"
+          },
+          {
+            "wave": "1571",
+            "measurement": "0.472409"
+          },
+          {
+            "wave": "1572",
+            "measurement": "0.468038"
+          },
+          {
+            "wave": "1573",
+            "measurement": "0.462266"
+          },
+          {
+            "wave": "1574",
+            "measurement": "0.463280"
+          },
+          {
+            "wave": "1575",
+            "measurement": "0.460865"
+          },
+          {
+            "wave": "1576",
+            "measurement": "0.459254"
+          },
+          {
+            "wave": "1577",
+            "measurement": "0.461702"
+          },
+          {
+            "wave": "1578",
+            "measurement": "0.458766"
+          },
+          {
+            "wave": "1579",
+            "measurement": "0.456343"
+          },
+          {
+            "wave": "1580",
+            "measurement": "0.455680"
+          },
+          {
+            "wave": "1581",
+            "measurement": "0.453937"
+          },
+          {
+            "wave": "1582",
+            "measurement": "0.453465"
+          },
+          {
+            "wave": "1583",
+            "measurement": "0.455752"
+          },
+          {
+            "wave": "1584",
+            "measurement": "0.455930"
+          },
+          {
+            "wave": "1585",
+            "measurement": "0.451334"
+          },
+          {
+            "wave": "1586",
+            "measurement": "0.446502"
+          },
+          {
+            "wave": "1587",
+            "measurement": "0.444951"
+          },
+          {
+            "wave": "1588",
+            "measurement": "0.443329"
+          },
+          {
+            "wave": "1589",
+            "measurement": "0.442574"
+          },
+          {
+            "wave": "1590",
+            "measurement": "0.444085"
+          },
+          {
+            "wave": "1591",
+            "measurement": "0.443675"
+          },
+          {
+            "wave": "1592",
+            "measurement": "0.443709"
+          },
+          {
+            "wave": "1593",
+            "measurement": "0.445978"
+          },
+          {
+            "wave": "1594",
+            "measurement": "0.443713"
+          },
+          {
+            "wave": "1595",
+            "measurement": "0.444684"
+          },
+          {
+            "wave": "1596",
+            "measurement": "0.445499"
+          },
+          {
+            "wave": "1597",
+            "measurement": "0.439423"
+          },
+          {
+            "wave": "1598",
+            "measurement": "0.435166"
+          },
+          {
+            "wave": "1599",
+            "measurement": "0.435549"
+          },
+          {
+            "wave": "1600",
+            "measurement": "0.431993"
+          },
+          {
+            "wave": "1601",
+            "measurement": "0.432709"
+          },
+          {
+            "wave": "1602",
+            "measurement": "0.430523"
+          },
+          {
+            "wave": "1603",
+            "measurement": "0.431604"
+          },
+          {
+            "wave": "1604",
+            "measurement": "0.430493"
+          },
+          {
+            "wave": "1605",
+            "measurement": "0.432640"
+          },
+          {
+            "wave": "1606",
+            "measurement": "0.435531"
+          },
+          {
+            "wave": "1607",
+            "measurement": "0.435398"
+          },
+          {
+            "wave": "1608",
+            "measurement": "0.432209"
+          },
+          {
+            "wave": "1609",
+            "measurement": "0.431763"
+          },
+          {
+            "wave": "1610",
+            "measurement": "0.428097"
+          },
+          {
+            "wave": "1611",
+            "measurement": "0.422309"
+          },
+          {
+            "wave": "1612",
+            "measurement": "0.428026"
+          },
+          {
+            "wave": "1613",
+            "measurement": "0.431340"
+          },
+          {
+            "wave": "1614",
+            "measurement": "0.427364"
+          },
+          {
+            "wave": "1615",
+            "measurement": "0.426050"
+          },
+          {
+            "wave": "1616",
+            "measurement": "0.427395"
+          },
+          {
+            "wave": "1617",
+            "measurement": "0.424536"
+          },
+          {
+            "wave": "1618",
+            "measurement": "0.423093"
+          },
+          {
+            "wave": "1619",
+            "measurement": "0.425537"
+          },
+          {
+            "wave": "1620",
+            "measurement": "0.431499"
+          },
+          {
+            "wave": "1621",
+            "measurement": "0.430507"
+          },
+          {
+            "wave": "1622",
+            "measurement": "0.431820"
+          },
+          {
+            "wave": "1623",
+            "measurement": "0.432829"
+          },
+          {
+            "wave": "1624",
+            "measurement": "0.432683"
+          },
+          {
+            "wave": "1625",
+            "measurement": "0.428771"
+          },
+          {
+            "wave": "1626",
+            "measurement": "0.432387"
+          },
+          {
+            "wave": "1627",
+            "measurement": "0.429247"
+          },
+          {
+            "wave": "1628",
+            "measurement": "0.426226"
+          },
+          {
+            "wave": "1629",
+            "measurement": "0.426875"
+          },
+          {
+            "wave": "1630",
+            "measurement": "0.426371"
+          },
+          {
+            "wave": "1631",
+            "measurement": "0.424832"
+          },
+          {
+            "wave": "1632",
+            "measurement": "0.426360"
+          },
+          {
+            "wave": "1633",
+            "measurement": "0.429087"
+          },
+          {
+            "wave": "1634",
+            "measurement": "0.426740"
+          },
+          {
+            "wave": "1635",
+            "measurement": "0.427404"
+          },
+          {
+            "wave": "1636",
+            "measurement": "0.424448"
+          },
+          {
+            "wave": "1637",
+            "measurement": "0.421006"
+          },
+          {
+            "wave": "1638",
+            "measurement": "0.419123"
+          },
+          {
+            "wave": "1639",
+            "measurement": "0.418808"
+          },
+          {
+            "wave": "1640",
+            "measurement": "0.419208"
+          },
+          {
+            "wave": "1641",
+            "measurement": "0.420450"
+          },
+          {
+            "wave": "1642",
+            "measurement": "0.424207"
+          },
+          {
+            "wave": "1643",
+            "measurement": "0.423643"
+          },
+          {
+            "wave": "1644",
+            "measurement": "0.422294"
+          },
+          {
+            "wave": "1645",
+            "measurement": "0.420520"
+          },
+          {
+            "wave": "1646",
+            "measurement": "0.423873"
+          },
+          {
+            "wave": "1647",
+            "measurement": "0.421830"
+          },
+          {
+            "wave": "1648",
+            "measurement": "0.420260"
+          },
+          {
+            "wave": "1649",
+            "measurement": "0.420410"
+          },
+          {
+            "wave": "1650",
+            "measurement": "0.417662"
+          },
+          {
+            "wave": "1651",
+            "measurement": "0.415211"
+          },
+          {
+            "wave": "1652",
+            "measurement": "0.415574"
+          },
+          {
+            "wave": "1653",
+            "measurement": "0.416913"
+          },
+          {
+            "wave": "1654",
+            "measurement": "0.421598"
+          },
+          {
+            "wave": "1655",
+            "measurement": "0.424117"
+          },
+          {
+            "wave": "1656",
+            "measurement": "0.424730"
+          },
+          {
+            "wave": "1657",
+            "measurement": "0.425615"
+          },
+          {
+            "wave": "1658",
+            "measurement": "0.427583"
+          },
+          {
+            "wave": "1659",
+            "measurement": "0.427940"
+          },
+          {
+            "wave": "1660",
+            "measurement": "0.431207"
+          },
+          {
+            "wave": "1661",
+            "measurement": "0.430984"
+          },
+          {
+            "wave": "1662",
+            "measurement": "0.432940"
+          },
+          {
+            "wave": "1663",
+            "measurement": "0.430868"
+          },
+          {
+            "wave": "1664",
+            "measurement": "0.430886"
+          },
+          {
+            "wave": "1665",
+            "measurement": "0.430798"
+          },
+          {
+            "wave": "1666",
+            "measurement": "0.430868"
+          },
+          {
+            "wave": "1667",
+            "measurement": "0.435259"
+          },
+          {
+            "wave": "1668",
+            "measurement": "0.437075"
+          },
+          {
+            "wave": "1669",
+            "measurement": "0.431960"
+          },
+          {
+            "wave": "1670",
+            "measurement": "0.433068"
+          },
+          {
+            "wave": "1671",
+            "measurement": "0.432677"
+          },
+          {
+            "wave": "1672",
+            "measurement": "0.428898"
+          },
+          {
+            "wave": "1673",
+            "measurement": "0.429428"
+          },
+          {
+            "wave": "1674",
+            "measurement": "0.434712"
+          },
+          {
+            "wave": "1675",
+            "measurement": "0.437187"
+          },
+          {
+            "wave": "1676",
+            "measurement": "0.435040"
+          },
+          {
+            "wave": "1677",
+            "measurement": "0.432020"
+          },
+          {
+            "wave": "1678",
+            "measurement": "0.433706"
+          },
+          {
+            "wave": "1679",
+            "measurement": "0.429868"
+          },
+          {
+            "wave": "1680",
+            "measurement": "0.427655"
+          },
+          {
+            "wave": "1681",
+            "measurement": "0.427224"
+          },
+          {
+            "wave": "1682",
+            "measurement": "0.429222"
+          },
+          {
+            "wave": "1683",
+            "measurement": "0.430489"
+          },
+          {
+            "wave": "1684",
+            "measurement": "0.431747"
+          },
+          {
+            "wave": "1685",
+            "measurement": "0.429825"
+          },
+          {
+            "wave": "1686",
+            "measurement": "0.429629"
+          },
+          {
+            "wave": "1687",
+            "measurement": "0.430242"
+          },
+          {
+            "wave": "1688",
+            "measurement": "0.427989"
+          },
+          {
+            "wave": "1689",
+            "measurement": "0.432264"
+          },
+          {
+            "wave": "1690",
+            "measurement": "0.432885"
+          },
+          {
+            "wave": "1691",
+            "measurement": "0.434506"
+          },
+          {
+            "wave": "1692",
+            "measurement": "0.433595"
+          },
+          {
+            "wave": "1693",
+            "measurement": "0.431462"
+          },
+          {
+            "wave": "1694",
+            "measurement": "0.430171"
+          },
+          {
+            "wave": "1695",
+            "measurement": "0.429887"
+          },
+          {
+            "wave": "1696",
+            "measurement": "0.428964"
+          },
+          {
+            "wave": "1697",
+            "measurement": "0.427151"
+          },
+          {
+            "wave": "1698",
+            "measurement": "0.427399"
+          },
+          {
+            "wave": "1699",
+            "measurement": "0.424111"
+          },
+          {
+            "wave": "1700",
+            "measurement": "0.423993"
+          },
+          {
+            "wave": "1701",
+            "measurement": "0.423949"
+          },
+          {
+            "wave": "1702",
+            "measurement": "0.423279"
+          },
+          {
+            "wave": "1703",
+            "measurement": "0.423837"
+          },
+          {
+            "wave": "1704",
+            "measurement": "0.423986"
+          },
+          {
+            "wave": "1705",
+            "measurement": "0.421757"
+          },
+          {
+            "wave": "1706",
+            "measurement": "0.420020"
+          },
+          {
+            "wave": "1707",
+            "measurement": "0.421995"
+          },
+          {
+            "wave": "1708",
+            "measurement": "0.419089"
+          },
+          {
+            "wave": "1709",
+            "measurement": "0.420673"
+          },
+          {
+            "wave": "1710",
+            "measurement": "0.419908"
+          },
+          {
+            "wave": "1711",
+            "measurement": "0.423588"
+          },
+          {
+            "wave": "1712",
+            "measurement": "0.425365"
+          },
+          {
+            "wave": "1713",
+            "measurement": "0.426563"
+          },
+          {
+            "wave": "1714",
+            "measurement": "0.424870"
+          },
+          {
+            "wave": "1715",
+            "measurement": "0.426335"
+          },
+          {
+            "wave": "1716",
+            "measurement": "0.425909"
+          },
+          {
+            "wave": "1717",
+            "measurement": "0.423819"
+          },
+          {
+            "wave": "1718",
+            "measurement": "0.421952"
+          },
+          {
+            "wave": "1719",
+            "measurement": "0.422082"
+          },
+          {
+            "wave": "1720",
+            "measurement": "0.422514"
+          },
+          {
+            "wave": "1721",
+            "measurement": "0.422523"
+          },
+          {
+            "wave": "1722",
+            "measurement": "0.423427"
+          },
+          {
+            "wave": "1723",
+            "measurement": "0.430632"
+          },
+          {
+            "wave": "1724",
+            "measurement": "0.430668"
+          },
+          {
+            "wave": "1725",
+            "measurement": "0.431815"
+          },
+          {
+            "wave": "1726",
+            "measurement": "0.430656"
+          },
+          {
+            "wave": "1727",
+            "measurement": "0.434640"
+          },
+          {
+            "wave": "1728",
+            "measurement": "0.431139"
+          },
+          {
+            "wave": "1729",
+            "measurement": "0.431641"
+          },
+          {
+            "wave": "1730",
+            "measurement": "0.431219"
+          },
+          {
+            "wave": "1731",
+            "measurement": "0.434281"
+          },
+          {
+            "wave": "1732",
+            "measurement": "0.435661"
+          },
+          {
+            "wave": "1733",
+            "measurement": "0.439154"
+          },
+          {
+            "wave": "1734",
+            "measurement": "0.446526"
+          },
+          {
+            "wave": "1735",
+            "measurement": "0.453059"
+          },
+          {
+            "wave": "1736",
+            "measurement": "0.453236"
+          },
+          {
+            "wave": "1737",
+            "measurement": "0.447693"
+          },
+          {
+            "wave": "1738",
+            "measurement": "0.445673"
+          },
+          {
+            "wave": "1739",
+            "measurement": "0.443642"
+          },
+          {
+            "wave": "1740",
+            "measurement": "0.444144"
+          },
+          {
+            "wave": "1741",
+            "measurement": "0.443832"
+          },
+          {
+            "wave": "1742",
+            "measurement": "0.447481"
+          },
+          {
+            "wave": "1743",
+            "measurement": "0.449650"
+          },
+          {
+            "wave": "1744",
+            "measurement": "0.451144"
+          },
+          {
+            "wave": "1745",
+            "measurement": "0.449565"
+          },
+          {
+            "wave": "1746",
+            "measurement": "0.450986"
+          },
+          {
+            "wave": "1747",
+            "measurement": "0.454081"
+          },
+          {
+            "wave": "1748",
+            "measurement": "0.451070"
+          },
+          {
+            "wave": "1749",
+            "measurement": "0.451539"
+          },
+          {
+            "wave": "1750",
+            "measurement": "0.450941"
+          },
+          {
+            "wave": "1751",
+            "measurement": "0.451094"
+          },
+          {
+            "wave": "1752",
+            "measurement": "0.452188"
+          },
+          {
+            "wave": "1753",
+            "measurement": "0.456383"
+          },
+          {
+            "wave": "1754",
+            "measurement": "0.453342"
+          },
+          {
+            "wave": "1755",
+            "measurement": "0.455650"
+          },
+          {
+            "wave": "1756",
+            "measurement": "0.458176"
+          },
+          {
+            "wave": "1757",
+            "measurement": "0.458865"
+          },
+          {
+            "wave": "1758",
+            "measurement": "0.459441"
+          },
+          {
+            "wave": "1759",
+            "measurement": "0.462246"
+          },
+          {
+            "wave": "1760",
+            "measurement": "0.463497"
+          },
+          {
+            "wave": "1761",
+            "measurement": "0.464812"
+          },
+          {
+            "wave": "1762",
+            "measurement": "0.463563"
+          },
+          {
+            "wave": "1763",
+            "measurement": "0.465249"
+          },
+          {
+            "wave": "1764",
+            "measurement": "0.466051"
+          },
+          {
+            "wave": "1765",
+            "measurement": "0.467015"
+          },
+          {
+            "wave": "1766",
+            "measurement": "0.467625"
+          },
+          {
+            "wave": "1767",
+            "measurement": "0.469463"
+          },
+          {
+            "wave": "1768",
+            "measurement": "0.470912"
+          },
+          {
+            "wave": "1769",
+            "measurement": "0.473361"
+          },
+          {
+            "wave": "1770",
+            "measurement": "0.476265"
+          },
+          {
+            "wave": "1771",
+            "measurement": "0.479479"
+          },
+          {
+            "wave": "1772",
+            "measurement": "0.479479"
+          },
+          {
+            "wave": "1773",
+            "measurement": "0.479930"
+          },
+          {
+            "wave": "1774",
+            "measurement": "0.483352"
+          },
+          {
+            "wave": "1775",
+            "measurement": "0.479107"
+          },
+          {
+            "wave": "1776",
+            "measurement": "0.480341"
+          },
+          {
+            "wave": "1777",
+            "measurement": "0.483831"
+          },
+          {
+            "wave": "1778",
+            "measurement": "0.485707"
+          },
+          {
+            "wave": "1779",
+            "measurement": "0.483382"
+          },
+          {
+            "wave": "1780",
+            "measurement": "0.485877"
+          },
+          {
+            "wave": "1781",
+            "measurement": "0.483608"
+          },
+          {
+            "wave": "1782",
+            "measurement": "0.480764"
+          },
+          {
+            "wave": "1783",
+            "measurement": "0.477641"
+          },
+          {
+            "wave": "1784",
+            "measurement": "0.478022"
+          },
+          {
+            "wave": "1785",
+            "measurement": "0.480942"
+          },
+          {
+            "wave": "1786",
+            "measurement": "0.480310"
+          },
+          {
+            "wave": "1787",
+            "measurement": "0.477938"
+          },
+          {
+            "wave": "1788",
+            "measurement": "0.478303"
+          },
+          {
+            "wave": "1789",
+            "measurement": "0.481794"
+          },
+          {
+            "wave": "1790",
+            "measurement": "0.480774"
+          },
+          {
+            "wave": "1791",
+            "measurement": "0.477670"
+          },
+          {
+            "wave": "1792",
+            "measurement": "0.480528"
+          },
+          {
+            "wave": "1793",
+            "measurement": "0.487245"
+          },
+          {
+            "wave": "1794",
+            "measurement": "0.485347"
+          },
+          {
+            "wave": "1795",
+            "measurement": "0.483458"
+          },
+          {
+            "wave": "1796",
+            "measurement": "0.486353"
+          },
+          {
+            "wave": "1797",
+            "measurement": "0.488893"
+          },
+          {
+            "wave": "1798",
+            "measurement": "0.481540"
+          },
+          {
+            "wave": "1799",
+            "measurement": "0.482902"
+          },
+          {
+            "wave": "1800",
+            "measurement": "0.481043"
+          },
+          {
+            "wave": "1801",
+            "measurement": "0.479451"
+          },
+          {
+            "wave": "1802",
+            "measurement": "0.479883"
+          },
+          {
+            "wave": "1803",
+            "measurement": "0.480863"
+          },
+          {
+            "wave": "1804",
+            "measurement": "0.480871"
+          },
+          {
+            "wave": "1805",
+            "measurement": "0.483541"
+          },
+          {
+            "wave": "1806",
+            "measurement": "0.485538"
+          },
+          {
+            "wave": "1807",
+            "measurement": "0.486506"
+          },
+          {
+            "wave": "1808",
+            "measurement": "0.488044"
+          },
+          {
+            "wave": "1809",
+            "measurement": "0.487156"
+          },
+          {
+            "wave": "1810",
+            "measurement": "0.485935"
+          },
+          {
+            "wave": "1811",
+            "measurement": "0.482105"
+          },
+          {
+            "wave": "1812",
+            "measurement": "0.482825"
+          },
+          {
+            "wave": "1813",
+            "measurement": "0.479195"
+          },
+          {
+            "wave": "1814",
+            "measurement": "0.476923"
+          },
+          {
+            "wave": "1815",
+            "measurement": "0.477161"
+          },
+          {
+            "wave": "1816",
+            "measurement": "0.481451"
+          },
+          {
+            "wave": "1817",
+            "measurement": "0.478835"
+          },
+          {
+            "wave": "1818",
+            "measurement": "0.481207"
+          },
+          {
+            "wave": "1819",
+            "measurement": "0.479818"
+          },
+          {
+            "wave": "1820",
+            "measurement": "0.482653"
+          },
+          {
+            "wave": "1821",
+            "measurement": "0.480407"
+          },
+          {
+            "wave": "1822",
+            "measurement": "0.482198"
+          },
+          {
+            "wave": "1823",
+            "measurement": "0.487178"
+          },
+          {
+            "wave": "1824",
+            "measurement": "0.484711"
+          },
+          {
+            "wave": "1825",
+            "measurement": "0.480726"
+          },
+          {
+            "wave": "1826",
+            "measurement": "0.483610"
+          },
+          {
+            "wave": "1827",
+            "measurement": "0.480779"
+          },
+          {
+            "wave": "1828",
+            "measurement": "0.479844"
+          },
+          {
+            "wave": "1829",
+            "measurement": "0.490491"
+          },
+          {
+            "wave": "1830",
+            "measurement": "0.490634"
+          },
+          {
+            "wave": "1831",
+            "measurement": "0.490979"
+          },
+          {
+            "wave": "1832",
+            "measurement": "0.493806"
+          },
+          {
+            "wave": "1833",
+            "measurement": "0.493223"
+          },
+          {
+            "wave": "1834",
+            "measurement": "0.491551"
+          },
+          {
+            "wave": "1835",
+            "measurement": "0.496257"
+          },
+          {
+            "wave": "1836",
+            "measurement": "0.493534"
+          },
+          {
+            "wave": "1837",
+            "measurement": "0.495638"
+          },
+          {
+            "wave": "1838",
+            "measurement": "0.501211"
+          },
+          {
+            "wave": "1839",
+            "measurement": "0.499978"
+          },
+          {
+            "wave": "1840",
+            "measurement": "0.499163"
+          },
+          {
+            "wave": "1841",
+            "measurement": "0.500390"
+          },
+          {
+            "wave": "1842",
+            "measurement": "0.503957"
+          },
+          {
+            "wave": "1843",
+            "measurement": "0.505316"
+          },
+          {
+            "wave": "1844",
+            "measurement": "0.505489"
+          },
+          {
+            "wave": "1845",
+            "measurement": "0.507152"
+          },
+          {
+            "wave": "1846",
+            "measurement": "0.512366"
+          },
+          {
+            "wave": "1847",
+            "measurement": "0.515561"
+          },
+          {
+            "wave": "1848",
+            "measurement": "0.513854"
+          },
+          {
+            "wave": "1849",
+            "measurement": "0.520346"
+          },
+          {
+            "wave": "1850",
+            "measurement": "0.529392"
+          },
+          {
+            "wave": "1851",
+            "measurement": "0.537046"
+          },
+          {
+            "wave": "1852",
+            "measurement": "0.535768"
+          },
+          {
+            "wave": "1853",
+            "measurement": "0.539917"
+          },
+          {
+            "wave": "1854",
+            "measurement": "0.546772"
+          },
+          {
+            "wave": "1855",
+            "measurement": "0.554584"
+          },
+          {
+            "wave": "1856",
+            "measurement": "0.553302"
+          },
+          {
+            "wave": "1857",
+            "measurement": "0.562052"
+          },
+          {
+            "wave": "1858",
+            "measurement": "0.568936"
+          },
+          {
+            "wave": "1859",
+            "measurement": "0.579720"
+          },
+          {
+            "wave": "1860",
+            "measurement": "0.589051"
+          },
+          {
+            "wave": "1861",
+            "measurement": "0.600701"
+          },
+          {
+            "wave": "1862",
+            "measurement": "0.605294"
+          },
+          {
+            "wave": "1863",
+            "measurement": "0.617490"
+          },
+          {
+            "wave": "1864",
+            "measurement": "0.621448"
+          },
+          {
+            "wave": "1865",
+            "measurement": "0.628643"
+          },
+          {
+            "wave": "1866",
+            "measurement": "0.639372"
+          },
+          {
+            "wave": "1867",
+            "measurement": "0.656424"
+          },
+          {
+            "wave": "1868",
+            "measurement": "0.666593"
+          },
+          {
+            "wave": "1869",
+            "measurement": "0.676721"
+          },
+          {
+            "wave": "1870",
+            "measurement": "0.681578"
+          },
+          {
+            "wave": "1871",
+            "measurement": "0.688026"
+          },
+          {
+            "wave": "1872",
+            "measurement": "0.693302"
+          },
+          {
+            "wave": "1873",
+            "measurement": "0.703973"
+          },
+          {
+            "wave": "1874",
+            "measurement": "0.710746"
+          },
+          {
+            "wave": "1875",
+            "measurement": "0.719265"
+          },
+          {
+            "wave": "1876",
+            "measurement": "0.728914"
+          },
+          {
+            "wave": "1877",
+            "measurement": "0.747083"
+          },
+          {
+            "wave": "1878",
+            "measurement": "0.749413"
+          },
+          {
+            "wave": "1879",
+            "measurement": "0.755719"
+          },
+          {
+            "wave": "1880",
+            "measurement": "0.778044"
+          },
+          {
+            "wave": "1881",
+            "measurement": "0.795785"
+          },
+          {
+            "wave": "1882",
+            "measurement": "0.803165"
+          },
+          {
+            "wave": "1883",
+            "measurement": "0.827887"
+          },
+          {
+            "wave": "1884",
+            "measurement": "0.864783"
+          },
+          {
+            "wave": "1885",
+            "measurement": "0.874496"
+          },
+          {
+            "wave": "1886",
+            "measurement": "0.884889"
+          },
+          {
+            "wave": "1887",
+            "measurement": "0.912036"
+          },
+          {
+            "wave": "1888",
+            "measurement": "0.930986"
+          },
+          {
+            "wave": "1889",
+            "measurement": "0.893502"
+          },
+          {
+            "wave": "1890",
+            "measurement": "0.918278"
+          },
+          {
+            "wave": "1891",
+            "measurement": "0.939453"
+          },
+          {
+            "wave": "1892",
+            "measurement": "0.933269"
+          },
+          {
+            "wave": "1893",
+            "measurement": "0.916166"
+          },
+          {
+            "wave": "1894",
+            "measurement": "0.973238"
+          },
+          {
+            "wave": "1895",
+            "measurement": "0.952156"
+          },
+          {
+            "wave": "1896",
+            "measurement": "0.961137"
+          },
+          {
+            "wave": "1897",
+            "measurement": "0.947385"
+          },
+          {
+            "wave": "1898",
+            "measurement": "0.971791"
+          },
+          {
+            "wave": "1899",
+            "measurement": "0.920241"
+          },
+          {
+            "wave": "1900",
+            "measurement": "0.947344"
+          }
+        ]
+      }
+    }
+  }
+}

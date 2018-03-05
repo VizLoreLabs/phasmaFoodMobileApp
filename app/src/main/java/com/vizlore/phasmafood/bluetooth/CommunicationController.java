@@ -216,6 +216,7 @@ public class CommunicationController {
 								try {
 									socket.close();
 								} catch (IOException e) {
+									e.printStackTrace();
 								}
 								break;
 						}
@@ -228,6 +229,7 @@ public class CommunicationController {
 			try {
 				serverSocket.close();
 			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
 	}
@@ -261,6 +263,7 @@ public class CommunicationController {
 				try {
 					socket.close();
 				} catch (IOException e2) {
+					e2.printStackTrace();
 				}
 				connectionFailed();
 				return;
@@ -279,6 +282,7 @@ public class CommunicationController {
 			try {
 				socket.close();
 			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
 	}
@@ -299,6 +303,7 @@ public class CommunicationController {
 				tmpIn = socket.getInputStream();
 				tmpOut = socket.getOutputStream();
 			} catch (IOException e) {
+				e.printStackTrace();
 			}
 
 			inputStream = tmpIn;
@@ -334,9 +339,9 @@ public class CommunicationController {
 		public void write(byte[] buffer) {
 			try {
 				outputStream.write(buffer);
-				handler.obtainMessage(BluetoothService.MESSAGE_WRITE, -1, -1,
-					buffer).sendToTarget();
+				handler.obtainMessage(BluetoothService.MESSAGE_WRITE, -1, -1, buffer).sendToTarget();
 			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
 

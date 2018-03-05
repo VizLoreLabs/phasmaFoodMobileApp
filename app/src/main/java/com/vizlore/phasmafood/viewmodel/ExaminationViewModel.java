@@ -8,6 +8,7 @@ import android.util.Log;
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.api.ExaminationApi;
 import com.vizlore.phasmafood.model.results.Examination;
+import com.vizlore.phasmafood.model.results.Sample;
 import com.vizlore.phasmafood.utils.SingleLiveEvent;
 import com.vizlore.phasmafood.utils.Utils;
 
@@ -41,7 +42,7 @@ public class ExaminationViewModel extends ViewModel {
 		MyApplication.getComponent().inject(this);
 	}
 
-	public LiveData<Boolean> createExaminationRequest(String userId, Examination examination) {
+	public LiveData<Boolean> createExaminationRequest(String userId, Sample sample) {
 
 		if (createExaminationRequestLiveData == null) {
 			createExaminationRequestLiveData = new SingleLiveEvent<>();
@@ -49,12 +50,12 @@ public class ExaminationViewModel extends ViewModel {
 
 		// TODO: 2/10/18 find better solution
 		String sampleId = String.valueOf(new Date().getTime() % 1000000000);
-		examination.setSampleID(sampleId);
-		examination.setUserID(userId);
-		examination.setDeviceID(Utils.getBluetoothDeviceUUID());
-		examination.setMobileID(Utils.getMobileUUID());
+		sample.setSampleID(sampleId);
+		sample.setUserID(userId);
+		sample.setDeviceID(Utils.getBluetoothDeviceUUID());
+		//sample.setMobileID(Utils.getMobileUUID());
 
-		examinationApi.createExaminationRequest(Utils.getHeader(), examination)
+		examinationApi.createExaminationRequest(Utils.getHeader(), sample)
 			.subscribeOn(Schedulers.io())
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribe(new CompletableObserver() {

@@ -32,7 +32,6 @@ import com.vizlore.phasmafood.ui.ResultsActivity;
 import com.vizlore.phasmafood.ui.profile_setup.viewmodel.ProfileSetupViewModel;
 import com.vizlore.phasmafood.ui.wizard.WizardActivity;
 import com.vizlore.phasmafood.utils.JsonFileLoader;
-import com.vizlore.phasmafood.viewmodel.DeviceViewModel;
 import com.vizlore.phasmafood.viewmodel.ExaminationViewModel;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
 
@@ -143,19 +142,6 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 	public void checkUserStatus() {
 		UserViewModel userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
 		if (userViewModel.hasSession()) {
-
-			// check if device is already saved on server
-			// if not, create it
-			// FIXME: 3/1/18 this is just for testing - move it to other place
-			DeviceViewModel deviceViewModel = ViewModelProviders.of(this).get(DeviceViewModel.class);
-			deviceViewModel.readDevice().observe(this, result -> {
-				if (result != null && !result) {
-					deviceViewModel.createDevice().observe(this, result2 -> {
-						Log.d(TAG, "onCreate: " + result2);
-					});
-				}
-			});
-
 			addFragment(new ProfileHomeScreenFragment());
 		} else {
 			addFragment(new SignInFragment());
@@ -232,8 +218,8 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 
 	@Override
 	public void onConnectClick(BluetoothDevice device) {
-		Log.d(TAG, "onConnectClick");
 		if (!isConnected) {
+			Log.d(TAG, "onConnectClick: not connected");
 			bluetoothService.connectToCommunicationController(device.getAddress());
 			isConnected = !isConnected;
 		}
@@ -241,10 +227,10 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 
 	@Override
 	public void onDisconnectClick() {
-		Log.d(TAG, "onDisconnectClick: ");
 		if (isConnected) {
 			bluetoothService.disconnectFromCommunicationController();
 		}
+		isConnected = false;
 	}
 
 	// just for testing
@@ -260,7 +246,7 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 			//save examination
 			MyApplication.getInstance().saveExamination(examination);
 
-			model.createExaminationRequest(user.id(), examination).observe(this, result -> {
+			model.createExaminationRequest(user.id(), examination.getResponse().getSample()).observe(this, result -> {
 				if (result != null && !result) {
 					Toast.makeText(ProfileSetupActivity.this, "Examination request failed!", Toast.LENGTH_SHORT).show();
 				} else {
