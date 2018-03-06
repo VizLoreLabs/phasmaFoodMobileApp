@@ -84,33 +84,33 @@
     <TextView
         android:id="@+id/visTitle"
         style="@style/PFTextView"
-        android:layout_width="50dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:text="VIS:"
+        android:text="VIS data analysis:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/storageTemperature" />
+        app:layout_constraintTop_toBottomOf="@+id/param3Title" />
 
     <TextView
         android:id="@+id/nirTitle"
         style="@style/PFTextView"
-        android:layout_width="50dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:text="NIR:"
+        android:text="NIR data analysis:"
         app:layout_constraintStart_toStartOf="@+id/overlay"
         app:layout_constraintTop_toBottomOf="@+id/visTitle" />
 
     <TextView
         android:id="@+id/flouTitle"
         style="@style/PFTextView"
-        android:layout_width="50dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:text="FLOU:"
+        android:text="FLOU data analysis:"
         app:layout_constraintStart_toStartOf="@+id/overlay"
         app:layout_constraintTop_toBottomOf="@+id/nirTitle" />
 
@@ -120,7 +120,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:text="TextView"
+        android:text="n/a"
         app:layout_constraintBottom_toBottomOf="@+id/visTitle"
         app:layout_constraintStart_toEndOf="@+id/visTitle"
         app:layout_constraintTop_toTopOf="@+id/visTitle"
@@ -132,7 +132,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:text="TextView"
+        android:text="n/a"
         app:layout_constraintBottom_toBottomOf="@+id/nirTitle"
         app:layout_constraintStart_toEndOf="@+id/nirTitle"
         app:layout_constraintTop_toTopOf="@+id/nirTitle" />
@@ -143,7 +143,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:text="TextView"
+        android:text="n/a"
         app:layout_constraintBottom_toBottomOf="@+id/flouTitle"
         app:layout_constraintStart_toEndOf="@+id/flouTitle"
         app:layout_constraintTop_toTopOf="@+id/flouTitle" />
@@ -165,7 +165,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="TextView"
+        android:text="n/a"
         app:layout_constraintBottom_toBottomOf="@+id/useCase"
         app:layout_constraintStart_toEndOf="@+id/useCase"
         app:layout_constraintTop_toTopOf="@+id/useCase" />
@@ -186,13 +186,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="TextView"
+        android:text="n/a"
         app:layout_constraintBottom_toBottomOf="@+id/sample"
         app:layout_constraintStart_toEndOf="@+id/sample"
         app:layout_constraintTop_toTopOf="@+id/sample" />
 
     <TextView
-        android:id="@+id/granularity"
+        android:id="@+id/param1Title"
         style="@style/PFTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -203,18 +203,18 @@
         app:layout_constraintTop_toBottomOf="@+id/sample" />
 
     <TextView
-        android:id="@+id/granularityValue"
+        android:id="@+id/param1Value"
         style="@style/PFTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/granularity"
-        app:layout_constraintStart_toEndOf="@+id/granularity"
-        app:layout_constraintTop_toTopOf="@+id/granularity" />
+        android:text="n/a"
+        app:layout_constraintBottom_toBottomOf="@+id/param1Title"
+        app:layout_constraintStart_toEndOf="@+id/param1Title"
+        app:layout_constraintTop_toTopOf="@+id/param1Title" />
 
     <TextView
-        android:id="@+id/exposureTime"
+        android:id="@+id/param2Title"
         style="@style/PFTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -222,21 +222,21 @@
         android:layout_marginTop="8dp"
         android:text="Exposure time:"
         app:layout_constraintStart_toStartOf="@+id/overlay"
-        app:layout_constraintTop_toBottomOf="@+id/granularity" />
+        app:layout_constraintTop_toBottomOf="@+id/param1Title" />
 
     <TextView
-        android:id="@+id/exposureTimeValue"
+        android:id="@+id/param2Value"
         style="@style/PFTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/exposureTime"
-        app:layout_constraintStart_toEndOf="@+id/exposureTime"
-        app:layout_constraintTop_toTopOf="@+id/exposureTime" />
+        android:text="n/a"
+        app:layout_constraintBottom_toBottomOf="@+id/param2Title"
+        app:layout_constraintStart_toEndOf="@+id/param2Title"
+        app:layout_constraintTop_toTopOf="@+id/param2Title" />
 
     <TextView
-        android:id="@+id/storageTemperature"
+        android:id="@+id/param3Title"
         style="@style/PFTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -244,22 +244,22 @@
         android:layout_marginTop="8dp"
         android:text="Storage temperature:"
         app:layout_constraintStart_toStartOf="@+id/overlay"
-        app:layout_constraintTop_toBottomOf="@+id/exposureTime" />
+        app:layout_constraintTop_toBottomOf="@+id/param2Title" />
 
     <TextView
-        android:id="@+id/storageTemperatureValue"
+        android:id="@+id/param3Value"
         style="@style/PFTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/storageTemperature"
-        app:layout_constraintStart_toEndOf="@+id/storageTemperature"
-        app:layout_constraintTop_toTopOf="@+id/storageTemperature"
+        android:text="n/a"
+        app:layout_constraintBottom_toBottomOf="@+id/param3Title"
+        app:layout_constraintStart_toEndOf="@+id/param3Title"
+        app:layout_constraintTop_toTopOf="@+id/param3Title"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/datasetLabel"
+        android:id="@+id/param4Title"
         style="@style/PFTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -270,15 +270,15 @@
         app:layout_constraintTop_toBottomOf="@+id/flouTitle" />
 
     <TextView
-        android:id="@+id/datasetLabelValue"
+        android:id="@+id/param4Value"
         style="@style/PFTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/datasetLabel"
-        app:layout_constraintStart_toEndOf="@+id/datasetLabel"
-        app:layout_constraintTop_toTopOf="@+id/datasetLabel"
+        android:text="n/a"
+        app:layout_constraintBottom_toBottomOf="@+id/param4Title"
+        app:layout_constraintStart_toEndOf="@+id/param4Title"
+        app:layout_constraintTop_toTopOf="@+id/param4Title"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView

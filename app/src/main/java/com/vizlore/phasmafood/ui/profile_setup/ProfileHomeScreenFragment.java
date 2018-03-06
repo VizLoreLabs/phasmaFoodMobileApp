@@ -65,7 +65,9 @@ public class ProfileHomeScreenFragment extends ProfileBaseFragment {
 		configViewModel = ViewModelProviders.of(getActivity()).get(FcmMobileViewModel.class);
 
 		configViewModel.sendFcmToken().observe(this, sendResult -> {
-			Toast.makeText(getActivity(), "Token saved: " + sendResult, Toast.LENGTH_SHORT).show();
+			if (!sendResult) {
+				Toast.makeText(getActivity(), "Token saved: " + sendResult, Toast.LENGTH_SHORT).show();
+			}
 		});
 	}
 

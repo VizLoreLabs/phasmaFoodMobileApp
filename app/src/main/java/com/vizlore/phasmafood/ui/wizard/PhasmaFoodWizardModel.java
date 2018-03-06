@@ -34,7 +34,7 @@ public class PhasmaFoodWizardModel extends AbstractWizardModel {
 	protected PageList onNewRootPageList() {
 		return new PageList(
 			new BranchPage(this, "Use cases")
-				.addBranch("Mycotoxin detection",
+				.addBranch("Mycotoxins detection",
 					new BranchPage(this, "1!Food type")
 						.addBranch("Maize flour",
 							new SingleFixedChoicePage(this, "1!Granularity").setChoices("Low", "Medium", "High").setRequired(true),

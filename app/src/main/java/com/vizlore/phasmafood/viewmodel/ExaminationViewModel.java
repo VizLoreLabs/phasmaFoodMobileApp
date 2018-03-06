@@ -53,7 +53,7 @@ public class ExaminationViewModel extends ViewModel {
 		sample.setSampleID(sampleId);
 		sample.setUserID(userId);
 		sample.setDeviceID(Utils.getBluetoothDeviceUUID());
-		//sample.setMobileID(Utils.getMobileUUID());
+		sample.setMobileID(Utils.getMobileUUID());
 
 		examinationApi.createExaminationRequest(Utils.getHeader(), sample)
 			.subscribeOn(Schedulers.io())

@@ -1,14 +1,14 @@
 package com.vizlore.phasmafood.ui.services;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.vizlore.phasmafood.ui.ResultsActivity;
 
-import java.util.Map;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by smedic on 1/23/18.
@@ -30,19 +30,19 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 		Log.d(TAG, "*** onMessageReceived: " + remoteMessage.getNotification().getTitle());
 		Log.d(TAG, "*** onMessageReceived: " + remoteMessage.getNotification().getBody());
 
-		if (remoteMessage.getData() != null) {
-			Bundle bundle = new Bundle();
-			for (Map.Entry<String, String> entry : remoteMessage.getData().entrySet()) {
-				Log.d(TAG, "*** onMessageReceived: " + entry.getKey() + " - " + entry.getValue());
-				bundle.putString(entry.getKey(), entry.getValue());
-			}
-
-			Intent intent = new Intent(this, ResultsActivity.class);
-			intent.putExtra("vis", remoteMessage.getData().get("VIS"));
-			intent.putExtra("nir", remoteMessage.getData().get("NIR"));
-			intent.putExtra("flou", remoteMessage.getData().get("FLOU"));
-			startActivity(intent);
+		Intent intent = new Intent(this, ResultsActivity.class);
+		try {
+			JSONObject jsonObject = new JSONObject(remoteMessage.getNotification().getBody());
+			if (jsonObject.has("VIS"))
+				intent.putExtra("VIS", jsonObject.getString("VIS"));
+			if (jsonObject.has("NIR"))
+				intent.putExtra("NIR", jsonObject.getString("NIR"));
+			if (jsonObject.has("FLOU"))
+				intent.putExtra("FLOU", jsonObject.getString("FLOU"));
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
+		startActivity(intent);
 	}
 
 	@Override

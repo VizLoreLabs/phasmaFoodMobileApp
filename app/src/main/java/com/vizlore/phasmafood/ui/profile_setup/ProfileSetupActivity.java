@@ -85,7 +85,7 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 					case MEASUREMENT_HISTORY_CLICKED:
 
 						// TODO: 2/23/18 remove
-						//performTestMeasurement();
+						performTestMeasurement();
 
 						// TODO: 1/16/18
 						break;
@@ -219,7 +219,7 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 	@Override
 	public void onConnectClick(BluetoothDevice device) {
 		if (!isConnected) {
-			Log.d(TAG, "onConnectClick: not connected");
+			Log.d(TAG, "onConnectClick: not connected. Connecting...");
 			bluetoothService.connectToCommunicationController(device.getAddress());
 			isConnected = !isConnected;
 		}
@@ -241,7 +241,7 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 		userViewModel.getUserProfile().observe(this, user -> {
 
 			Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
-			String json = new JsonFileLoader().fromAsset("results.json");
+			String json = new JsonFileLoader().fromAsset("result1.json");
 			Examination examination = gson.fromJson(json, Examination.class);
 			//save examination
 			MyApplication.getInstance().saveExamination(examination);
@@ -252,9 +252,9 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 				} else {
 					Toast.makeText(ProfileSetupActivity.this, "Examination successful!", Toast.LENGTH_SHORT).show();
 					Intent intent = new Intent(this, ResultsActivity.class);
-					intent.putExtra("vis", "IPO3");
-					intent.putExtra("nir", "IPO3");
-					intent.putExtra("flou", "N/A");
+					intent.putExtra("VIS", "IPO3");
+					intent.putExtra("NIR", "IPO3");
+					intent.putExtra("FLOU", "N/A");
 					startActivity(intent);
 				}
 			});

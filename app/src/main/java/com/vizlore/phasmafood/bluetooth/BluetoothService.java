@@ -22,7 +22,6 @@ import com.vizlore.phasmafood.model.User;
 import com.vizlore.phasmafood.model.results.Examination;
 import com.vizlore.phasmafood.model.results.Sample;
 import com.vizlore.phasmafood.utils.Config;
-import com.vizlore.phasmafood.utils.JsonFileLoader;
 import com.vizlore.phasmafood.utils.Utils;
 
 import org.json.JSONException;
@@ -77,7 +76,6 @@ public class BluetoothService extends Service {
 
 	private Disposable disposable = new CompositeDisposable();
 
-	int i = 0;
 	//test
 	private String jsonReceived = " ";
 	private int ack = 0;
@@ -115,24 +113,18 @@ public class BluetoothService extends Service {
 					final String readMessage = new String(readBuf, 0, msg.arg1);
 					Log.e(TAG, "Received: " + connectingDevice.getName() + ":  " + readMessage);
 
-					if (readMessage.equals("End of Response") || i++ == 5) {
+					if (readMessage.equals("End of Response")) {
 						Toast.makeText(getApplicationContext(), readMessage, Toast.LENGTH_SHORT).show();
 
 						// TODO: 3/5/18 use examination
 						// TODO: 3/5/18 remove this fake
+//						Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
+//						String json = new JsonFileLoader().fromAsset("result1.json");
+//						Examination examination = gson.fromJson(json, Examination.class);
+
 						Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
-						String json = new JsonFileLoader().fromAsset("result2.json");
-						Examination examination = gson.fromJson(json, Examination.class);
+						Examination examination = gson.fromJson(jsonReceived, Examination.class);
 
-						Sample sample = examination.getResponse().getSample();
-						Log.d(TAG, "1 handleMessage: " + sample.getContamination());
-						Log.d(TAG, "1 handleMessage: " + sample.getGranularity());
-						Log.d(TAG, "1 handleMessage: " + sample.getMycotoxins());
-						Log.d(TAG, "2 handleMessage: " + sample.getTemperature());
-						Log.d(TAG, "2 handleMessage: " + sample.getMicrobiologicalValue());
-						Log.d(TAG, "2 handleMessage: " + sample.getMicrobiologicalUnit());
-
-						Log.d(TAG, "handleMessage: " + json);
 						//save examination
 						MyApplication.getInstance().saveExamination(examination);
 						if (examination != null) {
@@ -279,7 +271,7 @@ public class BluetoothService extends Service {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		// TODO: 2/17/18 check if device is there (shared prefs and getBondedDevices match)
 		//connect();
-		return START_NOT_STICKY;
+		return START_STICKY;
 	}
 
 	@Override
@@ -307,12 +299,16 @@ public class BluetoothService extends Service {
 	public void connectToCommunicationController(String deviceAddress) {
 		rxBluetooth.cancelDiscovery();
 		BluetoothDevice device = rxBluetooth.getRemoteDevice(deviceAddress);
-		bluetoothController.connect(device);
+		if (bluetoothController != null) {
+			bluetoothController.connect(device);
+		}
 	}
 
 	public void disconnectFromCommunicationController() {
 		Log.d(TAG, "disconnect");
-		bluetoothController.stop();
+		if (bluetoothController != null) {
+			bluetoothController.stop();
+		}
 	}
 
 	// TODO: 3/5/18 refactor in RxJava fashion

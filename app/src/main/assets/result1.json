@@ -9,14 +9,12 @@
       "deviceID": "38:D2:69:DD:44:72",
       "foodType": "almond",
       "useCase": "Mycotoxins detection",
-
       "granularity": "1000",
       "contamination": "aut3",
       "mycotoxins": "AF B1",
       "aflatoxinName": "AFB1Quantification",
       "aflatoxinValue": "11.40",
       "aflatoxinUnit": "ug/g",
-
       "VIS": {
         "Preprocessed": [
           {

@@ -50,7 +50,7 @@ public class Utils {
 	}
 
 	public synchronized static String getBluetoothDeviceUUID() {
-		return "40cff00a-11ad-4439-9047-08c5da711063";
+		return "B8:27:EB:E4:C9:78";
 //		if (btDeviceUuid == null) {
 //			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
 //			btDeviceUuid = prefs.getString(BT_DEVICE_UUID_KEY, null);
