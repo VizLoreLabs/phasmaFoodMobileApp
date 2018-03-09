@@ -218,6 +218,7 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 
 	@Override
 	public void onConnectClick(BluetoothDevice device) {
+		isConnected=bluetoothService.IsConnected();
 		if (!isConnected) {
 			Log.d(TAG, "onConnectClick: not connected. Connecting...");
 			bluetoothService.connectToCommunicationController(device.getAddress());
@@ -227,6 +228,7 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 
 	@Override
 	public void onDisconnectClick() {
+		isConnected=bluetoothService.IsConnected();
 		if (isConnected) {
 			bluetoothService.disconnectFromCommunicationController();
 		}

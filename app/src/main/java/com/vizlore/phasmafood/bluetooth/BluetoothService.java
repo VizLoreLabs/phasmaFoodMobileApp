@@ -281,7 +281,8 @@ public class BluetoothService extends Service {
 //		super.onDestroy();
 //		Log.d(TAG, "BluetoothService stopped!");
 		if (bluetoothController != null)
-			bluetoothController.stop();
+			Log.d(TAG, "Going for Destroy");
+		bluetoothController.stop();
 	}
 
 	@Override
@@ -300,6 +301,11 @@ public class BluetoothService extends Service {
 		rxBluetooth.cancelDiscovery();
 		BluetoothDevice device = rxBluetooth.getRemoteDevice(deviceAddress);
 		if (bluetoothController != null) {
+			Log.d(TAG, "Going For Connection");
+			bluetoothController.connect(device);
+		}
+		else {
+			bluetoothController = new CommunicationController(handler);
 			bluetoothController.connect(device);
 		}
 	}
@@ -307,7 +313,9 @@ public class BluetoothService extends Service {
 	public void disconnectFromCommunicationController() {
 		Log.d(TAG, "disconnect");
 		if (bluetoothController != null) {
+			Log.d(TAG, "Stopping Controller");
 			bluetoothController.stop();
+			bluetoothController=null;
 		}
 	}
 
@@ -364,4 +372,18 @@ public class BluetoothService extends Service {
 			bluetoothController = null;
 		}
 	}
+
+	public boolean IsConnected() {
+		if (bluetoothController != null) {
+			if (bluetoothController.getState() == CommunicationController.STATE_CONNECTED) {
+				return true;
+
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
 }

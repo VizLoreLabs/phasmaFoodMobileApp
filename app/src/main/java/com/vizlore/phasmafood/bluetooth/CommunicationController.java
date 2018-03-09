@@ -142,6 +142,7 @@ public class CommunicationController {
 			acceptThread = null;
 		}
 		setState(STATE_NONE);
+
 	}
 
 	public void write(byte[] out) {
@@ -160,7 +161,7 @@ public class CommunicationController {
 		bundle.putString("toast", "Unable to connect device");
 		msg.setData(bundle);
 		handler.sendMessage(msg);
-
+		//CommunicationController.this.stop();
 		// Start the service over to restart listening mode
 		CommunicationController.this.start();
 	}
@@ -171,7 +172,7 @@ public class CommunicationController {
 		bundle.putString("toast", "Device connection was lost");
 		msg.setData(bundle);
 		handler.sendMessage(msg);
-
+		//CommunicationController.this.stop();
 		// Start the service over to restart listening mode
 		CommunicationController.this.start();
 	}
