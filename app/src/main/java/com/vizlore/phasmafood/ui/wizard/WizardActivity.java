@@ -12,15 +12,13 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.google.gson.JsonObject;
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.bluetooth.BluetoothService;
-import com.vizlore.phasmafood.utils.Utils;
+import com.vizlore.phasmafood.ui.configuration.ConfigurationActivity;
 
 import java.util.List;
 
@@ -30,7 +28,6 @@ import butterknife.OnClick;
 import wizardpager.model.AbstractWizardModel;
 import wizardpager.model.ModelCallbacks;
 import wizardpager.model.Page;
-import wizardpager.model.ReviewItem;
 import wizardpager.ui.PageFragmentCallbacks;
 import wizardpager.ui.ReviewFragment;
 import wizardpager.ui.StepPagerStrip;
@@ -111,23 +108,25 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 	private void sendToBluetoothDevice() {
 		if (pager.getAdapter() != null) {
 
-			Object o = pager.getAdapter().instantiateItem(pager, pager.getCurrentItem());
-			if (o instanceof ReviewFragment) {
-
-				List<ReviewItem> items = ((ReviewFragment) o).getReviewItems();
-				if (items != null) {
-					JsonObject jsonObject = new JsonObject();
-					for (ReviewItem item : items) {
-						String title = Utils.removeMagicChar(item.getTitle());
-						String value = Utils.removeMagicChar(item.getDisplayValue());
-						Log.d(TAG, "Item: " + title + "\t" + value);
-						jsonObject.addProperty(title, value);
-					}
-					JsonObject jsonObjectRequest = new JsonObject();
-					jsonObjectRequest.add("Request", jsonObject);
-					bluetoothService.sendMessage(jsonObjectRequest.toString());
-				}
-			}
+			Intent intent = new Intent(this, ConfigurationActivity.class);
+			startActivity(intent);
+//			Object o = pager.getAdapter().instantiateItem(pager, pager.getCurrentItem());
+//			if (o instanceof ReviewFragment) {
+//
+//				List<ReviewItem> items = ((ReviewFragment) o).getReviewItems();
+//				if (items != null) {
+//					JsonObject jsonObject = new JsonObject();
+//					for (ReviewItem item : items) {
+//						String title = Utils.removeMagicChar(item.getTitle());
+//						String value = Utils.removeMagicChar(item.getDisplayValue());
+//						Log.d(TAG, "Item: " + title + "\t" + value);
+//						jsonObject.addProperty(title, value);
+//					}
+//					JsonObject jsonObjectRequest = new JsonObject();
+//					jsonObjectRequest.add("Request", jsonObject);
+//					bluetoothService.sendMessage(jsonObjectRequest.toString());
+//				}
+//			}
 		} else {
 			throw new IllegalStateException("Pager adapter null");
 		}

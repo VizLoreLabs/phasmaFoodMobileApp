@@ -18,4 +18,9 @@
     <dimen name="list_item_padding_left">6dp</dimen>
     <dimen name="list_item_padding_right">6dp</dimen>
     <dimen name="list_item_height_small">48dp</dimen>
+
+    <dimen name="configurationTitleHeight">30dp</dimen>
+    <dimen name="configurationTowHeight">40dp</dimen>
+    <dimen name="configurationHorizontalRowPadding">10dp</dimen>
+    <dimen name="configurationVerticalRowPadding">3dp</dimen>
 </resources>
