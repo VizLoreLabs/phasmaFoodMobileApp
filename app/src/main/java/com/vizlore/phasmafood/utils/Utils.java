@@ -77,6 +77,9 @@ public class Utils {
 	}
 
 	public static String removeMagicChar(String string) {
+		if (string == null) {
+			return "";
+		}
 		if (string.contains("!")) {
 			int magicCharPos = string.indexOf("!");
 			return string.substring(magicCharPos + 1);

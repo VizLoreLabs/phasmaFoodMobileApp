@@ -157,6 +157,7 @@
                     android:textColor="@color/white">
 
                     <RadioButton
+                        android:id="@+id/yes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/white"
@@ -164,6 +165,7 @@
                         android:textColor="@color/white" />
 
                     <RadioButton
+                        android:id="@+id/no"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/white"
@@ -217,7 +219,7 @@
                     android:textColor="@color/white" />
 
                 <EditText
-                    android:id="@+id/voltageEditText"
+                    android:id="@+id/nirMicrolampsVoltage"
                     style="@style/PFEditTextDigits"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -244,7 +246,7 @@
                     android:textColor="@color/white" />
 
                 <EditText
-                    android:id="@+id/warmingTimeEditText"
+                    android:id="@+id/nirMicrolampsWarmingTime"
                     style="@style/PFEditTextDigits"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -280,7 +282,7 @@
                     android:textColor="@color/white" />
 
                 <EditText
-                    android:id="@+id/exposureTimeVisibleReflectance"
+                    android:id="@+id/exposureTimeReflectance"
                     style="@style/PFEditTextDigits"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -307,7 +309,7 @@
                     android:textColor="@color/white" />
 
                 <EditText
-                    android:id="@+id/gainVisibleReflectance"
+                    android:id="@+id/gainReflectance"
                     style="@style/PFEditTextDigits"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -334,7 +336,7 @@
                     android:textColor="@color/white" />
 
                 <EditText
-                    android:id="@+id/binningVisibleReflectance"
+                    android:id="@+id/binningReflectance"
                     style="@style/PFEditTextDigits"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -483,17 +485,39 @@
         <Button
             android:id="@+id/sendRequest"
             android:layout_width="0dp"
-            android:layout_height="61dp"
+            android:layout_height="60dp"
             android:background="@drawable/selectable_item_background"
             android:shadowColor="@color/text_shadow"
             android:shadowDx="1"
             android:shadowDy="1"
             android:shadowRadius="2"
-            android:text="Send request do device"
+            android:text="Send request"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toBottomOf="@+id/divider1" />
+
+        <Button
+            android:id="@+id/setDefaults"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:background="@drawable/selectable_item_background"
+            android:shadowColor="@color/text_shadow"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:text="Set defaults"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider1" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
 
         <ImageView
             android:id="@+id/imageView3"

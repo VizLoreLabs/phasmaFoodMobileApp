@@ -8,6 +8,7 @@ import com.vizlore.phasmafood.dagger.modules.ExaminationModule;
 import com.vizlore.phasmafood.dagger.modules.MobileModule;
 import com.vizlore.phasmafood.dagger.modules.NetworkModule;
 import com.vizlore.phasmafood.dagger.modules.UserModule;
+import com.vizlore.phasmafood.ui.configuration.ConfigurationActivity;
 import com.vizlore.phasmafood.ui.services.MyFirebaseInstanceIDService;
 import com.vizlore.phasmafood.viewmodel.BluetoothViewModel;
 import com.vizlore.phasmafood.viewmodel.DeviceViewModel;
@@ -41,4 +42,7 @@ public interface AppComponent {
 	void inject(BluetoothService bluetoothService);
 
 	void inject(DeviceViewModel deviceViewModel);
+
+	void inject(ConfigurationActivity configurationActivity);
+
 }
