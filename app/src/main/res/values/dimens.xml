@@ -6,7 +6,7 @@
     <dimen name="buttonHorizontalMargin">32dp</dimen>
     <dimen name="buttonsSpacing">16dp</dimen>
     <dimen name="buttonsSmallSpacing">6dp</dimen>
-    <dimen name="titleTextSize">30sp</dimen>
+    <dimen name="titleTextSize">26sp</dimen>
     <dimen name="subtitleTextSize">20sp</dimen>
     <dimen name="indicatorSize">20dp</dimen>
     <dimen name="indicatorMarginBottom">20dp</dimen>

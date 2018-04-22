@@ -23,7 +23,7 @@
     <string name="previous">Previous</string>
     <string name="next">Next</string>
     <string name="summary">Summary</string>
-    <string name="resultsReceived">Measurement analysis completed!</string>
+    <string name="resultsReceived">Measurement completed!</string>
     <string name="seeYourResults">Results:</string>
     <string name="camera">Camera</string>
     <string name="exposureTime">Exposure time [us]</string>

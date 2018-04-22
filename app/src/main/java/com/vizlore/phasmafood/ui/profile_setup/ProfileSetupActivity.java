@@ -248,18 +248,25 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 			//save examination
 			MyApplication.getInstance().saveExamination(examination);
 
-			model.createExaminationRequest(user.id(), examination.getResponse().getSample()).observe(this, result -> {
-				if (result != null && !result) {
-					Toast.makeText(ProfileSetupActivity.this, "Examination request failed!", Toast.LENGTH_SHORT).show();
-				} else {
-					Toast.makeText(ProfileSetupActivity.this, "Examination successful!", Toast.LENGTH_SHORT).show();
-					Intent intent = new Intent(this, ResultsActivity.class);
-					intent.putExtra("VIS", "IPO3");
-					intent.putExtra("NIR", "IPO3");
-					intent.putExtra("FLOU", "N/A");
-					startActivity(intent);
-				}
-			});
+			Toast.makeText(ProfileSetupActivity.this, "Examination successful!", Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(this, ResultsActivity.class);
+			intent.putExtra("VIS", "IPO3");
+			intent.putExtra("NIR", "IPO3");
+			intent.putExtra("FLOU", "N/A");
+			startActivity(intent);
+
+//			model.createExaminationRequest(user.id(), examination.getResponse().getSample()).observe(this, result -> {
+//				if (result != null && !result) {
+//					Toast.makeText(ProfileSetupActivity.this, "Examination request failed!", Toast.LENGTH_SHORT).show();
+//				} else {
+//					Toast.makeText(ProfileSetupActivity.this, "Examination successful!", Toast.LENGTH_SHORT).show();
+//					Intent intent = new Intent(this, ResultsActivity.class);
+//					intent.putExtra("VIS", "IPO3");
+//					intent.putExtra("NIR", "IPO3");
+//					intent.putExtra("FLOU", "N/A");
+//					startActivity(intent);
+//				}
+//			});
 		});
 	}
 }

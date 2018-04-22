@@ -36,17 +36,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
-    <TextView
-        android:id="@+id/title"
-        style="@style/PFTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
-        android:text="@string/resultsReceived"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/header_divider" />
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ic_back"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline3"
@@ -69,229 +70,245 @@
 
     <!-- screen components -->
 
-    <Button
-        android:id="@+id/done"
-        style="@style/PFButtonWhite"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/buttonHeight"
-        android:layout_marginBottom="16dp"
-        android:text="Done"
-        app:layout_constraintBottom_toBottomOf="@+id/overlay"
-        app:layout_constraintHorizontal_bias="1.0"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/header_divider">
 
-    <TextView
-        android:id="@+id/visTitle"
-        style="@style/PFTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:text="VIS data analysis:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/param3Title" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/nirTitle"
-        style="@style/PFTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:text="NIR data analysis:"
-        app:layout_constraintStart_toStartOf="@+id/overlay"
-        app:layout_constraintTop_toBottomOf="@+id/visTitle" />
+            <TextView
+                android:id="@+id/title"
+                style="@style/PFTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/resultsReceived"
+                app:layout_constraintHorizontal_bias="0.502"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/flouTitle"
-        style="@style/PFTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:text="FLOU data analysis:"
-        app:layout_constraintStart_toStartOf="@+id/overlay"
-        app:layout_constraintTop_toBottomOf="@+id/nirTitle" />
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
 
-    <TextView
-        android:id="@+id/visValue"
-        style="@style/PFTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:text="n/a"
-        app:layout_constraintBottom_toBottomOf="@+id/visTitle"
-        app:layout_constraintStart_toEndOf="@+id/visTitle"
-        app:layout_constraintTop_toTopOf="@+id/visTitle"
-        app:layout_constraintVertical_bias="1.0" />
+            <TextView
+                android:id="@+id/useCase"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:text="Use case:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chart" />
 
-    <TextView
-        android:id="@+id/nirValue"
-        style="@style/PFTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:text="n/a"
-        app:layout_constraintBottom_toBottomOf="@+id/nirTitle"
-        app:layout_constraintStart_toEndOf="@+id/nirTitle"
-        app:layout_constraintTop_toTopOf="@+id/nirTitle" />
+            <TextView
+                android:id="@+id/useCaseValue"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="n/a"
+                app:layout_constraintBottom_toBottomOf="@+id/useCase"
+                app:layout_constraintStart_toEndOf="@+id/useCase"
+                app:layout_constraintTop_toTopOf="@+id/useCase" />
 
-    <TextView
-        android:id="@+id/flouValue"
-        style="@style/PFTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:text="n/a"
-        app:layout_constraintBottom_toBottomOf="@+id/flouTitle"
-        app:layout_constraintStart_toEndOf="@+id/flouTitle"
-        app:layout_constraintTop_toTopOf="@+id/flouTitle" />
+            <TextView
+                android:id="@+id/visTitle"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="VIS data analysis:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/param3Title" />
 
-    <TextView
-        android:id="@+id/useCase"
-        style="@style/PFTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:text="Use case:"
-        app:layout_constraintStart_toStartOf="@+id/overlay"
-        app:layout_constraintTop_toBottomOf="@+id/seeYourResults" />
+            <TextView
+                android:id="@+id/nirTitle"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="NIR data analysis:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/visTitle" />
 
-    <TextView
-        android:id="@+id/useCaseValue"
-        style="@style/PFTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="n/a"
-        app:layout_constraintBottom_toBottomOf="@+id/useCase"
-        app:layout_constraintStart_toEndOf="@+id/useCase"
-        app:layout_constraintTop_toTopOf="@+id/useCase" />
+            <TextView
+                android:id="@+id/flouTitle"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="FLOU data analysis:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nirTitle" />
 
-    <TextView
-        android:id="@+id/sample"
-        style="@style/PFTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Sample/food:"
-        app:layout_constraintStart_toStartOf="@+id/useCase"
-        app:layout_constraintTop_toBottomOf="@+id/useCase" />
+            <TextView
+                android:id="@+id/visValue"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:text="n/a"
+                app:layout_constraintBottom_toBottomOf="@+id/visTitle"
+                app:layout_constraintStart_toEndOf="@+id/visTitle"
+                app:layout_constraintTop_toTopOf="@+id/visTitle"
+                app:layout_constraintVertical_bias="1.0" />
 
-    <TextView
-        android:id="@+id/sampleValue"
-        style="@style/PFTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="n/a"
-        app:layout_constraintBottom_toBottomOf="@+id/sample"
-        app:layout_constraintStart_toEndOf="@+id/sample"
-        app:layout_constraintTop_toTopOf="@+id/sample" />
+            <TextView
+                android:id="@+id/nirValue"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:text="n/a"
+                app:layout_constraintBottom_toBottomOf="@+id/nirTitle"
+                app:layout_constraintStart_toEndOf="@+id/nirTitle"
+                app:layout_constraintTop_toTopOf="@+id/nirTitle" />
 
-    <TextView
-        android:id="@+id/param1Title"
-        style="@style/PFTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:text="Granularity:"
-        app:layout_constraintStart_toStartOf="@+id/overlay"
-        app:layout_constraintTop_toBottomOf="@+id/sample" />
+            <TextView
+                android:id="@+id/flouValue"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:text="n/a"
+                app:layout_constraintBottom_toBottomOf="@+id/flouTitle"
+                app:layout_constraintStart_toEndOf="@+id/flouTitle"
+                app:layout_constraintTop_toTopOf="@+id/flouTitle" />
 
-    <TextView
-        android:id="@+id/param1Value"
-        style="@style/PFTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="n/a"
-        app:layout_constraintBottom_toBottomOf="@+id/param1Title"
-        app:layout_constraintStart_toEndOf="@+id/param1Title"
-        app:layout_constraintTop_toTopOf="@+id/param1Title" />
+            <TextView
+                android:id="@+id/sample"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Sample/food:"
+                app:layout_constraintStart_toStartOf="@+id/useCase"
+                app:layout_constraintTop_toBottomOf="@+id/useCase" />
 
-    <TextView
-        android:id="@+id/param2Title"
-        style="@style/PFTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:text="Exposure time:"
-        app:layout_constraintStart_toStartOf="@+id/overlay"
-        app:layout_constraintTop_toBottomOf="@+id/param1Title" />
+            <TextView
+                android:id="@+id/sampleValue"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="n/a"
+                app:layout_constraintBottom_toBottomOf="@+id/sample"
+                app:layout_constraintStart_toEndOf="@+id/sample"
+                app:layout_constraintTop_toTopOf="@+id/sample" />
 
-    <TextView
-        android:id="@+id/param2Value"
-        style="@style/PFTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="n/a"
-        app:layout_constraintBottom_toBottomOf="@+id/param2Title"
-        app:layout_constraintStart_toEndOf="@+id/param2Title"
-        app:layout_constraintTop_toTopOf="@+id/param2Title" />
+            <TextView
+                android:id="@+id/param1Title"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="Granularity:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sample" />
 
-    <TextView
-        android:id="@+id/param3Title"
-        style="@style/PFTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:text="Storage temperature:"
-        app:layout_constraintStart_toStartOf="@+id/overlay"
-        app:layout_constraintTop_toBottomOf="@+id/param2Title" />
+            <TextView
+                android:id="@+id/param1Value"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="n/a"
+                app:layout_constraintBottom_toBottomOf="@+id/param1Title"
+                app:layout_constraintStart_toEndOf="@+id/param1Title"
+                app:layout_constraintTop_toTopOf="@+id/param1Title" />
 
-    <TextView
-        android:id="@+id/param3Value"
-        style="@style/PFTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="n/a"
-        app:layout_constraintBottom_toBottomOf="@+id/param3Title"
-        app:layout_constraintStart_toEndOf="@+id/param3Title"
-        app:layout_constraintTop_toTopOf="@+id/param3Title"
-        app:layout_constraintVertical_bias="0.0" />
+            <TextView
+                android:id="@+id/param2Title"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="Exposure time:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/param1Title" />
 
-    <TextView
-        android:id="@+id/param4Title"
-        style="@style/PFTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:text="Dataset label:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/flouTitle" />
+            <TextView
+                android:id="@+id/param2Value"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="n/a"
+                app:layout_constraintBottom_toBottomOf="@+id/param2Title"
+                app:layout_constraintStart_toEndOf="@+id/param2Title"
+                app:layout_constraintTop_toTopOf="@+id/param2Title" />
 
-    <TextView
-        android:id="@+id/param4Value"
-        style="@style/PFTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="n/a"
-        app:layout_constraintBottom_toBottomOf="@+id/param4Title"
-        app:layout_constraintStart_toEndOf="@+id/param4Title"
-        app:layout_constraintTop_toTopOf="@+id/param4Title"
-        app:layout_constraintVertical_bias="0.0" />
+            <TextView
+                android:id="@+id/param3Title"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="Storage temperature:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/param2Title" />
 
-    <TextView
-        android:id="@+id/seeYourResults"
-        style="@style/PFTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="23dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/seeYourResults"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+            <TextView
+                android:id="@+id/param3Value"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="n/a"
+                app:layout_constraintBottom_toBottomOf="@+id/param3Title"
+                app:layout_constraintStart_toEndOf="@+id/param3Title"
+                app:layout_constraintTop_toTopOf="@+id/param3Title"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/param4Title"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="Dataset label:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/flouTitle" />
+
+            <TextView
+                android:id="@+id/param4Value"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="n/a"
+                app:layout_constraintBottom_toBottomOf="@+id/param4Title"
+                app:layout_constraintStart_toEndOf="@+id/param4Title"
+                app:layout_constraintTop_toTopOf="@+id/param4Title"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                app:layout_constraintTop_toBottomOf="@+id/param4Value" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

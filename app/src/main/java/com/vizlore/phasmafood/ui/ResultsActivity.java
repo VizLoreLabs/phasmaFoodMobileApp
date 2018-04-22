@@ -1,13 +1,24 @@
 package com.vizlore.phasmafood.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.R;
+import com.vizlore.phasmafood.model.results.AverageAbsorbance;
 import com.vizlore.phasmafood.model.results.Examination;
+import com.vizlore.phasmafood.model.results.Preprocessed;
 import com.vizlore.phasmafood.model.results.Sample;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,6 +29,9 @@ import butterknife.OnClick;
  */
 
 public class ResultsActivity extends BaseActivity {
+
+	private LineDataSet dataSet;
+	private LineDataSet dataSet2;
 
 	@BindView(R.id.visValue)
 	TextView visValue;
@@ -56,8 +70,10 @@ public class ResultsActivity extends BaseActivity {
 	@BindView(R.id.param4Title)
 	TextView param4Title;
 
+	@BindView(R.id.chart)
+	LineChart lineChart;
 
-	@OnClick(R.id.done)
+	@OnClick(R.id.backButton)
 	void onDoneClick() {
 		finish();
 	}
@@ -99,6 +115,42 @@ public class ResultsActivity extends BaseActivity {
 					param3Value.setText(sample.getMicrobiologicalUnit());
 					param4Value.setText(sample.getMicrobiologicalValue());
 				}
+
+				List<Entry> entriesVIS = new ArrayList<>();
+				List<Entry> entriesNIR = new ArrayList<>();
+
+				List<Preprocessed> preprocessedList = sample.getVIS().getPreprocessed();
+				List<AverageAbsorbance> averageAbsorbanceList = sample.getNIR().getAverageAbsorbance();
+
+				for (int i = 0; i < preprocessedList.size(); i++) {
+					float wave = Float.parseFloat(preprocessedList.get(i).getWave());
+					float measurement = Float.parseFloat(preprocessedList.get(i).getMeasurement());
+					entriesVIS.add(new Entry(wave, measurement));
+				}
+				for (int i = 0; i < averageAbsorbanceList.size(); i++) {
+					float wave = Float.parseFloat(averageAbsorbanceList.get(i).getWave());
+					float measurement = Float.parseFloat(averageAbsorbanceList.get(i).getMeasurement());
+					entriesNIR.add(new Entry(wave, measurement));
+				}
+
+				dataSet = new LineDataSet(entriesVIS, "VIS");
+				dataSet2 = new LineDataSet(entriesNIR, "NIR");
+				dataSet.setColor(getResources().getColor(R.color.orange));
+				dataSet.setCircleColor(getResources().getColor(R.color.orange));
+
+				List<ILineDataSet> dataSets = new ArrayList<>();
+				dataSets.add(dataSet);
+				dataSets.add(dataSet2);
+
+				lineChart.setData(new LineData(dataSet));
+
+				lineChart.getXAxis().setTextColor(Color.WHITE);
+				lineChart.getAxisLeft().setTextColor(Color.WHITE);
+				lineChart.getAxisRight().setTextColor(Color.WHITE);
+				lineChart.getLegend().setTextColor(Color.WHITE);
+				lineChart.getDescription().setText("");
+				lineChart.animateX(2000);
+				lineChart.invalidate(); // refresh
 			}
 		}
 	}
