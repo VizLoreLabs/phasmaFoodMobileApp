@@ -108,7 +108,6 @@ public class UserViewModel extends ViewModel {
 		requestBody.put("username", username);
 		requestBody.put("company", company);
 		requestBody.put("email", email);
-		requestBody.put("company", company);
 		requestBody.put("password", password);
 
 		userApi.createAccount(requestBody)

@@ -23,4 +23,7 @@
     <dimen name="configurationTowHeight">40dp</dimen>
     <dimen name="configurationHorizontalRowPadding">10dp</dimen>
     <dimen name="configurationVerticalRowPadding">3dp</dimen>
+
+    <dimen name="graphLegendButtonWidth">50dp</dimen>
+    <dimen name="graphLegendButtonHeight">25dp</dimen>
 </resources>

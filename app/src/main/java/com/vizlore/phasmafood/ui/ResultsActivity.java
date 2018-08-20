@@ -3,6 +3,7 @@ package com.vizlore.phasmafood.ui;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -30,8 +31,12 @@ import butterknife.OnClick;
 
 public class ResultsActivity extends BaseActivity {
 
-	private LineDataSet dataSet;
-	private LineDataSet dataSet2;
+	private List<ILineDataSet> dataSets;
+	private LineDataSet dataSetVIS;
+	private LineDataSet dataSetNIR;
+
+	boolean isVisDisplayed = true;
+	boolean isNirDisplayed = true;
 
 	@BindView(R.id.visValue)
 	TextView visValue;
@@ -72,6 +77,42 @@ public class ResultsActivity extends BaseActivity {
 
 	@BindView(R.id.chart)
 	LineChart lineChart;
+
+	@BindView(R.id.buttonVis)
+	Button buttonVis;
+
+	@BindView(R.id.buttonNir)
+	Button buttonNir;
+
+	@OnClick(R.id.buttonVis)
+	void onMockClick1() {
+		if (isVisDisplayed) {
+			dataSets.remove(dataSetVIS);
+			lineChart.clear();
+			buttonVis.setSelected(false);
+		} else {
+			buttonVis.setSelected(true);
+			dataSets.add(dataSetVIS);
+		}
+		lineChart.setData(new LineData(dataSets));
+		isVisDisplayed = !isVisDisplayed;
+		drawChart();
+	}
+
+	@OnClick(R.id.buttonNir)
+	void onMockClick2() {
+		if (isNirDisplayed) {
+			dataSets.remove(dataSetNIR);
+			lineChart.clear();
+			buttonNir.setSelected(false);
+		} else {
+			buttonNir.setSelected(true);
+			dataSets.add(dataSetNIR);
+		}
+		isNirDisplayed = !isNirDisplayed;
+		lineChart.setData(new LineData(dataSets));
+		drawChart();
+	}
 
 	@OnClick(R.id.backButton)
 	void onDoneClick() {
@@ -116,11 +157,11 @@ public class ResultsActivity extends BaseActivity {
 					param4Value.setText(sample.getMicrobiologicalValue());
 				}
 
-				List<Entry> entriesVIS = new ArrayList<>();
-				List<Entry> entriesNIR = new ArrayList<>();
+				final List<Entry> entriesVIS = new ArrayList<>();
+				final List<Entry> entriesNIR = new ArrayList<>();
 
-				List<Preprocessed> preprocessedList = sample.getVIS().getPreprocessed();
-				List<AverageAbsorbance> averageAbsorbanceList = sample.getNIR().getAverageAbsorbance();
+				final List<Preprocessed> preprocessedList = sample.getVIS().getPreprocessed();
+				final List<AverageAbsorbance> averageAbsorbanceList = sample.getNIR().getAverageAbsorbance();
 
 				for (int i = 0; i < preprocessedList.size(); i++) {
 					float wave = Float.parseFloat(preprocessedList.get(i).getWave());
@@ -133,25 +174,37 @@ public class ResultsActivity extends BaseActivity {
 					entriesNIR.add(new Entry(wave, measurement));
 				}
 
-				dataSet = new LineDataSet(entriesVIS, "VIS");
-				dataSet2 = new LineDataSet(entriesNIR, "NIR");
-				dataSet.setColor(getResources().getColor(R.color.orange));
-				dataSet.setCircleColor(getResources().getColor(R.color.orange));
+				dataSetVIS = new LineDataSet(entriesVIS, "VIS");
+				dataSetVIS.setColor(getResources().getColor(R.color.orange));
+				dataSetVIS.setCircleColor(getResources().getColor(R.color.orange));
 
-				List<ILineDataSet> dataSets = new ArrayList<>();
-				dataSets.add(dataSet);
-				dataSets.add(dataSet2);
+				dataSetNIR = new LineDataSet(entriesNIR, "NIR");
+				dataSetNIR.setColor(getResources().getColor(R.color.blue));
+				dataSetNIR.setCircleColor(getResources().getColor(R.color.blue));
 
-				lineChart.setData(new LineData(dataSet));
+				dataSets = new ArrayList<>();
+				dataSets.add(dataSetVIS);
+				dataSets.add(dataSetNIR);
+
+				lineChart.setData(new LineData(dataSets));
 
 				lineChart.getXAxis().setTextColor(Color.WHITE);
 				lineChart.getAxisLeft().setTextColor(Color.WHITE);
 				lineChart.getAxisRight().setTextColor(Color.WHITE);
-				lineChart.getLegend().setTextColor(Color.WHITE);
+				lineChart.getLegend().setEnabled(false);
 				lineChart.getDescription().setText("");
-				lineChart.animateX(2000);
-				lineChart.invalidate(); // refresh
+
+				drawChart();
+
+				//display both graphs (VIS/NIR)
+				buttonVis.setSelected(true);
+				buttonNir.setSelected(true);
 			}
 		}
+	}
+
+	private void drawChart() {
+		lineChart.animateX(1000);
+		lineChart.invalidate(); // refresh
 	}
 }
