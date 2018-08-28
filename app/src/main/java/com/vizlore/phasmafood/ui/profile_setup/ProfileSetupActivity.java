@@ -144,7 +144,7 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 		if (userViewModel.hasSession()) {
 			addFragment(new ProfileHomeScreenFragment());
 		} else {
-			addFragment(new ProfileHomeScreenFragment());
+			addFragment(new SignInFragment());
 		}
 	}
 

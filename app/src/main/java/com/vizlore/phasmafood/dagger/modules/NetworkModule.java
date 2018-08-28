@@ -48,6 +48,7 @@ public class NetworkModule {
 			.writeTimeout(60, TimeUnit.SECONDS)
 			.readTimeout(60, TimeUnit.SECONDS)
 			.addInterceptor(loggingInterceptor)
+			.hostnameVerifier((s, sslSession) -> true)
 			.build();
 	}
 

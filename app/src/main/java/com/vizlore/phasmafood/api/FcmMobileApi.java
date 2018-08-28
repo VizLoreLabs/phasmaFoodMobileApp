@@ -20,7 +20,7 @@ import retrofit2.http.Path;
 
 public interface FcmMobileApi {
 
-	@POST("/api/v1/mobile")
+	@POST("/api/v1/mobile/")
 	Completable sendFcmData(@Header("Authorization") String token, @Body Map<String, String> body);
 
 	@GET("/api/v1/mobile/{registration_id}")
