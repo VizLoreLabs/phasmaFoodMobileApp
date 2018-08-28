@@ -218,7 +218,7 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 
 	@Override
 	public void onConnectClick(BluetoothDevice device) {
-		isConnected=bluetoothService.IsConnected();
+		isConnected = bluetoothService.IsConnected();
 		if (!isConnected) {
 			Log.d(TAG, "onConnectClick: not connected. Connecting...");
 			bluetoothService.connectToCommunicationController(device.getAddress());
@@ -228,7 +228,7 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 
 	@Override
 	public void onDisconnectClick() {
-		isConnected=bluetoothService.IsConnected();
+		isConnected = bluetoothService.IsConnected();
 		if (isConnected) {
 			bluetoothService.disconnectFromCommunicationController();
 		}
@@ -240,26 +240,33 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 		ExaminationViewModel model = ViewModelProviders.of(this).get(ExaminationViewModel.class);
 		UserViewModel userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
 
-		userViewModel.getUserProfile().observe(this, user -> {
+		//userViewModel.getUserProfile().observe(this, user -> {
 
-			Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
-			String json = new JsonFileLoader().fromAsset("result1.json");
-			Examination examination = gson.fromJson(json, Examination.class);
-			//save examination
-			MyApplication.getInstance().saveExamination(examination);
+		Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
+		String json = new JsonFileLoader().fromAsset("result1.json");
+		Examination examination = gson.fromJson(json, Examination.class);
+		//save examination
+		MyApplication.getInstance().saveExamination(examination);
 
-			model.createExaminationRequest(user.id(), examination.getResponse().getSample()).observe(this, result -> {
-				if (result != null && !result) {
-					Toast.makeText(ProfileSetupActivity.this, "Examination request failed!", Toast.LENGTH_SHORT).show();
-				} else {
-					Toast.makeText(ProfileSetupActivity.this, "Examination successful!", Toast.LENGTH_SHORT).show();
-					Intent intent = new Intent(this, ResultsActivity.class);
-					intent.putExtra("VIS", "IPO3");
-					intent.putExtra("NIR", "IPO3");
-					intent.putExtra("FLOU", "N/A");
-					startActivity(intent);
-				}
-			});
-		});
+		Toast.makeText(ProfileSetupActivity.this, "Examination successful!", Toast.LENGTH_SHORT).show();
+		Intent intent = new Intent(this, ResultsActivity.class);
+		intent.putExtra("VIS", "IPO3");
+		intent.putExtra("NIR", "IPO3");
+		intent.putExtra("FLOU", "N/A");
+		startActivity(intent);
+
+//			model.createExaminationRequest(user.id(), examination.getResponse().getSample()).observe(this, result -> {
+//				if (result != null && !result) {
+//					Toast.makeText(ProfileSetupActivity.this, "Examination request failed!", Toast.LENGTH_SHORT).show();
+//				} else {
+//					Toast.makeText(ProfileSetupActivity.this, "Examination successful!", Toast.LENGTH_SHORT).show();
+//					Intent intent = new Intent(this, ResultsActivity.class);
+//					intent.putExtra("VIS", "IPO3");
+//					intent.putExtra("NIR", "IPO3");
+//					intent.putExtra("FLOU", "N/A");
+//					startActivity(intent);
+//				}
+//			});
+		//});
 	}
 }

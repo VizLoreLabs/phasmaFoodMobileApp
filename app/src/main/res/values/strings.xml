@@ -19,9 +19,31 @@
     <string name="bluetoothNotEnabled">Bluetooth not enabled</string>
     <string name="sendDataMessage">Send data to PhasmaFood device via Bluetooth?</string>
     <string name="finish">Finish</string>
+    <string name="configureParams">Configure params</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>
     <string name="summary">Summary</string>
-    <string name="resultsReceived">Measurement analysis completed!</string>
+    <string name="resultsReceived">Measurement completed!</string>
     <string name="seeYourResults">Results:</string>
+    <string name="camera">Camera</string>
+    <string name="exposureTime">Exposure time [us]</string>
+    <string name="cameraVoltage">Driving voltage for images [mV]</string>
+    <string name="enterTime">Enter time</string>
+    <string name="nir">NIR</string>
+    <string name="spectrometerSingleShot">Spectometer - single shot</string>
+    <string name="spectrometerAverages">Spectometer - averages</string>
+    <string name="microlampsDrivingVoltage">Microlamps - driving voltage [mV]</string>
+    <string name="microlampsWarmingTime">Spectometer - warming time [ms]</string>
+
+    <string name="vis">VIS</string>
+    <string name="exposureTimeVisibleReflectance">Exposure time for visible reflectance spectra [ms/n]</string>
+    <string name="gainVisibleReflectance">Gain for visible reflectance spectra [n]</string>
+    <string name="binningVisibleReflectance">Binning for visible reflectance spectra</string>
+    <string name="whiteLEDs">Driving voltage for visible reflectance measurements [mV]</string>
+
+    <string name="exposureTimeFluorescence">Exposure time for fluorescence spectra [ms/n]</string>
+    <string name="gainFluorescence">Gain for fluorescence spectra</string>
+    <string name="binningFluorescence">Binning for fluorescence spectra</string>
+    <string name="UVLEDs">Driving voltage for fluorescence spectra measurements [mV]</string>
+
 </resources>

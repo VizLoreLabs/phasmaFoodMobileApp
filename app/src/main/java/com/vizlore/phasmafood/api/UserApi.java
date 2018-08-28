@@ -21,7 +21,7 @@ public interface UserApi {
 	@POST("/api/v1/auth/users/create")
 	Completable createAccount(@Body Map<String, String> body);
 
-	@POST("/api/v1/auth/jwt/create")
+	@POST("/api/v1/auth/jwt/create/")
 	Single<ResponseBody> getToken(@Body Map<String, String> body);
 
 	@Headers("Content-Type: application/json")

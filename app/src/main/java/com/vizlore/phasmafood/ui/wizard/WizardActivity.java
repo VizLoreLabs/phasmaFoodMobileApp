@@ -1,26 +1,23 @@
 package com.vizlore.phasmafood.ui.wizard;
 
-import android.app.AlertDialog;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.google.gson.JsonObject;
 import com.vizlore.phasmafood.R;
-import com.vizlore.phasmafood.bluetooth.BluetoothService;
+import com.vizlore.phasmafood.ui.configuration.ConfigurationActivity;
 import com.vizlore.phasmafood.utils.Utils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -35,7 +32,7 @@ import wizardpager.ui.PageFragmentCallbacks;
 import wizardpager.ui.ReviewFragment;
 import wizardpager.ui.StepPagerStrip;
 
-public class WizardActivity extends FragmentActivity implements PageFragmentCallbacks,
+public class WizardActivity extends AppCompatActivity implements PageFragmentCallbacks,
 	ReviewFragment.Callbacks, ModelCallbacks {
 
 	private static final String TAG = "SMEDIC";
@@ -59,8 +56,6 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 	@BindView(R.id.strip)
 	StepPagerStrip stepPagerStrip;
 
-	BluetoothService bluetoothService;
-
 	@OnClick({R.id.backButton, R.id.nextButton, R.id.previousButton})
 	void onClick(View v) {
 		switch (v.getId()) {
@@ -69,15 +64,7 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 				break;
 			case R.id.nextButton:
 				if (pager.getCurrentItem() == currentPageSequence.size()) {
-					AlertDialog alertDialog = new AlertDialog.Builder(WizardActivity.this).create();
-					alertDialog.setMessage(getString(R.string.sendDataMessage));
-					alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(android.R.string.yes), (dialog, which) -> {
-						// TODO: 2/19/18 uncomment
-						sendToBluetoothDevice();
-						dialog.dismiss();
-					});
-					alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(android.R.string.no), (dialog, which) -> dialog.dismiss());
-					alertDialog.show();
+					sendToBluetoothDevice();
 				} else {
 					if (editingAfterReview) {
 						pager.setCurrentItem(pagerAdapter.getCount() - 1);
@@ -92,19 +79,6 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 		}
 	}
 
-	private ServiceConnection connection = new ServiceConnection() {
-		@Override
-		public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-			BluetoothService.LocalBinder binder = (BluetoothService.LocalBinder) iBinder;
-			bluetoothService = binder.getServiceInstance(); //Get instance of your service!
-		}
-
-		@Override
-		public void onServiceDisconnected(ComponentName componentName) {
-			bluetoothService = null;
-		}
-	};
-
 	/**
 	 * Connect to bluetooth device and send data
 	 */
@@ -116,16 +90,20 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 
 				List<ReviewItem> items = ((ReviewFragment) o).getReviewItems();
 				if (items != null) {
-					JsonObject jsonObject = new JsonObject();
+					JSONObject jsonObject = new JSONObject();
 					for (ReviewItem item : items) {
 						String title = Utils.removeMagicChar(item.getTitle());
 						String value = Utils.removeMagicChar(item.getDisplayValue());
 						Log.d(TAG, "Item: " + title + "\t" + value);
-						jsonObject.addProperty(title, value);
+						try {
+							jsonObject.put(title, value);
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
 					}
-					JsonObject jsonObjectRequest = new JsonObject();
-					jsonObjectRequest.add("Request", jsonObject);
-					bluetoothService.sendMessage(jsonObjectRequest.toString());
+					Intent intent = new Intent(this, ConfigurationActivity.class);
+					intent.putExtra("wizard_data", jsonObject.toString());
+					startActivity(intent);
 				}
 			}
 		} else {
@@ -171,11 +149,6 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 
 		onPageTreeChanged();
 		updateBottomBar();
-
-		Intent intent = new Intent(this, BluetoothService.class);
-		//startService(intent); //Starting the service
-		bindService(intent, connection, Context.BIND_AUTO_CREATE); //Binding to the service!
-
 	}
 
 	@Override
@@ -192,12 +165,12 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 	private void updateBottomBar() {
 		int position = pager.getCurrentItem();
 		if (position == currentPageSequence.size()) {
-			nextButton.setText(R.string.finish);
-			nextButton.setBackgroundColor(getResources().getColor(R.color.step_pager_selected_tab_color));
+			nextButton.setText(R.string.configureParams);
+			//nextButton.setBackgroundColor(getResources().getColor(R.color.step_pager_selected_tab_color));
 			nextButton.setTextAppearance(this, R.style.TextAppearanceFinish);
 		} else {
 			nextButton.setText(editingAfterReview ? R.string.summary : R.string.next);
-			nextButton.setBackgroundResource(R.drawable.selectable_item_background);
+			//nextButton.setBackgroundResource(R.drawable.selectable_item_background);
 			nextButton.setEnabled(position != pagerAdapter.getCutOffPage());
 		}
 
@@ -209,11 +182,6 @@ public class WizardActivity extends FragmentActivity implements PageFragmentCall
 	protected void onDestroy() {
 		super.onDestroy();
 		wizardModel.unregisterListener(this);
-
-		//stopService(new Intent(this, BluetoothService.class));
-		if (bluetoothService != null && connection != null) {
-			bluetoothService.closeConnection();
-		}
 	}
 
 	@Override
