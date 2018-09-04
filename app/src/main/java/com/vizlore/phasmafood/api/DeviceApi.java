@@ -23,7 +23,7 @@ public interface DeviceApi {
 	@GET("/api/v1/device")
 	Single<ResponseBody> listDevice(@Header("Authorization") String token);
 
-	@POST("/api/v1/device")
+	@POST("/api/v1/device/")
 	Completable createDevice(@Header("Authorization") String token, @Body Map<String, String> body);
 
 	@GET("/api/v1/device/{serial_cpu}")
