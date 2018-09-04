@@ -1,0 +1,80 @@
+{
+  "response": {
+    "status": "OK",
+    "result": "SUCCESS",
+    "sample": {
+      "sampleID": "string",
+      "laboratory": "Beaglebone",
+      "UserID": "string",
+      "deviceID": "38:D2:69:DD:44:72",
+      "foodType": "Almond",
+      "useCase": "Mycotoxins detection",
+      "granularity": "Medium",
+      "contamination": "",
+      "mycotoxins": "",
+      "aflatoxinName": "",
+      "aflatoxinValue": "",
+      "aflatoxinUnit": "",
+      "VIS": {
+        "preprocessed": [
+          {
+            "wave": "320.468994",
+            "measurement": "1.148148"
+          }
+        ],
+        "whiteReference": [
+          {
+            "wave": "320.468994",
+            "measurement": "-27"
+          }
+        ],
+        "darkReference": [
+          {
+            "wave": "320.468994",
+            "measurement": "7454"
+          }
+        ]
+      },
+      "NIR": {
+        "preprocessed": [
+          {
+            "wave": "900",
+            "measurement": "0.000000"
+          }
+        ],
+        "whiteReference": [
+          {
+            "wave": "900",
+            "measurement": "0.000000"
+          }
+        ],
+        "darkReference": [
+          {
+            "wave": "900",
+            "measurement": "0.000000"
+          }
+        ]
+      },
+      "FLUO": {
+        "preprocessed": [
+          {
+            "wave": "320.468994",
+            "measurement": "0.828947"
+          }
+        ],
+        "whiteReference": [
+          {
+            "wave": "320.468994",
+            "measurement": "152"
+          }
+        ],
+        "darkReference": [
+          {
+            "wave": "320.468994",
+            "measurement": "152"
+          }
+        ]
+      }
+    }
+  }
+}

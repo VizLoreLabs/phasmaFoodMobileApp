@@ -14,7 +14,7 @@ import com.vizlore.phasmafood.dagger.modules.AppModule;
 import com.vizlore.phasmafood.dagger.modules.BluetoothModule;
 import com.vizlore.phasmafood.dagger.modules.NetworkModule;
 import com.vizlore.phasmafood.dagger.modules.UserModule;
-import com.vizlore.phasmafood.model.results.Examination;
+import com.vizlore.phasmafood.model.results.Measurement;
 
 import timber.log.Timber;
 
@@ -28,7 +28,7 @@ public class MyApplication extends Application {
 	private static MyApplication instance = null;
 
 	// temporary save examination
-	private Examination examination;
+	private Measurement measurement;
 
 	@Override
 	public void onCreate() {
@@ -61,11 +61,11 @@ public class MyApplication extends Application {
 	}
 
 	// temporary save examination
-	public void saveExamination(@NonNull Examination examination) {
-		this.examination = examination;
+	public void saveExamination(@NonNull Measurement measurement) {
+		this.measurement = measurement;
 	}
 
-	public Examination getExamination() {
-		return examination;
+	public Measurement getMeasurement() {
+		return measurement;
 	}
 }

@@ -6,38 +6,38 @@ import com.google.gson.annotations.SerializedName;
 
 public class Response {
 
-    @SerializedName("Status")
-    @Expose
-    private String status;
-    @SerializedName("Result")
-    @Expose
-    private String result;
-    @SerializedName("Sample")
-    @Expose
-    private Sample sample;
+	@SerializedName("status")
+	@Expose
+	private String status;
+	@SerializedName("result")
+	@Expose
+	private String result;
+	@SerializedName("sample")
+	@Expose
+	private Sample sample;
 
-    public String getStatus() {
-        return status;
-    }
+	public String getStatus() {
+		return status;
+	}
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
-    public String getResult() {
-        return result;
-    }
+	public String getResult() {
+		return result;
+	}
 
-    public void setResult(String result) {
-        this.result = result;
-    }
+	public void setResult(String result) {
+		this.result = result;
+	}
 
-    public Sample getSample() {
-        return sample;
-    }
+	public Sample getSample() {
+		return sample;
+	}
 
-    public void setSample(Sample sample) {
-        this.sample = sample;
-    }
+	public void setSample(Sample sample) {
+		this.sample = sample;
+	}
 
 }

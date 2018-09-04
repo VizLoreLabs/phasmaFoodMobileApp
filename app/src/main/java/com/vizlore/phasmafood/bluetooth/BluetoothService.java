@@ -19,10 +19,9 @@ import com.vizlore.phasmafood.api.DeviceApi;
 import com.vizlore.phasmafood.api.MeasurementApi;
 import com.vizlore.phasmafood.api.UserApi;
 import com.vizlore.phasmafood.model.User;
-import com.vizlore.phasmafood.model.results.Examination;
+import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.model.results.Sample;
 import com.vizlore.phasmafood.utils.Config;
-import com.vizlore.phasmafood.utils.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -122,8 +121,8 @@ public class BluetoothService extends Service {
 //						String json = new JsonFileLoader().fromAsset("result1.json");
 //						Examination examination = gson.fromJson(json, Examination.class);
 
-						Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
-						Examination examination = gson.fromJson(jsonReceived, Examination.class);
+						final Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
+						final Measurement examination = gson.fromJson(jsonReceived, Measurement.class);
 
 						//save examination
 						MyApplication.getInstance().saveExamination(examination);
@@ -230,7 +229,7 @@ public class BluetoothService extends Service {
 		sample.setSampleID(sampleId);
 		sample.setUserID(userId);
 		sample.setDeviceID(connectingDevice.getAddress());
-		sample.setMobileID(Utils.getMobileUUID());
+		//sample.setMobileID(Utils.getMobileUUID());
 
 		// TODO: 9/4/18
 		// add

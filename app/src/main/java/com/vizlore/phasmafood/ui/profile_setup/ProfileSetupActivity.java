@@ -26,7 +26,7 @@ import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.api.AutoValueGsonFactory;
 import com.vizlore.phasmafood.bluetooth.BluetoothService;
-import com.vizlore.phasmafood.model.results.Examination;
+import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.ui.BaseActivity;
 import com.vizlore.phasmafood.ui.ResultsActivity;
 import com.vizlore.phasmafood.ui.profile_setup.viewmodel.ProfileSetupViewModel;
@@ -243,10 +243,10 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 		//userViewModel.getUserProfile().observe(this, user -> {
 
 		Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
-		String json = new JsonFileLoader().fromAsset("result1.json");
-		Examination examination = gson.fromJson(json, Examination.class);
+		String json = new JsonFileLoader().fromAsset("usecase2_updated_response.json");
+		Measurement measurement = gson.fromJson(json, Measurement.class);
 		//save examination
-		MyApplication.getInstance().saveExamination(examination);
+		MyApplication.getInstance().saveExamination(measurement);
 
 		Toast.makeText(ProfileSetupActivity.this, "Examination successful!", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent(this, ResultsActivity.class);

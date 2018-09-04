@@ -1,6 +1,8 @@
 
 package com.vizlore.phasmafood.model.results;
 
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -9,63 +11,72 @@ public class Sample {
 	@SerializedName("sampleID")
 	@Expose
 	private String sampleID;
-
 	@SerializedName("laboratory")
 	@Expose
 	private String laboratory;
-
 	@SerializedName("UserID")
 	@Expose
 	private String userID;
-
-	@SerializedName("mobileID")
-	@Expose
-	private String mobileID;
-
+	@SerializedName("deviceID")
 	@Expose
 	private String deviceID;
 	@SerializedName("foodType")
-
 	@Expose
 	private String foodType;
 	@SerializedName("useCase")
 	@Expose
 	private String useCase;
-	@SerializedName("temperature")
+
+	// use case 1 specific // TODO: 9/4/18 reconsider
 	@Expose
-	private String temperature;
-	@SerializedName("tempExposureHours")
-	@Expose
-	private String tempExposureHours;
-	@SerializedName("microbiologicalValue")
-	@Expose
-	private String microbiologicalValue;
 	@SerializedName("granularity")
-	@Expose
+	@Nullable
 	private String granularity;
 
 	@SerializedName("contamination")
 	@Expose
+	@Nullable
 	private String contamination;
 
 	@SerializedName("mycotoxins")
 	@Expose
+	@Nullable
 	private String mycotoxins;
 
 	@SerializedName("aflatoxinName")
 	@Expose
+	@Nullable
 	private String aflatoxinName;
 
 	@SerializedName("aflatoxinValue")
 	@Expose
+	@Nullable
 	private String aflatoxinValue;
 
 	@SerializedName("aflatoxinUnit")
 	@Expose
+	@Nullable
 	private String aflatoxinUnit;
+
+	//use case 2 specific
+	@SerializedName("temperature")
+	@Expose
+	@Nullable
+	private String temperature;
+
+	@SerializedName("tempExposureHours")
+	@Expose
+	@Nullable
+	private String tempExposureHours;
+
+	@SerializedName("microbiologicalValue")
+	@Expose
+	@Nullable
+	private String microbiologicalValue;
 
 	@SerializedName("microbiologicalUnit")
 	@Expose
+	@Nullable
 	private String microbiologicalUnit;
 
 	@SerializedName("VIS")
@@ -74,6 +85,9 @@ public class Sample {
 	@SerializedName("NIR")
 	@Expose
 	private NIR nIR;
+	@SerializedName("FLUO")
+	@Expose
+	private FLUO fLUO;
 
 	public String getSampleID() {
 		return sampleID;
@@ -121,54 +135,6 @@ public class Sample {
 
 	public void setUseCase(String useCase) {
 		this.useCase = useCase;
-	}
-
-	public String getTemperature() {
-		return temperature;
-	}
-
-	public void setTemperature(String temperature) {
-		this.temperature = temperature;
-	}
-
-	public String getTempExposureHours() {
-		return tempExposureHours;
-	}
-
-	public void setTempExposureHours(String tempExposureHours) {
-		this.tempExposureHours = tempExposureHours;
-	}
-
-	public String getMicrobiologicalValue() {
-		return microbiologicalValue;
-	}
-
-	public void setMicrobiologicalValue(String microbiologicalValue) {
-		this.microbiologicalValue = microbiologicalValue;
-	}
-
-	public String getMicrobiologicalUnit() {
-		return microbiologicalUnit;
-	}
-
-	public void setMicrobiologicalUnit(String microbiologicalUnit) {
-		this.microbiologicalUnit = microbiologicalUnit;
-	}
-
-	public VIS getVIS() {
-		return vIS;
-	}
-
-	public void setVIS(VIS vIS) {
-		this.vIS = vIS;
-	}
-
-	public NIR getNIR() {
-		return nIR;
-	}
-
-	public void setNIR(NIR nIR) {
-		this.nIR = nIR;
 	}
 
 	public String getGranularity() {
@@ -219,11 +185,64 @@ public class Sample {
 		this.aflatoxinUnit = aflatoxinUnit;
 	}
 
-	public String getMobileID() {
-		return mobileID;
+	@Nullable
+	public String getTemperature() {
+		return temperature;
 	}
 
-	public void setMobileID(String mobileID) {
-		this.mobileID = mobileID;
+	public void setTemperature(@Nullable String temperature) {
+		this.temperature = temperature;
 	}
+
+	@Nullable
+	public String getTempExposureHours() {
+		return tempExposureHours;
+	}
+
+	public void setTempExposureHours(@Nullable String tempExposureHours) {
+		this.tempExposureHours = tempExposureHours;
+	}
+
+	@Nullable
+	public String getMicrobiologicalValue() {
+		return microbiologicalValue;
+	}
+
+	public void setMicrobiologicalValue(@Nullable String microbiologicalValue) {
+		this.microbiologicalValue = microbiologicalValue;
+	}
+
+	@Nullable
+	public String getMicrobiologicalUnit() {
+		return microbiologicalUnit;
+	}
+
+	public void setMicrobiologicalUnit(@Nullable String microbiologicalUnit) {
+		this.microbiologicalUnit = microbiologicalUnit;
+	}
+
+	public VIS getVIS() {
+		return vIS;
+	}
+
+	public void setVIS(VIS vIS) {
+		this.vIS = vIS;
+	}
+
+	public NIR getNIR() {
+		return nIR;
+	}
+
+	public void setNIR(NIR nIR) {
+		this.nIR = nIR;
+	}
+
+	public FLUO getFLUO() {
+		return fLUO;
+	}
+
+	public void setFLUO(FLUO fLUO) {
+		this.fLUO = fLUO;
+	}
+
 }

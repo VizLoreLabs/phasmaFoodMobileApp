@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.api.MeasurementApi;
-import com.vizlore.phasmafood.model.results.Examination;
+import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.model.results.Sample;
 import com.vizlore.phasmafood.utils.SingleLiveEvent;
 import com.vizlore.phasmafood.utils.Utils;
@@ -31,7 +31,7 @@ public class ExaminationViewModel extends ViewModel {
 
 	private static final String EXAMPLE_DEVICE_ID = "d946a1ce-af55-41d2-9aa0-e";
 
-	private MutableLiveData<Examination> examinationLiveData;
+	private MutableLiveData<Measurement> measurementLiveData;
 	private SingleLiveEvent<Boolean> createExaminationRequestLiveData;
 
 	@Inject
@@ -42,7 +42,7 @@ public class ExaminationViewModel extends ViewModel {
 		MyApplication.getComponent().inject(this);
 	}
 
-	public LiveData<Boolean> createExaminationRequest(String userId, Sample sample) {
+	public LiveData<Boolean> createExaminationRequest(final String userId, final Sample sample) {
 
 		if (createExaminationRequestLiveData == null) {
 			createExaminationRequestLiveData = new SingleLiveEvent<>();
@@ -53,7 +53,8 @@ public class ExaminationViewModel extends ViewModel {
 		sample.setSampleID(sampleId);
 		sample.setUserID(userId);
 		sample.setDeviceID(Utils.getBluetoothDeviceUUID());
-		sample.setMobileID(Utils.getMobileUUID());
+		// TODO: 9/4/18
+		//sample.setMobileID(Utils.getMobileUUID());
 
 		examinationApi.createMeasurementRequest(sample)
 			.subscribeOn(Schedulers.io())

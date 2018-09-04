@@ -4,7 +4,7 @@ package com.vizlore.phasmafood.model.results;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class AverageAbsorbance {
+public class DarkReference {
 
     @SerializedName("wave")
     @Expose

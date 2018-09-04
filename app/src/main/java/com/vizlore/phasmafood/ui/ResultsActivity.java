@@ -2,6 +2,7 @@ package com.vizlore.phasmafood.ui;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,8 +14,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.R;
-import com.vizlore.phasmafood.model.results.AverageAbsorbance;
-import com.vizlore.phasmafood.model.results.Examination;
+import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.model.results.Preprocessed;
 import com.vizlore.phasmafood.model.results.Sample;
 
@@ -31,12 +31,14 @@ import butterknife.OnClick;
 
 public class ResultsActivity extends BaseActivity {
 
-	private List<ILineDataSet> dataSets;
+	private List<ILineDataSet> dataSets = new ArrayList<>();
 	private LineDataSet dataSetVIS;
 	private LineDataSet dataSetNIR;
+	private LineDataSet dataSetFLUO;
 
 	boolean isVisDisplayed = true;
 	boolean isNirDisplayed = true;
+	boolean isFluoDisplayed = true;
 
 	@BindView(R.id.visValue)
 	TextView visValue;
@@ -84,6 +86,9 @@ public class ResultsActivity extends BaseActivity {
 	@BindView(R.id.buttonNir)
 	Button buttonNir;
 
+	@BindView(R.id.buttonFluo)
+	Button buttonFluo;
+
 	@OnClick(R.id.buttonVis)
 	void onMockClick1() {
 		if (isVisDisplayed) {
@@ -114,6 +119,21 @@ public class ResultsActivity extends BaseActivity {
 		drawChart();
 	}
 
+	@OnClick(R.id.buttonFluo)
+	void onMockClick3() {
+		if (isFluoDisplayed) {
+			dataSets.remove(dataSetFLUO);
+			lineChart.clear();
+			buttonFluo.setSelected(false);
+		} else {
+			buttonFluo.setSelected(true);
+			dataSets.add(dataSetFLUO);
+		}
+		isFluoDisplayed = !isFluoDisplayed;
+		lineChart.setData(new LineData(dataSets));
+		drawChart();
+	}
+
 	@OnClick(R.id.backButton)
 	void onDoneClick() {
 		finish();
@@ -131,9 +151,9 @@ public class ResultsActivity extends BaseActivity {
 			nirValue.setText(bundle.getString("NIR"));
 			flouTitle.setText(bundle.getString("FLOU"));
 
-			Examination examination = MyApplication.getInstance().getExamination();
-			if (examination != null) {
-				Sample sample = examination.getResponse().getSample();
+			final Measurement measurement = MyApplication.getInstance().getMeasurement();
+			if (measurement != null) {
+				Sample sample = measurement.getResponse().getSample();
 				useCaseValue.setText(sample.getUseCase());
 				sampleValue.setText(sample.getFoodType());
 
@@ -157,34 +177,28 @@ public class ResultsActivity extends BaseActivity {
 					param4Value.setText(sample.getMicrobiologicalValue());
 				}
 
-				final List<Entry> entriesVIS = new ArrayList<>();
-				final List<Entry> entriesNIR = new ArrayList<>();
-
-				final List<Preprocessed> preprocessedList = sample.getVIS().getPreprocessed();
-				final List<AverageAbsorbance> averageAbsorbanceList = sample.getNIR().getAverageAbsorbance();
-
-				for (int i = 0; i < preprocessedList.size(); i++) {
-					float wave = Float.parseFloat(preprocessedList.get(i).getWave());
-					float measurement = Float.parseFloat(preprocessedList.get(i).getMeasurement());
-					entriesVIS.add(new Entry(wave, measurement));
-				}
-				for (int i = 0; i < averageAbsorbanceList.size(); i++) {
-					float wave = Float.parseFloat(averageAbsorbanceList.get(i).getWave());
-					float measurement = Float.parseFloat(averageAbsorbanceList.get(i).getMeasurement());
-					entriesNIR.add(new Entry(wave, measurement));
-				}
-
-				dataSetVIS = new LineDataSet(entriesVIS, "VIS");
-				dataSetVIS.setColor(getResources().getColor(R.color.orange));
-				dataSetVIS.setCircleColor(getResources().getColor(R.color.orange));
-
-				dataSetNIR = new LineDataSet(entriesNIR, "NIR");
-				dataSetNIR.setColor(getResources().getColor(R.color.blue));
-				dataSetNIR.setCircleColor(getResources().getColor(R.color.blue));
-
 				dataSets = new ArrayList<>();
-				dataSets.add(dataSetVIS);
-				dataSets.add(dataSetNIR);
+
+				if (sample.getVIS() != null && sample.getVIS().getPreprocessed() != null) {
+					dataSetVIS = new LineDataSet(getPreprocessedEntries(sample.getVIS().getPreprocessed()), "VIS");
+					dataSetVIS.setColor(getResources().getColor(R.color.orange));
+					dataSetVIS.setCircleColor(getResources().getColor(R.color.orange));
+					dataSets.add(dataSetVIS);
+				}
+
+				if (sample.getNIR() != null && sample.getNIR().getPreprocessed() != null) {
+					dataSetNIR = new LineDataSet(getPreprocessedEntries(sample.getNIR().getPreprocessed()), "NIR");
+					dataSetNIR.setColor(getResources().getColor(R.color.blue));
+					dataSetNIR.setCircleColor(getResources().getColor(R.color.blue));
+					dataSets.add(dataSetNIR);
+				}
+
+				if (sample.getFLUO() != null && sample.getFLUO().getPreprocessed() != null) {
+					dataSetFLUO = new LineDataSet(getPreprocessedEntries(sample.getFLUO().getPreprocessed()), "FLUO");
+					dataSetFLUO.setColor(getResources().getColor(R.color.green));
+					dataSetFLUO.setCircleColor(getResources().getColor(R.color.green));
+					dataSets.add(dataSetFLUO);
+				}
 
 				lineChart.setData(new LineData(dataSets));
 
@@ -199,8 +213,19 @@ public class ResultsActivity extends BaseActivity {
 				//display both graphs (VIS/NIR)
 				buttonVis.setSelected(true);
 				buttonNir.setSelected(true);
+				buttonFluo.setSelected(true);
 			}
 		}
+	}
+
+	private List<Entry> getPreprocessedEntries(@NonNull List<Preprocessed> preprocessedList) {
+		final List<Entry> entries = new ArrayList<>();
+		for (int i = 0; i < preprocessedList.size(); i++) {
+			float wave = Float.parseFloat(preprocessedList.get(i).getWave());
+			float value = Float.parseFloat(preprocessedList.get(i).getMeasurement());
+			entries.add(new Entry(wave, value));
+		}
+		return entries;
 	}
 
 	private void drawChart() {

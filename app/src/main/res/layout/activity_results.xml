@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fruits">
@@ -332,6 +331,18 @@
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/buttonNir"
+                app:layout_constraintTop_toBottomOf="@+id/chart" />
+
+            <Button
+                android:id="@+id/buttonFluo"
+                android:layout_width="@dimen/graphLegendButtonWidth"
+                android:layout_height="@dimen/graphLegendButtonHeight"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/fluo_button_selector"
+                android:text="FLUO"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/buttonVis"
                 app:layout_constraintTop_toBottomOf="@+id/chart" />
 
         </android.support.constraint.ConstraintLayout>
