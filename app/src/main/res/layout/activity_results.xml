@@ -96,9 +96,7 @@
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/chart"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
+                android:layout_height="250dp"
                 android:layout_marginTop="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -310,18 +308,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/param4Value" />
 
             <Button
-                android:id="@+id/buttonNir"
-                android:layout_width="@dimen/graphLegendButtonWidth"
-                android:layout_height="@dimen/graphLegendButtonHeight"
-                android:layout_marginStart="16dp"
-                android:background="@drawable/nir_button_selector"
-                android:text="NIR"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/chart" />
-
-            <Button
                 android:id="@+id/buttonVis"
                 android:layout_width="@dimen/graphLegendButtonWidth"
                 android:layout_height="@dimen/graphLegendButtonHeight"
@@ -330,7 +316,19 @@
                 android:text="VIS"
                 android:textColor="@color/white"
                 android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/buttonNir"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chart" />
+
+            <Button
+                android:id="@+id/buttonNir"
+                android:layout_width="@dimen/graphLegendButtonWidth"
+                android:layout_height="@dimen/graphLegendButtonHeight"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/vis_button_selector"
+                android:text="NIR"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/buttonVis"
                 app:layout_constraintTop_toBottomOf="@+id/chart" />
 
             <Button
@@ -338,11 +336,11 @@
                 android:layout_width="@dimen/graphLegendButtonWidth"
                 android:layout_height="@dimen/graphLegendButtonHeight"
                 android:layout_marginStart="16dp"
-                android:background="@drawable/fluo_button_selector"
+                android:background="@drawable/vis_button_selector"
                 android:text="FLUO"
                 android:textColor="@color/white"
                 android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/buttonVis"
+                app:layout_constraintStart_toEndOf="@+id/buttonNir"
                 app:layout_constraintTop_toBottomOf="@+id/chart" />
 
         </android.support.constraint.ConstraintLayout>

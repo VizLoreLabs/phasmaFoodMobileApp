@@ -160,7 +160,7 @@ public class UserViewModel extends ViewModel {
 						String user = jsonObject.getString("user");
 						// save received token and user
 						SharedPreferences.Editor editor = sharedPreferences.edit();
-						editor.putString(TOKEN_KEY, token);
+						editor.putString(TOKEN_KEY, "JWT " + token);
 						editor.putString(USER_KEY, user);
 						editor.apply();
 						return token;

@@ -90,6 +90,14 @@ public class CreateAccountFragment extends ProfileBaseFragment {
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.companies, R.layout.spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		companySpinner.setAdapter(adapter);
+
+		//testing values
+		firstNameEditText.setText("stevan");
+		lastNameEditText.setText("medic");
+		usernameEditText.setText("vanste25");
+		emailEditText.setText("stevan.medic@outlook.com");
+		passwordEditText.setText("qwerty25");
+		confirmPasswordEditText.setText("qwerty25");
 	}
 
 	@Override

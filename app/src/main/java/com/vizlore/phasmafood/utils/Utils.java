@@ -50,7 +50,8 @@ public class Utils {
 	}
 
 	public synchronized static String getBluetoothDeviceUUID() {
-		return "B8:27:EB:E4:C9:78";
+		//return "B8:27:EB:E4:C9:78";
+		return "996907e7739c54ba";
 //		if (btDeviceUuid == null) {
 //			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
 //			btDeviceUuid = prefs.getString(BT_DEVICE_UUID_KEY, null);
@@ -72,8 +73,8 @@ public class Utils {
 	}
 
 	public static String getHeader() {
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
-		return "JWT " + prefs.getString(TOKEN_KEY, "");
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
+		return prefs.getString(TOKEN_KEY, "");
 	}
 
 	public static String removeMagicChar(String string) {

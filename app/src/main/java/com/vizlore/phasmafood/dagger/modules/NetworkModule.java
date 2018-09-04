@@ -47,15 +47,22 @@ public class NetworkModule {
 	@Singleton
 	OkHttpClient provideOkHttpClient(HttpLoggingInterceptor loggingInterceptor) {
 		return new OkHttpClient.Builder()
-			.writeTimeout(60, TimeUnit.SECONDS)
-			.readTimeout(60, TimeUnit.SECONDS)
+			.writeTimeout(30, TimeUnit.SECONDS)
+			.readTimeout(30, TimeUnit.SECONDS)
 			.addInterceptor(loggingInterceptor)
 			.addInterceptor(chain -> {
 				final Request original = chain.request();
-				final Request request = original.newBuilder()
-					.header("Authorization", Utils.getHeader())
-					.method(original.method(), original.body())
-					.build();
+				final Request request;
+				if (Utils.getHeader() != null && !Utils.getHeader().isEmpty()) {
+					request = original.newBuilder()
+						.header("Authorization", Utils.getHeader())
+						.method(original.method(), original.body())
+						.build();
+				} else {
+					request = original.newBuilder()
+						.method(original.method(), original.body())
+						.build();
+				}
 				return chain.proceed(request);
 			})
 			.hostnameVerifier((s, sslSession) -> true)

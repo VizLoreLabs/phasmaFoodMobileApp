@@ -14,9 +14,14 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.R;
+import com.vizlore.phasmafood.model.results.DarkReference;
+import com.vizlore.phasmafood.model.results.FLUO;
 import com.vizlore.phasmafood.model.results.Measurement;
+import com.vizlore.phasmafood.model.results.NIR;
 import com.vizlore.phasmafood.model.results.Preprocessed;
 import com.vizlore.phasmafood.model.results.Sample;
+import com.vizlore.phasmafood.model.results.VIS;
+import com.vizlore.phasmafood.model.results.WhiteReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +36,9 @@ import butterknife.OnClick;
 
 public class ResultsActivity extends BaseActivity {
 
-	private List<ILineDataSet> dataSets = new ArrayList<>();
-	private LineDataSet dataSetVIS;
-	private LineDataSet dataSetNIR;
-	private LineDataSet dataSetFLUO;
-
-	boolean isVisDisplayed = true;
-	boolean isNirDisplayed = true;
-	boolean isFluoDisplayed = true;
+	private List<ILineDataSet> visDataSets = new ArrayList<>();
+	private List<ILineDataSet> nirDataSets = new ArrayList<>();
+	private List<ILineDataSet> fluoDataSets = new ArrayList<>();
 
 	@BindView(R.id.visValue)
 	TextView visValue;
@@ -91,46 +91,28 @@ public class ResultsActivity extends BaseActivity {
 
 	@OnClick(R.id.buttonVis)
 	void onMockClick1() {
-		if (isVisDisplayed) {
-			dataSets.remove(dataSetVIS);
-			lineChart.clear();
-			buttonVis.setSelected(false);
-		} else {
-			buttonVis.setSelected(true);
-			dataSets.add(dataSetVIS);
-		}
-		lineChart.setData(new LineData(dataSets));
-		isVisDisplayed = !isVisDisplayed;
+		buttonVis.setSelected(true);
+		buttonNir.setSelected(false);
+		buttonFluo.setSelected(false);
+		lineChart.setData(new LineData(visDataSets));
 		drawChart();
 	}
 
 	@OnClick(R.id.buttonNir)
 	void onMockClick2() {
-		if (isNirDisplayed) {
-			dataSets.remove(dataSetNIR);
-			lineChart.clear();
-			buttonNir.setSelected(false);
-		} else {
-			buttonNir.setSelected(true);
-			dataSets.add(dataSetNIR);
-		}
-		isNirDisplayed = !isNirDisplayed;
-		lineChart.setData(new LineData(dataSets));
+		buttonVis.setSelected(false);
+		buttonNir.setSelected(true);
+		buttonFluo.setSelected(false);
+		lineChart.setData(new LineData(nirDataSets));
 		drawChart();
 	}
 
 	@OnClick(R.id.buttonFluo)
 	void onMockClick3() {
-		if (isFluoDisplayed) {
-			dataSets.remove(dataSetFLUO);
-			lineChart.clear();
-			buttonFluo.setSelected(false);
-		} else {
-			buttonFluo.setSelected(true);
-			dataSets.add(dataSetFLUO);
-		}
-		isFluoDisplayed = !isFluoDisplayed;
-		lineChart.setData(new LineData(dataSets));
+		buttonNir.setSelected(false);
+		buttonVis.setSelected(false);
+		buttonFluo.setSelected(true);
+		lineChart.setData(new LineData(fluoDataSets));
 		drawChart();
 	}
 
@@ -145,7 +127,7 @@ public class ResultsActivity extends BaseActivity {
 		setContentView(R.layout.activity_results);
 		ButterKnife.bind(this);
 
-		Bundle bundle = getIntent().getExtras();
+		final Bundle bundle = getIntent().getExtras();
 		if (bundle != null) {
 			visValue.setText(bundle.getString("VIS"));
 			nirValue.setText(bundle.getString("NIR"));
@@ -153,7 +135,11 @@ public class ResultsActivity extends BaseActivity {
 
 			final Measurement measurement = MyApplication.getInstance().getMeasurement();
 			if (measurement != null) {
-				Sample sample = measurement.getResponse().getSample();
+				final Sample sample = measurement.getResponse().getSample();
+				if (sample == null) { //keep safe
+					return;
+				}
+
 				useCaseValue.setText(sample.getUseCase());
 				sampleValue.setText(sample.getFoodType());
 
@@ -177,45 +163,67 @@ public class ResultsActivity extends BaseActivity {
 					param4Value.setText(sample.getMicrobiologicalValue());
 				}
 
-				dataSets = new ArrayList<>();
+				final VIS vis = sample.getVIS();
+				final NIR nir = sample.getNIR();
+				final FLUO fluo = sample.getFLUO();
 
-				if (sample.getVIS() != null && sample.getVIS().getPreprocessed() != null) {
-					dataSetVIS = new LineDataSet(getPreprocessedEntries(sample.getVIS().getPreprocessed()), "VIS");
-					dataSetVIS.setColor(getResources().getColor(R.color.orange));
-					dataSetVIS.setCircleColor(getResources().getColor(R.color.orange));
-					dataSets.add(dataSetVIS);
+				if (vis != null) {
+					visDataSets.addAll(getEntries(vis.getPreprocessed(), vis.getDarkReference(), vis.getWhiteReference()));
 				}
 
-				if (sample.getNIR() != null && sample.getNIR().getPreprocessed() != null) {
-					dataSetNIR = new LineDataSet(getPreprocessedEntries(sample.getNIR().getPreprocessed()), "NIR");
-					dataSetNIR.setColor(getResources().getColor(R.color.blue));
-					dataSetNIR.setCircleColor(getResources().getColor(R.color.blue));
-					dataSets.add(dataSetNIR);
+				if (nir != null) {
+					nirDataSets.addAll(getEntries(nir.getPreprocessed(), nir.getDarkReference(), nir.getWhiteReference()));
 				}
 
-				if (sample.getFLUO() != null && sample.getFLUO().getPreprocessed() != null) {
-					dataSetFLUO = new LineDataSet(getPreprocessedEntries(sample.getFLUO().getPreprocessed()), "FLUO");
-					dataSetFLUO.setColor(getResources().getColor(R.color.green));
-					dataSetFLUO.setCircleColor(getResources().getColor(R.color.green));
-					dataSets.add(dataSetFLUO);
+				if (fluo != null) {
+					fluoDataSets.addAll(getEntries(fluo.getPreprocessed(), fluo.getDarkReference(), fluo.getWhiteReference()));
 				}
 
-				lineChart.setData(new LineData(dataSets));
+				//show VIS by default
+				lineChart.setData(new LineData(visDataSets));
 
 				lineChart.getXAxis().setTextColor(Color.WHITE);
 				lineChart.getAxisLeft().setTextColor(Color.WHITE);
 				lineChart.getAxisRight().setTextColor(Color.WHITE);
 				lineChart.getLegend().setEnabled(false);
 				lineChart.getDescription().setText("");
+				lineChart.setScaleEnabled(false);
 
 				drawChart();
 
-				//display both graphs (VIS/NIR)
+				//display VIS on start
 				buttonVis.setSelected(true);
-				buttonNir.setSelected(true);
-				buttonFluo.setSelected(true);
 			}
 		}
+	}
+
+	private List<ILineDataSet> getEntries(final List<Preprocessed> preprocessedList,
+										  final List<DarkReference> darkReferenceList,
+										  final List<WhiteReference> whiteReferenceList) {
+
+		final List<ILineDataSet> dataSets = new ArrayList<>();
+
+		if (preprocessedList != null) {
+			final LineDataSet dataSetVIS = new LineDataSet(getPreprocessedEntries(preprocessedList), "pp");
+			dataSetVIS.setColor(getResources().getColor(R.color.orange));
+			dataSetVIS.setCircleColor(getResources().getColor(R.color.orange));
+			dataSets.add(dataSetVIS);
+		}
+
+		if (darkReferenceList != null) {
+			final LineDataSet dataSetVIS = new LineDataSet(getDarkReferenceEntries(darkReferenceList), "dark");
+			dataSetVIS.setColor(getResources().getColor(R.color.black));
+			dataSetVIS.setCircleColor(getResources().getColor(R.color.black));
+			dataSets.add(dataSetVIS);
+		}
+
+		if (whiteReferenceList != null) {
+			final LineDataSet dataSetVIS = new LineDataSet(getWhiteReferenceEntries(whiteReferenceList), "white");
+			dataSetVIS.setColor(getResources().getColor(R.color.white));
+			dataSetVIS.setCircleColor(getResources().getColor(R.color.white));
+			dataSets.add(dataSetVIS);
+		}
+		return dataSets;
 	}
 
 	private List<Entry> getPreprocessedEntries(@NonNull List<Preprocessed> preprocessedList) {
@@ -223,6 +231,26 @@ public class ResultsActivity extends BaseActivity {
 		for (int i = 0; i < preprocessedList.size(); i++) {
 			float wave = Float.parseFloat(preprocessedList.get(i).getWave());
 			float value = Float.parseFloat(preprocessedList.get(i).getMeasurement());
+			entries.add(new Entry(wave, value));
+		}
+		return entries;
+	}
+
+	private List<Entry> getDarkReferenceEntries(@NonNull List<DarkReference> darkReferences) {
+		final List<Entry> entries = new ArrayList<>();
+		for (int i = 0; i < darkReferences.size(); i++) {
+			float wave = Float.parseFloat(darkReferences.get(i).getWave());
+			float value = Float.parseFloat(darkReferences.get(i).getMeasurement());
+			entries.add(new Entry(wave, value));
+		}
+		return entries;
+	}
+
+	private List<Entry> getWhiteReferenceEntries(@NonNull List<WhiteReference> whiteReferences) {
+		final List<Entry> entries = new ArrayList<>();
+		for (int i = 0; i < whiteReferences.size(); i++) {
+			float wave = Float.parseFloat(whiteReferences.get(i).getWave());
+			float value = Float.parseFloat(whiteReferences.get(i).getMeasurement());
 			entries.add(new Entry(wave, value));
 		}
 		return entries;

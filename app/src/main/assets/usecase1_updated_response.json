@@ -5,7 +5,7 @@
     "sample": {
       "sampleID": "string",
       "laboratory": "Beaglebone",
-      "UserID": "string",
+      "userID": "string",
       "deviceID": "38:D2:69:DD:44:72",
       "foodType": "Almond",
       "useCase": "Mycotoxins detection",

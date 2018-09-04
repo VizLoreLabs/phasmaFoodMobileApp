@@ -29,4 +29,6 @@
     <color name="text_light">#66000000</color>
     <color name="orange">#FC7405</color>
 
+    <color name="black">#000000</color>
+
 </resources>

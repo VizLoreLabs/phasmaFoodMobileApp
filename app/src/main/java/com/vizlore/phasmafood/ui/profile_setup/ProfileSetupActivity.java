@@ -32,7 +32,7 @@ import com.vizlore.phasmafood.ui.ResultsActivity;
 import com.vizlore.phasmafood.ui.profile_setup.viewmodel.ProfileSetupViewModel;
 import com.vizlore.phasmafood.ui.wizard.WizardActivity;
 import com.vizlore.phasmafood.utils.JsonFileLoader;
-import com.vizlore.phasmafood.viewmodel.ExaminationViewModel;
+import com.vizlore.phasmafood.viewmodel.MeasurementViewModel;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
 
 import butterknife.ButterKnife;
@@ -237,25 +237,28 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 
 	// just for testing
 	private void performTestMeasurement() {
-		ExaminationViewModel model = ViewModelProviders.of(this).get(ExaminationViewModel.class);
-		UserViewModel userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
 
-		//userViewModel.getUserProfile().observe(this, user -> {
+		final MeasurementViewModel model = ViewModelProviders.of(this).get(MeasurementViewModel.class);
+		final UserViewModel userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
 
-		Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
-		String json = new JsonFileLoader().fromAsset("usecase2_updated_response.json");
-		Measurement measurement = gson.fromJson(json, Measurement.class);
-		//save examination
-		MyApplication.getInstance().saveExamination(measurement);
+		userViewModel.getUserProfile().observe(this, user -> {
 
-		Toast.makeText(ProfileSetupActivity.this, "Examination successful!", Toast.LENGTH_SHORT).show();
-		Intent intent = new Intent(this, ResultsActivity.class);
-		intent.putExtra("VIS", "IPO3");
-		intent.putExtra("NIR", "IPO3");
-		intent.putExtra("FLOU", "N/A");
-		startActivity(intent);
+			final Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
+			final String json = new JsonFileLoader().fromAsset("usecase2_updated_response.json");
+			final Measurement measurement = gson.fromJson(json, Measurement.class);
+			//save examination
+			MyApplication.getInstance().saveMeasurement(measurement);
 
-//			model.createExaminationRequest(user.id(), examination.getResponse().getSample()).observe(this, result -> {
+			Toast.makeText(ProfileSetupActivity.this, "Examination successful!", Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(this, ResultsActivity.class);
+			intent.putExtra("VIS", "IPO3");
+			intent.putExtra("NIR", "IPO3");
+			intent.putExtra("FLOU", "N/A");
+			startActivity(intent);
+
+			Log.d(TAG, "performTestMeasurement: user id: " + user.id());
+
+//			model.createMeasurementRequest(user.id(), measurement.getResponse().getSample()).observe(this, result -> {
 //				if (result != null && !result) {
 //					Toast.makeText(ProfileSetupActivity.this, "Examination request failed!", Toast.LENGTH_SHORT).show();
 //				} else {
@@ -267,6 +270,6 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 //					startActivity(intent);
 //				}
 //			});
-		//});
+		});
 	}
 }

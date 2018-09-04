@@ -22,6 +22,7 @@ import com.vizlore.phasmafood.model.User;
 import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.model.results.Sample;
 import com.vizlore.phasmafood.utils.Config;
+import com.vizlore.phasmafood.utils.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -125,7 +126,7 @@ public class BluetoothService extends Service {
 						final Measurement examination = gson.fromJson(jsonReceived, Measurement.class);
 
 						//save examination
-						MyApplication.getInstance().saveExamination(examination);
+						MyApplication.getInstance().saveMeasurement(examination);
 						if (examination != null) {
 							sendMeasurementToServer(examination.getResponse().getSample());
 						} else {
@@ -229,7 +230,7 @@ public class BluetoothService extends Service {
 		sample.setSampleID(sampleId);
 		sample.setUserID(userId);
 		sample.setDeviceID(connectingDevice.getAddress());
-		//sample.setMobileID(Utils.getMobileUUID());
+		sample.setMobileID(Utils.getMobileUUID());
 
 		// TODO: 9/4/18
 		// add

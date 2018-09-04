@@ -14,7 +14,7 @@ public class Sample {
 	@SerializedName("laboratory")
 	@Expose
 	private String laboratory;
-	@SerializedName("UserID")
+	@SerializedName("userID")
 	@Expose
 	private String userID;
 	@SerializedName("deviceID")
@@ -26,6 +26,9 @@ public class Sample {
 	@SerializedName("useCase")
 	@Expose
 	private String useCase;
+
+	@Nullable
+	private String mobileID;
 
 	// use case 1 specific // TODO: 9/4/18 reconsider
 	@Expose
@@ -245,4 +248,7 @@ public class Sample {
 		this.fLUO = fLUO;
 	}
 
+	public void setMobileID(String mobileID) {
+		this.mobileID = mobileID;
+	}
 }

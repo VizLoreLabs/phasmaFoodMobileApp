@@ -61,7 +61,7 @@ public class MyApplication extends Application {
 	}
 
 	// temporary save examination
-	public void saveExamination(@NonNull Measurement measurement) {
+	public void saveMeasurement(@NonNull Measurement measurement) {
 		this.measurement = measurement;
 	}
 

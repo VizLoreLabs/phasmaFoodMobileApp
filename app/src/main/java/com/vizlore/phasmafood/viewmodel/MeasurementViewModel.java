@@ -1,13 +1,11 @@
 package com.vizlore.phasmafood.viewmodel;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.api.MeasurementApi;
-import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.model.results.Sample;
 import com.vizlore.phasmafood.utils.SingleLiveEvent;
 import com.vizlore.phasmafood.utils.Utils;
@@ -16,7 +14,6 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
-import io.reactivex.CompletableObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -25,57 +22,54 @@ import io.reactivex.schedulers.Schedulers;
  * Created by smedic on 2/10/18.
  */
 
-public class ExaminationViewModel extends ViewModel {
+public class MeasurementViewModel extends ViewModel {
 
 	private static final String TAG = "SMEDIC";
 
 	private static final String EXAMPLE_DEVICE_ID = "d946a1ce-af55-41d2-9aa0-e";
 
-	private MutableLiveData<Measurement> measurementLiveData;
-	private SingleLiveEvent<Boolean> createExaminationRequestLiveData;
+	private Disposable disposable;
+
+	private SingleLiveEvent<Boolean> measurementLiveData;
 
 	@Inject
 	MeasurementApi examinationApi;
 
-	public ExaminationViewModel() {
-
+	public MeasurementViewModel() {
 		MyApplication.getComponent().inject(this);
 	}
 
-	public LiveData<Boolean> createExaminationRequest(final String userId, final Sample sample) {
+	public LiveData<Boolean> createMeasurementRequest(final String userId, final Sample sample) {
 
-		if (createExaminationRequestLiveData == null) {
-			createExaminationRequestLiveData = new SingleLiveEvent<>();
+		if (measurementLiveData == null) {
+			measurementLiveData = new SingleLiveEvent<>();
 		}
+
+		Log.d(TAG, "createMeasurementRequest: USER ID: " + userId);
 
 		// TODO: 2/10/18 find better solution
 		String sampleId = String.valueOf(new Date().getTime() % 1000000000);
 		sample.setSampleID(sampleId);
 		sample.setUserID(userId);
 		sample.setDeviceID(Utils.getBluetoothDeviceUUID());
-		// TODO: 9/4/18
-		//sample.setMobileID(Utils.getMobileUUID());
+		sample.setMobileID(Utils.getMobileUUID());
 
-		examinationApi.createMeasurementRequest(sample)
+		disposable = examinationApi.createMeasurementRequest(sample)
 			.subscribeOn(Schedulers.io())
 			.observeOn(AndroidSchedulers.mainThread())
-			.subscribe(new CompletableObserver() {
-				@Override
-				public void onSubscribe(Disposable d) {
-				}
+			.subscribe(() -> measurementLiveData.postValue(true),
+				error -> {
+					Log.d(TAG, "onError error: " + error.toString());
+					measurementLiveData.postValue(false);
+				});
+		return measurementLiveData;
+	}
 
-				@Override
-				public void onComplete() {
-					createExaminationRequestLiveData.postValue(true);
-				}
-
-				@Override
-				public void onError(Throwable e) {
-					Log.d(TAG, "onError error: " + e.toString());
-					createExaminationRequestLiveData.postValue(false);
-				}
-			});
-
-		return createExaminationRequestLiveData;
+	@Override
+	protected void onCleared() {
+		super.onCleared();
+		if (disposable != null && !disposable.isDisposed()) {
+			disposable.dispose();
+		}
 	}
 }

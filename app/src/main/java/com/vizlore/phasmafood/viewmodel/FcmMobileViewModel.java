@@ -55,7 +55,7 @@ public class FcmMobileViewModel extends AndroidViewModel {
 
 		// FIXME: 2/25/18 
 		Map<String, String> requestBody = new HashMap<>();
-		requestBody.put("name", "Samsung A5_A520F");
+		requestBody.put("name", "Samsung S7_SMedic");
 		requestBody.put("registration_id", FirebaseInstanceId.getInstance().getToken());
 		requestBody.put("device_id", Utils.getMobileUUID());
 		//requestBody.put("active", "true");
