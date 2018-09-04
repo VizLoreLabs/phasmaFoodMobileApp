@@ -48,7 +48,7 @@ public class DeviceViewModel extends AndroidViewModel {
 		requestBody.put(Config.DEVICE_SERIAL_ID, Utils.getBluetoothDeviceUUID());
 		requestBody.put(Config.DEVICE_BLUETOOTH_ADDRESS, "1"); // FIXME: 3/1/18
 
-		deviceApi.createDevice(Utils.getHeader(), requestBody)
+		deviceApi.createDevice(requestBody)
 			.subscribeOn(Schedulers.computation())
 			.subscribe(new CompletableObserver() {
 				@Override
@@ -74,7 +74,7 @@ public class DeviceViewModel extends AndroidViewModel {
 			readDeviceLiveData = new MutableLiveData<>();
 		}
 
-		deviceApi.readDevice(Utils.getHeader(), Utils.getBluetoothDeviceUUID())
+		deviceApi.readDevice(Utils.getBluetoothDeviceUUID())
 			.subscribeOn(Schedulers.computation())
 			.subscribe(new CompletableObserver() {
 				@Override

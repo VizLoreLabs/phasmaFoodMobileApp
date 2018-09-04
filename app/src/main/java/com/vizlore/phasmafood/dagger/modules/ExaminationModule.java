@@ -1,6 +1,6 @@
 package com.vizlore.phasmafood.dagger.modules;
 
-import com.vizlore.phasmafood.api.ExaminationApi;
+import com.vizlore.phasmafood.api.MeasurementApi;
 
 import javax.inject.Singleton;
 
@@ -17,7 +17,7 @@ public class ExaminationModule {
 
 	@Provides
 	@Singleton
-	ExaminationApi provideExaminationApi(Retrofit retrofit) {
-		return retrofit.create(ExaminationApi.class);
+	MeasurementApi provideExaminationApi(Retrofit retrofit) {
+		return retrofit.create(MeasurementApi.class);
 	}
 }

@@ -7,7 +7,6 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.api.FcmMobileApi;
-import com.vizlore.phasmafood.utils.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -75,7 +74,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 		requestBody.put("registration_id", token);
 		requestBody.put("type", "android");
 
-		mobileApi.sendFcmData(Utils.getHeader(), requestBody).observeOn(AndroidSchedulers.mainThread())
+		mobileApi.sendFcmData(requestBody).observeOn(AndroidSchedulers.mainThread())
 			.subscribeOn(Schedulers.io()).subscribe(new CompletableObserver() {
 			@Override
 			public void onSubscribe(Disposable d) {

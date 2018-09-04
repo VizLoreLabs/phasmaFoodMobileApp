@@ -16,7 +16,7 @@ import com.google.gson.GsonBuilder;
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.api.AutoValueGsonFactory;
 import com.vizlore.phasmafood.api.DeviceApi;
-import com.vizlore.phasmafood.api.ExaminationApi;
+import com.vizlore.phasmafood.api.MeasurementApi;
 import com.vizlore.phasmafood.api.UserApi;
 import com.vizlore.phasmafood.model.User;
 import com.vizlore.phasmafood.model.results.Examination;
@@ -69,7 +69,7 @@ public class BluetoothService extends Service {
 	DeviceApi deviceApi;
 
 	@Inject
-	ExaminationApi examinationApi;
+	MeasurementApi examinationApi;
 
 	@Inject
 	UserApi userApi;
@@ -194,7 +194,7 @@ public class BluetoothService extends Service {
 
 	private void sendMeasurementToServer(@NonNull final Sample sample) {
 
-		userApi.getProfile(Utils.getHeader())
+		userApi.getCurrentProfile()
 			.subscribeOn(Schedulers.io())
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribe(new SingleObserver<ResponseBody>() {
@@ -232,7 +232,13 @@ public class BluetoothService extends Service {
 		sample.setDeviceID(connectingDevice.getAddress());
 		sample.setMobileID(Utils.getMobileUUID());
 
-		examinationApi.createExaminationRequest(Utils.getHeader(), sample)
+		// TODO: 9/4/18
+		// add
+		// laboratory required
+		// foodType required
+		// useCase required
+
+		examinationApi.createMeasurementRequest(sample)
 			.subscribeOn(Schedulers.io())
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribe(new CompletableObserver() {
@@ -303,8 +309,7 @@ public class BluetoothService extends Service {
 		if (bluetoothController != null) {
 			Log.d(TAG, "Going For Connection");
 			bluetoothController.connect(device);
-		}
-		else {
+		} else {
 			bluetoothController = new CommunicationController(handler);
 			bluetoothController.connect(device);
 		}
@@ -315,13 +320,13 @@ public class BluetoothService extends Service {
 		if (bluetoothController != null) {
 			Log.d(TAG, "Stopping Controller");
 			bluetoothController.stop();
-			bluetoothController=null;
+			bluetoothController = null;
 		}
 	}
 
 	// TODO: 3/5/18 refactor in RxJava fashion
 	private void registerBtDevice(final BluetoothDevice device) {
-		deviceApi.readDevice(Utils.getHeader(), device.getAddress())
+		deviceApi.readDevice(device.getAddress())
 			.subscribeOn(Schedulers.computation())
 			.subscribe(new CompletableObserver() {
 				@Override
@@ -341,7 +346,7 @@ public class BluetoothService extends Service {
 					requestBody.put(Config.DEVICE_BLUETOOTH_ADDRESS, deviceUuid);
 					requestBody.put(Config.DEVICE_SERIAL_ID, device.getAddress());
 
-					deviceApi.createDevice(Utils.getHeader(), requestBody)
+					deviceApi.createDevice(requestBody)
 						.subscribeOn(Schedulers.computation())
 						.subscribe(new CompletableObserver() {
 							@Override

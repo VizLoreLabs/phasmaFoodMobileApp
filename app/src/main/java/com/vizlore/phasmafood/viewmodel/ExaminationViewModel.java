@@ -6,7 +6,7 @@ import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
 import com.vizlore.phasmafood.MyApplication;
-import com.vizlore.phasmafood.api.ExaminationApi;
+import com.vizlore.phasmafood.api.MeasurementApi;
 import com.vizlore.phasmafood.model.results.Examination;
 import com.vizlore.phasmafood.model.results.Sample;
 import com.vizlore.phasmafood.utils.SingleLiveEvent;
@@ -35,7 +35,7 @@ public class ExaminationViewModel extends ViewModel {
 	private SingleLiveEvent<Boolean> createExaminationRequestLiveData;
 
 	@Inject
-	ExaminationApi examinationApi;
+	MeasurementApi examinationApi;
 
 	public ExaminationViewModel() {
 
@@ -55,7 +55,7 @@ public class ExaminationViewModel extends ViewModel {
 		sample.setDeviceID(Utils.getBluetoothDeviceUUID());
 		sample.setMobileID(Utils.getMobileUUID());
 
-		examinationApi.createExaminationRequest(Utils.getHeader(), sample)
+		examinationApi.createMeasurementRequest(sample)
 			.subscribeOn(Schedulers.io())
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribe(new CompletableObserver() {

@@ -21,13 +21,13 @@ import retrofit2.http.Path;
 public interface DeviceApi {
 
 	@GET("/api/v1/device")
-	Single<ResponseBody> listDevice(@Header("Authorization") String token);
+	Single<ResponseBody> listDevice();
 
 	@POST("/api/v1/device/")
-	Completable createDevice(@Header("Authorization") String token, @Body Map<String, String> body);
+	Completable createDevice(@Body Map<String, String> body);
 
 	@GET("/api/v1/device/{serial_cpu}")
-	Completable readDevice(@Header("Authorization") String token, @Path("serial_cpu") String serialCpu);
+	Completable readDevice(@Path("serial_cpu") String serialCpu);
 
 	@PUT("/api/v1/device/{serial_cpu}")
 	Completable updateDevice(@Header("Authorization") String token, @Path("serial_cpu") String serialCpu);

@@ -7,7 +7,6 @@ import io.reactivex.Single;
 import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -32,8 +31,8 @@ public interface UserApi {
 	Single<ResponseBody> verifyToken(@Body Map<String, String> body);
 
 	@GET("/api/v1/auth/me/")
-	Single<ResponseBody> getProfile(@Header("Authorization") String token);
+	Single<ResponseBody> getCurrentProfile();
 
 	@PUT("/api/v1/auth/me/")
-	Completable updateProfile(@Header("Authorization") String token, @Body Map<String, String> body);
+	Completable updateProfile(@Body Map<String, String> body);
 }

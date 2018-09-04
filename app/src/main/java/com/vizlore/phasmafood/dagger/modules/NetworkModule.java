@@ -5,6 +5,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vizlore.phasmafood.api.AutoValueGsonFactory;
+import com.vizlore.phasmafood.utils.Utils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -13,6 +14,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -48,6 +50,14 @@ public class NetworkModule {
 			.writeTimeout(60, TimeUnit.SECONDS)
 			.readTimeout(60, TimeUnit.SECONDS)
 			.addInterceptor(loggingInterceptor)
+			.addInterceptor(chain -> {
+				final Request original = chain.request();
+				final Request request = original.newBuilder()
+					.header("Authorization", Utils.getHeader())
+					.method(original.method(), original.body())
+					.build();
+				return chain.proceed(request);
+			})
 			.hostnameVerifier((s, sslSession) -> true)
 			.build();
 	}

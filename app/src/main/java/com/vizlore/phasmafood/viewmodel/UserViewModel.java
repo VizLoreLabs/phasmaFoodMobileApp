@@ -14,7 +14,6 @@ import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.api.UserApi;
 import com.vizlore.phasmafood.model.User;
 import com.vizlore.phasmafood.utils.SingleLiveEvent;
-import com.vizlore.phasmafood.utils.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -253,7 +252,7 @@ public class UserViewModel extends ViewModel {
 		}
 
 		// provide header token
-		userApi.getProfile(Utils.getHeader())
+		userApi.getCurrentProfile()
 			.subscribeOn(Schedulers.io())
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribe(new SingleObserver<ResponseBody>() {
@@ -299,7 +298,7 @@ public class UserViewModel extends ViewModel {
 		requestBody.put("username", user.username());
 		requestBody.put("company", user.company());
 
-		userApi.updateProfile(Utils.getHeader(), requestBody)
+		userApi.updateProfile(requestBody)
 			.subscribeOn(Schedulers.io())
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribe(new CompletableObserver() {

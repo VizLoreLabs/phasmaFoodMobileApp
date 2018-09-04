@@ -61,7 +61,7 @@ public class FcmMobileViewModel extends AndroidViewModel {
 		//requestBody.put("active", "true");
 		requestBody.put("type", "android");
 
-		mobileApi.sendFcmData(Utils.getHeader(), requestBody)
+		mobileApi.sendFcmData(requestBody)
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribeOn(Schedulers.io())
 			.subscribe(new CompletableObserver() {
@@ -91,7 +91,7 @@ public class FcmMobileViewModel extends AndroidViewModel {
 			readFcmTokenLiveData = new SingleLiveEvent<>();
 		}
 
-		mobileApi.readFcmToken(Utils.getHeader(), FirebaseInstanceId.getInstance().getToken())
+		mobileApi.readFcmToken(FirebaseInstanceId.getInstance().getToken())
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribeOn(Schedulers.io())
 			.subscribe(new SingleObserver<ResponseBody>() {
@@ -129,7 +129,7 @@ public class FcmMobileViewModel extends AndroidViewModel {
 		//requestBody.put("active", "true");
 		requestBody.put("type", "android");
 
-		mobileApi.updateFcmData(Utils.getHeader(), regId, requestBody)
+		mobileApi.updateFcmData(regId, requestBody)
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribeOn(Schedulers.io())
 			.subscribe(new CompletableObserver() {
@@ -167,7 +167,7 @@ public class FcmMobileViewModel extends AndroidViewModel {
 		//requestBody.put("active", "true");
 		requestBody.put("type", "android");
 
-		mobileApi.partialUpdateFcmData(Utils.getHeader(), regId, requestBody)
+		mobileApi.partialUpdateFcmData(regId, requestBody)
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribeOn(Schedulers.io())
 			.subscribe(new CompletableObserver() {
@@ -195,7 +195,7 @@ public class FcmMobileViewModel extends AndroidViewModel {
 			deleteFcmTokenLiveData = new SingleLiveEvent<>();
 		}
 
-		mobileApi.deleteFcmToken(Utils.getHeader(), FirebaseInstanceId.getInstance().getToken())
+		mobileApi.deleteFcmToken(FirebaseInstanceId.getInstance().getToken())
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribeOn(Schedulers.io())
 			.subscribe(new CompletableObserver() {
