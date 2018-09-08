@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.api.DeviceApi;
 import com.vizlore.phasmafood.utils.Config;
+import com.vizlore.phasmafood.utils.SingleLiveEvent;
 import com.vizlore.phasmafood.utils.Utils;
 
 import java.util.HashMap;
@@ -26,10 +27,13 @@ import io.reactivex.schedulers.Schedulers;
 
 public class DeviceViewModel extends AndroidViewModel {
 
-	private static final String TAG = "SMEDIC DVM";
-
-	private MutableLiveData<Boolean> createDeviceLiveData;
+	private SingleLiveEvent<Boolean> createDeviceLiveData;
 	private MutableLiveData<Boolean> readDeviceLiveData;
+
+	private Disposable disposable;
+
+	private String deviceId = null;
+	private String deviceMAC = null;
 
 	@Inject
 	DeviceApi deviceApi;
@@ -41,30 +45,19 @@ public class DeviceViewModel extends AndroidViewModel {
 
 	public LiveData<Boolean> createDevice() {
 		if (createDeviceLiveData == null) {
-			createDeviceLiveData = new MutableLiveData<>();
+			createDeviceLiveData = new SingleLiveEvent<>();
 		}
 
 		final Map<String, String> requestBody = new HashMap<>();
-		requestBody.put(Config.DEVICE_UUID, "1234567890");
-		requestBody.put(Config.DEVICE_MAC, Utils.getBluetoothDeviceUUID());
+		requestBody.put(Config.DEVICE_UUID, getDeviceMAC());
+		requestBody.put(Config.DEVICE_MAC, getDeviceID());
 
-		deviceApi.createDevice(requestBody)
+		disposable = deviceApi.createDevice(requestBody)
 			.subscribeOn(Schedulers.computation())
-			.subscribe(new CompletableObserver() {
-				@Override
-				public void onSubscribe(Disposable d) {
-				}
-
-				@Override
-				public void onComplete() {
-					createDeviceLiveData.postValue(true);
-				}
-
-				@Override
-				public void onError(Throwable e) {
-					createDeviceLiveData.postValue(false);
-				}
-			});
+			.subscribe(
+				() -> createDeviceLiveData.postValue(true),
+				e -> createDeviceLiveData.postValue(false)
+			);
 
 		return createDeviceLiveData;
 	}
@@ -74,7 +67,7 @@ public class DeviceViewModel extends AndroidViewModel {
 			readDeviceLiveData = new MutableLiveData<>();
 		}
 
-		deviceApi.readDevice(Utils.getBluetoothDeviceUUID())
+		deviceApi.readDevice(getDeviceID())
 			.subscribeOn(Schedulers.computation())
 			.subscribe(new CompletableObserver() {
 				@Override
@@ -92,5 +85,27 @@ public class DeviceViewModel extends AndroidViewModel {
 				}
 			});
 		return readDeviceLiveData;
+	}
+
+	public String getDeviceID() {
+		if (deviceId == null) {
+			deviceId = Utils.getBluetoothDeviceUUID();
+		}
+		return deviceId;
+	}
+
+	public String getDeviceMAC() {
+		if (deviceMAC == null) {
+			deviceMAC = "1234567890"; // TODO: 9/8/18
+		}
+		return deviceMAC;
+	}
+
+	@Override
+	protected void onCleared() {
+		super.onCleared();
+		if (disposable != null && !disposable.isDisposed()) {
+			disposable.dispose();
+		}
 	}
 }

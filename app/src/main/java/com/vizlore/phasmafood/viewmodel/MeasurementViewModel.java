@@ -5,8 +5,8 @@ import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
 import com.vizlore.phasmafood.MyApplication;
-import com.vizlore.phasmafood.api.MeasurementApi;
 import com.vizlore.phasmafood.model.results.Sample;
+import com.vizlore.phasmafood.repositories.MeasurementRepository;
 import com.vizlore.phasmafood.utils.SingleLiveEvent;
 import com.vizlore.phasmafood.utils.Utils;
 
@@ -33,19 +33,20 @@ public class MeasurementViewModel extends ViewModel {
 	private SingleLiveEvent<Boolean> measurementLiveData;
 
 	@Inject
-	MeasurementApi examinationApi;
+	MeasurementRepository measurementRepository;
 
 	public MeasurementViewModel() {
 		MyApplication.getComponent().inject(this);
 	}
 
-	public LiveData<Boolean> createMeasurementRequest(final String userId, final Sample sample) {
+	public LiveData<Boolean> createMeasurementRequest(final String userId, final Sample sample,
+													  final String deviceId) {
 
 		if (measurementLiveData == null) {
 			measurementLiveData = new SingleLiveEvent<>();
 		}
 
-		Log.d(TAG, "createMeasurementRequest: USER ID: " + userId);
+		Log.d(TAG, "createMeasurementRequest: User ID: " + userId);
 
 		final Random rand = new Random();
 		final int randomValue = rand.nextInt(1000000);
@@ -53,10 +54,10 @@ public class MeasurementViewModel extends ViewModel {
 		final String sampleId = String.valueOf(randomValue);
 		sample.setSampleID(sampleId);
 		sample.setUserID(userId);
-		sample.setDeviceID(Utils.getBluetoothDeviceUUID());
+		sample.setDeviceID(deviceId);
 		sample.setMobileID(Utils.getMobileUUID());
 
-		disposable = examinationApi.createMeasurementRequest(sample)
+		disposable = measurementRepository.createMeasurementRequest(sample)
 			.subscribeOn(Schedulers.io())
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribe(() -> measurementLiveData.postValue(true),

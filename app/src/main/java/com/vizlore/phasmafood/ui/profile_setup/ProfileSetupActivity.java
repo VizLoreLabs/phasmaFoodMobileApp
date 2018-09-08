@@ -268,14 +268,18 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 
 					Log.d(TAG, "performTestMeasurement: create device result: " + res);
 
-					model.createMeasurementRequest(user.id(), measurement.getResponse().getSample()).observe(this, result -> {
-						if (result != null && !result) {
-							Toast.makeText(ProfileSetupActivity.this, "Examination request failed!", Toast.LENGTH_SHORT).show();
-						} else {
-							Toast.makeText(ProfileSetupActivity.this, "Examination successful!", Toast.LENGTH_SHORT).show();
-							startActivity(intent);
-						}
-					});
+					model.createMeasurementRequest(user.id(),
+						measurement.getResponse().getSample(),
+						deviceViewModel.getDeviceID())
+						.observe(this,
+							result -> {
+								if (result != null && !result) {
+									Toast.makeText(ProfileSetupActivity.this, "Examination request failed!", Toast.LENGTH_SHORT).show();
+								} else {
+									Toast.makeText(ProfileSetupActivity.this, "Examination successful!", Toast.LENGTH_SHORT).show();
+									startActivity(intent);
+								}
+							});
 				});
 			}
 		});

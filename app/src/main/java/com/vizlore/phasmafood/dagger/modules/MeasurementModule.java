@@ -13,11 +13,11 @@ import retrofit2.Retrofit;
  */
 
 @Module
-public class ExaminationModule {
+public class MeasurementModule {
 
 	@Provides
 	@Singleton
-	MeasurementApi provideExaminationApi(Retrofit retrofit) {
+	MeasurementApi provideMeasurementApi(Retrofit retrofit) {
 		return retrofit.create(MeasurementApi.class);
 	}
 }
