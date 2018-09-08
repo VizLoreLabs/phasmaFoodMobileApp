@@ -1,12 +1,14 @@
-package com.vizlore.phasmafood.ui.services;
+package com.vizlore.phasmafood.services;
 
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.api.FcmMobileApi;
+import com.vizlore.phasmafood.utils.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -69,9 +71,16 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 	 * @param token The new token.
 	 */
 	private void sendRegistrationToServer(String token) {
-		Map<String, String> requestBody = new HashMap<>();
-		requestBody.put("name", "Samsung A5");
-		requestBody.put("registration_id", token);
+
+		//example: Samsung Note 4 6.0 MARSHMALLOW
+		final String deviceDetails = Build.MANUFACTURER + " " + Build.MODEL + " " + Build.VERSION.RELEASE
+			+ " " + Build.VERSION_CODES.class.getFields()[android.os.Build.VERSION.SDK_INT].getName();
+
+		final Map<String, String> requestBody = new HashMap<>();
+		requestBody.put("name", deviceDetails);
+		requestBody.put("registration_id", FirebaseInstanceId.getInstance().getToken());
+		requestBody.put("device_id", Utils.getMobileUUID());
+		//requestBody.put("active", "true");
 		requestBody.put("type", "android");
 
 		mobileApi.sendFcmData(requestBody).observeOn(AndroidSchedulers.mainThread())

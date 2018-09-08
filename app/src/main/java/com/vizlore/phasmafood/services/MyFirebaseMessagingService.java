@@ -1,4 +1,4 @@
-package com.vizlore.phasmafood.ui.services;
+package com.vizlore.phasmafood.services;
 
 import android.content.Intent;
 import android.util.Log;

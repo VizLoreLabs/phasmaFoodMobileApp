@@ -185,7 +185,7 @@ public class ResultsActivity extends BaseActivity {
 				lineChart.getXAxis().setTextColor(Color.WHITE);
 				lineChart.getAxisLeft().setTextColor(Color.WHITE);
 				lineChart.getAxisRight().setTextColor(Color.WHITE);
-				lineChart.getLegend().setEnabled(false);
+				//lineChart.getLegend().setEnabled(false);
 				lineChart.getDescription().setText("");
 				lineChart.setScaleEnabled(false);
 
@@ -204,7 +204,7 @@ public class ResultsActivity extends BaseActivity {
 		final List<ILineDataSet> dataSets = new ArrayList<>();
 
 		if (preprocessedList != null) {
-			final LineDataSet dataSetVIS = new LineDataSet(getPreprocessedEntries(preprocessedList), "pp");
+			final LineDataSet dataSetVIS = new LineDataSet(getPreprocessedEntries(preprocessedList), "preprocessed");
 			dataSetVIS.setColor(getResources().getColor(R.color.orange));
 			dataSetVIS.setCircleColor(getResources().getColor(R.color.orange));
 			dataSets.add(dataSetVIS);

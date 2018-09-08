@@ -3,6 +3,7 @@ package com.vizlore.phasmafood.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -53,9 +54,12 @@ public class FcmMobileViewModel extends AndroidViewModel {
 			createFcmMobileLiveData = new SingleLiveEvent<>();
 		}
 
-		// FIXME: 2/25/18 
-		Map<String, String> requestBody = new HashMap<>();
-		requestBody.put("name", "Samsung S7_SMedic");
+		//example: Samsung Note 4 6.0 MARSHMALLOW
+		final String deviceDetails = Build.MANUFACTURER + " " + Build.MODEL + " " + Build.VERSION.RELEASE
+			+ " " + Build.VERSION_CODES.class.getFields()[android.os.Build.VERSION.SDK_INT].getName();
+
+		final Map<String, String> requestBody = new HashMap<>();
+		requestBody.put("name", deviceDetails);
 		requestBody.put("registration_id", FirebaseInstanceId.getInstance().getToken());
 		requestBody.put("device_id", Utils.getMobileUUID());
 		//requestBody.put("active", "true");
