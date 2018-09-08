@@ -341,10 +341,12 @@ public class BluetoothService extends Service {
 				@Override
 				public void onError(Throwable e) {
 					// device did not find, register it
+
+					// TODO: 9/8/18
 					final String deviceUuid = device.getUuids()[0].getUuid().toString();
 					Map<String, String> requestBody = new HashMap<>();
-					requestBody.put(Config.DEVICE_BLUETOOTH_ADDRESS, deviceUuid);
-					requestBody.put(Config.DEVICE_SERIAL_ID, device.getAddress());
+					requestBody.put(Config.DEVICE_MAC, "1234567890");
+					requestBody.put(Config.DEVICE_UUID, deviceUuid);
 
 					deviceApi.createDevice(requestBody)
 						.subscribeOn(Schedulers.computation())
@@ -380,12 +382,7 @@ public class BluetoothService extends Service {
 
 	public boolean IsConnected() {
 		if (bluetoothController != null) {
-			if (bluetoothController.getState() == CommunicationController.STATE_CONNECTED) {
-				return true;
-
-			} else {
-				return false;
-			}
+			return bluetoothController.getState() == CommunicationController.STATE_CONNECTED;
 		} else {
 			return false;
 		}

@@ -44,9 +44,9 @@ public class DeviceViewModel extends AndroidViewModel {
 			createDeviceLiveData = new MutableLiveData<>();
 		}
 
-		Map<String, String> requestBody = new HashMap<>();
-		requestBody.put(Config.DEVICE_SERIAL_ID, Utils.getBluetoothDeviceUUID());
-		requestBody.put(Config.DEVICE_BLUETOOTH_ADDRESS, "1"); // FIXME: 3/1/18
+		final Map<String, String> requestBody = new HashMap<>();
+		requestBody.put(Config.DEVICE_UUID, "1234567890");
+		requestBody.put(Config.DEVICE_MAC, Utils.getBluetoothDeviceUUID());
 
 		deviceApi.createDevice(requestBody)
 			.subscribeOn(Schedulers.computation())

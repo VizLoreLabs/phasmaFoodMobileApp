@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.List;
+import java.util.UUID;
 
 import static com.vizlore.phasmafood.utils.Config.BT_DEVICE_UUID_KEY;
 import static com.vizlore.phasmafood.utils.Config.MOBILE_DEVICE_UUID_KEY;
@@ -50,8 +51,10 @@ public class Utils {
 	}
 
 	public synchronized static String getBluetoothDeviceUUID() {
+		// TODO: 9/8/18 fix
+		return UUID.randomUUID().toString();
 		//return "B8:27:EB:E4:C9:78";
-		return "996907e7739c54ba";
+		//return "996907e7739c54ba";
 //		if (btDeviceUuid == null) {
 //			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
 //			btDeviceUuid = prefs.getString(BT_DEVICE_UUID_KEY, null);

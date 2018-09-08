@@ -32,6 +32,7 @@ import com.vizlore.phasmafood.ui.ResultsActivity;
 import com.vizlore.phasmafood.ui.profile_setup.viewmodel.ProfileSetupViewModel;
 import com.vizlore.phasmafood.ui.wizard.WizardActivity;
 import com.vizlore.phasmafood.utils.JsonFileLoader;
+import com.vizlore.phasmafood.viewmodel.DeviceViewModel;
 import com.vizlore.phasmafood.viewmodel.MeasurementViewModel;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
 
@@ -238,38 +239,45 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 	// just for testing
 	private void performTestMeasurement() {
 
+		//DEBUG
+		boolean debug = false;
+
 		final MeasurementViewModel model = ViewModelProviders.of(this).get(MeasurementViewModel.class);
 		final UserViewModel userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+		final DeviceViewModel deviceViewModel = ViewModelProviders.of(this).get(DeviceViewModel.class);
 
 		userViewModel.getUserProfile().observe(this, user -> {
 
 			final Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
-			final String json = new JsonFileLoader().fromAsset("usecase2_updated_response.json");
+			final String json = new JsonFileLoader().fromAsset("usecase1_updated_response.json");
 			final Measurement measurement = gson.fromJson(json, Measurement.class);
-			//save examination
+
+			// TODO: 9/8/18 refactor
 			MyApplication.getInstance().saveMeasurement(measurement);
 
-			Toast.makeText(ProfileSetupActivity.this, "Examination successful!", Toast.LENGTH_SHORT).show();
-			Intent intent = new Intent(this, ResultsActivity.class);
+			final Intent intent = new Intent(this, ResultsActivity.class);
 			intent.putExtra("VIS", "IPO3");
 			intent.putExtra("NIR", "IPO3");
 			intent.putExtra("FLOU", "N/A");
-			startActivity(intent);
 
-			Log.d(TAG, "performTestMeasurement: user id: " + user.id());
+			if (debug) {
+				startActivity(intent);
+			} else {
+				Log.d(TAG, "performTestMeasurement: user id: " + user.id());
+				deviceViewModel.createDevice().observe(this, res -> {
 
-//			model.createMeasurementRequest(user.id(), measurement.getResponse().getSample()).observe(this, result -> {
-//				if (result != null && !result) {
-//					Toast.makeText(ProfileSetupActivity.this, "Examination request failed!", Toast.LENGTH_SHORT).show();
-//				} else {
-//					Toast.makeText(ProfileSetupActivity.this, "Examination successful!", Toast.LENGTH_SHORT).show();
-//					Intent intent = new Intent(this, ResultsActivity.class);
-//					intent.putExtra("VIS", "IPO3");
-//					intent.putExtra("NIR", "IPO3");
-//					intent.putExtra("FLOU", "N/A");
-//					startActivity(intent);
-//				}
-//			});
+					Log.d(TAG, "performTestMeasurement: create device result: " + res);
+
+					model.createMeasurementRequest(user.id(), measurement.getResponse().getSample()).observe(this, result -> {
+						if (result != null && !result) {
+							Toast.makeText(ProfileSetupActivity.this, "Examination request failed!", Toast.LENGTH_SHORT).show();
+						} else {
+							Toast.makeText(ProfileSetupActivity.this, "Examination successful!", Toast.LENGTH_SHORT).show();
+							startActivity(intent);
+						}
+					});
+				});
+			}
 		});
 	}
 }

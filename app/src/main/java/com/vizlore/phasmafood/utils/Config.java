@@ -12,8 +12,8 @@ public class Config {
 	public static final String BT_DEVICE_UUID_KEY = "BLUETOOTH_DEVICE_UUID";
 	public static final String MOBILE_DEVICE_UUID_KEY = "MOBILE_DEVICE_UUID";
 
-	public static final String DEVICE_SERIAL_ID = "serial_cpu";
-	public static final String DEVICE_BLUETOOTH_ADDRESS = "bluetooth_address";
+	public static final String DEVICE_MAC = "MAC";
+	public static final String DEVICE_UUID = "UUID";
 
 	//configuration
 

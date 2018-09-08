@@ -50,7 +50,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 	@Override
 	public void onTokenRefresh() {
 		// Get updated InstanceID token.
-		String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+		final String refreshedToken = FirebaseInstanceId.getInstance().getToken();
 		Log.d(TAG, "Refreshed FCM token: " + refreshedToken);
 
 		// If you want to send messages to this application instance or
@@ -78,7 +78,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
 		final Map<String, String> requestBody = new HashMap<>();
 		requestBody.put("name", deviceDetails);
-		requestBody.put("registration_id", FirebaseInstanceId.getInstance().getToken());
+		requestBody.put("registration_id", token);
 		requestBody.put("device_id", Utils.getMobileUUID());
 		//requestBody.put("active", "true");
 		requestBody.put("type", "android");

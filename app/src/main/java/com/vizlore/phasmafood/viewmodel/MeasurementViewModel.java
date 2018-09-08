@@ -10,7 +10,7 @@ import com.vizlore.phasmafood.model.results.Sample;
 import com.vizlore.phasmafood.utils.SingleLiveEvent;
 import com.vizlore.phasmafood.utils.Utils;
 
-import java.util.Date;
+import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -47,8 +47,10 @@ public class MeasurementViewModel extends ViewModel {
 
 		Log.d(TAG, "createMeasurementRequest: USER ID: " + userId);
 
-		// TODO: 2/10/18 find better solution
-		String sampleId = String.valueOf(new Date().getTime() % 1000000000);
+		final Random rand = new Random();
+		final int randomValue = rand.nextInt(1000000);
+
+		final String sampleId = String.valueOf(randomValue);
 		sample.setSampleID(sampleId);
 		sample.setUserID(userId);
 		sample.setDeviceID(Utils.getBluetoothDeviceUUID());
