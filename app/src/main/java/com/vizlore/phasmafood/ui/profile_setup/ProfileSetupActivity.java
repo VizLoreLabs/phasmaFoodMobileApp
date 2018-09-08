@@ -18,22 +18,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.WindowManager;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.R;
-import com.vizlore.phasmafood.api.AutoValueGsonFactory;
+import com.vizlore.phasmafood.TestingUtils;
 import com.vizlore.phasmafood.bluetooth.BluetoothService;
-import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.ui.BaseActivity;
-import com.vizlore.phasmafood.ui.ResultsActivity;
 import com.vizlore.phasmafood.ui.profile_setup.viewmodel.ProfileSetupViewModel;
 import com.vizlore.phasmafood.ui.wizard.WizardActivity;
-import com.vizlore.phasmafood.utils.JsonFileLoader;
-import com.vizlore.phasmafood.viewmodel.DeviceViewModel;
-import com.vizlore.phasmafood.viewmodel.MeasurementViewModel;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
 
 import butterknife.ButterKnife;
@@ -86,7 +77,7 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 					case MEASUREMENT_HISTORY_CLICKED:
 
 						// TODO: 2/23/18 remove
-						performTestMeasurement();
+						TestingUtils.performTestMeasurement(this);
 
 						// TODO: 1/16/18
 						break;
@@ -234,54 +225,5 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 			bluetoothService.disconnectFromCommunicationController();
 		}
 		isConnected = false;
-	}
-
-	// just for testing
-	private void performTestMeasurement() {
-
-		//DEBUG
-		boolean debug = false;
-
-		final MeasurementViewModel model = ViewModelProviders.of(this).get(MeasurementViewModel.class);
-		final UserViewModel userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
-		final DeviceViewModel deviceViewModel = ViewModelProviders.of(this).get(DeviceViewModel.class);
-
-		userViewModel.getUserProfile().observe(this, user -> {
-
-			final Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
-			final String json = new JsonFileLoader().fromAsset("usecase1_updated_response.json");
-			final Measurement measurement = gson.fromJson(json, Measurement.class);
-
-			// TODO: 9/8/18 refactor
-			MyApplication.getInstance().saveMeasurement(measurement);
-
-			final Intent intent = new Intent(this, ResultsActivity.class);
-			intent.putExtra("VIS", "IPO3");
-			intent.putExtra("NIR", "IPO3");
-			intent.putExtra("FLOU", "N/A");
-
-			if (debug) {
-				startActivity(intent);
-			} else {
-				Log.d(TAG, "performTestMeasurement: user id: " + user.id());
-				deviceViewModel.createDevice().observe(this, res -> {
-
-					Log.d(TAG, "performTestMeasurement: create device result: " + res);
-
-					model.createMeasurementRequest(user.id(),
-						measurement.getResponse().getSample(),
-						deviceViewModel.getDeviceID())
-						.observe(this,
-							result -> {
-								if (result != null && !result) {
-									Toast.makeText(ProfileSetupActivity.this, "Examination request failed!", Toast.LENGTH_SHORT).show();
-								} else {
-									Toast.makeText(ProfileSetupActivity.this, "Examination successful!", Toast.LENGTH_SHORT).show();
-									startActivity(intent);
-								}
-							});
-				});
-			}
-		});
 	}
 }

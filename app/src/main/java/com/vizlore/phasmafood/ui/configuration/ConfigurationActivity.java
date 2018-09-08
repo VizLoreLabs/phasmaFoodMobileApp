@@ -1,6 +1,5 @@
 package com.vizlore.phasmafood.ui.configuration;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -10,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.R;
+import com.vizlore.phasmafood.TestingUtils;
 import com.vizlore.phasmafood.bluetooth.BluetoothService;
 
 import org.json.JSONException;
@@ -85,7 +86,7 @@ import static com.vizlore.phasmafood.utils.Config.MIN_VIS_GAIN_REFLECTANCE;
 import static com.vizlore.phasmafood.utils.Config.MIN_VIS_UV_LEDS_VOLTAGE;
 import static com.vizlore.phasmafood.utils.Config.MIN_VIS_WHITE_LEDS_VOLTAGE;
 
-public class ConfigurationActivity extends Activity {
+public class ConfigurationActivity extends FragmentActivity {
 
 	private static final String TAG = "SMEDIC";
 
@@ -166,11 +167,21 @@ public class ConfigurationActivity extends Activity {
 		}
 	}
 
+	// TODO: 9/8/18 remove
+	// if debug, send data to server
+	// if not, send
+	boolean IS_DEBUG = true;
+
 	private void showSendActionDialog(final String jsonToSend) {
 		AlertDialog alertDialog = new AlertDialog.Builder(ConfigurationActivity.this).create();
 		alertDialog.setMessage(getString(R.string.sendDataMessage));
 		alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(android.R.string.yes), (dialog, which) -> {
-			//bluetoothService.sendMessage(jsonToSend);
+			if (!IS_DEBUG) {
+				bluetoothService.sendMessage(jsonToSend);
+			} else {
+				//send params directly to server (use case 1/2)
+				TestingUtils.performTestMeasurement(this);
+			}
 			dialog.dismiss();
 		});
 		alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(android.R.string.no), (dialog, which) -> dialog.dismiss());
