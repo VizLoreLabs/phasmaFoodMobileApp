@@ -11,4 +11,10 @@
         <item>FUB</item>
         <item>VLF</item>
     </string-array>
+
+    <string-array name="samples_array">
+        <item>VIS</item>
+        <item>NIR</item>
+        <item>FLUO</item>
+    </string-array>
 </resources>

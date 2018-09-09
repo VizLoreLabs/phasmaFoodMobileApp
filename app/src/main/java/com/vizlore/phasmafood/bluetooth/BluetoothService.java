@@ -286,9 +286,9 @@ public class BluetoothService extends Service {
 //		disposable.dispose();
 //		super.onDestroy();
 //		Log.d(TAG, "BluetoothService stopped!");
-		if (bluetoothController != null)
-			Log.d(TAG, "Going for Destroy");
-		bluetoothController.stop();
+		if (bluetoothController != null) {
+			bluetoothController.stop();
+		}
 	}
 
 	@Override
@@ -301,6 +301,7 @@ public class BluetoothService extends Service {
 		public BluetoothService getServiceInstance() {
 			return BluetoothService.this;
 		}
+
 	}
 
 	public void connectToCommunicationController(String deviceAddress) {

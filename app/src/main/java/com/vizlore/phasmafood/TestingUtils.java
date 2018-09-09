@@ -22,7 +22,7 @@ public class TestingUtils {
 	private static final String TAG = "SMEDIC TESTING";
 
 	//DEBUG
-	static boolean IS_DEBUG = false;
+	static boolean IS_DEBUG = true;
 
 	// just for testing
 	public static void performTestMeasurement(@NonNull final FragmentActivity activity) {
@@ -41,8 +41,8 @@ public class TestingUtils {
 			MyApplication.getInstance().saveMeasurement(measurement);
 
 			final Intent intent = new Intent(activity, ResultsActivity.class);
-			intent.putExtra("VIS", "IPO3");
-			intent.putExtra("NIR", "IPO3");
+			intent.putExtra("VIS", "N/A");
+			intent.putExtra("NIR", "N/A");
 			intent.putExtra("FLOU", "N/A");
 
 			if (IS_DEBUG) {

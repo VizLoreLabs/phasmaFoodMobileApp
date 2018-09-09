@@ -97,10 +97,10 @@
                 android:id="@+id/chart"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title" />
+                app:layout_constraintTop_toBottomOf="@+id/samplesRadioGroup" />
 
             <TextView
                 android:id="@+id/useCase"
@@ -111,7 +111,7 @@
                 android:layout_marginTop="16dp"
                 android:text="Use case:"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buttonVis" />
+                app:layout_constraintTop_toBottomOf="@+id/buttonPreprocessed" />
 
             <TextView
                 android:id="@+id/useCaseValue"
@@ -308,43 +308,99 @@
                 app:layout_constraintTop_toBottomOf="@+id/param4Value" />
 
             <Button
-                android:id="@+id/buttonVis"
+                android:id="@+id/buttonPreprocessed"
                 android:layout_width="@dimen/graphLegendButtonWidth"
                 android:layout_height="@dimen/graphLegendButtonHeight"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/vis_button_selector"
-                android:text="VIS"
+                android:text="@string/preprocessed"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/chart" />
 
             <Button
-                android:id="@+id/buttonNir"
+                android:id="@+id/buttonDarkReference"
                 android:layout_width="@dimen/graphLegendButtonWidth"
                 android:layout_height="@dimen/graphLegendButtonHeight"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/vis_button_selector"
-                android:text="NIR"
+                android:text="@string/dark"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/buttonVis"
+                app:layout_constraintStart_toEndOf="@+id/buttonPreprocessed"
                 app:layout_constraintTop_toBottomOf="@+id/chart" />
 
             <Button
-                android:id="@+id/buttonFluo"
+                android:id="@+id/buttonWhiteReference"
                 android:layout_width="@dimen/graphLegendButtonWidth"
                 android:layout_height="@dimen/graphLegendButtonHeight"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/vis_button_selector"
-                android:text="FLUO"
+                android:text="@string/white"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/buttonNir"
+                app:layout_constraintStart_toEndOf="@+id/buttonDarkReference"
                 app:layout_constraintTop_toBottomOf="@+id/chart" />
+
+            <Button
+                android:id="@+id/buttonShowAllSamples"
+                android:layout_width="@dimen/graphLegendButtonWidth"
+                android:layout_height="@dimen/graphLegendButtonHeight"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/vis_button_selector"
+                android:text="@string/showAll"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chart" />
+
+            <RadioGroup
+                android:id="@+id/samplesRadioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title">
+
+                <RadioButton
+                    android:id="@+id/visRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="@string/vis"
+                    android:textColor="@color/white" />
+
+                <RadioButton
+                    android:id="@+id/nirRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="@string/nir"
+                    android:textColor="@color/white" />
+
+                <RadioButton
+                    android:id="@+id/fluoRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="@string/fluo"
+                    android:textColor="@color/white" />
+            </RadioGroup>
+
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

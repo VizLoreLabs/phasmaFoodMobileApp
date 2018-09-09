@@ -45,5 +45,10 @@
     <string name="gainFluorescence">Gain for fluorescence spectra</string>
     <string name="binningFluorescence">Binning for fluorescence spectra</string>
     <string name="UVLEDs">Driving voltage for fluorescence spectra measurements [mV]</string>
+    <string name="fluo">FLUO</string>
+    <string name="preprocessed">Preproc.</string>
+    <string name="dark">Dark ref</string>
+    <string name="white">White ref</string>
+    <string name="showAll">Show all</string>
 
 </resources>

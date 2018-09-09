@@ -4,7 +4,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -36,9 +39,15 @@ import butterknife.OnClick;
 
 public class ResultsActivity extends BaseActivity {
 
+	private static final String SAMPLE_PREPROCESSED = "preprocessed";
+	private static final String SAMPLE_DARK_REFERENCE = "dark_reference";
+	private static final String SAMPLE_WHITE_REFERENCE = "white_reference";
+
 	private List<ILineDataSet> visDataSets = new ArrayList<>();
 	private List<ILineDataSet> nirDataSets = new ArrayList<>();
 	private List<ILineDataSet> fluoDataSets = new ArrayList<>();
+
+	private List<ILineDataSet> currentlySelectedDataSet = new ArrayList<>();
 
 	@BindView(R.id.visValue)
 	TextView visValue;
@@ -80,39 +89,58 @@ public class ResultsActivity extends BaseActivity {
 	@BindView(R.id.chart)
 	LineChart lineChart;
 
-	@BindView(R.id.buttonVis)
-	Button buttonVis;
+	@BindView(R.id.buttonPreprocessed)
+	Button buttonPreprocessed;
 
-	@BindView(R.id.buttonNir)
-	Button buttonNir;
+	@BindView(R.id.buttonDarkReference)
+	Button buttonDarkReference;
 
-	@BindView(R.id.buttonFluo)
-	Button buttonFluo;
+	@BindView(R.id.buttonWhiteReference)
+	Button buttonWhiteReference;
 
-	@OnClick(R.id.buttonVis)
-	void onMockClick1() {
-		buttonVis.setSelected(true);
-		buttonNir.setSelected(false);
-		buttonFluo.setSelected(false);
-		lineChart.setData(new LineData(visDataSets));
+	@BindView(R.id.buttonShowAllSamples)
+	Button buttonShowAllSamples;
+
+	@BindView(R.id.samplesRadioGroup)
+	RadioGroup samplesRadioGroup;
+
+	@OnClick(R.id.buttonPreprocessed)
+	void onButtonPreprocessedClick() {
+		buttonPreprocessed.setSelected(true);
+		buttonDarkReference.setSelected(false);
+		buttonWhiteReference.setSelected(false);
+		buttonShowAllSamples.setSelected(false);
+		lineChart.setData(new LineData(getSampleValues(SAMPLE_PREPROCESSED)));
 		drawChart();
 	}
 
-	@OnClick(R.id.buttonNir)
-	void onMockClick2() {
-		buttonVis.setSelected(false);
-		buttonNir.setSelected(true);
-		buttonFluo.setSelected(false);
-		lineChart.setData(new LineData(nirDataSets));
+	@OnClick(R.id.buttonDarkReference)
+	void onButtonDarkReferenceClick() {
+		buttonPreprocessed.setSelected(false);
+		buttonDarkReference.setSelected(true);
+		buttonWhiteReference.setSelected(false);
+		buttonShowAllSamples.setSelected(false);
+		lineChart.setData(new LineData(getSampleValues(SAMPLE_DARK_REFERENCE)));
 		drawChart();
 	}
 
-	@OnClick(R.id.buttonFluo)
-	void onMockClick3() {
-		buttonNir.setSelected(false);
-		buttonVis.setSelected(false);
-		buttonFluo.setSelected(true);
-		lineChart.setData(new LineData(fluoDataSets));
+	@OnClick(R.id.buttonWhiteReference)
+	void onButtonWhiteReferenceClick() {
+		buttonPreprocessed.setSelected(false);
+		buttonDarkReference.setSelected(false);
+		buttonWhiteReference.setSelected(true);
+		buttonShowAllSamples.setSelected(false);
+		lineChart.setData(new LineData(getSampleValues(SAMPLE_WHITE_REFERENCE)));
+		drawChart();
+	}
+
+	@OnClick(R.id.buttonShowAllSamples)
+	void onShowAllClicked() {
+		buttonPreprocessed.setSelected(false);
+		buttonDarkReference.setSelected(false);
+		buttonWhiteReference.setSelected(false);
+		buttonShowAllSamples.setSelected(true);
+		lineChart.setData(new LineData(currentlySelectedDataSet));
 		drawChart();
 	}
 
@@ -179,9 +207,6 @@ public class ResultsActivity extends BaseActivity {
 					fluoDataSets.addAll(getEntries(fluo.getPreprocessed(), fluo.getDarkReference(), fluo.getWhiteReference()));
 				}
 
-				//show VIS by default
-				lineChart.setData(new LineData(visDataSets));
-
 				lineChart.getXAxis().setTextColor(Color.WHITE);
 				lineChart.getAxisLeft().setTextColor(Color.WHITE);
 				lineChart.getAxisRight().setTextColor(Color.WHITE);
@@ -189,12 +214,27 @@ public class ResultsActivity extends BaseActivity {
 				lineChart.getDescription().setText("");
 				lineChart.setScaleEnabled(false);
 
-				drawChart();
-
 				//display VIS on start
-				buttonVis.setSelected(true);
+				lineChart.setData(new LineData(visDataSets));
+				currentlySelectedDataSet.addAll(visDataSets);
+				drawChart();
+				samplesRadioGroup.check(R.id.visRadioButton);
+				buttonShowAllSamples.setSelected(true);
 			}
 		}
+	}
+
+	/**
+	 * Get list of samples for: preprocessed, dark reference or white reference
+	 */
+	private List<ILineDataSet> getSampleValues(@NonNull final String sample) {
+		final List<ILineDataSet> sampleDataSet = new ArrayList<>();
+		for (final ILineDataSet dataSet : currentlySelectedDataSet) {
+			if (dataSet.getLabel().equals(sample)) {
+				sampleDataSet.add(dataSet);
+			}
+		}
+		return sampleDataSet;
 	}
 
 	private List<ILineDataSet> getEntries(final List<Preprocessed> preprocessedList,
@@ -204,24 +244,24 @@ public class ResultsActivity extends BaseActivity {
 		final List<ILineDataSet> dataSets = new ArrayList<>();
 
 		if (preprocessedList != null) {
-			final LineDataSet dataSetVIS = new LineDataSet(getPreprocessedEntries(preprocessedList), "preprocessed");
-			dataSetVIS.setColor(getResources().getColor(R.color.orange));
-			dataSetVIS.setCircleColor(getResources().getColor(R.color.orange));
-			dataSets.add(dataSetVIS);
+			final LineDataSet dataSet = new LineDataSet(getPreprocessedEntries(preprocessedList), SAMPLE_PREPROCESSED);
+			dataSet.setColor(getResources().getColor(R.color.orange));
+			dataSet.setCircleColor(getResources().getColor(R.color.orange));
+			dataSets.add(dataSet);
 		}
 
 		if (darkReferenceList != null) {
-			final LineDataSet dataSetVIS = new LineDataSet(getDarkReferenceEntries(darkReferenceList), "dark");
-			dataSetVIS.setColor(getResources().getColor(R.color.black));
-			dataSetVIS.setCircleColor(getResources().getColor(R.color.black));
-			dataSets.add(dataSetVIS);
+			final LineDataSet dataSet = new LineDataSet(getDarkReferenceEntries(darkReferenceList), SAMPLE_DARK_REFERENCE);
+			dataSet.setColor(getResources().getColor(R.color.black));
+			dataSet.setCircleColor(getResources().getColor(R.color.black));
+			dataSets.add(dataSet);
 		}
 
 		if (whiteReferenceList != null) {
-			final LineDataSet dataSetVIS = new LineDataSet(getWhiteReferenceEntries(whiteReferenceList), "white");
-			dataSetVIS.setColor(getResources().getColor(R.color.white));
-			dataSetVIS.setCircleColor(getResources().getColor(R.color.white));
-			dataSets.add(dataSetVIS);
+			final LineDataSet dataSet = new LineDataSet(getWhiteReferenceEntries(whiteReferenceList), SAMPLE_WHITE_REFERENCE);
+			dataSet.setColor(getResources().getColor(R.color.white));
+			dataSet.setCircleColor(getResources().getColor(R.color.white));
+			dataSets.add(dataSet);
 		}
 		return dataSets;
 	}
@@ -259,5 +299,31 @@ public class ResultsActivity extends BaseActivity {
 	private void drawChart() {
 		lineChart.animateX(1000);
 		lineChart.invalidate(); // refresh
+	}
+
+	public void onRadioButtonClicked(final View view) {
+		currentlySelectedDataSet.clear();
+		boolean checked = ((RadioButton) view).isChecked();
+		switch (view.getId()) {
+			case R.id.visRadioButton:
+				if (checked) {
+					lineChart.setData(new LineData(visDataSets));
+					currentlySelectedDataSet.addAll(visDataSets);
+				}
+				break;
+			case R.id.nirRadioButton:
+				if (checked) {
+					lineChart.setData(new LineData(nirDataSets));
+					currentlySelectedDataSet.addAll(nirDataSets);
+				}
+				break;
+			case R.id.fluoRadioButton:
+				if (checked) {
+					lineChart.setData(new LineData(fluoDataSets));
+					currentlySelectedDataSet.addAll(fluoDataSets);
+				}
+				break;
+		}
+		drawChart();
 	}
 }
