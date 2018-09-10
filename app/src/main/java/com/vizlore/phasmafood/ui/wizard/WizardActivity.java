@@ -1,7 +1,9 @@
 package com.vizlore.phasmafood.ui.wizard;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Switch;
 
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.ui.configuration.ConfigurationActivity;
@@ -37,6 +40,8 @@ public class WizardActivity extends AppCompatActivity implements PageFragmentCal
 
 	private static final String TAG = "SMEDIC";
 
+	public static final String DEBUG_MODE_KEY = "debug_mode";
+
 	private MyPagerAdapter pagerAdapter;
 	private boolean editingAfterReview;
 	private AbstractWizardModel wizardModel = new PhasmaFoodWizardModel(this);
@@ -55,6 +60,10 @@ public class WizardActivity extends AppCompatActivity implements PageFragmentCal
 
 	@BindView(R.id.strip)
 	StepPagerStrip stepPagerStrip;
+
+	//for testing purposes
+	@BindView(R.id.debugModeSwitch)
+	Switch debugModeSwitch;
 
 	@OnClick({R.id.backButton, R.id.nextButton, R.id.previousButton})
 	void onClick(View v) {
@@ -111,7 +120,6 @@ public class WizardActivity extends AppCompatActivity implements PageFragmentCal
 		}
 	}
 
-
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_wizard);
@@ -149,6 +157,13 @@ public class WizardActivity extends AppCompatActivity implements PageFragmentCal
 
 		onPageTreeChanged();
 		updateBottomBar();
+
+		// just for testing (is debug mode or not)
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		debugModeSwitch.setChecked(prefs.getBoolean(DEBUG_MODE_KEY, false));
+
+		debugModeSwitch.setOnCheckedChangeListener((compoundButton, isChecked) ->
+			prefs.edit().putBoolean(DEBUG_MODE_KEY, isChecked).apply());
 	}
 
 	@Override

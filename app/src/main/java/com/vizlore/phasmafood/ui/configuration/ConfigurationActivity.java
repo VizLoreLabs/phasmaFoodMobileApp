@@ -8,6 +8,7 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -22,6 +23,7 @@ import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.TestingUtils;
 import com.vizlore.phasmafood.bluetooth.BluetoothService;
+import com.vizlore.phasmafood.ui.wizard.WizardActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -167,20 +169,26 @@ public class ConfigurationActivity extends FragmentActivity {
 		}
 	}
 
-	// TODO: 9/8/18 remove
-	// if debug, send data to server
-	// if not, send
-	boolean IS_DEBUG = true;
-
 	private void showSendActionDialog(final String jsonToSend) {
 		AlertDialog alertDialog = new AlertDialog.Builder(ConfigurationActivity.this).create();
 		alertDialog.setMessage(getString(R.string.sendDataMessage));
 		alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(android.R.string.yes), (dialog, which) -> {
-			if (!IS_DEBUG) {
+
+			final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+			if (!prefs.contains(WizardActivity.DEBUG_MODE_KEY)) {
+				Log.d(TAG, "showSendActionDialog: SEND REAL MESSAGE TO DEVICE! 0");
 				bluetoothService.sendMessage(jsonToSend);
 			} else {
-				//send params directly to server (use case 1/2)
-				TestingUtils.performTestMeasurement(this);
+				final boolean value = prefs.getBoolean(WizardActivity.DEBUG_MODE_KEY, false);
+				if (!value) {
+					Log.d(TAG, "showSendActionDialog: SEND REAL MESSAGE TO DEVICE! 1");
+					bluetoothService.sendMessage(jsonToSend);
+				} else {
+					Log.d(TAG, "showSendActionDialog: PERFORM FAKE MEASUREMENT (debug mode) 2");
+					//send params directly to server (use case 1 of 2)
+					TestingUtils.performTestMeasurement(this);
+				}
 			}
 			dialog.dismiss();
 		});

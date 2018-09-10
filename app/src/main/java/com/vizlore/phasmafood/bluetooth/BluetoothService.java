@@ -182,6 +182,10 @@ public class BluetoothService extends Service {
 
 	//called multiple times
 	private void sendData(String data) {
+		if (bluetoothController == null) {
+			return;
+		}
+
 		if (bluetoothController.getState() != CommunicationController.STATE_CONNECTED) {
 			Toast.makeText(this, "Connection was lost!", Toast.LENGTH_SHORT).show();
 			return;
