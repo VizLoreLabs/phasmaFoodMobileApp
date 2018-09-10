@@ -116,7 +116,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:hint="2000-4500"
+                    android:hint="0-4500"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -477,7 +477,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:hint="2000-4200"
+                    android:hint="0-4200"
                     android:textColor="@color/white" />
             </LinearLayout>
         </LinearLayout>

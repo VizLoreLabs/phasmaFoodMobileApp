@@ -61,7 +61,7 @@ public class Config {
 	// Camera
 	public static final int MIN_CAMERA_EXPOSURE_TIME = 0; // TODO: 4/22/18 check
 	public static final int MAX_CAMERA_EXPOSURE_TIME = 300000; // TODO: 4/22/18 check
-	public static final int MIN_CAMERA_VOLTAGE_TIME = 2000;
+	public static final int MIN_CAMERA_VOLTAGE_TIME = 0;
 	public static final int MAX_CAMERA_VOLTAGE_TIME = 4500;
 
 	// NIR
@@ -87,6 +87,6 @@ public class Config {
 	public static final int MAX_VIS_GAIN_FLUORESCENCE = 10;
 	public static final int MIN_VIS_BINNING_FLUORESCENCE = 1;
 	public static final int MAX_VIS_BINNING_FLUORESCENCE = 4;
-	public static final int MIN_VIS_UV_LEDS_VOLTAGE = 2000;
+	public static final int MIN_VIS_UV_LEDS_VOLTAGE = 0;
 	public static final int MAX_VIS_UV_LEDS_VOLTAGE = 4200;
 }
