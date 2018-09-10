@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fruits">
+
+    <ImageView
+        android:id="@+id/overlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/background_gradient"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="130dp"
+        android:layout_height="45dp"
+        android:src="@drawable/phasma_food_logo"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6" />
+
+    <ImageView
+        android:id="@+id/header_divider"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@drawable/header_gradient"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ic_back"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.11" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@drawable/header_gradient"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- screen components -->
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/header_divider">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/PFTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/resultsReceived"
+                app:layout_constraintHorizontal_bias="0.502"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/samplesRadioGroup" />
+
+            <TextView
+                android:id="@+id/useCase"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:text="Use case:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonPreprocessed" />
+
+            <TextView
+                android:id="@+id/useCaseValue"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="n/a"
+                app:layout_constraintBottom_toBottomOf="@+id/useCase"
+                app:layout_constraintStart_toEndOf="@+id/useCase"
+                app:layout_constraintTop_toTopOf="@+id/useCase" />
+
+            <TextView
+                android:id="@+id/sample"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Sample/food:"
+                app:layout_constraintStart_toStartOf="@+id/useCase"
+                app:layout_constraintTop_toBottomOf="@+id/useCase" />
+
+            <TextView
+                android:id="@+id/sampleValue"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="n/a"
+                app:layout_constraintBottom_toBottomOf="@+id/sample"
+                app:layout_constraintStart_toEndOf="@+id/sample"
+                app:layout_constraintTop_toTopOf="@+id/sample" />
+
+            <TextView
+                android:id="@+id/param1Title"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="Granularity:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sample" />
+
+            <TextView
+                android:id="@+id/param1Value"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="n/a"
+                app:layout_constraintBottom_toBottomOf="@+id/param1Title"
+                app:layout_constraintStart_toEndOf="@+id/param1Title"
+                app:layout_constraintTop_toTopOf="@+id/param1Title" />
+
+            <Button
+                android:id="@+id/buttonPreprocessed"
+                android:layout_width="@dimen/graphLegendButtonWidth"
+                android:layout_height="@dimen/graphLegendButtonHeight"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/vis_button_selector"
+                android:text="@string/preprocessed"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chart" />
+
+            <Button
+                android:id="@+id/buttonDarkReference"
+                android:layout_width="@dimen/graphLegendButtonWidth"
+                android:layout_height="@dimen/graphLegendButtonHeight"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/vis_button_selector"
+                android:text="@string/dark"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/buttonPreprocessed"
+                app:layout_constraintTop_toBottomOf="@+id/chart" />
+
+            <Button
+                android:id="@+id/buttonWhiteReference"
+                android:layout_width="@dimen/graphLegendButtonWidth"
+                android:layout_height="@dimen/graphLegendButtonHeight"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/vis_button_selector"
+                android:text="@string/white"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/buttonDarkReference"
+                app:layout_constraintTop_toBottomOf="@+id/chart" />
+
+            <Button
+                android:id="@+id/buttonShowAllSamples"
+                android:layout_width="@dimen/graphLegendButtonWidth"
+                android:layout_height="@dimen/graphLegendButtonHeight"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/vis_button_selector"
+                android:text="@string/showAll"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chart" />
+
+            <RadioGroup
+                android:id="@+id/samplesRadioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title">
+
+                <RadioButton
+                    android:id="@+id/visRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="@string/vis"
+                    android:textColor="@color/white" />
+
+                <RadioButton
+                    android:id="@+id/nirRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="@string/nir"
+                    android:textColor="@color/white" />
+
+                <RadioButton
+                    android:id="@+id/fluoRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="@string/fluo"
+                    android:textColor="@color/white" />
+            </RadioGroup>
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <ImageView
+                android:id="@+id/divider1"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:background="@drawable/header_gradient"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/nextButton" />
+
+            <Button
+                android:id="@+id/nextButton"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:background="@drawable/selectable_item_background"
+                android:shadowColor="@color/text_shadow"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="Send to server"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline4" />
+
+            <Button
+                android:id="@+id/previousButton"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:background="@drawable/selectable_item_background"
+                android:shadowColor="@color/text_shadow"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="Go back and retest"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintStart_toStartOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

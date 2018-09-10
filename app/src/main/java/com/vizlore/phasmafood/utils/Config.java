@@ -79,7 +79,7 @@ public class Config {
 	public static final int MAX_VIS_GAIN_REFLECTANCE = 10;
 	public static final int MIN_VIS_BINNING_REFLECTANCE = 1;
 	public static final int MAX_VIS_BINNING_REFLECTANCE = 4;
-	public static final int MIN_VIS_WHITE_LEDS_VOLTAGE = 2000;
+	public static final int MIN_VIS_WHITE_LEDS_VOLTAGE = 0;
 	public static final int MAX_VIS_WHITE_LEDS_VOLTAGE = 4500;
 	public static final int MIN_VIS_EXPOSURE_TIME_FLUORESCENCE = 1;
 	public static final int MAX_VIS_EXPOSURE_TIME_FLUORESCENCE = 300000;

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.vizlore.phasmafood.MyApplication;
@@ -17,6 +18,7 @@ import java.nio.charset.Charset;
 import java.util.List;
 import java.util.UUID;
 
+import static com.vizlore.phasmafood.ui.wizard.WizardActivity.DEBUG_MODE_KEY;
 import static com.vizlore.phasmafood.utils.Config.BT_DEVICE_UUID_KEY;
 import static com.vizlore.phasmafood.utils.Config.MOBILE_DEVICE_UUID_KEY;
 import static com.vizlore.phasmafood.viewmodel.UserViewModel.TOKEN_KEY;
@@ -50,20 +52,14 @@ public class Utils {
 			Settings.Secure.ANDROID_ID);
 	}
 
+	@Nullable
 	public synchronized static String getBluetoothDeviceUUID() {
-		// TODO: 9/8/18 fix
-		return UUID.randomUUID().toString();
-		//return "B8:27:EB:E4:C9:78";
-		//return "996907e7739c54ba";
-//		if (btDeviceUuid == null) {
-//			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
-//			btDeviceUuid = prefs.getString(BT_DEVICE_UUID_KEY, null);
-//			if (btDeviceUuid == null) {
-//				btDeviceUuid = UUID.randomUUID().toString();
-//				prefs.edit().putString(BT_DEVICE_UUID_KEY, btDeviceUuid).apply();
-//			}
-//		}
-//		return btDeviceUuid;
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
+		final boolean isDebugMode = prefs.getBoolean(DEBUG_MODE_KEY, false);
+		if (isDebugMode) {
+			return UUID.randomUUID().toString();
+		}
+		return prefs.getString(BT_DEVICE_UUID_KEY, null);
 	}
 
 	//do on logout

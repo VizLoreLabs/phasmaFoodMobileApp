@@ -1,14 +1,17 @@
-package com.vizlore.phasmafood.ui;
+package com.vizlore.phasmafood.ui.results;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
@@ -25,6 +28,10 @@ import com.vizlore.phasmafood.model.results.Preprocessed;
 import com.vizlore.phasmafood.model.results.Sample;
 import com.vizlore.phasmafood.model.results.VIS;
 import com.vizlore.phasmafood.model.results.WhiteReference;
+import com.vizlore.phasmafood.ui.BaseActivity;
+import com.vizlore.phasmafood.viewmodel.DeviceViewModel;
+import com.vizlore.phasmafood.viewmodel.MeasurementViewModel;
+import com.vizlore.phasmafood.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +40,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by smedic on 3/2/18.
- */
+public class MeasurementResultsActivity extends BaseActivity {
 
-public class ResultsActivity extends BaseActivity {
+	private static final String TAG = "SMEDIC";
 
 	private static final String SAMPLE_PREPROCESSED = "preprocessed";
 	private static final String SAMPLE_DARK_REFERENCE = "dark_reference";
@@ -49,14 +54,9 @@ public class ResultsActivity extends BaseActivity {
 
 	private List<ILineDataSet> currentlySelectedDataSet = new ArrayList<>();
 
-	@BindView(R.id.visValue)
-	TextView visValue;
-
-	@BindView(R.id.nirValue)
-	TextView nirValue;
-
-	@BindView(R.id.flouValue)
-	TextView flouTitle;
+	private UserViewModel userViewModel;
+	private MeasurementViewModel measurementViewModel;
+	private DeviceViewModel deviceViewModel;
 
 	@BindView(R.id.useCaseValue)
 	TextView useCaseValue;
@@ -67,24 +67,9 @@ public class ResultsActivity extends BaseActivity {
 	@BindView(R.id.param1Value)
 	TextView param1Value;
 
-	@BindView(R.id.param2Value)
-	TextView param2Value;
-
-	@BindView(R.id.param3Value)
-	TextView param3Value;
-
-	@BindView(R.id.param4Value)
-	TextView param4Value;
-
 	//keys changed for testing purposes // FIXME: 3/5/18
 	@BindView(R.id.param1Title)
 	TextView param1Title;
-	@BindView(R.id.param2Title)
-	TextView param2Title;
-	@BindView(R.id.param3Title)
-	TextView param3Title;
-	@BindView(R.id.param4Title)
-	TextView param4Title;
 
 	@BindView(R.id.chart)
 	LineChart lineChart;
@@ -103,6 +88,12 @@ public class ResultsActivity extends BaseActivity {
 
 	@BindView(R.id.samplesRadioGroup)
 	RadioGroup samplesRadioGroup;
+
+	@BindView(R.id.previousButton)
+	Button repeatTest;
+
+	@BindView(R.id.nextButton)
+	Button sendToServerButton;
 
 	@OnClick(R.id.buttonPreprocessed)
 	void onButtonPreprocessedClick() {
@@ -149,78 +140,77 @@ public class ResultsActivity extends BaseActivity {
 		finish();
 	}
 
+	@OnClick(R.id.nextButton)
+	void onNextClick() {
+		final Measurement measurement = MyApplication.getInstance().getMeasurement();
+		sendMeasurementToServer(measurement.getResponse().getSample());
+	}
+
+	@OnClick(R.id.previousButton)
+	void onRepeatTest() {
+		// TODO: 9/11/18 implemented
+		// for now, go back so new test can be invoked on a device
+		finish();
+	}
+
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_results);
+		setContentView(R.layout.activity_bt_device_measurements);
 		ButterKnife.bind(this);
 
-		final Bundle bundle = getIntent().getExtras();
-		if (bundle != null) {
-			visValue.setText(bundle.getString("VIS"));
-			nirValue.setText(bundle.getString("NIR"));
-			flouTitle.setText(bundle.getString("FLOU"));
+		userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+		measurementViewModel = ViewModelProviders.of(this).get(MeasurementViewModel.class);
+		deviceViewModel = ViewModelProviders.of(this).get(DeviceViewModel.class);
 
-			final Measurement measurement = MyApplication.getInstance().getMeasurement();
-			if (measurement != null) {
-				final Sample sample = measurement.getResponse().getSample();
-				if (sample == null) { //keep safe
-					return;
-				}
+		final Measurement measurement = MyApplication.getInstance().getMeasurement();
 
-				useCaseValue.setText(sample.getUseCase());
-				sampleValue.setText(sample.getFoodType());
-
-				if (sample.getGranularity() != null) {
-					param1Title.setText("Granularity:");
-					param2Title.setText("Mycotoxins:");
-					param3Title.setText("Aflatoxin unit:");
-					param4Title.setText("Contamination:");
-					param1Value.setText(sample.getGranularity());
-					param2Value.setText(sample.getMycotoxins());
-					param3Value.setText(sample.getAflatoxinUnit());
-					param4Value.setText(sample.getContamination());
-				} else {
-					param1Title.setText("Temperature:");
-					param2Title.setText("Temp exposure hours:");
-					param3Title.setText("Microbiological unit:");
-					param4Title.setText("Microbiological value:");
-					param1Value.setText(sample.getTemperature());
-					param2Value.setText(sample.getTempExposureHours());
-					param3Value.setText(sample.getMicrobiologicalUnit());
-					param4Value.setText(sample.getMicrobiologicalValue());
-				}
-
-				final VIS vis = sample.getVIS();
-				final NIR nir = sample.getNIR();
-				final FLUO fluo = sample.getFLUO();
-
-				if (vis != null) {
-					visDataSets.addAll(getEntries(vis.getPreprocessed(), vis.getDarkReference(), vis.getWhiteReference()));
-				}
-
-				if (nir != null) {
-					nirDataSets.addAll(getEntries(nir.getPreprocessed(), nir.getDarkReference(), nir.getWhiteReference()));
-				}
-
-				if (fluo != null) {
-					fluoDataSets.addAll(getEntries(fluo.getPreprocessed(), fluo.getDarkReference(), fluo.getWhiteReference()));
-				}
-
-				lineChart.getXAxis().setTextColor(Color.WHITE);
-				lineChart.getAxisLeft().setTextColor(Color.WHITE);
-				lineChart.getAxisRight().setTextColor(Color.WHITE);
-				//lineChart.getLegend().setEnabled(false);
-				lineChart.getDescription().setText("");
-				lineChart.setScaleEnabled(false);
-
-				//display VIS on start
-				lineChart.setData(new LineData(visDataSets));
-				currentlySelectedDataSet.addAll(visDataSets);
-				drawChart();
-				samplesRadioGroup.check(R.id.visRadioButton);
-				buttonShowAllSamples.setSelected(true);
+		if (measurement != null) {
+			final Sample sample = measurement.getResponse().getSample();
+			if (sample == null) { //keep safe
+				return;
 			}
+
+			useCaseValue.setText(sample.getUseCase());
+			sampleValue.setText(sample.getFoodType());
+
+			if (sample.getGranularity() != null) {
+				param1Title.setText("Granularity:");
+				param1Value.setText(sample.getGranularity());
+			} else {
+				param1Title.setText("Temperature:");
+				param1Value.setText(sample.getTemperature());
+			}
+
+			final VIS vis = sample.getVIS();
+			final NIR nir = sample.getNIR();
+			final FLUO fluo = sample.getFLUO();
+
+			if (vis != null) {
+				visDataSets.addAll(getEntries(vis.getPreprocessed(), vis.getDarkReference(), vis.getWhiteReference()));
+			}
+
+			if (nir != null) {
+				nirDataSets.addAll(getEntries(nir.getPreprocessed(), nir.getDarkReference(), nir.getWhiteReference()));
+			}
+
+			if (fluo != null) {
+				fluoDataSets.addAll(getEntries(fluo.getPreprocessed(), fluo.getDarkReference(), fluo.getWhiteReference()));
+			}
+
+			lineChart.getXAxis().setTextColor(Color.WHITE);
+			lineChart.getAxisLeft().setTextColor(Color.WHITE);
+			lineChart.getAxisRight().setTextColor(Color.WHITE);
+			//lineChart.getLegend().setEnabled(false);
+			lineChart.getDescription().setText("");
+			lineChart.setScaleEnabled(false);
+
+			//display VIS on start
+			lineChart.setData(new LineData(visDataSets));
+			currentlySelectedDataSet.addAll(visDataSets);
+			drawChart();
+			samplesRadioGroup.check(R.id.visRadioButton);
+			buttonShowAllSamples.setSelected(true);
 		}
 	}
 
@@ -326,4 +316,22 @@ public class ResultsActivity extends BaseActivity {
 		}
 		drawChart();
 	}
+
+	private void sendMeasurementToServer(@NonNull final Sample sample) {
+		userViewModel.getUserProfile().observe(this, user -> {
+			deviceViewModel.createDevice().observe(this, res -> {
+				Log.d(TAG, "sendMeasurementToServer: device created ? " + res);
+				final String deviceId = deviceViewModel.getDeviceID();
+				Log.d(TAG, "sendMeasurementToServer: device id: " + deviceId);
+				if (deviceId != null) {
+					measurementViewModel.createMeasurementRequest(user.id(), sample, deviceId).observe(this, status -> {
+						Log.d(TAG, "sendMeasurementToServer: status: " + status);
+					});
+				} else {
+					Toast.makeText(this, "Device null! Not registered yet?", Toast.LENGTH_SHORT).show();
+				}
+			});
+		});
+	}
+
 }

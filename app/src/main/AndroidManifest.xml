@@ -28,8 +28,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.wizard.WizardActivity" />
-        <activity android:name=".ui.ResultsActivity" />
+        <activity android:name=".ui.results.ResultsActivity" />
         <activity android:name=".ui.configuration.ConfigurationActivity" />
+        <activity android:name=".ui.results.MeasurementResultsActivity" />
 
         <service android:name=".services.MyFirebaseInstanceIDService">
             <intent-filter>
@@ -44,6 +45,12 @@
 
         </service>
         <service android:name=".bluetooth.BluetoothService" />
+
+        <receiver android:name=".receivers.BluetoothDeviceResultsReceiver">
+            <intent-filter>
+                <action android:name="com.phasmafood.action.resultsReceived" />
+            </intent-filter>
+        </receiver>
 
     </application>
 </manifest>

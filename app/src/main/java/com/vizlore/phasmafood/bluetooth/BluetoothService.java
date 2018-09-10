@@ -3,44 +3,41 @@ package com.vizlore.phasmafood.bluetooth;
 import android.app.Service;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.support.annotation.NonNull;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vizlore.phasmafood.MyApplication;
+import com.vizlore.phasmafood.TestingUtils;
 import com.vizlore.phasmafood.api.AutoValueGsonFactory;
 import com.vizlore.phasmafood.api.DeviceApi;
-import com.vizlore.phasmafood.api.UserApi;
-import com.vizlore.phasmafood.model.User;
 import com.vizlore.phasmafood.model.results.Measurement;
-import com.vizlore.phasmafood.model.results.Sample;
-import com.vizlore.phasmafood.repositories.MeasurementRepository;
+import com.vizlore.phasmafood.ui.results.MeasurementResultsActivity;
 import com.vizlore.phasmafood.utils.Config;
-import com.vizlore.phasmafood.utils.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import io.reactivex.CompletableObserver;
-import io.reactivex.SingleObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.ResponseBody;
+
+import static com.vizlore.phasmafood.utils.Config.BT_DEVICE_UUID_KEY;
 
 /**
  * Created by smedic on 2/17/18.
@@ -49,6 +46,8 @@ import okhttp3.ResponseBody;
 public class BluetoothService extends Service {
 
 	private static final String TAG = "SMEDIC BS";
+
+	public static final String DEVICE_OBJECT = "device_name";
 
 	public static final int MESSAGE_STATE_CHANGE = 1;
 	public static final int MESSAGE_READ = 2;
@@ -60,19 +59,12 @@ public class BluetoothService extends Service {
 
 	private CommunicationController bluetoothController;
 	private BluetoothDevice connectingDevice;
-	public static final String DEVICE_OBJECT = "device_name";
 
 	@Inject
 	RxBluetooth rxBluetooth;
 
 	@Inject
 	DeviceApi deviceApi;
-
-	@Inject
-	MeasurementRepository measurementRepository;
-
-	@Inject
-	UserApi userApi;
 
 	private Disposable disposable = new CompositeDisposable();
 
@@ -88,6 +80,7 @@ public class BluetoothService extends Service {
 					switch (msg.arg1) {
 						case CommunicationController.STATE_CONNECTED:
 							Log.d(TAG, "Connected to: " + connectingDevice.getName());
+
 							registerBtDevice(connectingDevice);
 							break;
 						case CommunicationController.STATE_CONNECTING:
@@ -116,19 +109,14 @@ public class BluetoothService extends Service {
 					if (readMessage.equals("End of Response")) {
 						Toast.makeText(getApplicationContext(), readMessage, Toast.LENGTH_SHORT).show();
 
-						// TODO: 3/5/18 use measurement
-						// TODO: 3/5/18 remove this fake
-//						Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
-//						String json = new JsonFileLoader().fromAsset("result1.json");
-//						Examination examination = gson.fromJson(json, Examination.class);
-
 						final Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
 						final Measurement measurement = gson.fromJson(jsonReceived, Measurement.class);
 
-						//save examination
-						MyApplication.getInstance().saveMeasurement(measurement);
-						if (measurement != null) {
-							sendMeasurementToServer(measurement.getResponse().getSample());
+						// TODO: 9/11/18 improve and move out of here
+						if (measurement != null && measurement.getResponse() != null) {
+							//save measurement (too big to put in bundle or parcelable)
+							MyApplication.getInstance().saveMeasurement(measurement);
+							startActivity(new Intent(BluetoothService.this, MeasurementResultsActivity.class));
 						} else {
 							Toast.makeText(getApplicationContext(), "Parsing examination failed", Toast.LENGTH_SHORT).show();
 						}
@@ -156,15 +144,21 @@ public class BluetoothService extends Service {
 	});
 
 	//must be called just once from outside (activity for instance)
-	public void sendMessage(String message) {
+	public void sendMessage(final String message) {
 		//reset ack and received message
 		ack = 0;
 		jsonReceived = " ";
 		sendData(message);
 	}
 
+	// mock sending a message (testing)
+	public Single<Measurement> sendFakeMessage() {
+		final Measurement measurementJson = TestingUtils.readMeasurementFromJson("usecase1_updated_response.json");
+		return Single.just(measurementJson)
+			.delay(3000, TimeUnit.MILLISECONDS);
+	}
 
-	private void sendAck(int ack) {
+	private void sendAck(final int ack) {
 		JSONObject request = null;
 		try {
 			request = new JSONObject();
@@ -181,8 +175,10 @@ public class BluetoothService extends Service {
 	}
 
 	//called multiple times
-	private void sendData(String data) {
+	private void sendData(final String data) {
 		if (bluetoothController == null) {
+			Log.e(TAG, "sendData: controller null");
+			Toast.makeText(this, "Device not connected!", Toast.LENGTH_SHORT).show();
 			return;
 		}
 
@@ -194,63 +190,6 @@ public class BluetoothService extends Service {
 			byte[] send = data.getBytes();
 			bluetoothController.write(send);
 		}
-	}
-
-	private void sendMeasurementToServer(@NonNull final Sample sample) {
-
-		userApi.getCurrentProfile()
-			.subscribeOn(Schedulers.io())
-			.observeOn(AndroidSchedulers.mainThread())
-			.subscribe(new SingleObserver<ResponseBody>() {
-				@Override
-				public void onSubscribe(Disposable d) {
-				}
-
-				@Override
-				public void onSuccess(ResponseBody responseBody) {
-					try {
-						Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
-						User user = gson.fromJson(responseBody.string(), User.class);
-						createExaminationRequest(sample, user.id());
-
-					} catch (IOException e) {
-						Toast.makeText(BluetoothService.this, "Error parsing response", Toast.LENGTH_SHORT).show();
-						e.printStackTrace();
-					}
-				}
-
-				@Override
-				public void onError(Throwable e) {
-					Toast.makeText(BluetoothService.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-				}
-			});
-	}
-
-	private void createExaminationRequest(@NonNull Sample sample, @NonNull final String userId) {
-
-		Log.d(TAG, "createExaminationRequest: DEVICE ID: " + connectingDevice.getAddress());
-
-		String sampleId = String.valueOf(new Date().getTime() % 1000000000);
-		sample.setSampleID(sampleId);
-		sample.setUserID(userId);
-		sample.setDeviceID(connectingDevice.getAddress());
-		sample.setMobileID(Utils.getMobileUUID());
-
-		// TODO: 9/4/18
-		// add
-		// laboratory required
-		// foodType required
-		// useCase required
-
-		measurementRepository.createMeasurementRequest(sample)
-			.subscribeOn(Schedulers.io())
-			.observeOn(AndroidSchedulers.mainThread())
-			.subscribe(
-				() -> Toast.makeText(BluetoothService.this, "Request created", Toast.LENGTH_SHORT).show(),
-				e -> {
-					Log.d(TAG, "onError error: " + e.toString());
-					Toast.makeText(BluetoothService.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-				});
 	}
 
 	@Override
@@ -340,8 +279,8 @@ public class BluetoothService extends Service {
 					// TODO: 9/8/18
 					final String deviceUuid = device.getUuids()[0].getUuid().toString();
 					Map<String, String> requestBody = new HashMap<>();
-					requestBody.put(Config.DEVICE_MAC, "1234567890");
-					requestBody.put(Config.DEVICE_UUID, deviceUuid);
+					requestBody.put(Config.DEVICE_MAC, deviceUuid);
+					requestBody.put(Config.DEVICE_UUID, "1234567890");
 
 					deviceApi.createDevice(requestBody)
 						.subscribeOn(Schedulers.computation())
@@ -353,6 +292,8 @@ public class BluetoothService extends Service {
 							@Override
 							public void onComplete() {
 								Log.d(TAG, "onComplete: device created");
+								final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
+								prefs.edit().putString(BT_DEVICE_UUID_KEY, deviceUuid).apply();
 							}
 
 							@Override
@@ -375,12 +316,7 @@ public class BluetoothService extends Service {
 		}
 	}
 
-	public boolean IsConnected() {
-		if (bluetoothController != null) {
-			return bluetoothController.getState() == CommunicationController.STATE_CONNECTED;
-		} else {
-			return false;
-		}
+	public boolean isConnected() {
+		return bluetoothController != null && bluetoothController.getState() == CommunicationController.STATE_CONNECTED;
 	}
-
 }

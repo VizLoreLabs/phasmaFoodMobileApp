@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.vizlore.phasmafood.ui.ResultsActivity;
+import com.vizlore.phasmafood.ui.results.ResultsActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

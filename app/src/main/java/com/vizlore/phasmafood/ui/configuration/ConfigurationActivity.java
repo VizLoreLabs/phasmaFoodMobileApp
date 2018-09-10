@@ -21,8 +21,9 @@ import android.widget.Toast;
 
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.R;
-import com.vizlore.phasmafood.TestingUtils;
 import com.vizlore.phasmafood.bluetooth.BluetoothService;
+import com.vizlore.phasmafood.model.results.Measurement;
+import com.vizlore.phasmafood.ui.results.MeasurementResultsActivity;
 import com.vizlore.phasmafood.ui.wizard.WizardActivity;
 
 import org.json.JSONException;
@@ -33,6 +34,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
 
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_CAMERA_EXPOSURE_TIME;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_CAMERA_VOLTAGE;
@@ -170,7 +173,7 @@ public class ConfigurationActivity extends FragmentActivity {
 	}
 
 	private void showSendActionDialog(final String jsonToSend) {
-		AlertDialog alertDialog = new AlertDialog.Builder(ConfigurationActivity.this).create();
+		final AlertDialog alertDialog = new AlertDialog.Builder(ConfigurationActivity.this).create();
 		alertDialog.setMessage(getString(R.string.sendDataMessage));
 		alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(android.R.string.yes), (dialog, which) -> {
 
@@ -187,7 +190,31 @@ public class ConfigurationActivity extends FragmentActivity {
 				} else {
 					Log.d(TAG, "showSendActionDialog: PERFORM FAKE MEASUREMENT (debug mode) 2");
 					//send params directly to server (use case 1 of 2)
-					TestingUtils.performTestMeasurement(this);
+					//TestingUtils.performTestMeasurement(this);
+					Log.d(TAG, "showSendActionDialog: send fake messages");
+					bluetoothService.sendFakeMessage().subscribe(new SingleObserver<Measurement>() {
+						@Override
+						public void onSubscribe(Disposable d) {
+
+						}
+
+						@Override
+						public void onSuccess(final Measurement measurement) {
+							Log.d(TAG, "onSuccess: " + measurement);
+							//final String action = "com.phasmafood.action.resultsReceived";
+							final Intent intent = new Intent(ConfigurationActivity.this, MeasurementResultsActivity.class);
+							//intent.setAction(action);
+							Log.d(TAG, "onSuccess: before send");
+							MyApplication.getInstance().saveMeasurement(measurement);
+							startActivity(intent);
+						}
+
+						@Override
+						public void onError(Throwable e) {
+							Log.d(TAG, "onError: ");
+
+						}
+					});
 				}
 			}
 			dialog.dismiss();

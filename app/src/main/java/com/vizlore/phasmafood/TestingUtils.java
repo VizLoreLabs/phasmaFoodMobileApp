@@ -11,7 +11,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vizlore.phasmafood.api.AutoValueGsonFactory;
 import com.vizlore.phasmafood.model.results.Measurement;
-import com.vizlore.phasmafood.ui.ResultsActivity;
+import com.vizlore.phasmafood.ui.results.ResultsActivity;
 import com.vizlore.phasmafood.utils.JsonFileLoader;
 import com.vizlore.phasmafood.viewmodel.DeviceViewModel;
 import com.vizlore.phasmafood.viewmodel.MeasurementViewModel;
@@ -67,5 +67,11 @@ public class TestingUtils {
 				});
 			}
 		});
+	}
+
+	public static Measurement readMeasurementFromJson(@NonNull final String jsonName) {
+		final Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
+		final String json = new JsonFileLoader().fromAsset(jsonName);
+		return gson.fromJson(json, Measurement.class);
 	}
 }
