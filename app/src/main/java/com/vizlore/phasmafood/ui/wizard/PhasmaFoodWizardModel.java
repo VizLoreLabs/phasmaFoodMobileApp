@@ -53,33 +53,64 @@ public class PhasmaFoodWizardModel extends AbstractWizardModel {
 
 				.addBranch("Food spoilage",
 					new BranchPage(this, "2!Food type")
-						.addBranch("Meat",
-							new SingleFixedChoicePage(this, "1!Meat type")
-								.setChoices("Chicken", "Pork", "Beef"),
-							new SingleFixedChoicePage(this, "1!Sample state")
-								.setChoices("Minced", "Whole piece"),
+						.addBranch("Minced pork",
 							new SingleFixedChoicePage(this, "1!Packaging")
 								.setChoices("Foil", "No package"),
 							new NumberPage(this, "1!Exposure time"),
 							new NumberPage(this, "1!Sample temperature"))
 						.addBranch("Fish",
-							new SingleFixedChoicePage(this, "2!Fish type")
-								.setChoices("Gilthead Seabream"), // TODO: 2/19/18 add more options later
 							new SingleFixedChoicePage(this, "2!Sample state")
 								.setChoices("Fillet", "Whole fish"),
 							new SingleFixedChoicePage(this, "2!Packaging")
 								.setChoices("Foil", "No package"),
 							new NumberPage(this, "2!Exposure time"),
 							new NumberPage(this, "2!Sample temperature"))
-						.addBranch("Fruits and vegetables", new BranchPage(this, "3!Fruits and vegetables")
-							.addBranch("Ready-to-eat rocket",
-								new NumberPage(this, "3!Exposure time"),
-								new NumberPage(this, "3!Sample temperature"))
-							.addBranch("Ready-to-eat pineapple",
-								new NumberPage(this, "4!Exposure time"),
-								new NumberPage(this, "4!Sample temperature"))
-						).setRequired(true))
+						.addBranch("Ready to eat pineapple",
+							new NumberPage(this, "3!Exposure time"),
+							new NumberPage(this, "3!Sample temperature"))
+						.addBranch("Ready to eat baby spinach",
+							new NumberPage(this, "4!Exposure time"),
+							new NumberPage(this, "4!Sample temperature"))
+						.addBranch("Ready to eat rocket salad",
+							new NumberPage(this, "5!Exposure time"),
+							new NumberPage(this, "5!Sample temperature"))
 
+//						.addBranch("Meat",
+//							new SingleFixedChoicePage(this, "1!Meat type")
+//								.setChoices("Chicken", "Pork", "Beef"),
+//							new SingleFixedChoicePage(this, "1!Sample state")
+//								.setChoices("Minced", "Whole piece"),
+//							new SingleFixedChoicePage(this, "1!Packaging")
+//								.setChoices("Foil", "No package"),
+//							new NumberPage(this, "1!Exposure time"),
+//							new NumberPage(this, "1!Sample temperature"))
+//						.addBranch("Fish",
+//							new SingleFixedChoicePage(this, "2!Fish type")
+//								.setChoices("Gilthead Seabream"), // TODO: 2/19/18 add more options later
+//							new SingleFixedChoicePage(this, "2!Sample state")
+//								.setChoices("Fillet", "Whole fish"),
+//							new SingleFixedChoicePage(this, "2!Packaging")
+//								.setChoices("Foil", "No package"),
+//							new NumberPage(this, "2!Exposure time"),
+//							new NumberPage(this, "2!Sample temperature"))
+//						.addBranch("Fruits and vegetables", new BranchPage(this, "3!Fruits and vegetables")
+//							.addBranch("Ready-to-eat rocket",
+//								new NumberPage(this, "3!Exposure time"),
+//								new NumberPage(this, "3!Sample temperature"))
+//							.addBranch("Ready-to-eat pineapple",
+//								new NumberPage(this, "4!Exposure time"),
+//								new NumberPage(this, "4!Sample temperature"))
+//							.addBranch("Baby spinach",
+//								new NumberPage(this, "5!Exposure time"),
+//								new NumberPage(this, "5!Sample temperature"))
+//							.addBranch("Pineapple",
+//								new NumberPage(this, "6!Exposure time"),
+//								new NumberPage(this, "6!Sample temperature"))
+//							.addBranch("Rocket salad",
+//								new NumberPage(this, "7!Exposure time"),
+//								new NumberPage(this, "7!Sample temperature"))
+//						).setRequired(true)
+				)
 				.addBranch("Food adulteration",
 					new BranchPage(this, "3!Food type")
 						.addBranch("Alcoholic beverages", new BranchPage(this, "Alcoholic beverages")

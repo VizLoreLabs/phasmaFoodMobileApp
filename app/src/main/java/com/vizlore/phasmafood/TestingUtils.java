@@ -22,7 +22,7 @@ public class TestingUtils {
 	private static final String TAG = "SMEDIC TESTING";
 
 	//DEBUG
-	static boolean IS_DEBUG = true;
+	static boolean IS_DEBUG = false;
 
 	// just for testing
 	public static void performTestMeasurement(@NonNull final FragmentActivity activity) {

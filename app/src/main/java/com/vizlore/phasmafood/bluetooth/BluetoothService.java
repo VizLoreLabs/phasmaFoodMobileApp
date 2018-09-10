@@ -16,11 +16,11 @@ import com.google.gson.GsonBuilder;
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.api.AutoValueGsonFactory;
 import com.vizlore.phasmafood.api.DeviceApi;
-import com.vizlore.phasmafood.api.MeasurementApi;
 import com.vizlore.phasmafood.api.UserApi;
 import com.vizlore.phasmafood.model.User;
 import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.model.results.Sample;
+import com.vizlore.phasmafood.repositories.MeasurementRepository;
 import com.vizlore.phasmafood.utils.Config;
 import com.vizlore.phasmafood.utils.Utils;
 
@@ -69,7 +69,7 @@ public class BluetoothService extends Service {
 	DeviceApi deviceApi;
 
 	@Inject
-	MeasurementApi examinationApi;
+	MeasurementRepository measurementRepository;
 
 	@Inject
 	UserApi userApi;
@@ -116,19 +116,19 @@ public class BluetoothService extends Service {
 					if (readMessage.equals("End of Response")) {
 						Toast.makeText(getApplicationContext(), readMessage, Toast.LENGTH_SHORT).show();
 
-						// TODO: 3/5/18 use examination
+						// TODO: 3/5/18 use measurement
 						// TODO: 3/5/18 remove this fake
 //						Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
 //						String json = new JsonFileLoader().fromAsset("result1.json");
 //						Examination examination = gson.fromJson(json, Examination.class);
 
 						final Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
-						final Measurement examination = gson.fromJson(jsonReceived, Measurement.class);
+						final Measurement measurement = gson.fromJson(jsonReceived, Measurement.class);
 
 						//save examination
-						MyApplication.getInstance().saveMeasurement(examination);
-						if (examination != null) {
-							sendMeasurementToServer(examination.getResponse().getSample());
+						MyApplication.getInstance().saveMeasurement(measurement);
+						if (measurement != null) {
+							sendMeasurementToServer(measurement.getResponse().getSample());
 						} else {
 							Toast.makeText(getApplicationContext(), "Parsing examination failed", Toast.LENGTH_SHORT).show();
 						}
@@ -238,25 +238,15 @@ public class BluetoothService extends Service {
 		// foodType required
 		// useCase required
 
-		examinationApi.createMeasurementRequest(sample)
+		measurementRepository.createMeasurementRequest(sample)
 			.subscribeOn(Schedulers.io())
 			.observeOn(AndroidSchedulers.mainThread())
-			.subscribe(new CompletableObserver() {
-				@Override
-				public void onSubscribe(Disposable d) {
-				}
-
-				@Override
-				public void onComplete() {
-					Toast.makeText(BluetoothService.this, "Request created", Toast.LENGTH_SHORT).show();
-				}
-
-				@Override
-				public void onError(Throwable e) {
+			.subscribe(
+				() -> Toast.makeText(BluetoothService.this, "Request created", Toast.LENGTH_SHORT).show(),
+				e -> {
 					Log.d(TAG, "onError error: " + e.toString());
 					Toast.makeText(BluetoothService.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-				}
-			});
+				});
 	}
 
 	@Override

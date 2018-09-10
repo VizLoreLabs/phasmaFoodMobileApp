@@ -50,5 +50,6 @@
     <string name="dark">Dark ref</string>
     <string name="white">White ref</string>
     <string name="showAll">Show all</string>
+    <string name="homeScreenTitle">Welcome!</string>
 
 </resources>
