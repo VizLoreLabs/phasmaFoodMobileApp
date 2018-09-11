@@ -12,6 +12,6 @@ import retrofit2.http.POST;
 
 public interface MeasurementApi {
 
-	@POST("/api/v1/dashboard/measurement/")
+	@POST("/api/v1/data/measurement/")
 	Completable createMeasurementRequest(@Body Sample measurement);
 }
