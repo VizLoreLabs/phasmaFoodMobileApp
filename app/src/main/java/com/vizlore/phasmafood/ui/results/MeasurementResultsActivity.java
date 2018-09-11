@@ -259,9 +259,13 @@ public class MeasurementResultsActivity extends BaseActivity {
 	private List<Entry> getPreprocessedEntries(@NonNull List<Preprocessed> preprocessedList) {
 		final List<Entry> entries = new ArrayList<>();
 		for (int i = 0; i < preprocessedList.size(); i++) {
-			float wave = Float.parseFloat(preprocessedList.get(i).getWave());
-			float value = Float.parseFloat(preprocessedList.get(i).getMeasurement());
-			entries.add(new Entry(wave, value));
+			try {
+				float wave = Float.parseFloat(preprocessedList.get(i).getWave());
+				float value = Float.parseFloat(preprocessedList.get(i).getMeasurement());
+				entries.add(new Entry(wave, value));
+			} catch (NumberFormatException e) {
+				Log.d(TAG, "getPreprocessedEntries: skipped pp: " + preprocessedList.get(i).getMeasurement());
+			}
 		}
 		return entries;
 	}
@@ -269,9 +273,13 @@ public class MeasurementResultsActivity extends BaseActivity {
 	private List<Entry> getDarkReferenceEntries(@NonNull List<DarkReference> darkReferences) {
 		final List<Entry> entries = new ArrayList<>();
 		for (int i = 0; i < darkReferences.size(); i++) {
-			float wave = Float.parseFloat(darkReferences.get(i).getWave());
-			float value = Float.parseFloat(darkReferences.get(i).getMeasurement());
-			entries.add(new Entry(wave, value));
+			try {
+				float wave = Float.parseFloat(darkReferences.get(i).getWave());
+				float value = Float.parseFloat(darkReferences.get(i).getMeasurement());
+				entries.add(new Entry(wave, value));
+			} catch (NumberFormatException e) {
+				Log.d(TAG, "getPreprocessedEntries: skipped dark ref: " + darkReferences.get(i).getMeasurement());
+			}
 		}
 		return entries;
 	}
@@ -279,9 +287,13 @@ public class MeasurementResultsActivity extends BaseActivity {
 	private List<Entry> getWhiteReferenceEntries(@NonNull List<WhiteReference> whiteReferences) {
 		final List<Entry> entries = new ArrayList<>();
 		for (int i = 0; i < whiteReferences.size(); i++) {
-			float wave = Float.parseFloat(whiteReferences.get(i).getWave());
-			float value = Float.parseFloat(whiteReferences.get(i).getMeasurement());
-			entries.add(new Entry(wave, value));
+			try {
+				float wave = Float.parseFloat(whiteReferences.get(i).getWave());
+				float value = Float.parseFloat(whiteReferences.get(i).getMeasurement());
+				entries.add(new Entry(wave, value));
+			} catch (NumberFormatException e) {
+				Log.d(TAG, "getPreprocessedEntries: skipped white ref: " + whiteReferences.get(i).getMeasurement());
+			}
 		}
 		return entries;
 	}

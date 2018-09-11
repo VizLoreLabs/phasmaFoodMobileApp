@@ -116,7 +116,9 @@ public class BluetoothService extends Service {
 						if (measurement != null && measurement.getResponse() != null) {
 							//save measurement (too big to put in bundle or parcelable)
 							MyApplication.getInstance().saveMeasurement(measurement);
-							startActivity(new Intent(BluetoothService.this, MeasurementResultsActivity.class));
+							final Intent intent = new Intent(BluetoothService.this, MeasurementResultsActivity.class);
+							intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+							startActivity(intent);
 						} else {
 							Toast.makeText(getApplicationContext(), "Parsing examination failed", Toast.LENGTH_SHORT).show();
 						}
@@ -153,7 +155,7 @@ public class BluetoothService extends Service {
 
 	// mock sending a message (testing)
 	public Single<Measurement> sendFakeMessage() {
-		final Measurement measurementJson = TestingUtils.readMeasurementFromJson("usecase1_updated_response.json");
+		final Measurement measurementJson = TestingUtils.readMeasurementFromJson("usecase2_updated_response.json");
 		return Single.just(measurementJson)
 			.delay(3000, TimeUnit.MILLISECONDS);
 	}

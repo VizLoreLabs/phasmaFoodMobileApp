@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -40,6 +41,7 @@ import butterknife.OnClick;
 
 public class ResultsActivity extends BaseActivity {
 
+	private static final String TAG = "SMEDIC";
 	private static final String SAMPLE_PREPROCESSED = "preprocessed";
 	private static final String SAMPLE_DARK_REFERENCE = "dark_reference";
 	private static final String SAMPLE_WHITE_REFERENCE = "white_reference";
@@ -56,8 +58,8 @@ public class ResultsActivity extends BaseActivity {
 	@BindView(R.id.nirValue)
 	TextView nirValue;
 
-	@BindView(R.id.flouValue)
-	TextView flouTitle;
+	@BindView(R.id.fluoValue)
+	TextView fluoValue;
 
 	@BindView(R.id.useCaseValue)
 	TextView useCaseValue;
@@ -160,7 +162,7 @@ public class ResultsActivity extends BaseActivity {
 		if (bundle != null) {
 			visValue.setText(bundle.getString("VIS"));
 			nirValue.setText(bundle.getString("NIR"));
-			flouTitle.setText(bundle.getString("FLOU"));
+			fluoValue.setText(bundle.getString("FLUO"));
 
 			final Measurement measurement = MyApplication.getInstance().getMeasurement();
 			if (measurement != null) {
@@ -270,9 +272,13 @@ public class ResultsActivity extends BaseActivity {
 	private List<Entry> getPreprocessedEntries(@NonNull List<Preprocessed> preprocessedList) {
 		final List<Entry> entries = new ArrayList<>();
 		for (int i = 0; i < preprocessedList.size(); i++) {
-			float wave = Float.parseFloat(preprocessedList.get(i).getWave());
-			float value = Float.parseFloat(preprocessedList.get(i).getMeasurement());
-			entries.add(new Entry(wave, value));
+			try {
+				float wave = Float.parseFloat(preprocessedList.get(i).getWave());
+				float value = Float.parseFloat(preprocessedList.get(i).getMeasurement());
+				entries.add(new Entry(wave, value));
+			} catch (NumberFormatException e) {
+				Log.d(TAG, "getPreprocessedEntries: skipped pp: " + preprocessedList.get(i).getMeasurement());
+			}
 		}
 		return entries;
 	}
@@ -280,9 +286,13 @@ public class ResultsActivity extends BaseActivity {
 	private List<Entry> getDarkReferenceEntries(@NonNull List<DarkReference> darkReferences) {
 		final List<Entry> entries = new ArrayList<>();
 		for (int i = 0; i < darkReferences.size(); i++) {
-			float wave = Float.parseFloat(darkReferences.get(i).getWave());
-			float value = Float.parseFloat(darkReferences.get(i).getMeasurement());
-			entries.add(new Entry(wave, value));
+			try {
+				float wave = Float.parseFloat(darkReferences.get(i).getWave());
+				float value = Float.parseFloat(darkReferences.get(i).getMeasurement());
+				entries.add(new Entry(wave, value));
+			} catch (NumberFormatException e) {
+				Log.d(TAG, "getPreprocessedEntries: skipped dark ref: " + darkReferences.get(i).getMeasurement());
+			}
 		}
 		return entries;
 	}
@@ -290,9 +300,13 @@ public class ResultsActivity extends BaseActivity {
 	private List<Entry> getWhiteReferenceEntries(@NonNull List<WhiteReference> whiteReferences) {
 		final List<Entry> entries = new ArrayList<>();
 		for (int i = 0; i < whiteReferences.size(); i++) {
-			float wave = Float.parseFloat(whiteReferences.get(i).getWave());
-			float value = Float.parseFloat(whiteReferences.get(i).getMeasurement());
-			entries.add(new Entry(wave, value));
+			try {
+				float wave = Float.parseFloat(whiteReferences.get(i).getWave());
+				float value = Float.parseFloat(whiteReferences.get(i).getMeasurement());
+				entries.add(new Entry(wave, value));
+			} catch (NumberFormatException e) {
+				Log.d(TAG, "getPreprocessedEntries: skipped white ref: " + whiteReferences.get(i).getMeasurement());
+			}
 		}
 		return entries;
 	}

@@ -147,13 +147,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/visTitle" />
 
             <TextView
-                android:id="@+id/flouTitle"
+                android:id="@+id/fluoTitle"
                 style="@style/PFTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:text="FLOU data analysis:"
+                android:text="FLUO data analysis:"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/nirTitle" />
 
@@ -181,15 +181,15 @@
                 app:layout_constraintTop_toTopOf="@+id/nirTitle" />
 
             <TextView
-                android:id="@+id/flouValue"
+                android:id="@+id/fluoValue"
                 style="@style/PFTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:text="n/a"
-                app:layout_constraintBottom_toBottomOf="@+id/flouTitle"
-                app:layout_constraintStart_toEndOf="@+id/flouTitle"
-                app:layout_constraintTop_toTopOf="@+id/flouTitle" />
+                app:layout_constraintBottom_toBottomOf="@+id/fluoTitle"
+                app:layout_constraintStart_toEndOf="@+id/fluoTitle"
+                app:layout_constraintTop_toTopOf="@+id/fluoTitle" />
 
             <TextView
                 android:id="@+id/sample"
@@ -288,7 +288,7 @@
                 android:layout_marginTop="8dp"
                 android:text="Dataset label:"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/flouTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/fluoTitle" />
 
             <TextView
                 android:id="@+id/param4Value"

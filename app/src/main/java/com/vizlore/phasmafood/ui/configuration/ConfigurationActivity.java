@@ -35,6 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.SingleObserver;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_CAMERA_EXPOSURE_TIME;
@@ -96,6 +97,7 @@ public class ConfigurationActivity extends FragmentActivity {
 	private static final String TAG = "SMEDIC";
 
 	private BluetoothService bluetoothService;
+	private CompositeDisposable disposable = new CompositeDisposable();
 
 	@Inject
 	SharedPreferences prefs;
@@ -200,11 +202,9 @@ public class ConfigurationActivity extends FragmentActivity {
 
 						@Override
 						public void onSuccess(final Measurement measurement) {
-							Log.d(TAG, "onSuccess: " + measurement);
 							//final String action = "com.phasmafood.action.resultsReceived";
 							final Intent intent = new Intent(ConfigurationActivity.this, MeasurementResultsActivity.class);
 							//intent.setAction(action);
-							Log.d(TAG, "onSuccess: before send");
 							MyApplication.getInstance().saveMeasurement(measurement);
 							startActivity(intent);
 						}
@@ -212,7 +212,6 @@ public class ConfigurationActivity extends FragmentActivity {
 						@Override
 						public void onError(Throwable e) {
 							Log.d(TAG, "onError: ");
-
 						}
 					});
 				}
@@ -258,6 +257,10 @@ public class ConfigurationActivity extends FragmentActivity {
 		//stopService(new Intent(this, BluetoothService.class));
 		if (bluetoothService != null && connection != null) {
 			bluetoothService.closeConnection();
+		}
+
+		if (!disposable.isDisposed()) {
+			disposable.clear();
 		}
 	}
 
