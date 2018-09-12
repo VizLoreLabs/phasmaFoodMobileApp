@@ -91,7 +91,7 @@
 
                     <EditText
                         android:id="@+id/alfatoxinName"
-                        style="@style/PFEditText"
+                        style="@style/PFEditTextLetters"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -118,7 +118,7 @@
 
                     <EditText
                         android:id="@+id/alfatoxinValue"
-                        style="@style/PFEditText"
+                        style="@style/PFEditTextLetters"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -145,7 +145,7 @@
 
                     <EditText
                         android:id="@+id/alfatoxinUnit"
-                        style="@style/PFEditText"
+                        style="@style/PFEditTextLetters"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -181,7 +181,7 @@
 
                     <EditText
                         android:id="@+id/microbiologicalUnit"
-                        style="@style/PFEditText"
+                        style="@style/PFEditTextLetters"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -208,7 +208,7 @@
 
                     <EditText
                         android:id="@+id/microbiologicalValue"
-                        style="@style/PFEditText"
+                        style="@style/PFEditTextLetters"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -376,11 +376,11 @@
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:gravity="center_vertical"
-                    android:text="@string/microlampsDrivingVoltage"
+                    android:text="@string/microlampsDrivingCurrent"
                     android:textColor="@color/white" />
 
                 <EditText
-                    android:id="@+id/nirMicrolampsVoltage"
+                    android:id="@+id/nirMicrolampsCurrent"
                     style="@style/PFEditTextDigits"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"

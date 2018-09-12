@@ -40,7 +40,7 @@ import io.reactivex.disposables.CompositeDisposable;
 
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_CAMERA_EXPOSURE_TIME;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_CAMERA_VOLTAGE;
-import static com.vizlore.phasmafood.utils.Config.DEFAULT_NIR_MICROLAMPS_VOLTAGE;
+import static com.vizlore.phasmafood.utils.Config.DEFAULT_NIR_MICROLAMPS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_NIR_MICROLAMPS_WARMING_TIME;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_NIR_SPEC_AVERAGES;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_BINNING_FLUORESCENCE;
@@ -50,10 +50,10 @@ import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_EXPOSURE_TIME_REFL
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_GAIN_FLUORESCENCE;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_GAIN_REFLECTANCE;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_UV_LEDS_VOLTAGE;
-import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_WHITE_LEDS_VOLTAGE;
+import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_WHITE_LEDS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.KEY_CAMERA_EXPOSURE_TIME;
 import static com.vizlore.phasmafood.utils.Config.KEY_CAMERA_VOLTAGE;
-import static com.vizlore.phasmafood.utils.Config.KEY_NIR_MICROLAMPS_VOLTAGE;
+import static com.vizlore.phasmafood.utils.Config.KEY_NIR_MICROLAMPS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.KEY_NIR_MICROLAMPS_WARMING_TIME;
 import static com.vizlore.phasmafood.utils.Config.KEY_NIR_SINGLE_SHOT;
 import static com.vizlore.phasmafood.utils.Config.KEY_NIR_SPEC_AVERAGES;
@@ -153,8 +153,8 @@ public class ConfigurationActivity extends FragmentActivity {
 	RadioGroup singleShotRadioGroup;
 	@BindView(R.id.averagesEditText)
 	EditText averagesEditText;
-	@BindView(R.id.nirMicrolampsVoltage)
-	EditText nirMicrolampsVoltage;
+	@BindView(R.id.nirMicrolampsCurrent)
+	EditText nirMicrolampsCurrent;
 	@BindView(R.id.nirMicrolampsWarmingTime)
 	EditText nirMicrolampsWarmingTime;
 
@@ -166,7 +166,7 @@ public class ConfigurationActivity extends FragmentActivity {
 	@BindView(R.id.binningReflectance)
 	EditText binningReflectance;
 	@BindView(R.id.whiteLEDs)
-	EditText whiteLEDsVoltage;
+	EditText whiteLEDsCurrent;
 
 	@BindView(R.id.exposureTimeFluorescence)
 	EditText exposureTimeFluorescence;
@@ -175,7 +175,7 @@ public class ConfigurationActivity extends FragmentActivity {
 	@BindView(R.id.binningFluorescence)
 	EditText binningFluorescence;
 	@BindView(R.id.UVLEDs)
-	EditText UVLEDsVoltage;
+	EditText UVLEDsCurrent;
 
 	@BindString(R.string.useCaseParams)
 	String useCaseParams;
@@ -251,12 +251,20 @@ public class ConfigurationActivity extends FragmentActivity {
 	private void setUseCaseParamsVisibility() throws JSONException {
 		if (wizardJsonObject != null && wizardJsonObject.has(USE_CASE_KEY)) {
 			final String useCaseKey = wizardJsonObject.getString(USE_CASE_KEY);
-			if (useCaseKey.equals(USE_CASE_1)) {
-				useCase1Params.setVisibility(View.VISIBLE);
-				useCase2Params.setVisibility(View.GONE);
-			} else if (useCaseKey.equals(USE_CASE_2)) {
-				useCase1Params.setVisibility(View.GONE);
-				useCase2Params.setVisibility(View.VISIBLE);
+			switch (useCaseKey) {
+				case USE_CASE_1:
+					useCase1Params.setVisibility(View.VISIBLE);
+					useCase2Params.setVisibility(View.GONE);
+					break;
+				case USE_CASE_2:
+					useCase1Params.setVisibility(View.GONE);
+					useCase2Params.setVisibility(View.VISIBLE);
+					break;
+				default:
+					useCase1Params.setVisibility(View.GONE);
+					useCase2Params.setVisibility(View.GONE);
+					useCaseParamsTitle.setVisibility(View.GONE);
+					break;
 			}
 		}
 	}
@@ -350,17 +358,17 @@ public class ConfigurationActivity extends FragmentActivity {
 		int saveRadioButtonIndex = prefs.getInt(KEY_NIR_SINGLE_SHOT, 1); // 1 is no (N)
 		singleShotRadioGroup.check(singleShotRadioGroup.getChildAt(saveRadioButtonIndex).getId());
 		averagesEditText.setText(String.valueOf(prefs.getInt(KEY_NIR_SPEC_AVERAGES, DEFAULT_NIR_SPEC_AVERAGES)));
-		nirMicrolampsVoltage.setText(String.valueOf(prefs.getInt(KEY_NIR_MICROLAMPS_VOLTAGE, DEFAULT_NIR_MICROLAMPS_VOLTAGE)));
+		nirMicrolampsCurrent.setText(String.valueOf(prefs.getInt(KEY_NIR_MICROLAMPS_CURRENT, DEFAULT_NIR_MICROLAMPS_CURRENT)));
 		nirMicrolampsWarmingTime.setText(String.valueOf(prefs.getInt(KEY_NIR_MICROLAMPS_WARMING_TIME, DEFAULT_NIR_MICROLAMPS_WARMING_TIME)));
 		// vis
 		exposureTimeReflectance.setText(String.valueOf(prefs.getInt(KEY_VIS_EXPOSURE_TIME_REFLECTANCE, DEFAULT_VIS_EXPOSURE_TIME_REFLECTANCE)));
 		gainReflectance.setText(String.valueOf(prefs.getInt(KEY_VIS_GAIN_REFLECTANCE, DEFAULT_VIS_GAIN_REFLECTANCE)));
 		binningReflectance.setText(String.valueOf(prefs.getInt(KEY_VIS_BINNING_REFLECTANCE, DEFAULT_VIS_BINNING_REFLECTANCE)));
-		whiteLEDsVoltage.setText(String.valueOf(prefs.getInt(KEY_VIS_WHITE_LEDS_VOLTAGE, DEFAULT_VIS_WHITE_LEDS_VOLTAGE)));
+		whiteLEDsCurrent.setText(String.valueOf(prefs.getInt(KEY_VIS_WHITE_LEDS_VOLTAGE, DEFAULT_VIS_WHITE_LEDS_CURRENT)));
 		exposureTimeFluorescence.setText(String.valueOf(prefs.getInt(KEY_VIS_EXPOSURE_TIME_FLOURESCENCE, DEFAULT_VIS_EXPOSURE_TIME_FLUORESCENCE)));
 		gainFluorescence.setText(String.valueOf(prefs.getInt(KEY_VIS_GAIN_FLOURESCENCE, DEFAULT_VIS_GAIN_FLUORESCENCE)));
 		binningFluorescence.setText(String.valueOf(prefs.getInt(KEY_VIS_BINNING_FLOURESCENCE, DEFAULT_VIS_BINNING_FLUORESCENCE)));
-		UVLEDsVoltage.setText(String.valueOf(prefs.getInt(KEY_VIS_UV_LEDS_VOLTAGE, DEFAULT_VIS_UV_LEDS_VOLTAGE)));
+		UVLEDsCurrent.setText(String.valueOf(prefs.getInt(KEY_VIS_UV_LEDS_VOLTAGE, DEFAULT_VIS_UV_LEDS_VOLTAGE)));
 	}
 
 	private void setDefaults() {
@@ -371,17 +379,17 @@ public class ConfigurationActivity extends FragmentActivity {
 		singleShotRadioGroup.check(singleShotRadioGroup.getChildAt(1).getId()); //no is default // TODO: 4/22/18
 
 		averagesEditText.setText(String.valueOf(DEFAULT_NIR_SPEC_AVERAGES));
-		nirMicrolampsVoltage.setText(String.valueOf(DEFAULT_NIR_MICROLAMPS_VOLTAGE));
+		nirMicrolampsCurrent.setText(String.valueOf(DEFAULT_NIR_MICROLAMPS_CURRENT));
 		nirMicrolampsWarmingTime.setText(String.valueOf(DEFAULT_NIR_MICROLAMPS_WARMING_TIME));
 		// vis
 		exposureTimeReflectance.setText(String.valueOf(DEFAULT_VIS_EXPOSURE_TIME_REFLECTANCE));
 		gainReflectance.setText(String.valueOf(DEFAULT_VIS_GAIN_REFLECTANCE));
 		binningReflectance.setText(String.valueOf(DEFAULT_VIS_BINNING_REFLECTANCE));
-		whiteLEDsVoltage.setText(String.valueOf(DEFAULT_VIS_WHITE_LEDS_VOLTAGE));
+		whiteLEDsCurrent.setText(String.valueOf(DEFAULT_VIS_WHITE_LEDS_CURRENT));
 		exposureTimeFluorescence.setText(String.valueOf(DEFAULT_VIS_EXPOSURE_TIME_FLUORESCENCE));
 		gainFluorescence.setText(String.valueOf(DEFAULT_VIS_GAIN_FLUORESCENCE));
 		binningFluorescence.setText(String.valueOf(DEFAULT_VIS_BINNING_FLUORESCENCE));
-		UVLEDsVoltage.setText(String.valueOf(DEFAULT_VIS_UV_LEDS_VOLTAGE));
+		UVLEDsCurrent.setText(String.valueOf(DEFAULT_VIS_UV_LEDS_VOLTAGE));
 	}
 
 	private void saveParamsState() {
@@ -394,18 +402,18 @@ public class ConfigurationActivity extends FragmentActivity {
 		int idx = singleShotRadioGroup.indexOfChild(radioButton);
 		editor.putInt(KEY_NIR_SINGLE_SHOT, idx);
 		editor.putInt(KEY_NIR_SPEC_AVERAGES, getValue(averagesEditText));
-		editor.putInt(KEY_NIR_MICROLAMPS_VOLTAGE, getValue(nirMicrolampsVoltage));
+		editor.putInt(KEY_NIR_MICROLAMPS_CURRENT, getValue(nirMicrolampsCurrent));
 		editor.putInt(KEY_NIR_MICROLAMPS_WARMING_TIME, getValue(nirMicrolampsWarmingTime));
 
 		editor.putInt(KEY_VIS_EXPOSURE_TIME_REFLECTANCE, getValue(exposureTimeReflectance));
 		editor.putInt(KEY_VIS_GAIN_REFLECTANCE, getValue(gainReflectance));
 		editor.putInt(KEY_VIS_BINNING_REFLECTANCE, getValue(binningReflectance));
-		editor.putInt(KEY_VIS_UV_LEDS_VOLTAGE, getValue(UVLEDsVoltage));
+		editor.putInt(KEY_VIS_UV_LEDS_VOLTAGE, getValue(UVLEDsCurrent));
 
 		editor.putInt(KEY_VIS_EXPOSURE_TIME_FLOURESCENCE, getValue(exposureTimeFluorescence));
 		editor.putInt(KEY_VIS_GAIN_FLOURESCENCE, getValue(gainFluorescence));
 		editor.putInt(KEY_VIS_BINNING_FLOURESCENCE, getValue(binningFluorescence));
-		editor.putInt(KEY_VIS_WHITE_LEDS_VOLTAGE, getValue(whiteLEDsVoltage));
+		editor.putInt(KEY_VIS_WHITE_LEDS_VOLTAGE, getValue(whiteLEDsCurrent));
 
 		editor.apply();
 	}
@@ -423,8 +431,8 @@ public class ConfigurationActivity extends FragmentActivity {
 			showError(averagesEditText);
 			return null;
 		}
-		if (!isWithinBounds(getValue(nirMicrolampsVoltage), MIN_NIR_MICROLAMPS_CURRENT, MAX_NIR_MICROLAMPS_CURRENT)) {
-			showError(nirMicrolampsVoltage);
+		if (!isWithinBounds(getValue(nirMicrolampsCurrent), MIN_NIR_MICROLAMPS_CURRENT, MAX_NIR_MICROLAMPS_CURRENT)) {
+			showError(nirMicrolampsCurrent);
 			return null;
 		}
 		if (!isWithinBounds(getValue(nirMicrolampsWarmingTime), MIN_NIR_MICROLAMPS_WARMING_TIME, MAX_NIR_MICROLAMPS_WARMING_TIME)) {
@@ -443,8 +451,8 @@ public class ConfigurationActivity extends FragmentActivity {
 			showError(binningReflectance);
 			return null;
 		}
-		if (!isWithinBounds(getValue(whiteLEDsVoltage), MIN_VIS_WHITE_LEDS_CURRENT, MAX_VIS_WHITE_LEDS_CURRENT)) {
-			showError(whiteLEDsVoltage);
+		if (!isWithinBounds(getValue(whiteLEDsCurrent), MIN_VIS_WHITE_LEDS_CURRENT, MAX_VIS_WHITE_LEDS_CURRENT)) {
+			showError(whiteLEDsCurrent);
 			return null;
 		}
 		if (!isWithinBounds(getValue(exposureTimeFluorescence), MIN_VIS_EXPOSURE_TIME_FLUORESCENCE, MAX_VIS_EXPOSURE_TIME_FLUORESCENCE)) {
@@ -459,8 +467,8 @@ public class ConfigurationActivity extends FragmentActivity {
 			showError(binningFluorescence);
 			return null;
 		}
-		if (!isWithinBounds(getValue(UVLEDsVoltage), MIN_VIS_UV_LEDS_CURRENT, MAX_VIS_UV_LEDS_CURRENT)) {
-			showError(UVLEDsVoltage);
+		if (!isWithinBounds(getValue(UVLEDsCurrent), MIN_VIS_UV_LEDS_CURRENT, MAX_VIS_UV_LEDS_CURRENT)) {
+			showError(UVLEDsCurrent);
 			return null;
 		}
 
@@ -483,7 +491,7 @@ public class ConfigurationActivity extends FragmentActivity {
 		nirJsonObject.put("single", selectedRadioButtonValue);
 		nirJsonObject.put("av_NIR", getValue(averagesEditText));
 		final JSONObject nirMicrolampsJsonObject = new JSONObject();
-		nirMicrolampsJsonObject.put("V_nir", getValue(nirMicrolampsVoltage));
+		nirMicrolampsJsonObject.put("V_nir", getValue(nirMicrolampsCurrent));
 		nirMicrolampsJsonObject.put("t_nir", getValue(nirMicrolampsWarmingTime));
 		nirJsonObject.put("NirMicrolamps", nirMicrolampsJsonObject);
 		jsonObject.put("NirSpectrometer", nirJsonObject);
@@ -497,8 +505,8 @@ public class ConfigurationActivity extends FragmentActivity {
 		visJsonObject.put("g_fluo", getValue(gainFluorescence));
 		visJsonObject.put("b_fluo", getValue(binningFluorescence));
 		final JSONObject ledsJsonObject = new JSONObject();
-		ledsJsonObject.put("Vw_vis", getValue(whiteLEDsVoltage));
-		ledsJsonObject.put("V_UV", getValue(UVLEDsVoltage));
+		ledsJsonObject.put("Vw_vis", getValue(whiteLEDsCurrent));
+		ledsJsonObject.put("V_UV", getValue(UVLEDsCurrent));
 		visJsonObject.put("visLeds", ledsJsonObject);
 		jsonObject.put("VisSpectrometer", visJsonObject);
 

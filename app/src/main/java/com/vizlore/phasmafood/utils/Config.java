@@ -23,7 +23,7 @@ public class Config {
 
 	public static final String KEY_NIR_SINGLE_SHOT = "nir_single_shot";
 	public static final String KEY_NIR_SPEC_AVERAGES = "nir_spec_averages";
-	public static final String KEY_NIR_MICROLAMPS_VOLTAGE = "nir_microlamps_voltage";
+	public static final String KEY_NIR_MICROLAMPS_CURRENT = "nir_microlamps_voltage";
 	public static final String KEY_NIR_MICROLAMPS_WARMING_TIME = "nir_mirolamps_warming_time";
 
 	// NIR
@@ -43,20 +43,20 @@ public class Config {
 	public static final int DEFAULT_CAMERA_EXPOSURE_TIME = 100000; // TODO: 4/22/18 check
 	public static final int DEFAULT_CAMERA_VOLTAGE = 3000;
 	public static final int DEFAULT_NIR_SPEC_AVERAGES = 500;
-	public static final int DEFAULT_NIR_MICROLAMPS_VOLTAGE = 2500;
+	public static final int DEFAULT_NIR_MICROLAMPS_CURRENT = 50;
 	public static final int DEFAULT_NIR_MICROLAMPS_WARMING_TIME = 500;
 
 	// NIR
 	public static final int DEFAULT_VIS_EXPOSURE_TIME_REFLECTANCE = 100000;
 	public static final int DEFAULT_VIS_GAIN_REFLECTANCE = 5;
 	public static final int DEFAULT_VIS_BINNING_REFLECTANCE = 2;
-	public static final int DEFAULT_VIS_WHITE_LEDS_VOLTAGE = 3000;
+	public static final int DEFAULT_VIS_WHITE_LEDS_CURRENT = 50;
 
 	// VIS
 	public static final int DEFAULT_VIS_EXPOSURE_TIME_FLUORESCENCE = 100000;
 	public static final int DEFAULT_VIS_GAIN_FLUORESCENCE = 5;
 	public static final int DEFAULT_VIS_BINNING_FLUORESCENCE = 3;
-	public static final int DEFAULT_VIS_UV_LEDS_VOLTAGE = 3000;
+	public static final int DEFAULT_VIS_UV_LEDS_VOLTAGE = 200;
 
 	// Camera
 	public static final int MIN_CAMERA_EXPOSURE_TIME = 0; // TODO: 4/22/18 check

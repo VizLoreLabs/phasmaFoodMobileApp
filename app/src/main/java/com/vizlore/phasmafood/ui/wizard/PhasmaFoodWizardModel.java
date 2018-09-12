@@ -137,6 +137,7 @@ public class PhasmaFoodWizardModel extends AbstractWizardModel {
 							new SingleFixedChoicePage(this, "14!Analysis type")
 								.setChoices("Adulteration with unspecified meat species", "Adulteration with Low value additives")
 								.setRequired(true))
-				));
+				)
+				.addBranch("White reference"));
 	}
 }

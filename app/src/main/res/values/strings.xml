@@ -33,7 +33,7 @@
     <string name="nir">NIR</string>
     <string name="spectrometerSingleShot">Spectometer - single shot</string>
     <string name="spectrometerAverages">Spectometer - averages</string>
-    <string name="microlampsDrivingVoltage">Microlamps - driving current [mA]</string>
+    <string name="microlampsDrivingCurrent">Microlamps - driving current [mA]</string>
     <string name="microlampsWarmingTime">Spectometer - warming time [ms]</string>
 
     <string name="vis">VIS</string>
