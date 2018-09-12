@@ -67,7 +67,7 @@ import static com.vizlore.phasmafood.utils.Config.KEY_VIS_UV_LEDS_VOLTAGE;
 import static com.vizlore.phasmafood.utils.Config.KEY_VIS_WHITE_LEDS_VOLTAGE;
 import static com.vizlore.phasmafood.utils.Config.MAX_CAMERA_EXPOSURE_TIME;
 import static com.vizlore.phasmafood.utils.Config.MAX_CAMERA_VOLTAGE_TIME;
-import static com.vizlore.phasmafood.utils.Config.MAX_NIR_MICROLAMPS_VOLTAGE;
+import static com.vizlore.phasmafood.utils.Config.MAX_NIR_MICROLAMPS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.MAX_NIR_MICROLAMPS_WARMING_TIME;
 import static com.vizlore.phasmafood.utils.Config.MAX_NIR_SPEC_AVERAGES;
 import static com.vizlore.phasmafood.utils.Config.MAX_VIS_BINNING_FLUORESCENCE;
@@ -76,11 +76,11 @@ import static com.vizlore.phasmafood.utils.Config.MAX_VIS_EXPOSURE_TIME_FLUORESC
 import static com.vizlore.phasmafood.utils.Config.MAX_VIS_EXPOSURE_TIME_REFLECTANCE;
 import static com.vizlore.phasmafood.utils.Config.MAX_VIS_GAIN_FLUORESCENCE;
 import static com.vizlore.phasmafood.utils.Config.MAX_VIS_GAIN_REFLECTANCE;
-import static com.vizlore.phasmafood.utils.Config.MAX_VIS_UV_LEDS_VOLTAGE;
-import static com.vizlore.phasmafood.utils.Config.MAX_VIS_WHITE_LEDS_VOLTAGE;
+import static com.vizlore.phasmafood.utils.Config.MAX_VIS_UV_LEDS_CURRENT;
+import static com.vizlore.phasmafood.utils.Config.MAX_VIS_WHITE_LEDS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.MIN_CAMERA_EXPOSURE_TIME;
 import static com.vizlore.phasmafood.utils.Config.MIN_CAMERA_VOLTAGE_TIME;
-import static com.vizlore.phasmafood.utils.Config.MIN_NIR_MICROLAMPS_VOLTAGE;
+import static com.vizlore.phasmafood.utils.Config.MIN_NIR_MICROLAMPS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.MIN_NIR_MICROLAMPS_WARMING_TIME;
 import static com.vizlore.phasmafood.utils.Config.MIN_NIR_SPEC_AVERAGES;
 import static com.vizlore.phasmafood.utils.Config.MIN_VIS_BINNING_FLUORESCENCE;
@@ -89,8 +89,8 @@ import static com.vizlore.phasmafood.utils.Config.MIN_VIS_EXPOSURE_TIME_FLUORESC
 import static com.vizlore.phasmafood.utils.Config.MIN_VIS_EXPOSURE_TIME_REFLECTANCE;
 import static com.vizlore.phasmafood.utils.Config.MIN_VIS_GAIN_FLUORESCENCE;
 import static com.vizlore.phasmafood.utils.Config.MIN_VIS_GAIN_REFLECTANCE;
-import static com.vizlore.phasmafood.utils.Config.MIN_VIS_UV_LEDS_VOLTAGE;
-import static com.vizlore.phasmafood.utils.Config.MIN_VIS_WHITE_LEDS_VOLTAGE;
+import static com.vizlore.phasmafood.utils.Config.MIN_VIS_UV_LEDS_CURRENT;
+import static com.vizlore.phasmafood.utils.Config.MIN_VIS_WHITE_LEDS_CURRENT;
 
 public class ConfigurationActivity extends FragmentActivity {
 
@@ -423,7 +423,7 @@ public class ConfigurationActivity extends FragmentActivity {
 			showError(averagesEditText);
 			return null;
 		}
-		if (!isWithinBounds(getValue(nirMicrolampsVoltage), MIN_NIR_MICROLAMPS_VOLTAGE, MAX_NIR_MICROLAMPS_VOLTAGE)) {
+		if (!isWithinBounds(getValue(nirMicrolampsVoltage), MIN_NIR_MICROLAMPS_CURRENT, MAX_NIR_MICROLAMPS_CURRENT)) {
 			showError(nirMicrolampsVoltage);
 			return null;
 		}
@@ -443,7 +443,7 @@ public class ConfigurationActivity extends FragmentActivity {
 			showError(binningReflectance);
 			return null;
 		}
-		if (!isWithinBounds(getValue(whiteLEDsVoltage), MIN_VIS_WHITE_LEDS_VOLTAGE, MAX_VIS_WHITE_LEDS_VOLTAGE)) {
+		if (!isWithinBounds(getValue(whiteLEDsVoltage), MIN_VIS_WHITE_LEDS_CURRENT, MAX_VIS_WHITE_LEDS_CURRENT)) {
 			showError(whiteLEDsVoltage);
 			return null;
 		}
@@ -459,7 +459,7 @@ public class ConfigurationActivity extends FragmentActivity {
 			showError(binningFluorescence);
 			return null;
 		}
-		if (!isWithinBounds(getValue(UVLEDsVoltage), MIN_VIS_UV_LEDS_VOLTAGE, MAX_VIS_UV_LEDS_VOLTAGE)) {
+		if (!isWithinBounds(getValue(UVLEDsVoltage), MIN_VIS_UV_LEDS_CURRENT, MAX_VIS_UV_LEDS_CURRENT)) {
 			showError(UVLEDsVoltage);
 			return null;
 		}

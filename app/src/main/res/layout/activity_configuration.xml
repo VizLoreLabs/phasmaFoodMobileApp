@@ -385,7 +385,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:hint="1-5000"
+                    android:hint="1-115"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -529,7 +529,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:hint="2-4500"
+                    android:hint="1-100"
                     android:textColor="@color/white" />
 
             </LinearLayout>
@@ -638,7 +638,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:hint="0-4200"
+                    android:hint="0-350"
                     android:textColor="@color/white" />
             </LinearLayout>
         </LinearLayout>
