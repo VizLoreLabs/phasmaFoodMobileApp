@@ -331,18 +331,19 @@ public class MeasurementResultsActivity extends BaseActivity {
 
 	private void sendMeasurementToServer(@NonNull final Sample sample) {
 		userViewModel.getUserProfile().observe(this, user -> {
-			deviceViewModel.createDevice().observe(this, res -> {
-				Log.d(TAG, "sendMeasurementToServer: device created ? " + res);
-				final String deviceId = deviceViewModel.getDeviceID();
-				Log.d(TAG, "sendMeasurementToServer: device id: " + deviceId);
-				if (deviceId != null) {
-					measurementViewModel.createMeasurementRequest(user.id(), sample, deviceId).observe(this, status -> {
-						Log.d(TAG, "sendMeasurementToServer: status: " + status);
-					});
-				} else {
-					Toast.makeText(this, "Device null! Not registered yet?", Toast.LENGTH_SHORT).show();
-				}
-			});
+			//deviceViewModel.createDevice().observe(this, res -> {
+			//Log.d(TAG, "sendMeasurementToServer: device created ? " + res);
+			String deviceId = deviceViewModel.getDeviceID();
+			deviceId = "90:70:65:EF:4A:CE"; // TODO: 9/11/18 fix
+			Log.d(TAG, "sendMeasurementToServer: device id: " + deviceId);
+			if (deviceId != null) {
+				measurementViewModel.createMeasurementRequest(user.id(), sample, deviceId).observe(this, status -> {
+					Log.d(TAG, "sendMeasurementToServer: status: " + status);
+				});
+			} else {
+				Toast.makeText(this, "Device null! Not registered yet?", Toast.LENGTH_SHORT).show();
+			}
+			//});
 		});
 	}
 

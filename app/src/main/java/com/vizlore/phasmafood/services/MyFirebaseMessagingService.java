@@ -31,6 +31,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 		Log.d(TAG, "*** onMessageReceived: " + remoteMessage.getNotification().getBody());
 
 		Intent intent = new Intent(this, ResultsActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		try {
 			JSONObject jsonObject = new JSONObject(remoteMessage.getNotification().getBody());
 			if (jsonObject.has("VIS"))
