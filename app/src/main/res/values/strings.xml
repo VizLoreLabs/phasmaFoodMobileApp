@@ -29,6 +29,7 @@
     <string name="exposureTime">Exposure time [us]</string>
     <string name="cameraVoltage">Driving voltage for images [mV]</string>
     <string name="enterTime">Enter time</string>
+    <string name="enterValue">Enter value</string>
     <string name="nir">NIR</string>
     <string name="spectrometerSingleShot">Spectometer - single shot</string>
     <string name="spectrometerAverages">Spectometer - averages</string>
@@ -51,5 +52,10 @@
     <string name="white">White ref</string>
     <string name="showAll">Show all</string>
     <string name="homeScreenTitle">Welcome!</string>
-
+    <string name="useCaseParams">%s parameters</string>
+    <string name="alfatoxinName">alfatoxinName</string>
+    <string name="alfatoxinValue">alfatoxinValue</string>
+    <string name="alfatoxinUnit">alfatoxinUnit</string>
+    <string name="microbiologicalUnit">microbiologicalUnit</string>
+    <string name="microbiologicalValue">microbiologicalValue</string>
 </resources>

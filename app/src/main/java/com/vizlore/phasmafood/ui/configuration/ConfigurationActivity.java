@@ -16,13 +16,14 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.bluetooth.BluetoothService;
-import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.ui.results.MeasurementResultsActivity;
 import com.vizlore.phasmafood.ui.wizard.WizardActivity;
 
@@ -31,12 +32,11 @@ import org.json.JSONObject;
 
 import javax.inject.Inject;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.SingleObserver;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_CAMERA_EXPOSURE_TIME;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_CAMERA_VOLTAGE;
@@ -96,11 +96,51 @@ public class ConfigurationActivity extends FragmentActivity {
 
 	private static final String TAG = "SMEDIC";
 
+	private static final String WIZARD_DATA_KEY = "wizard_data";
+
+	private static final String USE_CASE_KEY = "Use cases";
+	private static final String USE_CASE_1 = "Mycotoxins detection";
+	private static final String USE_CASE_2 = "Food spoilage";
+
+	private static final String USE_CASE_1_PARAM_1 = "alfatoxinName";
+	private static final String USE_CASE_1_PARAM_2 = "alfatoxinValue";
+	private static final String USE_CASE_1_PARAM_3 = "alfatoxinUnit";
+
+	private static final String USE_CASE_2_PARAM_1 = "microbiologicalUnit";
+	private static final String USE_CASE_2_PARAM_2 = "microbiologicalValue";
+
 	private BluetoothService bluetoothService;
 	private CompositeDisposable disposable = new CompositeDisposable();
 
+	private JSONObject wizardJsonObject = null;
+
 	@Inject
 	SharedPreferences prefs;
+
+	//use case parameters
+	@BindView(R.id.useCaseParamsTitle)
+	TextView useCaseParamsTitle;
+
+	@BindView(R.id.useCase1Params)
+	LinearLayout useCase1Params;
+
+	@BindView(R.id.alfatoxinName)
+	EditText alfatoxinName;
+
+	@BindView(R.id.alfatoxinValue)
+	EditText alfatoxinValue;
+
+	@BindView(R.id.alfatoxinUnit)
+	EditText alfatoxinUnit;
+
+	@BindView(R.id.useCase2Params)
+	LinearLayout useCase2Params;
+
+	@BindView(R.id.microbiologicalUnit)
+	EditText microbiologicalUnit;
+
+	@BindView(R.id.microbiologicalValue)
+	EditText microbiologicalValue;
 
 	//camera configuration
 	@BindView(R.id.exposureTime)
@@ -137,6 +177,9 @@ public class ConfigurationActivity extends FragmentActivity {
 	@BindView(R.id.UVLEDs)
 	EditText UVLEDsVoltage;
 
+	@BindString(R.string.useCaseParams)
+	String useCaseParams;
+
 	@OnClick({R.id.backButton, R.id.sendRequest, R.id.setDefaults})
 	void onClick(View v) {
 		switch (v.getId()) {
@@ -147,30 +190,74 @@ public class ConfigurationActivity extends FragmentActivity {
 				setDefaults();
 				break;
 			case R.id.sendRequest:
-				// TODO: 4/21/18 receive json object
-				if (getIntent() != null && getIntent().getExtras() != null
-					&& getIntent().getExtras().containsKey("wizard_data")) {
-					final String json = getIntent().getExtras().getString("wizard_data");
-					try {
-						final JSONObject jsonObject = new JSONObject(json);
-						//add config parameters to json request (camera, nir, vis)
-						if (getConfigurationParams() != null) {
-							saveParamsState(); //save new values to shared preferences
-							jsonObject.put("configuration", getConfigurationParams());
-							//wrap into request
-							JSONObject jsonObjectRequest = new JSONObject();
-							jsonObjectRequest.put("Request", jsonObject);
+				try {
+					if (wizardJsonObject != null && wizardJsonObject.has(USE_CASE_KEY)) {
 
-							Log.d(TAG, "onClick: JSON TO SEND: " + jsonObject.toString());
-							showSendActionDialog(jsonObjectRequest.toString());
-						} else {
-							Toast.makeText(ConfigurationActivity.this, "Wrong input. Check fields", Toast.LENGTH_SHORT).show();
+						if (wizardJsonObject.getString(USE_CASE_KEY).equals(USE_CASE_1)) {
+							wizardJsonObject.put(USE_CASE_1_PARAM_1, alfatoxinName.getText().toString());
+							wizardJsonObject.put(USE_CASE_1_PARAM_2, alfatoxinValue.getText().toString());
+							wizardJsonObject.put(USE_CASE_1_PARAM_3, alfatoxinUnit.getText().toString());
+						} else if (wizardJsonObject.getString(USE_CASE_KEY).equals(USE_CASE_2)) {
+							wizardJsonObject.put(USE_CASE_2_PARAM_1, microbiologicalValue.getText().toString());
+							wizardJsonObject.put(USE_CASE_2_PARAM_2, microbiologicalUnit.getText().toString());
 						}
-					} catch (JSONException e) {
-						e.printStackTrace();
 					}
+
+					//add config parameters to json request (camera, nir, vis)
+					if (getConfigurationParams() != null) {
+						saveParamsState(); //save new values to shared preferences
+						wizardJsonObject.put("configuration", getConfigurationParams());
+						//wrap into request
+						JSONObject jsonObjectRequest = new JSONObject();
+						jsonObjectRequest.put("Request", wizardJsonObject);
+
+						Log.d(TAG, "onClick: JSON TO SEND: " + wizardJsonObject.toString());
+						showSendActionDialog(jsonObjectRequest.toString());
+					} else {
+						Toast.makeText(ConfigurationActivity.this, "Wrong input. Check fields", Toast.LENGTH_SHORT).show();
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
 				}
 				break;
+		}
+
+	}
+
+	private void loadWizardJson() {
+		if (getIntent() != null && getIntent().getExtras() != null
+			&& getIntent().getExtras().containsKey(WIZARD_DATA_KEY)) {
+			final String json = getIntent().getExtras().getString(WIZARD_DATA_KEY);
+			try {
+				wizardJsonObject = new JSONObject(json);
+				setUseCaseParamsTitle();
+				setUseCaseParamsVisibility();
+			} catch (JSONException e) {
+				Toast.makeText(this, "Wizard data null!", Toast.LENGTH_SHORT).show();
+				e.printStackTrace();
+			}
+		}
+	}
+
+	// Example: "Food spoilage parameters"
+	private void setUseCaseParamsTitle() throws JSONException {
+		if (wizardJsonObject != null && wizardJsonObject.has(USE_CASE_KEY)) {
+			//set use case section title
+			final String title = String.format(useCaseParams, wizardJsonObject.getString(USE_CASE_KEY));
+			useCaseParamsTitle.setText(title);
+		}
+	}
+
+	private void setUseCaseParamsVisibility() throws JSONException {
+		if (wizardJsonObject != null && wizardJsonObject.has(USE_CASE_KEY)) {
+			final String useCaseKey = wizardJsonObject.getString(USE_CASE_KEY);
+			if (useCaseKey.equals(USE_CASE_1)) {
+				useCase1Params.setVisibility(View.VISIBLE);
+				useCase2Params.setVisibility(View.GONE);
+			} else if (useCaseKey.equals(USE_CASE_2)) {
+				useCase1Params.setVisibility(View.GONE);
+				useCase2Params.setVisibility(View.VISIBLE);
+			}
 		}
 	}
 
@@ -194,26 +281,16 @@ public class ConfigurationActivity extends FragmentActivity {
 					//send params directly to server (use case 1 of 2)
 					//TestingUtils.performTestMeasurement(this);
 					Log.d(TAG, "showSendActionDialog: send fake messages");
-					bluetoothService.sendFakeMessage().subscribe(new SingleObserver<Measurement>() {
-						@Override
-						public void onSubscribe(Disposable d) {
-
-						}
-
-						@Override
-						public void onSuccess(final Measurement measurement) {
+					disposable.add(bluetoothService.sendFakeMessage().subscribe(
+						measurement -> {
 							//final String action = "com.phasmafood.action.resultsReceived";
 							final Intent intent = new Intent(ConfigurationActivity.this, MeasurementResultsActivity.class);
 							//intent.setAction(action);
 							MyApplication.getInstance().saveMeasurement(measurement);
 							startActivity(intent);
-						}
-
-						@Override
-						public void onError(Throwable e) {
-							Log.d(TAG, "onError: ");
-						}
-					});
+						},
+						e -> Log.d(TAG, "onError: " + e.getMessage())
+					));
 				}
 			}
 			dialog.dismiss();
@@ -236,6 +313,7 @@ public class ConfigurationActivity extends FragmentActivity {
 		//startService(intent); //Starting the service
 		bindService(intent, connection, Context.BIND_AUTO_CREATE); //Binding to the service!
 
+		loadWizardJson();
 	}
 
 	private ServiceConnection connection = new ServiceConnection() {

@@ -18,7 +18,7 @@
     <style name="PFEditText" parent="ComponentShadow">
         <item name="android:textColorHint">#b3b3b3</item>
         <item name="android:textColor">@color/light_grey</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:background">@drawable/white_border_button</item>
         <item name="android:gravity">center</item>
     </style>

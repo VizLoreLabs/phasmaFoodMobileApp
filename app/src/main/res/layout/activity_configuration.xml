@@ -56,6 +56,167 @@
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/imageView6">
 
+            <TextView
+                android:id="@+id/useCaseParamsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/configurationTitleHeight"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                tools:text="@string/homeScreenTitle" />
+
+            <LinearLayout
+                android:id="@+id/useCase1Params"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/configurationTowHeight"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/configurationVerticalRowPadding"
+                    android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+                    android:paddingStart="@dimen/configurationHorizontalRowPadding"
+                    android:paddingTop="@dimen/configurationVerticalRowPadding">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:text="@string/alfatoxinName"
+                        android:textColor="@color/white" />
+
+                    <EditText
+                        android:id="@+id/alfatoxinName"
+                        style="@style/PFEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="@string/enterValue"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/configurationTowHeight"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/configurationVerticalRowPadding"
+                    android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+                    android:paddingStart="@dimen/configurationHorizontalRowPadding"
+                    android:paddingTop="@dimen/configurationVerticalRowPadding">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:text="@string/alfatoxinValue"
+                        android:textColor="@color/white" />
+
+                    <EditText
+                        android:id="@+id/alfatoxinValue"
+                        style="@style/PFEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="@string/enterValue"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/configurationTowHeight"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/configurationVerticalRowPadding"
+                    android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+                    android:paddingStart="@dimen/configurationHorizontalRowPadding"
+                    android:paddingTop="@dimen/configurationVerticalRowPadding">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:text="@string/alfatoxinUnit"
+                        android:textColor="@color/white" />
+
+                    <EditText
+                        android:id="@+id/alfatoxinUnit"
+                        style="@style/PFEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="@string/enterValue"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/useCase2Params"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/configurationTowHeight"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/configurationVerticalRowPadding"
+                    android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+                    android:paddingStart="@dimen/configurationHorizontalRowPadding"
+                    android:paddingTop="@dimen/configurationVerticalRowPadding">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:text="@string/microbiologicalUnit"
+                        android:textColor="@color/white" />
+
+                    <EditText
+                        android:id="@+id/microbiologicalUnit"
+                        style="@style/PFEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="@string/enterValue"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/configurationTowHeight"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/configurationVerticalRowPadding"
+                    android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+                    android:paddingStart="@dimen/configurationHorizontalRowPadding"
+                    android:paddingTop="@dimen/configurationVerticalRowPadding">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:text="@string/microbiologicalValue"
+                        android:textColor="@color/white" />
+
+                    <EditText
+                        android:id="@+id/microbiologicalValue"
+                        style="@style/PFEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="@string/enterValue"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </LinearLayout>
+
             <!--CAMERA PARAMS-->
             <TextView
                 android:layout_width="match_parent"
