@@ -39,7 +39,7 @@ public class PhasmaFoodWizardModel extends AbstractWizardModel {
 						.addBranch("Maize flour",
 							new SingleFixedChoicePage(this, "1!Granularity").setChoices("Low", "Medium", "High").setRequired(true),
 							new SingleFixedChoicePage(this, "1!Mycotoxins").setChoices("AF B1", "Total AFs", "DON").setRequired(true))
-						.addBranch("Skimmed milk powder",
+						.addBranch("Wheat",
 							new SingleFixedChoicePage(this, "2!Granularity").setChoices("Low", "Medium", "High").setRequired(true),
 							new SingleFixedChoicePage(this, "2!Mycotoxins").setChoices("AF B1", "Total AFs", "DON").setRequired(true))
 						.addBranch("Paprika powder")
@@ -59,8 +59,8 @@ public class PhasmaFoodWizardModel extends AbstractWizardModel {
 							new NumberPage(this, "1!Exposure time"),
 							new NumberPage(this, "1!Sample temperature"))
 						.addBranch("Fish",
-							new SingleFixedChoicePage(this, "2!Sample state")
-								.setChoices("Fillet", "Whole fish"),
+							//new SingleFixedChoicePage(this, "2!Sample state")
+							//	.setChoices("Fillet", "Whole fish"),
 							new SingleFixedChoicePage(this, "2!Packaging")
 								.setChoices("Foil", "No package"),
 							new NumberPage(this, "2!Exposure time"),

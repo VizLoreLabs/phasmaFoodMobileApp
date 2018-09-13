@@ -4,7 +4,7 @@
     "result": "SUCCESS",
     "sample": {
       "sampleID": "string",
-      "laboratory": "Beaglebone",
+      "laboratory": "PhasmaFOOD",
       "UserID": "string",
       "deviceID": "38:D2:69:DD:44:72",
       "foodType": "Almond",
