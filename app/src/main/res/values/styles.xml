@@ -24,7 +24,7 @@
     </style>
 
     <style name="PFEditTextLetters" parent="PFEditText">
-        <item name="android:inputType">number</item>
+        <item name="android:inputType">text</item>
         <item name="android:textSize">14sp</item>
     </style>
 
