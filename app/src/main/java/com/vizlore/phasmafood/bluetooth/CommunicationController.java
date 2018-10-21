@@ -7,13 +7,21 @@ import android.bluetooth.BluetoothSocket;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
 public class CommunicationController {
+
+	private static final String TAG = "SMEDIC";
 
 	private static final String APP_NAME = "PhasmaFoodApp";
 	private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
@@ -37,7 +45,7 @@ public class CommunicationController {
 		this.handler = handler;
 	}
 
-	// Set the current state of the chat connection
+	// Set the current state of the connection
 	private synchronized void setState(int state) {
 		this.state = state;
 
@@ -57,7 +65,7 @@ public class CommunicationController {
 			connectThread = null;
 		}
 
-		// Cancel any running thresd
+		// Cancel any running thread
 		if (connectedThread != null) {
 			connectedThread.cancel();
 			connectedThread = null;
@@ -115,9 +123,9 @@ public class CommunicationController {
 		connectedThread = new ReadWriteThread(socket);
 		connectedThread.start();
 
-		// Send the name of the connected device back to the UI Activity
-		Message msg = handler.obtainMessage(BluetoothService.MESSAGE_DEVICE_OBJECT);
-		Bundle bundle = new Bundle();
+		// Send the name of the connected device back
+		final Message msg = handler.obtainMessage(BluetoothService.MESSAGE_DEVICE_OBJECT);
+		final Bundle bundle = new Bundle();
 		bundle.putParcelable(BluetoothService.DEVICE_OBJECT, device);
 		msg.setData(bundle);
 		handler.sendMessage(msg);
@@ -156,8 +164,8 @@ public class CommunicationController {
 	}
 
 	private void connectionFailed() {
-		Message msg = handler.obtainMessage(BluetoothService.MESSAGE_TOAST);
-		Bundle bundle = new Bundle();
+		final Message msg = handler.obtainMessage(BluetoothService.MESSAGE_TOAST);
+		final Bundle bundle = new Bundle();
 		bundle.putString("toast", "Unable to connect device");
 		msg.setData(bundle);
 		handler.sendMessage(msg);
@@ -167,8 +175,8 @@ public class CommunicationController {
 	}
 
 	private void connectionLost() {
-		Message msg = handler.obtainMessage(BluetoothService.MESSAGE_TOAST);
-		Bundle bundle = new Bundle();
+		final Message msg = handler.obtainMessage(BluetoothService.MESSAGE_TOAST);
+		final Bundle bundle = new Bundle();
 		bundle.putString("toast", "Device connection was lost");
 		msg.setData(bundle);
 		handler.sendMessage(msg);
@@ -295,6 +303,12 @@ public class CommunicationController {
 		private final InputStream inputStream;
 		private final OutputStream outputStream;
 
+		private String status;
+		private int dataSize;
+		private String type;
+		private int state;
+		private String dataType;
+
 		public ReadWriteThread(BluetoothSocket socket) {
 			this.bluetoothSocket = socket;
 			InputStream tmpIn = null;
@@ -312,32 +326,89 @@ public class CommunicationController {
 		}
 
 		public void run() {
-			byte[] buffer = new byte[1024];
+			byte[] buffer = new byte[512];
 			int bytes;
+			int state = 0;
+
+			int dataFlag = 0; // TODO: 10/16/18 fix
+			int endFlag = 6; // TODO: 10/16/18 fix
+			double percentage;
+			boolean flag;
+
+			int stage = 0;
+			int[] stages = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
+
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
 			// Keep listening to the InputStream
 			while (true) {
 				try {
 					// Read from the InputStream
-					// BufferedReader buffereader=new BufferedReader(new InputStreamReader(inputStream));
-					//  buffereader.re
 					bytes = inputStream.read(buffer);
+					final String readMessage = new String(buffer, 0, bytes);
+					if (state == 0) {
+						if (decode(readMessage)) {
+							switch (type) {
+								case "00": // Sample Measurement Started
+								case "01": // VIS Measurement Captured
+								case "02": // NIR Measurement Captured
+								case "03": // FLUO Measurement Captured
+								case "05": // White Reference Captured
+									state = 0;
+									handler.obtainMessage(BluetoothService.MESSAGE_READ, outputStream.toByteArray().length,
+										3, type).sendToTarget();
+									break;
+								case "04": // Image data with specific “size” transmission started.
+									state = 1;
+									break;
+							}
+						}
+					} else if (state == 1) {
+						if (dataType.equals("Image")) {
+							dataFlag = 1;
+							endFlag = 5;
+						} else if (dataType.equals("Measurement Data")) {
+							dataFlag = 0;
+							endFlag = 6;
+						}
+						if (readMessage.equals("End of Response")) {
+							state = 0; //reset state
+							handler.obtainMessage(BluetoothService.MESSAGE_READ, outputStream.toByteArray().length,
+								endFlag, outputStream.toByteArray()).sendToTarget();
+							outputStream = new ByteArrayOutputStream();
+							stage = 0;
+						} else {
+							outputStream.write(buffer, 0, bytes);
+							percentage = ((double) outputStream.size() / dataSize) * 100;
 
+							flag = false;
+							for (int stage1 : stages) {
+								if (percentage >= stage1) {
+									if (stage < stage1) {
+										stage = stage1;
+										flag = true;
+									}
+								}
+							}
+
+							if (flag) {
+								handler.obtainMessage(BluetoothService.MESSAGE_READ, outputStream.toByteArray().length,
+									dataFlag, stage).sendToTarget();
+							}
+						}
+					}
 
 					// Send the obtained bytes to the UI Activity
-					handler.obtainMessage(BluetoothService.MESSAGE_READ, bytes, -1,
-						buffer).sendToTarget();
+					//  handler.obtainMessage(MainActivity.MESSAGE_READ, bytes, -1, buffer).sendToTarget();
 				} catch (IOException e) {
 					connectionLost();
-					// Start the service over to restart listening mode
-					CommunicationController.this.start();
 					break;
 				}
 			}
 		}
 
 		// write to OutputStream
-		public void write(byte[] buffer) {
+		private void write(byte[] buffer) {
 			try {
 				outputStream.write(buffer);
 				handler.obtainMessage(BluetoothService.MESSAGE_WRITE, -1, -1, buffer).sendToTarget();
@@ -346,12 +417,34 @@ public class CommunicationController {
 			}
 		}
 
-		public void cancel() {
+		private void cancel() {
 			try {
 				bluetoothSocket.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
+
+		private boolean decode(final String json) {
+			try {
+				final JSONObject jsonObject = (JSONObject) new JSONTokener(json).nextValue();
+				final JSONObject response = jsonObject.getJSONObject("response");
+				status = response.getString("status");
+				type = response.getString("type");
+				dataSize = response.getInt("size");
+				dataType = response.getString("datatype");
+
+				Log.d(TAG, "run: status: " + status);
+				Log.d(TAG, "run: type: " + type);
+				Log.d(TAG, "run: dataSize: " + dataSize);
+				Log.d(TAG, "run: dataType: " + dataType);
+
+				return true;
+			} catch (JSONException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
 	}
 }
+

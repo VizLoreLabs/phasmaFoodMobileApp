@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fruits">
@@ -168,6 +169,14 @@
                 app:layout_constraintStart_toEndOf="@+id/param1Title"
                 app:layout_constraintTop_toTopOf="@+id/param1Title" />
 
+            <ImageView
+                android:id="@+id/btDeviceCameraImage"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/param1Value" />
+
             <Button
                 android:id="@+id/buttonPreprocessed"
                 android:layout_width="@dimen/graphLegendButtonWidth"
@@ -273,10 +282,11 @@
                 android:id="@+id/divider1"
                 android:layout_width="0dp"
                 android:layout_height="2dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/header_gradient"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/nextButton" />
+                app:layout_constraintTop_toBottomOf="@+id/btDeviceCameraImage" />
 
             <Button
                 android:id="@+id/nextButton"
@@ -289,9 +299,9 @@
                 android:shadowRadius="2"
                 android:text="Send to server"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guideline4" />
+                app:layout_constraintStart_toStartOf="@+id/guideline4"
+                app:layout_constraintTop_toBottomOf="@+id/divider1" />
 
             <Button
                 android:id="@+id/previousButton"
@@ -304,9 +314,9 @@
                 android:shadowRadius="2"
                 android:text="Go back and retest"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider1" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 

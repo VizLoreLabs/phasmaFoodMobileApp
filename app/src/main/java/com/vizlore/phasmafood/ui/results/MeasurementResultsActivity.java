@@ -1,6 +1,8 @@
 package com.vizlore.phasmafood.ui.results;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -33,6 +36,7 @@ import com.vizlore.phasmafood.viewmodel.DeviceViewModel;
 import com.vizlore.phasmafood.viewmodel.MeasurementViewModel;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,6 +98,9 @@ public class MeasurementResultsActivity extends BaseActivity {
 
 	@BindView(R.id.nextButton)
 	Button sendToServerButton;
+
+	@BindView(R.id.btDeviceCameraImage)
+	ImageView btDeviceCameraImage;
 
 	@OnClick(R.id.buttonPreprocessed)
 	void onButtonPreprocessedClick() {
@@ -163,8 +170,17 @@ public class MeasurementResultsActivity extends BaseActivity {
 		measurementViewModel = ViewModelProviders.of(this).get(MeasurementViewModel.class);
 		deviceViewModel = ViewModelProviders.of(this).get(DeviceViewModel.class);
 
-		final Measurement measurement = MyApplication.getInstance().getMeasurement();
+		// show saved image path
+		final String savedImagePath = MyApplication.getInstance().getMeasurementImagePath();
+		if (savedImagePath != null) {
+			Log.d(TAG, "onCreate: image path: " + savedImagePath);
+			File file = new File(savedImagePath);
+			final Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+			btDeviceCameraImage.setImageBitmap(bitmap);
+		}
 
+		// show measurement chart
+		final Measurement measurement = MyApplication.getInstance().getMeasurement();
 		if (measurement != null) {
 			final Sample sample = measurement.getResponse().getSample();
 			if (sample == null) { //keep safe

@@ -31,6 +31,7 @@ public class MyApplication extends Application {
 
 	// temporary save examination
 	private Measurement measurement;
+	private String measurementImagePath;
 
 	@Override
 	public void onCreate() {
@@ -70,5 +71,13 @@ public class MyApplication extends Application {
 
 	public Measurement getMeasurement() {
 		return measurement;
+	}
+
+	public String getMeasurementImagePath() {
+		return measurementImagePath;
+	}
+
+	public void saveMeasurementImagePath(@NonNull final String measurementImagePath) {
+		this.measurementImagePath = measurementImagePath;
 	}
 }

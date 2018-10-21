@@ -160,6 +160,8 @@ public class ResultsActivity extends BaseActivity {
 
 		final Bundle bundle = getIntent().getExtras();
 		if (bundle != null) {
+			Log.d(TAG, "onCreate: bundle!!!");
+
 			visValue.setText(bundle.getString("VIS"));
 			nirValue.setText(bundle.getString("NIR"));
 			fluoValue.setText(bundle.getString("FLUO"));

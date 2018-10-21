@@ -302,11 +302,6 @@
                 app:layout_constraintTop_toTopOf="@+id/param4Title"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                app:layout_constraintTop_toBottomOf="@+id/param4Value" />
-
             <Button
                 android:id="@+id/buttonPreprocessed"
                 android:layout_width="@dimen/graphLegendButtonWidth"

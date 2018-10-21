@@ -1,21 +1,32 @@
 package com.vizlore.phasmafood.bluetooth;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Binder;
+import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vizlore.phasmafood.MyApplication;
+import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.TestingUtils;
 import com.vizlore.phasmafood.api.AutoValueGsonFactory;
 import com.vizlore.phasmafood.api.DeviceApi;
@@ -23,9 +34,10 @@ import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.ui.results.MeasurementResultsActivity;
 import com.vizlore.phasmafood.utils.Config;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -55,11 +67,19 @@ public class BluetoothService extends Service {
 	public static final int MESSAGE_WRITE = 3;
 	public static final int MESSAGE_DEVICE_OBJECT = 4;
 	public static final int MESSAGE_TOAST = 5;
+	private static final String CHANNEL_ID = "phasmaFoodId";
 
 	private final IBinder mBinder = new LocalBinder();
 
 	private CommunicationController bluetoothController;
 	private BluetoothDevice connectingDevice;
+	private Disposable disposable = new CompositeDisposable();
+	private String measurementDataResponse;
+
+	//notification stuff
+	private NotificationCompat.Builder notificationBuilder;
+	private NotificationManager notificationManager;
+	private int notificationId = 10;
 
 	@Inject
 	RxBluetooth rxBluetooth;
@@ -67,11 +87,6 @@ public class BluetoothService extends Service {
 	@Inject
 	DeviceApi deviceApi;
 
-	private Disposable disposable = new CompositeDisposable();
-
-	//test
-	private String jsonReceived = " ";
-	private int ack = 0;
 	private Handler handler = new Handler(new Handler.Callback() {
 
 		@Override
@@ -99,39 +114,9 @@ public class BluetoothService extends Service {
 					Log.e(TAG, "Me: " + writeMessage);
 					break;
 				case MESSAGE_READ:
-
-					// message is here, parse it if it's last one
-					// or append if not
-
-					byte[] readBuf = (byte[]) msg.obj;
-					final String readMessage = new String(readBuf, 0, msg.arg1);
-					Log.e(TAG, "Received: " + connectingDevice.getName() + ":  " + readMessage);
-
-					if (readMessage.equals("End of Response")) {
-						Toast.makeText(getApplicationContext(), readMessage, Toast.LENGTH_SHORT).show();
-
-						final Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
-						final Measurement measurement = gson.fromJson(jsonReceived, Measurement.class);
-
-						// TODO: 9/11/18 improve and move out of here
-						if (measurement != null && measurement.getResponse() != null) {
-							//save measurement (too big to put in bundle or parcelable)
-							MyApplication.getInstance().saveMeasurement(measurement);
-							final Intent intent = new Intent(BluetoothService.this, MeasurementResultsActivity.class);
-							intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-							startActivity(intent);
-						} else {
-							Toast.makeText(getApplicationContext(), "Parsing examination failed", Toast.LENGTH_SHORT).show();
-						}
-
-					} else {
-						//append next message
-						jsonReceived += readMessage;
-						ack++;
-						sendAck(ack);
-					}
+					final int arg = msg.arg2;
+					handleMessageRead(arg, msg.obj);
 					break;
-
 				case MESSAGE_DEVICE_OBJECT:
 					connectingDevice = msg.getData().getParcelable(DEVICE_OBJECT);
 					Toast.makeText(getApplicationContext(), "Connected to " + connectingDevice.getName(),
@@ -146,11 +131,163 @@ public class BluetoothService extends Service {
 		}
 	});
 
+	/**
+	 * Handle reading message received from Bluetooth device
+	 *
+	 * @param messageType 0 - measurement data
+	 *                    1 - captured image
+	 *                    3 - configuration
+	 *                    5 - image received
+	 *                    6 - measurement data received
+	 */
+	private void handleMessageRead(final int messageType, Object param) {
+
+		switch (messageType) {
+			case 0: // receiving measurement data
+				int progressData = (int) param;
+				notificationBuilder.setContentTitle("Receiving measurement data");
+				notificationBuilder.setContentText(progressData + "%");
+				notificationBuilder.setProgress(100, progressData, false);
+				notificationManager.notify(notificationId, notificationBuilder.build());
+				break;
+			case 1: // receiving captured image
+				int progressImage = (int) param;
+				notificationBuilder.setContentTitle("Receiving captured image");
+				notificationBuilder.setContentText(progressImage + "%");
+				notificationBuilder.setProgress(100, progressImage, false);
+				notificationManager.notify(notificationId, notificationBuilder.build());
+				break;
+			case 2:
+				//do nothing
+				break;
+			case 3: //receiving configuration
+				switch ((String) param) {
+					case "00":
+						notificationBuilder.setContentTitle("(1/3) Getting VIS Data");
+						break;
+					case "01":
+						notificationBuilder.setContentTitle("(2/3) Getting NIR Data");
+						break;
+					case "02":
+						notificationBuilder.setContentTitle("(3/3) Getting FLUO Data");
+						break;
+					case "03":
+						notificationBuilder.setContentTitle("Measurement Finished. Waiting for data...");
+						break;
+					case "05":
+						notificationBuilder.setContentTitle("White Reference (TODO)");
+						break;
+				}
+				notificationBuilder.setProgress(100, 0, false);
+				notificationManager.notify(notificationId, notificationBuilder.build());
+				break;
+			case 5: // Image received
+				Log.d(TAG, "handleMessage: IMAGE RECEIVED");
+				final byte[] readBufData = (byte[]) param;
+				final Bitmap bitmap = BitmapFactory.decodeByteArray(readBufData, 0, readBufData.length);
+				final String savedImagePath = tempFileImage(getApplicationContext(), bitmap, "captured_image");
+				Log.d(TAG, "handleMessage: image path: " + savedImagePath);
+				Log.e(TAG, "handleMessage: image size: " + readBufData.length);
+				// TODO: 10/21/18 dismiss notification?
+
+				final Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
+				final Measurement measurement = gson.fromJson(measurementDataResponse, Measurement.class);
+				Log.d(TAG, "handleMessage: measurement: " + measurement);
+				// TODO: 9/11/18 improve and move out of here
+				if (measurement != null && measurement.getResponse() != null) {
+					Log.d(TAG, "handleMessage: ok measurement");
+					//save measurement (too big to put in bundle or parcelable)
+					MyApplication.getInstance().saveMeasurement(measurement);
+					MyApplication.getInstance().saveMeasurementImagePath(savedImagePath);
+					startResultActivity(savedImagePath);
+				} else {
+					Toast.makeText(getApplicationContext(), "Parsing examination failed", Toast.LENGTH_SHORT).show();
+				}
+				break;
+			case 6:
+				Log.d(TAG, "handleMessage: Measurement data received");
+				final byte[] readBufImage = (byte[]) param;
+				measurementDataResponse = new String(readBufImage);
+				Log.d(TAG, "handleMessage: data: " + measurementDataResponse);
+				break;
+		}
+	}
+
+	/**
+	 * Start activity where user can see measurement charts and captured image
+	 */
+	private void startResultActivity(final String savedImagePath) {
+		final Intent intent = new Intent(BluetoothService.this, MeasurementResultsActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		intent.putExtra("imagePath", savedImagePath);
+		startActivity(intent);
+	}
+
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		// TODO: 2/17/18 check if device is there (shared prefs and getBondedDevices match)
+		//connect();
+
+		init();
+
+		return START_STICKY;
+	}
+
+	@Override
+	public IBinder onBind(Intent intent) {
+		return mBinder;
+	}
+
+	//returns the instance of the service
+	public class LocalBinder extends Binder {
+		public BluetoothService getServiceInstance() {
+			return BluetoothService.this;
+		}
+
+	}
+
+	private void init() {
+		notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		createNotification();
+	}
+
+	public String tempFileImage(Context context, Bitmap bitmap, String name) {
+
+		File outputDir = context.getCacheDir();
+		File imageFile = new File(outputDir, name + ".jpg");
+
+		OutputStream os;
+		try {
+			os = new FileOutputStream(imageFile);
+			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
+			os.flush();
+			os.close();
+		} catch (Exception e) {
+			Log.e(TAG, "Error writing file", e);
+		}
+
+		return imageFile.getAbsolutePath();
+	}
+
+	// dump measurement response data if needed
+	private static String tempFile2(byte[] text) {
+		File sdCard = Environment.getExternalStorageDirectory();
+		File dir = new File(sdCard.getAbsolutePath() + "/smedic");
+		dir.mkdirs();
+		File file = new File(dir, "output.txt");
+		try {
+			FileOutputStream f = new FileOutputStream(file);
+			f.write(text);
+			f.flush();
+			f.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return file.getAbsolutePath();
+	}
+
 	//must be called just once from outside (activity for instance)
 	public void sendMessage(final String message) {
-		//reset ack and received message
-		ack = 0;
-		jsonReceived = " ";
 		sendData(message);
 	}
 
@@ -159,22 +296,6 @@ public class BluetoothService extends Service {
 		final Measurement measurementJson = TestingUtils.readMeasurementFromJson(jsonFileName);
 		return Single.just(measurementJson)
 			.delay(3000, TimeUnit.MILLISECONDS);
-	}
-
-	private void sendAck(final int ack) {
-		JSONObject request = null;
-		try {
-			request = new JSONObject();
-			JSONObject RequestBody = new JSONObject();
-			RequestBody.put("Use cases", "ACK");
-			RequestBody.put("ACK_NUM", String.valueOf(ack));
-			request.put("Request", RequestBody);
-		} catch (JSONException e) {
-			Log.e(TAG, "unexpected JSON exception", e);
-		}
-		if (request.toString() != null) {
-			sendData(request.toString());
-		}
 	}
 
 	//called multiple times
@@ -210,13 +331,6 @@ public class BluetoothService extends Service {
 	}
 
 	@Override
-	public int onStartCommand(Intent intent, int flags, int startId) {
-		// TODO: 2/17/18 check if device is there (shared prefs and getBondedDevices match)
-		//connect();
-		return START_STICKY;
-	}
-
-	@Override
 	public void onDestroy() {
 //		compositeDisposable.dispose();
 //		disposable.dispose();
@@ -225,19 +339,6 @@ public class BluetoothService extends Service {
 		if (bluetoothController != null) {
 			bluetoothController.stop();
 		}
-	}
-
-	@Override
-	public IBinder onBind(Intent intent) {
-		return mBinder;
-	}
-
-	//returns the instance of the service
-	public class LocalBinder extends Binder {
-		public BluetoothService getServiceInstance() {
-			return BluetoothService.this;
-		}
-
 	}
 
 	public void connectToCommunicationController(String deviceAddress) {
@@ -307,6 +408,41 @@ public class BluetoothService extends Service {
 
 				}
 			});
+	}
+
+	private void createNotification() {
+		createNotificationChannel();
+
+		final Intent intent = new Intent(BluetoothService.this, MeasurementResultsActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+		final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
+			intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+		notificationBuilder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
+			.setPriority(Notification.PRIORITY_MAX)
+			.setProgress(100, 0, false)
+			.setSmallIcon(R.mipmap.ic_launcher)
+			.setContentIntent(pendingIntent)
+			.setChannelId(CHANNEL_ID)
+			.setAutoCancel(true);
+		//do not show it yet
+	}
+
+	private void createNotificationChannel() {
+		Log.d(TAG, "createNotificationChannel: create notification channel!");
+		// Create the NotificationChannel, but only on API 26+ because
+		// the NotificationChannel class is new and not in the support library
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			final CharSequence name = getString(R.string.channel_name);
+			final String description = getString(R.string.channel_description);
+			final int importance = NotificationManager.IMPORTANCE_DEFAULT;
+			final NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+			channel.setDescription(description);
+			// Register the channel with the system; you can't change the importance
+			// or other notification behaviors after this
+			notificationManager.createNotificationChannel(channel);
+		}
 	}
 
 	public void closeConnection() {

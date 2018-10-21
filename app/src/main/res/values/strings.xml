@@ -58,4 +58,6 @@
     <string name="alfatoxinUnit">alfatoxinUnit</string>
     <string name="microbiologicalUnit">microbiologicalUnit</string>
     <string name="microbiologicalValue">microbiologicalValue</string>
+    <string name="channel_name">channelPhasmaFood</string>
+    <string name="channel_description">Receiving data from BLE device</string>
 </resources>
