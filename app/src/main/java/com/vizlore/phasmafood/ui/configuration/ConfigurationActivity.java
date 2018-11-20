@@ -109,7 +109,7 @@ public class ConfigurationActivity extends FragmentActivity {
 	private static final String USE_CASE_2_PARAM_1 = "microbiologicalUnit";
 	private static final String USE_CASE_2_PARAM_2 = "microbiologicalValue";
 
-	private static final String USE_CASE_1_JSON = "usecase1_updated_response.json";
+	private static final String USE_CASE_1_JSON = "measurements_10_sample_full.json";
 	private static final String USE_CASE_2_JSON = "usecase2_updated_response.json";
 
 	private BluetoothService bluetoothService;
@@ -279,41 +279,30 @@ public class ConfigurationActivity extends FragmentActivity {
 
 			final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-			if (!prefs.contains(WizardActivity.DEBUG_MODE_KEY)) {
-				Log.d(TAG, "showSendActionDialog: SEND REAL MESSAGE TO DEVICE! 0");
+			final boolean isDebugMode = prefs.getBoolean(WizardActivity.DEBUG_MODE_KEY, false);
+			if (!isDebugMode) {
+				Log.d(TAG, "showSendActionDialog: SEND REAL MESSAGE TO DEVICE!");
 				bluetoothService.sendMessage(jsonToSend);
 			} else {
-				final boolean value = prefs.getBoolean(WizardActivity.DEBUG_MODE_KEY, false);
-				if (!value) {
-					Log.d(TAG, "showSendActionDialog: SEND REAL MESSAGE TO DEVICE! 1");
-					bluetoothService.sendMessage(jsonToSend);
-				} else {
-					Log.d(TAG, "showSendActionDialog: PERFORM FAKE MEASUREMENT (debug mode) 2");
-					//send params directly to server (use case 1 of 2)
-					//TestingUtils.performTestMeasurement(this);
-					Log.d(TAG, "showSendActionDialog: send fake messages");
-
-					//load use case 1 by default
-					String jsonFileName = USE_CASE_1_JSON;
-					try {
-						if (wizardJsonObject.getString(USE_CASE_KEY).equals(USE_CASE_2)) {
-							jsonFileName = USE_CASE_2_JSON;
-						}
-					} catch (JSONException e) {
-						e.printStackTrace();
+				Log.d(TAG, "showSendActionDialog: PERFORM FAKE MEASUREMENT (debug mode)");
+				//send params directly to server (use case 1 of 2)
+				//load use case 1 by default
+				String jsonFileName = USE_CASE_1_JSON;
+				try {
+					if (wizardJsonObject.getString(USE_CASE_KEY).equals(USE_CASE_2)) {
+						jsonFileName = USE_CASE_2_JSON;
 					}
-
-					disposable.add(bluetoothService.sendFakeMessage(jsonFileName).subscribe(
-						measurement -> {
-							//final String action = "com.phasmafood.action.resultsReceived";
-							final Intent intent = new Intent(ConfigurationActivity.this, MeasurementResultsActivity.class);
-							//intent.setAction(action);
-							MyApplication.getInstance().saveMeasurement(measurement);
-							startActivity(intent);
-						},
-						e -> Log.d(TAG, "onError: " + e.getMessage())
-					));
+				} catch (JSONException e) {
+					e.printStackTrace();
 				}
+
+				disposable.add(bluetoothService.sendFakeMessage(jsonFileName).subscribe(measurement -> {
+						final Intent intent = new Intent(ConfigurationActivity.this, MeasurementResultsActivity.class);
+						MyApplication.getInstance().saveMeasurement(measurement);
+						startActivity(intent);
+					},
+					e -> Log.d(TAG, "onError: " + e.getMessage())
+				));
 			}
 			dialog.dismiss();
 		});

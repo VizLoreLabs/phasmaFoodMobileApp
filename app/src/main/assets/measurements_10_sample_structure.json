@@ -1,0 +1,452 @@
+{
+  "response": {
+    "status": "OK",
+    "result": "SUCCESS",
+    "sample": {
+      "sampleID": "string",
+      "laboratory": "PhasmaFood_v1",
+      "UserID": "string",
+      "deviceID": "38:D2:69:DD:44:72",
+      "foodType": "Almond",
+      "useCase": "Mycotoxins detection",
+      "granularity": "Medium",
+      "contamination": "",
+      "mycotoxins": "",
+      "aflatoxinName": "",
+      "aflatoxinValue": "",
+      "aflatoxinUnit": "",
+      "VIS": {
+        "preprocessed": [
+          {
+            "wave": "320.469",
+            "measurement": "0.647059"
+          }
+        ],
+        "whiteReference": [
+          {
+            "wave": "320.469",
+            "measurement": "7395"
+          }
+        ],
+        "darkReference": [
+          {
+            "wave": "320.469",
+            "measurement": "7395"
+          }
+        ],
+        "rawData": [
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+            "wave": "320.469",
+            "measurement": "7395"
+          }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ]
+        ],
+        "rawWhite": [
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ]
+        ],
+        "rawDark": [
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ]
+        ]
+      },
+      "NIR": {
+        "preprocessed": [
+          {
+            "wave": "320.469",
+            "measurement": "7395"
+          }
+        ],
+        "whiteReference": [
+          {
+            "wave": "320.469",
+            "measurement": "7395"
+          }
+        ],
+        "darkReference": [
+          {
+            "wave": "320.469",
+            "measurement": "7395"
+          }
+        ]
+      },
+      "FLUO": {
+        "preprocessed": [
+          {
+            "wave": "320.469",
+            "measurement": "7395"
+          }
+        ],
+        "whiteReference": [
+          {
+            "wave": "320.469",
+            "measurement": "7395"
+          }
+        ],
+        "darkReference": [
+          {
+            "wave": "320.469",
+            "measurement": "7395"
+          }
+        ],
+        "rawData": [
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ]
+        ],
+        "rawWhite": [
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ]
+        ],
+        "rawDark": [
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ],
+          [
+            {
+              "wave": "320.469",
+              "measurement": "7395"
+            }
+          ]
+        ]
+      }
+    }
+  }
+}

@@ -55,7 +55,7 @@ public class TestingUtils {
 
 					model.createMeasurementRequest(user.id(),
 						measurement.getResponse().getSample(),
-						deviceViewModel.getDeviceID())
+						"90:70:65:EF:4A:CE") // TODO: 9/11/18 fix)
 						.observe(activity, result -> {
 							if (result != null && !result) {
 								Toast.makeText(activity, "Examination request failed!", Toast.LENGTH_SHORT).show();

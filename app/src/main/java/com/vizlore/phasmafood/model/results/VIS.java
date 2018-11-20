@@ -17,6 +17,15 @@ public class VIS {
 	@SerializedName("darkReference")
 	@Expose
 	private List<DarkReference> darkReference = null;
+	@SerializedName("rawData")
+	@Expose
+	private List<List<RawData>> rawData = null;
+	@SerializedName("rawWhite")
+	@Expose
+	private List<List<RawWhite>> rawWhite = null;
+	@SerializedName("rawDark")
+	@Expose
+	private List<List<RawDark>> rawDark = null;
 
 	public List<Preprocessed> getPreprocessed() {
 		return preprocessed;
@@ -42,4 +51,29 @@ public class VIS {
 		this.darkReference = darkReference;
 	}
 
+	public List<List<RawData>> getRawData() {
+		return rawData;
+	}
+
+	public void setRawData(List<List<RawData>> rawData) {
+		this.rawData = rawData;
+	}
+
+	public List<List<RawWhite>> getRawWhite() {
+		return rawWhite;
+	}
+
+	public void setRawWhite(List<List<RawWhite>> rawWhite) {
+		this.rawWhite = rawWhite;
+	}
+
+	public List<List<RawDark>> getRawDark() {
+		return rawDark;
+	}
+
+	public void setRawDark(List<List<RawDark>> rawDark) {
+		this.rawDark = rawDark;
+	}
+
 }
+

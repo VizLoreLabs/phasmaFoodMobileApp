@@ -8,8 +8,6 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.api.UserApi;
 import com.vizlore.phasmafood.model.User;
@@ -67,7 +65,7 @@ public class UserViewModel extends ViewModel {
 		return sharedPreferences.contains(TOKEN_KEY);
 	}
 
-	public String getSavedToken() {
+	public String getSalvedToken() {
 		return sharedPreferences.getString(TOKEN_KEY, null);
 	}
 
@@ -195,46 +193,46 @@ public class UserViewModel extends ViewModel {
 	 *
 	 * @return observable live data
 	 */
-	public LiveData<Boolean> getRefreshToken() {
-
-		if (getRefreshTokenLiveData == null) {
-			getRefreshTokenLiveData = new MutableLiveData<>();
-		}
-
-		Map<String, String> requestBody = new HashMap<>();
-		requestBody.put("token", getSavedToken());
-
-		userApi.getRefreshToken(requestBody)
-			.subscribeOn(Schedulers.io())
-			.observeOn(AndroidSchedulers.mainThread())
-			.subscribe(new SingleObserver<ResponseBody>() {
-				@Override
-				public void onSubscribe(Disposable d) {
-				}
-
-				@Override
-				public void onSuccess(ResponseBody responseBody) {
-					if (responseBody != null) {
-						try {
-							JsonObject object = new JsonParser().parse(responseBody.string()).getAsJsonObject();
-							saveToken(object.get("token").getAsString());
-							getRefreshTokenLiveData.postValue(true);
-						} catch (IOException e) {
-							getRefreshTokenLiveData.postValue(false);
-							e.printStackTrace();
-						}
-					}
-				}
-
-				@Override
-				public void onError(Throwable e) {
-					Log.d(TAG, "onError: " + e.toString());
-					getRefreshTokenLiveData.postValue(false);
-				}
-			});
-
-		return getRefreshTokenLiveData;
-	}
+//	public LiveData<Boolean> getRefreshToken() {
+//
+//		if (getRefreshTokenLiveData == null) {
+//			getRefreshTokenLiveData = new MutableLiveData<>();
+//		}
+//
+//		Map<String, String> requestBody = new HashMap<>();
+//		requestBody.put("token", getSavedToken());
+//
+//		userApi.getRefreshToken(requestBody)
+//			.subscribeOn(Schedulers.io())
+//			.observeOn(AndroidSchedulers.mainThread())
+//			.subscribe(new SingleObserver<ResponseBody>() {
+//				@Override
+//				public void onSubscribe(Disposable d) {
+//				}
+//
+//				@Override
+//				public void onSuccess(ResponseBody responseBody) {
+//					if (responseBody != null) {
+//						try {
+//							JsonObject object = new JsonParser().parse(responseBody.string()).getAsJsonObject();
+//							saveToken(object.get("token").getAsString());
+//							getRefreshTokenLiveData.postValue(true);
+//						} catch (IOException e) {
+//							getRefreshTokenLiveData.postValue(false);
+//							e.printStackTrace();
+//						}
+//					}
+//				}
+//
+//				@Override
+//				public void onError(Throwable e) {
+//					Log.d(TAG, "onError: " + e.toString());
+//					getRefreshTokenLiveData.postValue(false);
+//				}
+//			});
+//
+//		return getRefreshTokenLiveData;
+//	}
 
 
 	/**
