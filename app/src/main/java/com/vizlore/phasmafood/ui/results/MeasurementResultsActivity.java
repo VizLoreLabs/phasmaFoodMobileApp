@@ -28,6 +28,9 @@ import com.vizlore.phasmafood.model.results.FLUO;
 import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.model.results.NIR;
 import com.vizlore.phasmafood.model.results.Preprocessed;
+import com.vizlore.phasmafood.model.results.RawDark;
+import com.vizlore.phasmafood.model.results.RawData;
+import com.vizlore.phasmafood.model.results.RawWhite;
 import com.vizlore.phasmafood.model.results.Sample;
 import com.vizlore.phasmafood.model.results.VIS;
 import com.vizlore.phasmafood.model.results.WhiteReference;
@@ -51,6 +54,9 @@ public class MeasurementResultsActivity extends BaseActivity {
 	private static final String SAMPLE_PREPROCESSED = "preprocessed";
 	private static final String SAMPLE_DARK_REFERENCE = "dark_reference";
 	private static final String SAMPLE_WHITE_REFERENCE = "white_reference";
+	private static final String SAMPLE_RAW_DATA_REFERENCE = "raw_data";
+	private static final String SAMPLE_RAW_DARK_REFERENCE = "raw_dark";
+	private static final String SAMPLE_RAW_WHITE_REFERENCE = "raw_white";
 
 	private List<ILineDataSet> visDataSets = new ArrayList<>();
 	private List<ILineDataSet> nirDataSets = new ArrayList<>();
@@ -87,6 +93,15 @@ public class MeasurementResultsActivity extends BaseActivity {
 	@BindView(R.id.buttonWhiteReference)
 	Button buttonWhiteReference;
 
+	@BindView(R.id.buttonRawData)
+	Button buttonRawData;
+
+	@BindView(R.id.buttonRawDark)
+	Button buttonRawDark;
+
+	@BindView(R.id.buttonRawWhite)
+	Button buttonRawWhite;
+
 	@BindView(R.id.buttonShowAllSamples)
 	Button buttonShowAllSamples;
 
@@ -107,6 +122,9 @@ public class MeasurementResultsActivity extends BaseActivity {
 		buttonPreprocessed.setSelected(true);
 		buttonDarkReference.setSelected(false);
 		buttonWhiteReference.setSelected(false);
+		buttonRawData.setSelected(false);
+		buttonRawDark.setSelected(false);
+		buttonRawWhite.setSelected(false);
 		buttonShowAllSamples.setSelected(false);
 		lineChart.setData(new LineData(getSampleValues(SAMPLE_PREPROCESSED)));
 		drawChart();
@@ -117,6 +135,9 @@ public class MeasurementResultsActivity extends BaseActivity {
 		buttonPreprocessed.setSelected(false);
 		buttonDarkReference.setSelected(true);
 		buttonWhiteReference.setSelected(false);
+		buttonRawData.setSelected(false);
+		buttonRawDark.setSelected(false);
+		buttonRawWhite.setSelected(false);
 		buttonShowAllSamples.setSelected(false);
 		lineChart.setData(new LineData(getSampleValues(SAMPLE_DARK_REFERENCE)));
 		drawChart();
@@ -127,8 +148,50 @@ public class MeasurementResultsActivity extends BaseActivity {
 		buttonPreprocessed.setSelected(false);
 		buttonDarkReference.setSelected(false);
 		buttonWhiteReference.setSelected(true);
+		buttonRawData.setSelected(false);
+		buttonRawDark.setSelected(false);
+		buttonRawWhite.setSelected(false);
 		buttonShowAllSamples.setSelected(false);
 		lineChart.setData(new LineData(getSampleValues(SAMPLE_WHITE_REFERENCE)));
+		drawChart();
+	}
+
+	@OnClick(R.id.buttonRawData)
+	void onButtonRawDataClick() {
+		buttonPreprocessed.setSelected(false);
+		buttonDarkReference.setSelected(false);
+		buttonWhiteReference.setSelected(false);
+		buttonRawData.setSelected(true);
+		buttonRawDark.setSelected(false);
+		buttonRawWhite.setSelected(false);
+		buttonShowAllSamples.setSelected(false);
+		lineChart.setData(new LineData(getSampleValues(SAMPLE_RAW_DATA_REFERENCE)));
+		drawChart();
+	}
+
+	@OnClick(R.id.buttonRawDark)
+	void onButtonRawDarkClick() {
+		buttonPreprocessed.setSelected(false);
+		buttonDarkReference.setSelected(false);
+		buttonWhiteReference.setSelected(false);
+		buttonRawData.setSelected(false);
+		buttonRawDark.setSelected(true);
+		buttonRawWhite.setSelected(false);
+		buttonShowAllSamples.setSelected(false);
+		lineChart.setData(new LineData(getSampleValues(SAMPLE_RAW_DARK_REFERENCE)));
+		drawChart();
+	}
+
+	@OnClick(R.id.buttonRawWhite)
+	void onButtonRawWhiteClick() {
+		buttonPreprocessed.setSelected(false);
+		buttonDarkReference.setSelected(false);
+		buttonWhiteReference.setSelected(false);
+		buttonRawData.setSelected(false);
+		buttonRawDark.setSelected(false);
+		buttonRawWhite.setSelected(true);
+		buttonShowAllSamples.setSelected(false);
+		lineChart.setData(new LineData(getSampleValues(SAMPLE_RAW_WHITE_REFERENCE)));
 		drawChart();
 	}
 
@@ -137,6 +200,7 @@ public class MeasurementResultsActivity extends BaseActivity {
 		buttonPreprocessed.setSelected(false);
 		buttonDarkReference.setSelected(false);
 		buttonWhiteReference.setSelected(false);
+		buttonRawData.setSelected(false);
 		buttonShowAllSamples.setSelected(true);
 		lineChart.setData(new LineData(currentlySelectedDataSet));
 		drawChart();
@@ -203,15 +267,21 @@ public class MeasurementResultsActivity extends BaseActivity {
 			final FLUO fluo = sample.getFLUO();
 
 			if (vis != null) {
-				visDataSets.addAll(getEntries(vis.getPreprocessed(), vis.getDarkReference(), vis.getWhiteReference()));
+				visDataSets.addAll(getEntries(
+					vis.getPreprocessed(), vis.getDarkReference(), vis.getWhiteReference(), //regular data
+					vis.getRawData(), vis.getRawDark(), vis.getRawWhite())); //raw data
 			}
 
 			if (nir != null) {
-				nirDataSets.addAll(getEntries(nir.getPreprocessed(), nir.getDarkReference(), nir.getWhiteReference()));
+				nirDataSets.addAll(
+					getEntries(nir.getPreprocessed(), nir.getDarkReference(), nir.getWhiteReference(),  //regular data
+						null, null, null)); //raw data
 			}
 
 			if (fluo != null) {
-				fluoDataSets.addAll(getEntries(fluo.getPreprocessed(), fluo.getDarkReference(), fluo.getWhiteReference()));
+				fluoDataSets.addAll(
+					getEntries(fluo.getPreprocessed(), fluo.getDarkReference(), fluo.getWhiteReference(),  //regular data
+						fluo.getRawData(), fluo.getRawDark(), fluo.getRawWhite())); //raw data
 			}
 
 			lineChart.getXAxis().setTextColor(Color.WHITE);
@@ -245,7 +315,10 @@ public class MeasurementResultsActivity extends BaseActivity {
 
 	private List<ILineDataSet> getEntries(final List<Preprocessed> preprocessedList,
 										  final List<DarkReference> darkReferenceList,
-										  final List<WhiteReference> whiteReferenceList) {
+										  final List<WhiteReference> whiteReferenceList,
+										  final List<List<RawData>> rawDataList,
+										  final List<List<RawDark>> rawDarkList,
+										  final List<List<RawWhite>> rawWhiteList) {
 
 		final List<ILineDataSet> dataSets = new ArrayList<>();
 
@@ -267,6 +340,49 @@ public class MeasurementResultsActivity extends BaseActivity {
 			final LineDataSet dataSet = new LineDataSet(getWhiteReferenceEntries(whiteReferenceList), SAMPLE_WHITE_REFERENCE);
 			dataSet.setColor(getResources().getColor(R.color.white));
 			dataSet.setCircleColor(getResources().getColor(R.color.white));
+			dataSets.add(dataSet);
+		}
+
+		if (rawDataList != null) {
+
+			// TODO: 11/20/18 find average
+			final List<RawData> firstList = rawDataList.get(0);
+
+			final List<RawData> averages = new ArrayList<>();
+
+			Log.d(TAG, "getEntries: size: " + rawDataList.size());
+			for (List<RawData> listOf10 : rawDataList) {
+				//double average = listOf10
+			}
+
+			Log.d(TAG, "getEntries: raw data list size: " + firstList.size());
+			final LineDataSet dataSet = new LineDataSet(getRawDataEntries(firstList), SAMPLE_RAW_DATA_REFERENCE);
+			dataSet.setColor(getResources().getColor(R.color.blue));
+			dataSet.setCircleColor(getResources().getColor(R.color.blue));
+			dataSets.add(dataSet);
+		}
+
+		if (rawDarkList != null) {
+
+			// TODO: 11/20/18 find average
+			final List<RawDark> firstList = rawDarkList.get(0);
+
+			Log.d(TAG, "getEntries: raw dark list size: " + firstList.size());
+			final LineDataSet dataSet = new LineDataSet(getRawDarkEntries(firstList), SAMPLE_RAW_DARK_REFERENCE);
+			dataSet.setColor(getResources().getColor(R.color.green));
+			dataSet.setCircleColor(getResources().getColor(R.color.green));
+			dataSets.add(dataSet);
+		}
+
+		if (rawWhiteList != null) {
+
+			// TODO: 11/20/18 find average
+			final List<RawWhite> firstList = rawWhiteList.get(0);
+
+			Log.d(TAG, "getEntries: raw white list size: " + firstList.size());
+			final LineDataSet dataSet = new LineDataSet(getRawWhiteEntries(firstList), SAMPLE_RAW_WHITE_REFERENCE);
+			dataSet.setColor(getResources().getColor(R.color.red));
+			dataSet.setCircleColor(getResources().getColor(R.color.red));
 			dataSets.add(dataSet);
 		}
 		return dataSets;
@@ -314,6 +430,48 @@ public class MeasurementResultsActivity extends BaseActivity {
 		return entries;
 	}
 
+	private List<Entry> getRawDataEntries(@NonNull List<RawData> rawDataList) {
+		final List<Entry> entries = new ArrayList<>();
+		for (int i = 0; i < rawDataList.size(); i++) {
+			try {
+				float wave = Float.parseFloat(rawDataList.get(i).getWave());
+				float value = Float.parseFloat(rawDataList.get(i).getMeasurement());
+				entries.add(new Entry(wave, value));
+			} catch (NumberFormatException e) {
+				Log.d(TAG, "getPreprocessedEntries: skipped white ref: " + rawDataList.get(i).getMeasurement());
+			}
+		}
+		return entries;
+	}
+
+	private List<Entry> getRawDarkEntries(@NonNull List<RawDark> rawDataList) {
+		final List<Entry> entries = new ArrayList<>();
+		for (int i = 0; i < rawDataList.size(); i++) {
+			try {
+				float wave = Float.parseFloat(rawDataList.get(i).getWave());
+				float value = Float.parseFloat(rawDataList.get(i).getMeasurement());
+				entries.add(new Entry(wave, value));
+			} catch (NumberFormatException e) {
+				Log.d(TAG, "getPreprocessedEntries: skipped raw dark: " + rawDataList.get(i).getMeasurement());
+			}
+		}
+		return entries;
+	}
+
+	private List<Entry> getRawWhiteEntries(@NonNull List<RawWhite> rawDataList) {
+		final List<Entry> entries = new ArrayList<>();
+		for (int i = 0; i < rawDataList.size(); i++) {
+			try {
+				float wave = Float.parseFloat(rawDataList.get(i).getWave());
+				float value = Float.parseFloat(rawDataList.get(i).getMeasurement());
+				entries.add(new Entry(wave, value));
+			} catch (NumberFormatException e) {
+				Log.d(TAG, "getPreprocessedEntries: skipped raw white: " + rawDataList.get(i).getMeasurement());
+			}
+		}
+		return entries;
+	}
+
 	private void drawChart() {
 		lineChart.animateX(1000);
 		lineChart.invalidate(); // refresh
@@ -327,18 +485,22 @@ public class MeasurementResultsActivity extends BaseActivity {
 				if (checked) {
 					lineChart.setData(new LineData(visDataSets));
 					currentlySelectedDataSet.addAll(visDataSets);
+					buttonRawData.setEnabled(true);
 				}
 				break;
 			case R.id.nirRadioButton:
 				if (checked) {
 					lineChart.setData(new LineData(nirDataSets));
 					currentlySelectedDataSet.addAll(nirDataSets);
+					//no raw data, disable buttons
+					buttonRawData.setEnabled(false);
 				}
 				break;
 			case R.id.fluoRadioButton:
 				if (checked) {
 					lineChart.setData(new LineData(fluoDataSets));
 					currentlySelectedDataSet.addAll(fluoDataSets);
+					buttonRawData.setEnabled(true);
 				}
 				break;
 		}

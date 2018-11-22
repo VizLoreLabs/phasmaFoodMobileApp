@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fruits">
@@ -113,7 +112,7 @@
                 android:layout_marginTop="16dp"
                 android:text="Use case:"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buttonPreprocessed" />
+                app:layout_constraintTop_toBottomOf="@+id/buttonRawData" />
 
             <TextView
                 android:id="@+id/useCaseValue"
@@ -218,6 +217,48 @@
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/buttonDarkReference"
                 app:layout_constraintTop_toBottomOf="@+id/chart" />
+
+            <Button
+                android:id="@+id/buttonRawData"
+                android:layout_width="@dimen/graphLegendButtonWidth"
+                android:layout_height="@dimen/graphLegendButtonHeight"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/vis_button_selector"
+                android:text="@string/rawData"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonWhiteReference" />
+
+            <Button
+                android:id="@+id/buttonRawDark"
+                android:layout_width="@dimen/graphLegendButtonWidth"
+                android:layout_height="@dimen/graphLegendButtonHeight"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/vis_button_selector"
+                android:text="@string/rawDark"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/buttonRawData"
+                app:layout_constraintTop_toBottomOf="@+id/buttonWhiteReference" />
+
+            <Button
+                android:id="@+id/buttonRawWhite"
+                android:layout_width="@dimen/graphLegendButtonWidth"
+                android:layout_height="@dimen/graphLegendButtonHeight"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/vis_button_selector"
+                android:text="@string/rawWhite"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/buttonRawDark"
+                app:layout_constraintTop_toBottomOf="@+id/buttonWhiteReference" />
 
             <Button
                 android:id="@+id/buttonShowAllSamples"
