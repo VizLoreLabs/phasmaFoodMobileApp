@@ -1,11 +1,12 @@
 package com.vizlore.phasmafood.services;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.vizlore.phasmafood.ui.results.ResultsActivity;
+import com.vizlore.phasmafood.ui.results.MeasurementResultsActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,14 +24,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 	private static final String TAG = "SMEDIC";
 
 	@Override
-	public void onMessageReceived(RemoteMessage remoteMessage) {
+	public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
 		super.onMessageReceived(remoteMessage);
 
 		Log.d(TAG, "*** onMessageReceived: " + remoteMessage);
 		Log.d(TAG, "*** onMessageReceived: " + remoteMessage.getNotification().getTitle());
 		Log.d(TAG, "*** onMessageReceived: " + remoteMessage.getNotification().getBody());
 
-		Intent intent = new Intent(this, ResultsActivity.class);
+		Intent intent = new Intent(this, MeasurementResultsActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		try {
 			JSONObject jsonObject = new JSONObject(remoteMessage.getNotification().getBody());

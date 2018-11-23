@@ -120,7 +120,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="n/a"
+                android:text="@string/na"
                 app:layout_constraintBottom_toBottomOf="@+id/useCase"
                 app:layout_constraintStart_toEndOf="@+id/useCase"
                 app:layout_constraintTop_toTopOf="@+id/useCase" />
@@ -141,7 +141,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="n/a"
+                android:text="@string/na"
                 app:layout_constraintBottom_toBottomOf="@+id/sample"
                 app:layout_constraintStart_toEndOf="@+id/sample"
                 app:layout_constraintTop_toTopOf="@+id/sample" />
@@ -163,18 +163,86 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="n/a"
+                android:text="@string/na"
                 app:layout_constraintBottom_toBottomOf="@+id/param1Title"
                 app:layout_constraintStart_toEndOf="@+id/param1Title"
                 app:layout_constraintTop_toTopOf="@+id/param1Title" />
+
+            <TextView
+                android:id="@+id/visTitle"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/visAnalysis"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/param1Value" />
+
+            <TextView
+                android:id="@+id/nirTitle"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/nirAnalysis"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/visTitle" />
+
+            <TextView
+                android:id="@+id/fluoTitle"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/fluoAnalysis"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nirTitle" />
+
+            <TextView
+                android:id="@+id/visValue"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:text="@string/na"
+                app:layout_constraintBottom_toBottomOf="@+id/visTitle"
+                app:layout_constraintStart_toEndOf="@+id/visTitle"
+                app:layout_constraintTop_toTopOf="@+id/visTitle"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/nirValue"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:text="@string/na"
+                app:layout_constraintBottom_toBottomOf="@+id/nirTitle"
+                app:layout_constraintStart_toEndOf="@+id/nirTitle"
+                app:layout_constraintTop_toTopOf="@+id/nirTitle" />
+
+            <TextView
+                android:id="@+id/fluoValue"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:text="@string/na"
+                app:layout_constraintBottom_toBottomOf="@+id/fluoTitle"
+                app:layout_constraintStart_toEndOf="@+id/fluoTitle"
+                app:layout_constraintTop_toTopOf="@+id/fluoTitle" />
 
             <ImageView
                 android:id="@+id/btDeviceCameraImage"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/param1Value" />
+                app:layout_constraintTop_toBottomOf="@+id/fluoTitle" />
 
             <Button
                 android:id="@+id/buttonPreprocessed"
@@ -338,7 +406,7 @@
                 android:shadowDx="1"
                 android:shadowDy="1"
                 android:shadowRadius="2"
-                android:text="Send to server"
+                android:text="@string/sendToServer"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline4"
@@ -353,12 +421,11 @@
                 android:shadowDx="1"
                 android:shadowDy="1"
                 android:shadowRadius="2"
-                android:text="Go back and retest"
+                android:text="@string/goBackAndRetest"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toStartOf="@+id/guideline4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider1" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
-
 </android.support.constraint.ConstraintLayout>

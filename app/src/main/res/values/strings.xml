@@ -63,4 +63,10 @@
     <string name="rawData">Raw data</string>
     <string name="rawDark">Raw dark</string>
     <string name="rawWhite">Raw white</string>
+    <string name="visAnalysis">VIS data analysis:</string>
+    <string name="nirAnalysis">NIR data analysis:</string>
+    <string name="fluoAnalysis">FLUO data analysis:</string>
+    <string name="na">N/A</string>
+    <string name="sendToServer">Send to server</string>
+    <string name="goBackAndRetest">Go back and retest</string>
 </resources>

@@ -76,6 +76,15 @@ public class MeasurementResultsActivity extends BaseActivity {
 	@BindView(R.id.param1Value)
 	TextView param1Value;
 
+	@BindView(R.id.visValue)
+	TextView visValue;
+
+	@BindView(R.id.nirValue)
+	TextView nirValue;
+
+	@BindView(R.id.fluoValue)
+	TextView fluoValue;
+
 	//keys changed for testing purposes // FIXME: 3/5/18
 	@BindView(R.id.param1Title)
 	TextView param1Title;
@@ -232,6 +241,22 @@ public class MeasurementResultsActivity extends BaseActivity {
 		userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
 		measurementViewModel = ViewModelProviders.of(this).get(MeasurementViewModel.class);
 		deviceViewModel = ViewModelProviders.of(this).get(DeviceViewModel.class);
+
+		final Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			if (bundle.containsKey("VIS")) {
+				visValue.setVisibility(View.VISIBLE);
+				visValue.setText(bundle.getString("VIS"));
+			}
+			if (bundle.containsKey("NIR")) {
+				nirValue.setVisibility(View.VISIBLE);
+				nirValue.setText(bundle.getString("NIR"));
+			}
+			if (bundle.containsKey("FLUO")) {
+				fluoValue.setVisibility(View.VISIBLE);
+				fluoValue.setText(bundle.getString("FLUO"));
+			}
+		}
 
 		// show saved image path
 		final String savedImagePath = measurementViewModel.getMeasurementImagePath();

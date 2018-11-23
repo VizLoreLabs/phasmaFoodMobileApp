@@ -28,7 +28,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.wizard.WizardActivity" />
-        <activity android:name=".ui.results.ResultsActivity" />
         <activity android:name=".ui.configuration.ConfigurationActivity" />
         <activity android:name=".ui.results.MeasurementResultsActivity" />
 
