@@ -10,35 +10,35 @@ public class NIR {
 
 	@SerializedName("preprocessed")
 	@Expose
-	private List<Preprocessed> preprocessed = null;
+	private List<MeasuredSample> preprocessed = null;
 	@SerializedName("whiteReference")
 	@Expose
-	private List<WhiteReference> whiteReference = null;
+	private List<MeasuredSample> whiteReference = null;
 	@SerializedName("darkReference")
 	@Expose
-	private List<DarkReference> darkReference = null;
+	private List<MeasuredSample> darkReference = null;
 
-	public List<Preprocessed> getPreprocessed() {
+	public List<MeasuredSample> getPreprocessed() {
 		return preprocessed;
 	}
 
-	public void setPreprocessed(List<Preprocessed> preprocessed) {
+	public void setPreprocessed(List<MeasuredSample> preprocessed) {
 		this.preprocessed = preprocessed;
 	}
 
-	public List<WhiteReference> getWhiteReference() {
+	public List<MeasuredSample> getWhiteReference() {
 		return whiteReference;
 	}
 
-	public void setWhiteReference(List<WhiteReference> whiteReference) {
+	public void setWhiteReference(List<MeasuredSample> whiteReference) {
 		this.whiteReference = whiteReference;
 	}
 
-	public List<DarkReference> getDarkReference() {
+	public List<MeasuredSample> getDarkReference() {
 		return darkReference;
 	}
 
-	public void setDarkReference(List<DarkReference> darkReference) {
+	public void setDarkReference(List<MeasuredSample> darkReference) {
 		this.darkReference = darkReference;
 	}
 
