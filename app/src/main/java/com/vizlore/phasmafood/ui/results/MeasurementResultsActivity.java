@@ -20,7 +20,9 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.model.results.FLUO;
 import com.vizlore.phasmafood.model.results.MeasuredSample;
@@ -29,6 +31,7 @@ import com.vizlore.phasmafood.model.results.NIR;
 import com.vizlore.phasmafood.model.results.Sample;
 import com.vizlore.phasmafood.model.results.VIS;
 import com.vizlore.phasmafood.ui.BaseActivity;
+import com.vizlore.phasmafood.ui.view.ChartMarkerView;
 import com.vizlore.phasmafood.viewmodel.DeviceViewModel;
 import com.vizlore.phasmafood.viewmodel.MeasurementViewModel;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
@@ -119,6 +122,7 @@ public class MeasurementResultsActivity extends BaseActivity {
 	@OnClick({R.id.buttonPreprocessed, R.id.buttonDarkReference, R.id.buttonWhiteReference,
 		R.id.buttonRawData, R.id.buttonRawDark, R.id.buttonRawWhite, R.id.buttonShowAllSamples})
 	void onSampleTypeClicked(final View view) {
+		lineChart.setDrawMarkers(false);
 		switch (view.getId()) {
 			case R.id.buttonPreprocessed:
 				lineChart.setData(new LineData(getSampleValues(SAMPLE_PREPROCESSED)));
@@ -197,6 +201,7 @@ public class MeasurementResultsActivity extends BaseActivity {
 			Log.d(TAG, "onCreate: image path: " + savedImagePath);
 			final File file = new File(savedImagePath);
 			final Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+			btDeviceCameraImage.setVisibility(View.VISIBLE);
 			btDeviceCameraImage.setImageBitmap(bitmap);
 		}
 
@@ -238,12 +243,24 @@ public class MeasurementResultsActivity extends BaseActivity {
 					fluo.getRawData(), fluo.getRawDark(), fluo.getRawWhite())); //raw data
 			}
 
+
 			lineChart.getXAxis().setTextColor(Color.WHITE);
 			lineChart.getAxisLeft().setTextColor(Color.WHITE);
 			lineChart.getAxisRight().setTextColor(Color.WHITE);
-			//lineChart.getLegend().setEnabled(false);
+			lineChart.setMarker(new ChartMarkerView(this));
 			lineChart.getDescription().setText("");
 			lineChart.setScaleEnabled(false);
+
+			lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+				@Override
+				public void onValueSelected(Entry e, Highlight h) {
+					lineChart.setDrawMarkers(true);
+				}
+
+				@Override
+				public void onNothingSelected() {
+				}
+			});
 
 			//display VIS on start
 			lineChart.setData(new LineData(visDataSets));

@@ -69,4 +69,5 @@
     <string name="na">N/A</string>
     <string name="sendToServer">Send to server</string>
     <string name="goBackAndRetest">Go back and retest</string>
+    <string name="waveMeasurementMarker">%s\n%s</string>
 </resources>
