@@ -1,5 +1,6 @@
 package com.vizlore.phasmafood.dagger;
 
+import com.vizlore.phasmafood.TestingUtils;
 import com.vizlore.phasmafood.bluetooth.BluetoothService;
 import com.vizlore.phasmafood.dagger.modules.AppModule;
 import com.vizlore.phasmafood.dagger.modules.BluetoothModule;
@@ -46,4 +47,5 @@ public interface AppComponent {
 
 	void inject(ConfigurationActivity configurationActivity);
 
+	void inject(TestingUtils testingUtils);
 }

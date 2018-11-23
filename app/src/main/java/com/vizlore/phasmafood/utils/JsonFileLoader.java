@@ -19,7 +19,7 @@ public class JsonFileLoader {
 	public String fromAsset(final String fileName) {
 		String json = null;
 		try {
-			AssetManager am = MyApplication.getAppContext().getAssets();
+			AssetManager am = MyApplication.getInstance().getAssets();
 			InputStream inputStream = am.open(fileName);
 			if (inputStream != null) {
 				int size = inputStream.available();
@@ -38,7 +38,7 @@ public class JsonFileLoader {
 	}
 
 	public boolean fileExists(final String fileName) {
-		AssetManager am = MyApplication.getAppContext().getAssets();
+		AssetManager am = MyApplication.getInstance().getAssets();
 		InputStream is = null;
 		try {
 			is = am.open(fileName);

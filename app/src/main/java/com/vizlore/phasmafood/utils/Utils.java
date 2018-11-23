@@ -48,13 +48,13 @@ public class Utils {
 	 */
 
 	public synchronized static String getMobileUUID() {
-		return Settings.Secure.getString(MyApplication.getAppContext().getContentResolver(),
+		return Settings.Secure.getString(MyApplication.getInstance().getContentResolver(),
 			Settings.Secure.ANDROID_ID);
 	}
 
 	@Nullable
 	public synchronized static String getBluetoothDeviceUUID() {
-		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getInstance());
 		final boolean isDebugMode = prefs.getBoolean(DEBUG_MODE_KEY, false);
 		if (isDebugMode) {
 			return UUID.randomUUID().toString();
@@ -64,7 +64,7 @@ public class Utils {
 
 	//do on logout
 	public synchronized static void clearUuids() {
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getInstance());
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.remove(MOBILE_DEVICE_UUID_KEY);
 		editor.remove(BT_DEVICE_UUID_KEY);
@@ -72,7 +72,7 @@ public class Utils {
 	}
 
 	public static String getHeader() {
-		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getInstance());
 		return prefs.getString(TOKEN_KEY, "");
 	}
 

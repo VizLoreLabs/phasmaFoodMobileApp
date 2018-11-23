@@ -1,5 +1,6 @@
 package com.vizlore.phasmafood.ui.results;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,7 +17,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.model.results.DarkReference;
 import com.vizlore.phasmafood.model.results.FLUO;
@@ -27,6 +27,7 @@ import com.vizlore.phasmafood.model.results.Sample;
 import com.vizlore.phasmafood.model.results.VIS;
 import com.vizlore.phasmafood.model.results.WhiteReference;
 import com.vizlore.phasmafood.ui.BaseActivity;
+import com.vizlore.phasmafood.viewmodel.MeasurementViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,8 @@ public class ResultsActivity extends BaseActivity {
 	private static final String SAMPLE_PREPROCESSED = "preprocessed";
 	private static final String SAMPLE_DARK_REFERENCE = "dark_reference";
 	private static final String SAMPLE_WHITE_REFERENCE = "white_reference";
+
+	private MeasurementViewModel measurementViewModel;
 
 	private List<ILineDataSet> visDataSets = new ArrayList<>();
 	private List<ILineDataSet> nirDataSets = new ArrayList<>();
@@ -158,15 +161,15 @@ public class ResultsActivity extends BaseActivity {
 		setContentView(R.layout.activity_results);
 		ButterKnife.bind(this);
 
+		measurementViewModel = ViewModelProviders.of(this).get(MeasurementViewModel.class);
+
 		final Bundle bundle = getIntent().getExtras();
 		if (bundle != null) {
-			Log.d(TAG, "onCreate: bundle!!!");
-
 			visValue.setText(bundle.getString("VIS"));
 			nirValue.setText(bundle.getString("NIR"));
 			fluoValue.setText(bundle.getString("FLUO"));
 
-			final Measurement measurement = MyApplication.getInstance().getMeasurement();
+			final Measurement measurement = measurementViewModel.getSavedMeasurement();
 			if (measurement != null) {
 				final Sample sample = measurement.getResponse().getSample();
 				if (sample == null) { //keep safe

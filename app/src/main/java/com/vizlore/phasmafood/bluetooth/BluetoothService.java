@@ -31,6 +31,7 @@ import com.vizlore.phasmafood.TestingUtils;
 import com.vizlore.phasmafood.api.AutoValueGsonFactory;
 import com.vizlore.phasmafood.api.DeviceApi;
 import com.vizlore.phasmafood.model.results.Measurement;
+import com.vizlore.phasmafood.repositories.MeasurementRepository;
 import com.vizlore.phasmafood.ui.results.MeasurementResultsActivity;
 import com.vizlore.phasmafood.utils.Config;
 
@@ -86,6 +87,9 @@ public class BluetoothService extends Service {
 
 	@Inject
 	DeviceApi deviceApi;
+
+	@Inject
+	MeasurementRepository measurementRepository;
 
 	private Handler handler = new Handler(new Handler.Callback() {
 
@@ -197,9 +201,13 @@ public class BluetoothService extends Service {
 				if (measurement != null && measurement.getResponse() != null) {
 					Log.d(TAG, "handleMessage: ok measurement");
 					//save measurement (too big to put in bundle or parcelable)
-					MyApplication.getInstance().saveMeasurement(measurement);
-					MyApplication.getInstance().saveMeasurementImagePath(savedImagePath);
-					startResultActivity(savedImagePath);
+					measurementRepository.saveMeasurement(measurement);
+					measurementRepository.saveMeasurementImagePath(savedImagePath);
+
+					// start activity where user can see measurement charts and captured image
+					final Intent intent = new Intent(BluetoothService.this, MeasurementResultsActivity.class);
+					intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					startActivity(intent);
 				} else {
 					Toast.makeText(getApplicationContext(), "Parsing examination failed", Toast.LENGTH_SHORT).show();
 				}
@@ -213,23 +221,11 @@ public class BluetoothService extends Service {
 		}
 	}
 
-	/**
-	 * Start activity where user can see measurement charts and captured image
-	 */
-	private void startResultActivity(final String savedImagePath) {
-		final Intent intent = new Intent(BluetoothService.this, MeasurementResultsActivity.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		intent.putExtra("imagePath", savedImagePath);
-		startActivity(intent);
-	}
-
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		// TODO: 2/17/18 check if device is there (shared prefs and getBondedDevices match)
 		//connect();
-
 		init();
-
 		return START_STICKY;
 	}
 
@@ -396,7 +392,7 @@ public class BluetoothService extends Service {
 							@Override
 							public void onComplete() {
 								Log.d(TAG, "onComplete: device created");
-								final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
+								final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getInstance());
 								prefs.edit().putString(BT_DEVICE_UUID_KEY, deviceUuid).apply();
 							}
 
@@ -430,7 +426,6 @@ public class BluetoothService extends Service {
 	}
 
 	private void createNotificationChannel() {
-		Log.d(TAG, "createNotificationChannel: create notification channel!");
 		// Create the NotificationChannel, but only on API 26+ because
 		// the NotificationChannel class is new and not in the support library
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

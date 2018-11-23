@@ -21,7 +21,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.model.results.DarkReference;
 import com.vizlore.phasmafood.model.results.FLUO;
@@ -213,7 +212,7 @@ public class MeasurementResultsActivity extends BaseActivity {
 
 	@OnClick(R.id.nextButton)
 	void onNextClick() {
-		final Measurement measurement = MyApplication.getInstance().getMeasurement();
+		final Measurement measurement = measurementViewModel.getSavedMeasurement();
 		sendMeasurementToServer(measurement.getResponse().getSample());
 	}
 
@@ -235,16 +234,16 @@ public class MeasurementResultsActivity extends BaseActivity {
 		deviceViewModel = ViewModelProviders.of(this).get(DeviceViewModel.class);
 
 		// show saved image path
-		final String savedImagePath = MyApplication.getInstance().getMeasurementImagePath();
+		final String savedImagePath = measurementViewModel.getMeasurementImagePath();
 		if (savedImagePath != null) {
 			Log.d(TAG, "onCreate: image path: " + savedImagePath);
-			File file = new File(savedImagePath);
+			final File file = new File(savedImagePath);
 			final Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
 			btDeviceCameraImage.setImageBitmap(bitmap);
 		}
 
 		// show measurement chart
-		final Measurement measurement = MyApplication.getInstance().getMeasurement();
+		final Measurement measurement = measurementViewModel.getSavedMeasurement();
 		if (measurement != null) {
 			final Sample sample = measurement.getResponse().getSample();
 			if (sample == null) { //keep safe

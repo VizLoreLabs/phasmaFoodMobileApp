@@ -11,21 +11,29 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vizlore.phasmafood.api.AutoValueGsonFactory;
 import com.vizlore.phasmafood.model.results.Measurement;
+import com.vizlore.phasmafood.repositories.MeasurementRepository;
 import com.vizlore.phasmafood.ui.results.ResultsActivity;
 import com.vizlore.phasmafood.utils.JsonFileLoader;
 import com.vizlore.phasmafood.viewmodel.DeviceViewModel;
 import com.vizlore.phasmafood.viewmodel.MeasurementViewModel;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
 
+import javax.inject.Inject;
+
 public class TestingUtils {
 
 	private static final String TAG = "SMEDIC TESTING";
+	private static boolean IS_DEBUG = false;
 
-	//DEBUG
-	static boolean IS_DEBUG = false;
+	@Inject
+	MeasurementRepository measurementRepository;
+
+	public TestingUtils() {
+		MyApplication.getComponent().inject(this);
+	}
 
 	// just for testing
-	public static void performTestMeasurement(@NonNull final FragmentActivity activity) {
+	public void performTestMeasurement(@NonNull final FragmentActivity activity) {
 
 		final MeasurementViewModel model = ViewModelProviders.of(activity).get(MeasurementViewModel.class);
 		final UserViewModel userViewModel = ViewModelProviders.of(activity).get(UserViewModel.class);
@@ -38,7 +46,7 @@ public class TestingUtils {
 			final Measurement measurement = gson.fromJson(json, Measurement.class);
 
 			// TODO: 9/8/18 refactor
-			MyApplication.getInstance().saveMeasurement(measurement);
+			measurementRepository.saveMeasurement(measurement);
 
 			final Intent intent = new Intent(activity, ResultsActivity.class);
 			intent.putExtra("VIS", "N/A");

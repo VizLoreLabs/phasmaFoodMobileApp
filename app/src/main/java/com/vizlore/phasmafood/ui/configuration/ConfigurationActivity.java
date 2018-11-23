@@ -1,6 +1,7 @@
 package com.vizlore.phasmafood.ui.configuration;
 
 import android.app.AlertDialog;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +11,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -21,16 +21,17 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.bluetooth.BluetoothService;
+import com.vizlore.phasmafood.ui.BaseActivity;
 import com.vizlore.phasmafood.ui.results.MeasurementResultsActivity;
 import com.vizlore.phasmafood.ui.wizard.WizardActivity;
+import com.vizlore.phasmafood.viewmodel.MeasurementViewModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.inject.Inject;
+import java.util.Date;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -92,7 +93,7 @@ import static com.vizlore.phasmafood.utils.Config.MIN_VIS_GAIN_REFLECTANCE;
 import static com.vizlore.phasmafood.utils.Config.MIN_VIS_UV_LEDS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.MIN_VIS_WHITE_LEDS_CURRENT;
 
-public class ConfigurationActivity extends FragmentActivity {
+public class ConfigurationActivity extends BaseActivity {
 
 	private static final String TAG = "SMEDIC";
 
@@ -101,6 +102,7 @@ public class ConfigurationActivity extends FragmentActivity {
 	private static final String USE_CASE_KEY = "Use cases";
 	private static final String USE_CASE_1 = "Mycotoxins detection";
 	private static final String USE_CASE_2 = "Food spoilage";
+	private static final String USE_CASE_WHITE_REF = "White Reference";
 
 	private static final String USE_CASE_1_PARAM_1 = "alfatoxinName";
 	private static final String USE_CASE_1_PARAM_2 = "alfatoxinValue";
@@ -109,16 +111,17 @@ public class ConfigurationActivity extends FragmentActivity {
 	private static final String USE_CASE_2_PARAM_1 = "microbiologicalUnit";
 	private static final String USE_CASE_2_PARAM_2 = "microbiologicalValue";
 
+	private static final String USE_CASE_WHITE_REF_PARAM_1 = "timestamp";
+
 	private static final String USE_CASE_1_JSON = "measurements_10_sample_full.json";
 	private static final String USE_CASE_2_JSON = "usecase2_updated_response.json";
 
 	private BluetoothService bluetoothService;
 	private CompositeDisposable disposable = new CompositeDisposable();
-
+	private MeasurementViewModel measurementViewModel;
 	private JSONObject wizardJsonObject = null;
 
-	@Inject
-	SharedPreferences prefs;
+	private SharedPreferences prefs;
 
 	//use case parameters
 	@BindView(R.id.useCaseParamsTitle)
@@ -196,13 +199,19 @@ public class ConfigurationActivity extends FragmentActivity {
 				try {
 					if (wizardJsonObject != null && wizardJsonObject.has(USE_CASE_KEY)) {
 
-						if (wizardJsonObject.getString(USE_CASE_KEY).equals(USE_CASE_1)) {
-							wizardJsonObject.put(USE_CASE_1_PARAM_1, alfatoxinName.getText().toString());
-							wizardJsonObject.put(USE_CASE_1_PARAM_2, alfatoxinValue.getText().toString());
-							wizardJsonObject.put(USE_CASE_1_PARAM_3, alfatoxinUnit.getText().toString());
-						} else if (wizardJsonObject.getString(USE_CASE_KEY).equals(USE_CASE_2)) {
-							wizardJsonObject.put(USE_CASE_2_PARAM_1, microbiologicalValue.getText().toString());
-							wizardJsonObject.put(USE_CASE_2_PARAM_2, microbiologicalUnit.getText().toString());
+						switch (wizardJsonObject.getString(USE_CASE_KEY)) {
+							case USE_CASE_1:
+								wizardJsonObject.put(USE_CASE_1_PARAM_1, alfatoxinName.getText().toString());
+								wizardJsonObject.put(USE_CASE_1_PARAM_2, alfatoxinValue.getText().toString());
+								wizardJsonObject.put(USE_CASE_1_PARAM_3, alfatoxinUnit.getText().toString());
+								break;
+							case USE_CASE_2:
+								wizardJsonObject.put(USE_CASE_2_PARAM_1, microbiologicalValue.getText().toString());
+								wizardJsonObject.put(USE_CASE_2_PARAM_2, microbiologicalUnit.getText().toString());
+								break;
+							case USE_CASE_WHITE_REF:
+								wizardJsonObject.put(USE_CASE_WHITE_REF_PARAM_1, String.valueOf(new Date().getTime()));
+								break;
 						}
 					}
 
@@ -297,9 +306,8 @@ public class ConfigurationActivity extends FragmentActivity {
 				}
 
 				disposable.add(bluetoothService.sendFakeMessage(jsonFileName).subscribe(measurement -> {
-						final Intent intent = new Intent(ConfigurationActivity.this, MeasurementResultsActivity.class);
-						MyApplication.getInstance().saveMeasurement(measurement);
-						startActivity(intent);
+						measurementViewModel.saveMeasurement(measurement);
+						startActivity(new Intent(ConfigurationActivity.this, MeasurementResultsActivity.class));
 					},
 					e -> Log.d(TAG, "onError: " + e.getMessage())
 				));
@@ -315,7 +323,10 @@ public class ConfigurationActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_configuration);
 		ButterKnife.bind(this);
-		MyApplication.getComponent().inject(this);
+
+		measurementViewModel = ViewModelProviders.of(this).get(MeasurementViewModel.class);
+
+		prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
 		// load from preferences or set defaults
 		loadStartingValues();
@@ -342,7 +353,6 @@ public class ConfigurationActivity extends FragmentActivity {
 
 	@Override
 	protected void onDestroy() {
-		super.onDestroy();
 		//stopService(new Intent(this, BluetoothService.class));
 		if (bluetoothService != null && connection != null) {
 			bluetoothService.closeConnection();
@@ -351,6 +361,7 @@ public class ConfigurationActivity extends FragmentActivity {
 		if (!disposable.isDisposed()) {
 			disposable.clear();
 		}
+		super.onDestroy();
 	}
 
 	private void loadStartingValues() {
@@ -380,7 +391,6 @@ public class ConfigurationActivity extends FragmentActivity {
 		cameraVoltage.setText(String.valueOf(DEFAULT_CAMERA_VOLTAGE));
 		// nir
 		singleShotRadioGroup.check(singleShotRadioGroup.getChildAt(1).getId()); //no is default // TODO: 4/22/18
-
 		averagesEditText.setText(String.valueOf(DEFAULT_NIR_SPEC_AVERAGES));
 		nirMicrolampsCurrent.setText(String.valueOf(DEFAULT_NIR_MICROLAMPS_CURRENT));
 		nirMicrolampsWarmingTime.setText(String.valueOf(DEFAULT_NIR_MICROLAMPS_WARMING_TIME));
@@ -396,13 +406,13 @@ public class ConfigurationActivity extends FragmentActivity {
 	}
 
 	private void saveParamsState() {
-		SharedPreferences.Editor editor = prefs.edit();
+		final SharedPreferences.Editor editor = prefs.edit();
 		editor.putInt(KEY_CAMERA_EXPOSURE_TIME, getValue(cameraExposureTime));
 		editor.putInt(KEY_CAMERA_VOLTAGE, getValue(cameraVoltage));
 
-		int radioButtonID = singleShotRadioGroup.getCheckedRadioButtonId();
-		View radioButton = singleShotRadioGroup.findViewById(radioButtonID);
-		int idx = singleShotRadioGroup.indexOfChild(radioButton);
+		final int radioButtonID = singleShotRadioGroup.getCheckedRadioButtonId();
+		final View radioButton = singleShotRadioGroup.findViewById(radioButtonID);
+		final int idx = singleShotRadioGroup.indexOfChild(radioButton);
 		editor.putInt(KEY_NIR_SINGLE_SHOT, idx);
 		editor.putInt(KEY_NIR_SPEC_AVERAGES, getValue(averagesEditText));
 		editor.putInt(KEY_NIR_MICROLAMPS_CURRENT, getValue(nirMicrolampsCurrent));

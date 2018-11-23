@@ -1,7 +1,7 @@
 package com.vizlore.phasmafood.ui;
 
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import com.vizlore.phasmafood.R;
 
@@ -9,7 +9,7 @@ import com.vizlore.phasmafood.R;
  * Created by smedic on 1/18/18.
  */
 
-public abstract class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
 	@Override
 	public void finish() {

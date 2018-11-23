@@ -77,7 +77,7 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 					case MEASUREMENT_HISTORY_CLICKED:
 
 						// TODO: 2/23/18 remove
-						TestingUtils.performTestMeasurement(this);
+						new TestingUtils().performTestMeasurement(this);
 
 						// TODO: 1/16/18
 						break;

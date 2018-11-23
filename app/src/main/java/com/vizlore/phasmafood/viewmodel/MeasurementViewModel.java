@@ -2,9 +2,11 @@ package com.vizlore.phasmafood.viewmodel;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.vizlore.phasmafood.MyApplication;
+import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.model.results.Sample;
 import com.vizlore.phasmafood.repositories.MeasurementRepository;
 import com.vizlore.phasmafood.utils.SingleLiveEvent;
@@ -70,9 +72,21 @@ public class MeasurementViewModel extends ViewModel {
 
 	@Override
 	protected void onCleared() {
-		super.onCleared();
 		if (disposable != null && !disposable.isDisposed()) {
 			disposable.dispose();
 		}
+		super.onCleared();
+	}
+
+	public void saveMeasurement(@NonNull final Measurement measurement) {
+		measurementRepository.saveMeasurement(measurement);
+	}
+
+	public Measurement getSavedMeasurement() {
+		return measurementRepository.getMeasurement();
+	}
+
+	public String getMeasurementImagePath() {
+		return measurementRepository.getMeasurementImagePath();
 	}
 }
