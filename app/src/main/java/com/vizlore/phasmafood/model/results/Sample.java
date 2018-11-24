@@ -1,10 +1,12 @@
 
 package com.vizlore.phasmafood.model.results;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.vizlore.phasmafood.model.configuration.Configuration;
 
 public class Sample {
 
@@ -91,6 +93,10 @@ public class Sample {
 	@SerializedName("FLUO")
 	@Expose
 	private FLUO fLUO;
+
+	@SerializedName("configuration")
+	@Nullable
+	private Configuration configuration;
 
 	public String getSampleID() {
 		return sampleID;
@@ -250,5 +256,9 @@ public class Sample {
 
 	public void setMobileID(String mobileID) {
 		this.mobileID = mobileID;
+	}
+
+	public void setConfiguration(@NonNull Configuration configuration) {
+		this.configuration = configuration;
 	}
 }

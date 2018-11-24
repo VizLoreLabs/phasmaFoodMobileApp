@@ -21,8 +21,15 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.bluetooth.BluetoothService;
+import com.vizlore.phasmafood.model.configuration.Camera;
+import com.vizlore.phasmafood.model.configuration.Configuration;
+import com.vizlore.phasmafood.model.configuration.NirMicrolamps;
+import com.vizlore.phasmafood.model.configuration.NirSpectrometer;
+import com.vizlore.phasmafood.model.configuration.VisLeds;
+import com.vizlore.phasmafood.model.configuration.VisSpectrometer;
 import com.vizlore.phasmafood.ui.BaseActivity;
 import com.vizlore.phasmafood.ui.results.MeasurementResultsActivity;
 import com.vizlore.phasmafood.ui.wizard.WizardActivity;
@@ -216,14 +223,18 @@ public class ConfigurationActivity extends BaseActivity {
 					}
 
 					//add config parameters to json request (camera, nir, vis)
-					if (getConfigurationParams() != null) {
+					final Configuration configuration = getConfiguration();
+					if (configuration != null) {
+
 						saveParamsState(); //save new values to shared preferences
-						wizardJsonObject.put("configuration", getConfigurationParams());
+						measurementViewModel.saveConfigurationParams(configuration);
+
+						String configurationJson = new Gson().toJson(configuration);
+						wizardJsonObject.put("configuration", configurationJson);
 						//wrap into request
-						JSONObject jsonObjectRequest = new JSONObject();
+						final JSONObject jsonObjectRequest = new JSONObject();
 						jsonObjectRequest.put("Request", wizardJsonObject);
 
-						Log.d(TAG, "onClick: JSON TO SEND: " + wizardJsonObject.toString());
 						showSendActionDialog(jsonObjectRequest.toString());
 					} else {
 						Toast.makeText(ConfigurationActivity.this, "Wrong input. Check fields", Toast.LENGTH_SHORT).show();
@@ -431,7 +442,7 @@ public class ConfigurationActivity extends BaseActivity {
 		editor.apply();
 	}
 
-	private JSONObject getConfigurationParams() throws JSONException {
+	private Configuration getConfiguration() {
 		if (!isWithinBounds(getValue(cameraExposureTime), MIN_CAMERA_EXPOSURE_TIME, MAX_CAMERA_EXPOSURE_TIME)) {
 			showError(cameraExposureTime);
 			return null;
@@ -485,45 +496,43 @@ public class ConfigurationActivity extends BaseActivity {
 			return null;
 		}
 
-		final JSONObject jsonObject = new JSONObject();
+		// Camera
+		final Camera camera = Camera.builder()
+			.setTCam(getValue(cameraExposureTime))
+			.setVwCam(getValue(cameraVoltage))
+			.build();
 
-		// Camera json object
-		final JSONObject cameraJsonObject = new JSONObject();
-		cameraJsonObject.put("t_cam", getValue(cameraExposureTime));
-		cameraJsonObject.put("vw_cam", getValue(cameraVoltage));
-		jsonObject.put("camera", cameraJsonObject);
+		// NirMicrolamps
+		final NirMicrolamps nirMicrolamps = new NirMicrolamps();
+		nirMicrolamps.setTNir(getValue(nirMicrolampsWarmingTime));
+		nirMicrolamps.setVNir(getValue(nirMicrolampsCurrent));
 
-		// NIR
-		final JSONObject nirJsonObject = new JSONObject();
-		String selectedRadioButtonValue;
-		if (singleShotRadioGroup.getCheckedRadioButtonId() == R.id.yes) {
-			selectedRadioButtonValue = "Y";
-		} else {
-			selectedRadioButtonValue = "N";
-		}
-		nirJsonObject.put("single", selectedRadioButtonValue);
-		nirJsonObject.put("av_NIR", getValue(averagesEditText));
-		final JSONObject nirMicrolampsJsonObject = new JSONObject();
-		nirMicrolampsJsonObject.put("V_nir", getValue(nirMicrolampsCurrent));
-		nirMicrolampsJsonObject.put("t_nir", getValue(nirMicrolampsWarmingTime));
-		nirJsonObject.put("NirMicrolamps", nirMicrolampsJsonObject);
-		jsonObject.put("NirSpectrometer", nirJsonObject);
+		final String selectedOption = singleShotRadioGroup.getCheckedRadioButtonId() == R.id.yes ? "Y" : "N";
+		final NirSpectrometer nirSpectrometer = NirSpectrometer.builder()
+			.setSingle(selectedOption)
+			.setAvNIRm(getValue(averagesEditText))
+			.setNirMicrolamps(nirMicrolamps)
+			.build();
 
 		// VIS
-		final JSONObject visJsonObject = new JSONObject();
-		visJsonObject.put("t_vis", getValue(exposureTimeReflectance));
-		visJsonObject.put("g_vis", getValue(gainReflectance));
-		visJsonObject.put("b_vis", getValue(binningReflectance));
-		visJsonObject.put("t_fluo", getValue(exposureTimeFluorescence));
-		visJsonObject.put("g_fluo", getValue(gainFluorescence));
-		visJsonObject.put("b_fluo", getValue(binningFluorescence));
-		final JSONObject ledsJsonObject = new JSONObject();
-		ledsJsonObject.put("Vw_vis", getValue(whiteLEDsCurrent));
-		ledsJsonObject.put("V_UV", getValue(UVLEDsCurrent));
-		visJsonObject.put("visLeds", ledsJsonObject);
-		jsonObject.put("VisSpectrometer", visJsonObject);
+		final VisLeds visLeds = new VisLeds();
+		visLeds.setVUV(getValue(UVLEDsCurrent));
+		visLeds.setVwVis(getValue(whiteLEDsCurrent));
 
-		return jsonObject;
+		final VisSpectrometer visSpectrometer = new VisSpectrometer();
+		visSpectrometer.setBFluo(getValue(binningFluorescence));
+		visSpectrometer.setBVis(getValue(binningReflectance));
+		visSpectrometer.setGFluo(getValue(gainFluorescence));
+		visSpectrometer.setGVis(getValue(gainReflectance));
+		visSpectrometer.setTFluo(getValue(exposureTimeFluorescence));
+		visSpectrometer.setTVis(getValue(exposureTimeReflectance));
+
+		final Configuration configuration = new Configuration();
+		configuration.setCamera(camera);
+		configuration.setNirSpectrometer(nirSpectrometer);
+		configuration.setVisSpectrometer(visSpectrometer);
+
+		return configuration;
 	}
 
 	private boolean isWithinBounds(int value, int min, int max) {

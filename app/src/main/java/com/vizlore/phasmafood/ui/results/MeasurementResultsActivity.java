@@ -110,12 +110,6 @@ public class MeasurementResultsActivity extends BaseActivity {
 	@BindView(R.id.samplesRadioGroup)
 	RadioGroup samplesRadioGroup;
 
-	@BindView(R.id.previousButton)
-	Button repeatTest;
-
-	@BindView(R.id.nextButton)
-	Button sendToServerButton;
-
 	@BindView(R.id.btDeviceCameraImage)
 	ImageView btDeviceCameraImage;
 
@@ -156,7 +150,7 @@ public class MeasurementResultsActivity extends BaseActivity {
 		finish();
 	}
 
-	@OnClick(R.id.nextButton)
+	@OnClick(R.id.sendToServer)
 	void onNextClick() {
 		final Measurement measurement = measurementViewModel.getSavedMeasurement();
 		sendMeasurementToServer(measurement.getResponse().getSample());
@@ -242,7 +236,6 @@ public class MeasurementResultsActivity extends BaseActivity {
 				fluoDataSets.addAll(getEntries(fluo.getPreprocessed(), fluo.getDarkReference(), fluo.getWhiteReference(),  //regular data
 					fluo.getRawData(), fluo.getRawDark(), fluo.getRawWhite())); //raw data
 			}
-
 
 			lineChart.getXAxis().setTextColor(Color.WHITE);
 			lineChart.getAxisLeft().setTextColor(Color.WHITE);

@@ -291,7 +291,7 @@ public class BluetoothService extends Service {
 	public Single<Measurement> sendFakeMessage(@NonNull final String jsonFileName) {
 		final Measurement measurementJson = TestingUtils.readMeasurementFromJson(jsonFileName);
 		return Single.just(measurementJson)
-			.delay(3000, TimeUnit.MILLISECONDS);
+			.delay(2000, TimeUnit.MILLISECONDS);
 	}
 
 	//called multiple times

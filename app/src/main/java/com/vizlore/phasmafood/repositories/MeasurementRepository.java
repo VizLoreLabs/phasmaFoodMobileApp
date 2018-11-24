@@ -2,6 +2,7 @@ package com.vizlore.phasmafood.repositories;
 
 import android.support.annotation.NonNull;
 
+import com.vizlore.phasmafood.model.configuration.Configuration;
 import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.model.results.Sample;
 
@@ -18,7 +19,11 @@ public interface MeasurementRepository {
 
 	Measurement getMeasurement();
 
+	void saveMeasurementImagePath(@NonNull String measurementImagePath);
+
 	String getMeasurementImagePath();
 
-	void saveMeasurementImagePath(@NonNull String measurementImagePath);
+	void saveConfiguration(@NonNull Configuration configuration);
+
+	Configuration getConfiguration();
 }

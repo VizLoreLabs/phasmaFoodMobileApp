@@ -26,6 +26,9 @@ public class TestingUtils {
 	private static final String TAG = "SMEDIC TESTING";
 	private static boolean IS_DEBUG = false;
 
+	private static final String MEASUREMENT_10_SAMPLES = "measurements_10_sample_full.json";
+	private static final String WHITE_REF_MEASUREMENT_10_SAMPLES = "white_reference_10_measurements.json";
+
 	@Inject
 	MeasurementRepository measurementRepository;
 
@@ -48,7 +51,7 @@ public class TestingUtils {
 		userViewModel.getUserProfile().observe(activity, user -> {
 
 			final Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
-			final String json = new JsonFileLoader().fromAsset("measurements_10_sample_full.json");
+			final String json = new JsonFileLoader().fromAsset(MEASUREMENT_10_SAMPLES);
 			final Measurement measurement = gson.fromJson(json, Measurement.class);
 
 			// TODO: 9/8/18 refactor

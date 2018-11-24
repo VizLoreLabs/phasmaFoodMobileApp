@@ -3,6 +3,7 @@ package com.vizlore.phasmafood.repositories;
 import android.support.annotation.NonNull;
 
 import com.vizlore.phasmafood.api.MeasurementApi;
+import com.vizlore.phasmafood.model.configuration.Configuration;
 import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.model.results.Sample;
 
@@ -25,6 +26,7 @@ public class MeasurementRepositoryImpl implements MeasurementRepository {
 
 	// temporary save examination and image path
 	private Measurement measurement;
+	private Configuration configuration;
 	private String measurementImagePath;
 
 	public void saveMeasurement(@NonNull final Measurement measurement) {
@@ -41,5 +43,15 @@ public class MeasurementRepositoryImpl implements MeasurementRepository {
 
 	public void saveMeasurementImagePath(@NonNull final String measurementImagePath) {
 		this.measurementImagePath = measurementImagePath;
+	}
+
+	@Override
+	public void saveConfiguration(@NonNull Configuration configuration) {
+		this.configuration = configuration;
+	}
+
+	@Override
+	public Configuration getConfiguration() {
+		return configuration;
 	}
 }

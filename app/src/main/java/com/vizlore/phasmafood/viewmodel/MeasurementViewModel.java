@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.vizlore.phasmafood.MyApplication;
+import com.vizlore.phasmafood.model.configuration.Configuration;
 import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.model.results.Sample;
 import com.vizlore.phasmafood.repositories.MeasurementRepository;
@@ -48,8 +49,6 @@ public class MeasurementViewModel extends ViewModel {
 			measurementLiveData = new SingleLiveEvent<>();
 		}
 
-		Log.d(TAG, "createMeasurementRequest: User ID: " + userId);
-
 		final Random rand = new Random();
 		final int randomValue = rand.nextInt(1000000);
 
@@ -58,13 +57,14 @@ public class MeasurementViewModel extends ViewModel {
 		sample.setUserID(userId);
 		sample.setDeviceID(deviceId);
 		sample.setMobileID(Utils.getMobileUUID());
+		sample.setConfiguration(measurementRepository.getConfiguration());
 
 		disposable = measurementRepository.createMeasurementRequest(sample)
 			.subscribeOn(Schedulers.io())
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribe(() -> measurementLiveData.postValue(true),
 				error -> {
-					Log.d(TAG, "onError error: " + error.toString());
+					Log.d(TAG, "onError: " + error.toString());
 					measurementLiveData.postValue(false);
 				});
 		return measurementLiveData;
@@ -88,5 +88,9 @@ public class MeasurementViewModel extends ViewModel {
 
 	public String getMeasurementImagePath() {
 		return measurementRepository.getMeasurementImagePath();
+	}
+
+	public void saveConfigurationParams(@NonNull final Configuration configuration) {
+		measurementRepository.saveConfiguration(configuration);
 	}
 }
