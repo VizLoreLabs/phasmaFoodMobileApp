@@ -17,6 +17,7 @@ import android.widget.Switch;
 
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.ui.configuration.ConfigurationActivity;
+import com.vizlore.phasmafood.utils.Constants;
 import com.vizlore.phasmafood.utils.Utils;
 
 import org.json.JSONException;
@@ -110,8 +111,8 @@ public class WizardActivity extends AppCompatActivity implements PageFragmentCal
 							e.printStackTrace();
 						}
 					}
-					Intent intent = new Intent(this, ConfigurationActivity.class);
-					intent.putExtra("wizard_data", jsonObject.toString());
+					final Intent intent = new Intent(this, ConfigurationActivity.class);
+					intent.putExtra(Constants.WIZARD_DATA_KEY, jsonObject.toString());
 					startActivity(intent);
 				}
 			}

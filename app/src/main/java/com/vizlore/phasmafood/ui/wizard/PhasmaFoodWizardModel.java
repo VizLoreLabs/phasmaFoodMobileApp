@@ -2,8 +2,11 @@ package com.vizlore.phasmafood.ui.wizard;
 
 import android.content.Context;
 
+import com.vizlore.phasmafood.utils.Constants;
+
 import wizardpager.model.AbstractWizardModel;
 import wizardpager.model.BranchPage;
+import wizardpager.model.MultipleFixedChoicePage;
 import wizardpager.model.NumberPage;
 import wizardpager.model.PageList;
 import wizardpager.model.SingleFixedChoicePage;
@@ -17,8 +20,8 @@ public class PhasmaFoodWizardModel extends AbstractWizardModel {
 	@Override
 	protected PageList onNewRootPageList() {
 		return new PageList(
-			new BranchPage(this, "Use cases")
-				.addBranch("Mycotoxins detection",
+			new BranchPage(this, Constants.USE_CASE_KEY)
+				.addBranch(Constants.USE_CASE_1,
 					new BranchPage(this, "1!Food type")
 						.addBranch("Maize flour",
 							new SingleFixedChoicePage(this, "1!Granularity").setChoices("Low", "Medium", "High").setRequired(true),
@@ -35,7 +38,7 @@ public class PhasmaFoodWizardModel extends AbstractWizardModel {
 							new SingleFixedChoicePage(this, "4!Mycotoxins").setChoices("AF B1", "Total AFs", "DON")).setRequired(true)
 						.setRequired(true))
 
-				.addBranch("Food spoilage",
+				.addBranch(Constants.USE_CASE_2,
 					new BranchPage(this, "2!Food type")
 						.addBranch("Minced pork",
 							new SingleFixedChoicePage(this, "1!Packaging")
@@ -95,7 +98,7 @@ public class PhasmaFoodWizardModel extends AbstractWizardModel {
 //								new NumberPage(this, "7!Sample temperature"))
 //						).setRequired(true)
 				)
-				.addBranch("Food adulteration",
+				.addBranch(Constants.USE_CASE_3,
 					new BranchPage(this, "3!Food type")
 						.addBranch("Alcoholic beverages", new BranchPage(this, "Alcoholic beverages")
 							.addBranch("Spirits",
@@ -122,9 +125,13 @@ public class PhasmaFoodWizardModel extends AbstractWizardModel {
 								.setChoices("Adulteration with unspecified meat species", "Adulteration with Low value additives")
 								.setRequired(true))
 				)
-				.addBranch("White Reference",
+				.addBranch(Constants.USE_CASE_WHITE_REF,
 					new SingleFixedChoicePage(this, "type")
 						.setChoices("NEW", "EXISTING")
+						.setRequired(true))
+				.addBranch(Constants.USE_CASE_TEST,
+					new MultipleFixedChoicePage(this, Constants.USE_CASE_TEST)
+						.setChoices(Constants.USE_CASE_TEST_VIS_FLUO, Constants.USE_CASE_TEST_NIR, Constants.USE_CASE_TEST_CAMERA)
 						.setRequired(true)));
 	}
 }

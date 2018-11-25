@@ -27,8 +27,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.wizard.WizardActivity" />
-        <activity android:name=".ui.configuration.ConfigurationActivity" />
+        <activity
+            android:name=".ui.wizard.WizardActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.configuration.ConfigurationActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.results.MeasurementResultsActivity" />
 
         <service android:name=".services.MyFirebaseInstanceIDService">

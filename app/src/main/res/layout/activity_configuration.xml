@@ -1,78 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/fruits">
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/overlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/background_gradient"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ic_back"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6" />
+
+    <ImageView
+        android:id="@+id/phasmaFoodLogo"
+        android:layout_width="130dp"
+        android:layout_height="45dp"
+        android:src="@drawable/phasma_food_logo"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/fruits">
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.095" />
 
-        <ImageView
-            android:id="@+id/overlay"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/background_gradient"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@drawable/header_gradient"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@drawable/header_gradient"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.084" />
-
-        <ImageView
-            android:id="@+id/divider1"
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/header_gradient"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/configurationLayout" />
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/divider1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6">
 
         <LinearLayout
             android:id="@+id/configurationLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/imageView6">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/useCaseParamsTitle"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/configurationTitleHeight"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                tools:text="@string/homeScreenTitle" />
+            <!--Use case 1 additional labels-->
 
             <LinearLayout
-                android:id="@+id/useCase1Params"
+                android:id="@+id/useCase1LabelsGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone">
 
+                <TextView
+                    android:id="@+id/useCase1Label1Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/configurationTitleHeight"
+                    android:gravity="center"
+                    android:text="@string/useCase1LabelsTitle"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
                 <LinearLayout
+                    android:id="@+id/useCase1Label1"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/configurationTowHeight"
                     android:orientation="horizontal"
@@ -100,6 +139,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/useCase1Label2"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/configurationTowHeight"
                     android:orientation="horizontal"
@@ -127,6 +167,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/useCase1Label3"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/configurationTowHeight"
                     android:orientation="horizontal"
@@ -155,14 +196,25 @@
 
             </LinearLayout>
 
+            <!--Use case 2 additional labels-->
             <LinearLayout
-                android:id="@+id/useCase2Params"
+                android:id="@+id/useCase2LabelsGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone">
 
+                <TextView
+                    android:id="@+id/useCase2Label1Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/configurationTitleHeight"
+                    android:gravity="center"
+                    android:text="@string/useCase2LabelsTitle"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
                 <LinearLayout
+                    android:id="@+id/useCase2Label1"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/configurationTowHeight"
                     android:orientation="horizontal"
@@ -190,6 +242,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/useCase2Label2"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/configurationTowHeight"
                     android:orientation="horizontal"
@@ -215,6 +268,7 @@
                         android:hint="@string/enterValue"
                         android:textColor="@color/white" />
                 </LinearLayout>
+
             </LinearLayout>
 
             <!--CAMERA PARAMS-->
@@ -282,448 +336,446 @@
             </LinearLayout>
 
             <!--NIR -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/configurationTitleHeight"
-                android:gravity="center"
-                android:text="@string/nir"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
             <LinearLayout
+                android:id="@+id/nirGroup"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/configurationTowHeight"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/configurationVerticalRowPadding"
-                android:paddingEnd="@dimen/configurationHorizontalRowPadding"
-                android:paddingStart="@dimen/configurationHorizontalRowPadding"
-                android:paddingTop="@dimen/configurationVerticalRowPadding">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center_vertical"
-                    android:text="@string/spectrometerSingleShot"
-                    android:textColor="@color/white" />
-
-                <RadioGroup
-                    android:id="@+id/singleShotRadioGroup"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:id="@+id/nirTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/configurationTitleHeight"
                     android:gravity="center"
-                    android:hint="@string/enterTime"
+                    android:text="@string/nir"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:id="@+id/nirParam1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/configurationTowHeight"
                     android:orientation="horizontal"
-                    android:textColor="@color/white">
+                    android:paddingBottom="@dimen/configurationVerticalRowPadding"
+                    android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+                    android:paddingStart="@dimen/configurationHorizontalRowPadding"
+                    android:paddingTop="@dimen/configurationVerticalRowPadding">
 
-                    <RadioButton
-                        android:id="@+id/yes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/white"
-                        android:text="Yes"
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:text="@string/spectrometerSingleShot"
                         android:textColor="@color/white" />
 
-                    <RadioButton
-                        android:id="@+id/no"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/white"
-                        android:text="No"
+                    <RadioGroup
+                        android:id="@+id/singleShotRadioGroup"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:hint="@string/enterTime"
+                        android:orientation="horizontal"
+                        android:textColor="@color/white">
+
+                        <RadioButton
+                            android:id="@+id/yes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/white"
+                            android:text="Yes"
+                            android:textColor="@color/white" />
+
+                        <RadioButton
+                            android:id="@+id/no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/white"
+                            android:text="No"
+                            android:textColor="@color/white" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/nirParam2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/configurationTowHeight"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/configurationVerticalRowPadding"
+                    android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+                    android:paddingStart="@dimen/configurationHorizontalRowPadding"
+                    android:paddingTop="@dimen/configurationVerticalRowPadding">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:text="@string/spectrometerAverages"
                         android:textColor="@color/white" />
-                </RadioGroup>
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/configurationTowHeight"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/configurationVerticalRowPadding"
-                android:paddingEnd="@dimen/configurationHorizontalRowPadding"
-                android:paddingStart="@dimen/configurationHorizontalRowPadding"
-                android:paddingTop="@dimen/configurationVerticalRowPadding">
+                    <EditText
+                        android:id="@+id/averagesEditText"
+                        style="@style/PFEditTextDigits"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="1-1000"
+                        android:textColor="@color/white" />
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center_vertical"
-                    android:text="@string/spectrometerAverages"
-                    android:textColor="@color/white" />
+                <LinearLayout
+                    android:id="@+id/nirParam3"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/configurationTowHeight"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/configurationVerticalRowPadding"
+                    android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+                    android:paddingStart="@dimen/configurationHorizontalRowPadding"
+                    android:paddingTop="@dimen/configurationVerticalRowPadding">
 
-                <EditText
-                    android:id="@+id/averagesEditText"
-                    style="@style/PFEditTextDigits"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:hint="1-1000"
-                    android:textColor="@color/white" />
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:text="@string/microlampsDrivingCurrent"
+                        android:textColor="@color/white" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/configurationTowHeight"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/configurationVerticalRowPadding"
-                android:paddingEnd="@dimen/configurationHorizontalRowPadding"
-                android:paddingStart="@dimen/configurationHorizontalRowPadding"
-                android:paddingTop="@dimen/configurationVerticalRowPadding">
+                    <EditText
+                        android:id="@+id/nirMicrolampsCurrent"
+                        style="@style/PFEditTextDigits"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="1-115"
+                        android:textColor="@color/white" />
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center_vertical"
-                    android:text="@string/microlampsDrivingCurrent"
-                    android:textColor="@color/white" />
+                <LinearLayout
+                    android:id="@+id/nirParam4"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/configurationTowHeight"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/configurationVerticalRowPadding"
+                    android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+                    android:paddingStart="@dimen/configurationHorizontalRowPadding"
+                    android:paddingTop="@dimen/configurationVerticalRowPadding">
 
-                <EditText
-                    android:id="@+id/nirMicrolampsCurrent"
-                    style="@style/PFEditTextDigits"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:hint="1-115"
-                    android:textColor="@color/white" />
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:text="@string/microlampsWarmingTime"
+                        android:textColor="@color/white" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/configurationTowHeight"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/configurationVerticalRowPadding"
-                android:paddingEnd="@dimen/configurationHorizontalRowPadding"
-                android:paddingStart="@dimen/configurationHorizontalRowPadding"
-                android:paddingTop="@dimen/configurationVerticalRowPadding">
+                    <EditText
+                        android:id="@+id/nirMicrolampsWarmingTime"
+                        style="@style/PFEditTextDigits"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="10-1000"
+                        android:textColor="@color/white" />
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center_vertical"
-                    android:text="@string/microlampsWarmingTime"
-                    android:textColor="@color/white" />
-
-                <EditText
-                    android:id="@+id/nirMicrolampsWarmingTime"
-                    style="@style/PFEditTextDigits"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:hint="10-1000"
-                    android:textColor="@color/white" />
             </LinearLayout>
 
             <!--VIS-->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/configurationTitleHeight"
-                android:gravity="center"
-                android:text="@string/vis"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
 
             <LinearLayout
+                android:id="@+id/visGroup"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/configurationTowHeight"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/configurationVerticalRowPadding"
-                android:paddingEnd="@dimen/configurationHorizontalRowPadding"
-                android:paddingStart="@dimen/configurationHorizontalRowPadding"
-                android:paddingTop="@dimen/configurationVerticalRowPadding">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center_vertical"
-                    android:text="@string/exposureTimeVisibleReflectance"
-                    android:textColor="@color/white" />
+                    android:id="@+id/visTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/configurationTitleHeight"
+                    android:gravity="center"
+                    android:text="@string/vis"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
-                <EditText
-                    android:id="@+id/exposureTimeReflectance"
-                    style="@style/PFEditTextDigits"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:hint="1-300000"
-                    android:textColor="@color/white" />
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/visParam1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/configurationTowHeight"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/configurationVerticalRowPadding"
+                    android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+                    android:paddingStart="@dimen/configurationHorizontalRowPadding"
+                    android:paddingTop="@dimen/configurationVerticalRowPadding">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/configurationTowHeight"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/configurationVerticalRowPadding"
-                android:paddingEnd="@dimen/configurationHorizontalRowPadding"
-                android:paddingStart="@dimen/configurationHorizontalRowPadding"
-                android:paddingTop="@dimen/configurationVerticalRowPadding">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:text="@string/exposureTimeVisibleReflectance"
+                        android:textColor="@color/white" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center_vertical"
-                    android:text="@string/gainVisibleReflectance"
-                    android:textColor="@color/white" />
+                    <EditText
+                        android:id="@+id/exposureTimeReflectance"
+                        style="@style/PFEditTextDigits"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="1-300000"
+                        android:textColor="@color/white" />
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/gainReflectance"
-                    style="@style/PFEditTextDigits"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:hint="1-10"
-                    android:textColor="@color/white" />
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/visParam2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/configurationTowHeight"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/configurationVerticalRowPadding"
+                    android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+                    android:paddingStart="@dimen/configurationHorizontalRowPadding"
+                    android:paddingTop="@dimen/configurationVerticalRowPadding">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/configurationTowHeight"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/configurationVerticalRowPadding"
-                android:paddingEnd="@dimen/configurationHorizontalRowPadding"
-                android:paddingStart="@dimen/configurationHorizontalRowPadding"
-                android:paddingTop="@dimen/configurationVerticalRowPadding">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:text="@string/gainVisibleReflectance"
+                        android:textColor="@color/white" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center_vertical"
-                    android:text="@string/binningVisibleReflectance"
-                    android:textColor="@color/white" />
+                    <EditText
+                        android:id="@+id/gainReflectance"
+                        style="@style/PFEditTextDigits"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="1-10"
+                        android:textColor="@color/white" />
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/binningReflectance"
-                    style="@style/PFEditTextDigits"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:hint="1-4"
-                    android:textColor="@color/white" />
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/visParam3"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/configurationTowHeight"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/configurationVerticalRowPadding"
+                    android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+                    android:paddingStart="@dimen/configurationHorizontalRowPadding"
+                    android:paddingTop="@dimen/configurationVerticalRowPadding">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/configurationTowHeight"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/configurationVerticalRowPadding"
-                android:paddingEnd="@dimen/configurationHorizontalRowPadding"
-                android:paddingStart="@dimen/configurationHorizontalRowPadding"
-                android:paddingTop="@dimen/configurationVerticalRowPadding">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:text="@string/binningVisibleReflectance"
+                        android:textColor="@color/white" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center_vertical"
-                    android:text="@string/whiteLEDs"
-                    android:textColor="@color/white" />
+                    <EditText
+                        android:id="@+id/binningReflectance"
+                        style="@style/PFEditTextDigits"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="1-4"
+                        android:textColor="@color/white" />
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/whiteLEDs"
-                    style="@style/PFEditTextDigits"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:hint="1-100"
-                    android:textColor="@color/white" />
+                <LinearLayout
+                    android:id="@+id/visParam4"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/configurationTowHeight"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/configurationVerticalRowPadding"
+                    android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+                    android:paddingStart="@dimen/configurationHorizontalRowPadding"
+                    android:paddingTop="@dimen/configurationVerticalRowPadding">
 
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:text="@string/whiteLEDs"
+                        android:textColor="@color/white" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/configurationTowHeight"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/configurationVerticalRowPadding"
-                android:paddingEnd="@dimen/configurationHorizontalRowPadding"
-                android:paddingStart="@dimen/configurationHorizontalRowPadding"
-                android:paddingTop="@dimen/configurationVerticalRowPadding">
+                    <EditText
+                        android:id="@+id/whiteLEDs"
+                        style="@style/PFEditTextDigits"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="1-100"
+                        android:textColor="@color/white" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center_vertical"
-                    android:text="@string/exposureTimeFluorescence"
-                    android:textColor="@color/white" />
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/exposureTimeFluorescence"
-                    style="@style/PFEditTextDigits"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:hint="1-300000"
-                    android:textColor="@color/white" />
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/visParam5"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/configurationTowHeight"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/configurationVerticalRowPadding"
+                    android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+                    android:paddingStart="@dimen/configurationHorizontalRowPadding"
+                    android:paddingTop="@dimen/configurationVerticalRowPadding">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/configurationTowHeight"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/configurationVerticalRowPadding"
-                android:paddingEnd="@dimen/configurationHorizontalRowPadding"
-                android:paddingStart="@dimen/configurationHorizontalRowPadding"
-                android:paddingTop="@dimen/configurationVerticalRowPadding">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:text="@string/exposureTimeFluorescence"
+                        android:textColor="@color/white" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center_vertical"
-                    android:text="@string/gainFluorescence"
-                    android:textColor="@color/white" />
+                    <EditText
+                        android:id="@+id/exposureTimeFluorescence"
+                        style="@style/PFEditTextDigits"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="1-300000"
+                        android:textColor="@color/white" />
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/gainFluorescence"
-                    style="@style/PFEditTextDigits"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:hint="1-10"
-                    android:textColor="@color/white" />
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/visParam6"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/configurationTowHeight"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/configurationVerticalRowPadding"
+                    android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+                    android:paddingStart="@dimen/configurationHorizontalRowPadding"
+                    android:paddingTop="@dimen/configurationVerticalRowPadding">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/configurationTowHeight"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/configurationVerticalRowPadding"
-                android:paddingEnd="@dimen/configurationHorizontalRowPadding"
-                android:paddingStart="@dimen/configurationHorizontalRowPadding"
-                android:paddingTop="@dimen/configurationVerticalRowPadding">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:text="@string/gainFluorescence"
+                        android:textColor="@color/white" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center_vertical"
-                    android:text="@string/binningFluorescence"
-                    android:textColor="@color/white" />
+                    <EditText
+                        android:id="@+id/gainFluorescence"
+                        style="@style/PFEditTextDigits"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="1-10"
+                        android:textColor="@color/white" />
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/binningFluorescence"
-                    style="@style/PFEditTextDigits"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:hint="1-4"
-                    android:textColor="@color/white" />
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/visParam7"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/configurationTowHeight"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/configurationVerticalRowPadding"
+                    android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+                    android:paddingStart="@dimen/configurationHorizontalRowPadding"
+                    android:paddingTop="@dimen/configurationVerticalRowPadding">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/configurationTowHeight"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/configurationVerticalRowPadding"
-                android:paddingEnd="@dimen/configurationHorizontalRowPadding"
-                android:paddingStart="@dimen/configurationHorizontalRowPadding"
-                android:paddingTop="@dimen/configurationVerticalRowPadding">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:text="@string/binningFluorescence"
+                        android:textColor="@color/white" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center_vertical"
-                    android:text="@string/UVLEDs"
-                    android:textColor="@color/white" />
+                    <EditText
+                        android:id="@+id/binningFluorescence"
+                        style="@style/PFEditTextDigits"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="1-4"
+                        android:textColor="@color/white" />
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/UVLEDs"
-                    style="@style/PFEditTextDigits"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:hint="0-350"
-                    android:textColor="@color/white" />
+                <LinearLayout
+                    android:id="@+id/visParam8"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/configurationTowHeight"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/configurationVerticalRowPadding"
+                    android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+                    android:paddingStart="@dimen/configurationHorizontalRowPadding"
+                    android:paddingTop="@dimen/configurationVerticalRowPadding">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:text="@string/UVLEDs"
+                        android:textColor="@color/white" />
+
+                    <EditText
+                        android:id="@+id/UVLEDs"
+                        style="@style/PFEditTextDigits"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="0-350"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
+    </ScrollView>
 
-        <Button
-            android:id="@+id/sendRequest"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:background="@drawable/selectable_item_background"
-            android:shadowColor="@color/text_shadow"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="2"
-            android:text="Send request"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline4"
-            app:layout_constraintTop_toBottomOf="@+id/divider1" />
+    <ImageView
+        android:id="@+id/divider1"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/header_gradient"
+        app:layout_constraintBottom_toTopOf="@+id/sendRequest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/setDefaults"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:background="@drawable/selectable_item_background"
-            android:shadowColor="@color/text_shadow"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="2"
-            android:text="Set defaults"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider1" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
+    <Button
+        android:id="@+id/sendRequest"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@drawable/selectable_item_background"
+        android:shadowColor="@color/text_shadow"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="@string/sendRequest"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline4" />
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="130dp"
-            android:layout_height="45dp"
-            android:src="@drawable/phasma_food_logo"
-            app:layout_constraintBottom_toTopOf="@+id/guideline3"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.6" />
+    <Button
+        android:id="@+id/setDefaults"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@drawable/selectable_item_background"
+        android:shadowColor="@color/text_shadow"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="@string/setDefaults"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/backButton"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/ic_back"
-            app:layout_constraintBottom_toTopOf="@+id/guideline3"
-            app:layout_constraintDimensionRatio="H,1:1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.6" />
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:background="@drawable/header_gradient"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:background="@drawable/header_gradient"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline3" />
-
-    </android.support.constraint.ConstraintLayout>
-</ScrollView>
+</android.support.constraint.ConstraintLayout>

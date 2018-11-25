@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
@@ -18,7 +19,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -33,6 +33,7 @@ import com.vizlore.phasmafood.model.configuration.VisSpectrometer;
 import com.vizlore.phasmafood.ui.BaseActivity;
 import com.vizlore.phasmafood.ui.results.MeasurementResultsActivity;
 import com.vizlore.phasmafood.ui.wizard.WizardActivity;
+import com.vizlore.phasmafood.utils.Constants;
 import com.vizlore.phasmafood.viewmodel.MeasurementViewModel;
 
 import org.json.JSONException;
@@ -40,7 +41,6 @@ import org.json.JSONObject;
 
 import java.util.Date;
 
-import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -104,13 +104,6 @@ public class ConfigurationActivity extends BaseActivity {
 
 	private static final String TAG = "SMEDIC";
 
-	private static final String WIZARD_DATA_KEY = "wizard_data";
-
-	private static final String USE_CASE_KEY = "Use cases";
-	private static final String USE_CASE_1 = "Mycotoxins detection";
-	private static final String USE_CASE_2 = "Food spoilage";
-	private static final String USE_CASE_WHITE_REF = "White Reference";
-
 	private static final String USE_CASE_1_PARAM_1 = "alfatoxinName";
 	private static final String USE_CASE_1_PARAM_2 = "alfatoxinValue";
 	private static final String USE_CASE_1_PARAM_3 = "alfatoxinUnit";
@@ -127,31 +120,25 @@ public class ConfigurationActivity extends BaseActivity {
 	private CompositeDisposable disposable = new CompositeDisposable();
 	private MeasurementViewModel measurementViewModel;
 	private JSONObject wizardJsonObject = null;
-
 	private SharedPreferences prefs;
 
-	//use case parameters
-	@BindView(R.id.useCaseParamsTitle)
-	TextView useCaseParamsTitle;
+	private UseCaseType useCaseType;
+	private String testSample;
 
-	@BindView(R.id.useCase1Params)
-	LinearLayout useCase1Params;
-
+	//use case labels
+	@BindView(R.id.useCase1LabelsGroup)
+	LinearLayout useCase1LabelsGroup;
 	@BindView(R.id.alfatoxinName)
 	EditText alfatoxinName;
-
 	@BindView(R.id.alfatoxinValue)
 	EditText alfatoxinValue;
-
 	@BindView(R.id.alfatoxinUnit)
 	EditText alfatoxinUnit;
 
-	@BindView(R.id.useCase2Params)
-	LinearLayout useCase2Params;
-
+	@BindView(R.id.useCase2LabelsGroup)
+	LinearLayout useCase2LabelsGroup;
 	@BindView(R.id.microbiologicalUnit)
 	EditText microbiologicalUnit;
-
 	@BindView(R.id.microbiologicalValue)
 	EditText microbiologicalValue;
 
@@ -162,6 +149,8 @@ public class ConfigurationActivity extends BaseActivity {
 	EditText cameraVoltage;
 
 	// NIR
+	@BindView(R.id.nirGroup)
+	LinearLayout nirGroup;
 	@BindView(R.id.singleShotRadioGroup)
 	RadioGroup singleShotRadioGroup;
 	@BindView(R.id.averagesEditText)
@@ -172,6 +161,8 @@ public class ConfigurationActivity extends BaseActivity {
 	EditText nirMicrolampsWarmingTime;
 
 	// VIS
+	@BindView(R.id.visGroup)
+	LinearLayout visGroup;
 	@BindView(R.id.exposureTimeReflectance)
 	EditText exposureTimeReflectance;
 	@BindView(R.id.gainReflectance)
@@ -190,9 +181,6 @@ public class ConfigurationActivity extends BaseActivity {
 	@BindView(R.id.UVLEDs)
 	EditText UVLEDsCurrent;
 
-	@BindString(R.string.useCaseParams)
-	String useCaseParams;
-
 	@OnClick({R.id.backButton, R.id.sendRequest, R.id.setDefaults})
 	void onClick(View v) {
 		switch (v.getId()) {
@@ -204,91 +192,49 @@ public class ConfigurationActivity extends BaseActivity {
 				break;
 			case R.id.sendRequest:
 				try {
-					if (wizardJsonObject != null && wizardJsonObject.has(USE_CASE_KEY)) {
-
-						switch (wizardJsonObject.getString(USE_CASE_KEY)) {
-							case USE_CASE_1:
-								wizardJsonObject.put(USE_CASE_1_PARAM_1, alfatoxinName.getText().toString());
-								wizardJsonObject.put(USE_CASE_1_PARAM_2, alfatoxinValue.getText().toString());
-								wizardJsonObject.put(USE_CASE_1_PARAM_3, alfatoxinUnit.getText().toString());
-								break;
-							case USE_CASE_2:
-								wizardJsonObject.put(USE_CASE_2_PARAM_1, microbiologicalValue.getText().toString());
-								wizardJsonObject.put(USE_CASE_2_PARAM_2, microbiologicalUnit.getText().toString());
-								break;
-							case USE_CASE_WHITE_REF:
-								wizardJsonObject.put(USE_CASE_WHITE_REF_PARAM_1, String.valueOf(new Date().getTime()));
-								break;
-						}
-					}
-
-					//add config parameters to json request (camera, nir, vis)
-					final Configuration configuration = getConfiguration();
-					if (configuration != null) {
-
-						saveParamsState(); //save new values to shared preferences
-						measurementViewModel.saveConfigurationParams(configuration);
-
-						String configurationJson = new Gson().toJson(configuration);
-						wizardJsonObject.put("configuration", configurationJson);
-						//wrap into request
-						final JSONObject jsonObjectRequest = new JSONObject();
-						jsonObjectRequest.put("Request", wizardJsonObject);
-
-						showSendActionDialog(jsonObjectRequest.toString());
-					} else {
-						Toast.makeText(ConfigurationActivity.this, "Wrong input. Check fields", Toast.LENGTH_SHORT).show();
-					}
+					sendRequest();
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
 				break;
 		}
-
 	}
 
-	private void loadWizardJson() {
-		if (getIntent() != null && getIntent().getExtras() != null
-			&& getIntent().getExtras().containsKey(WIZARD_DATA_KEY)) {
-			final String json = getIntent().getExtras().getString(WIZARD_DATA_KEY);
-			try {
-				wizardJsonObject = new JSONObject(json);
-				setUseCaseParamsTitle();
-				setUseCaseParamsVisibility();
-			} catch (JSONException e) {
-				Toast.makeText(this, "Wizard data null!", Toast.LENGTH_SHORT).show();
-				e.printStackTrace();
-			}
+	private void sendRequest() throws JSONException {
+
+		switch (wizardJsonObject.getString(Constants.USE_CASE_KEY)) {
+			case Constants.USE_CASE_1:
+				wizardJsonObject.put(USE_CASE_1_PARAM_1, alfatoxinName.getText().toString());
+				wizardJsonObject.put(USE_CASE_1_PARAM_2, alfatoxinValue.getText().toString());
+				wizardJsonObject.put(USE_CASE_1_PARAM_3, alfatoxinUnit.getText().toString());
+				break;
+			case Constants.USE_CASE_2:
+				wizardJsonObject.put(USE_CASE_2_PARAM_1, microbiologicalValue.getText().toString());
+				wizardJsonObject.put(USE_CASE_2_PARAM_2, microbiologicalUnit.getText().toString());
+				break;
+			case Constants.USE_CASE_WHITE_REF:
+				wizardJsonObject.put(USE_CASE_WHITE_REF_PARAM_1, String.valueOf(new Date().getTime()));
+				break;
 		}
-	}
 
-	// Example: "Food spoilage parameters"
-	private void setUseCaseParamsTitle() throws JSONException {
-		if (wizardJsonObject != null && wizardJsonObject.has(USE_CASE_KEY)) {
-			//set use case section title
-			final String title = String.format(useCaseParams, wizardJsonObject.getString(USE_CASE_KEY));
-			useCaseParamsTitle.setText(title);
-		}
-	}
+		//add config parameters to json request (camera, nir, vis)
+		final Configuration configuration = getConfiguration();
+		if (configuration != null) {
 
-	private void setUseCaseParamsVisibility() throws JSONException {
-		if (wizardJsonObject != null && wizardJsonObject.has(USE_CASE_KEY)) {
-			final String useCaseKey = wizardJsonObject.getString(USE_CASE_KEY);
-			switch (useCaseKey) {
-				case USE_CASE_1:
-					useCase1Params.setVisibility(View.VISIBLE);
-					useCase2Params.setVisibility(View.GONE);
-					break;
-				case USE_CASE_2:
-					useCase1Params.setVisibility(View.GONE);
-					useCase2Params.setVisibility(View.VISIBLE);
-					break;
-				default:
-					useCase1Params.setVisibility(View.GONE);
-					useCase2Params.setVisibility(View.GONE);
-					useCaseParamsTitle.setVisibility(View.GONE);
-					break;
-			}
+			saveParamsState(); //save new values to shared preferences
+			measurementViewModel.saveConfigurationParams(configuration);
+
+			final String configurationJson = new Gson().toJson(configuration);
+			wizardJsonObject.put("configuration", configurationJson);
+			//wrap into request
+			final JSONObject jsonObjectRequest = new JSONObject();
+			jsonObjectRequest.put("Request", wizardJsonObject);
+
+			Log.d(TAG, "sendRequest: SEND: \n" + jsonObjectRequest.toString());
+
+			showSendActionDialog(jsonObjectRequest.toString());
+		} else {
+			Toast.makeText(this, "Wrong input. Check fields", Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -296,8 +242,6 @@ public class ConfigurationActivity extends BaseActivity {
 		final AlertDialog alertDialog = new AlertDialog.Builder(ConfigurationActivity.this).create();
 		alertDialog.setMessage(getString(R.string.sendDataMessage));
 		alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(android.R.string.yes), (dialog, which) -> {
-
-			final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
 			final boolean isDebugMode = prefs.getBoolean(WizardActivity.DEBUG_MODE_KEY, false);
 			if (!isDebugMode) {
@@ -308,17 +252,15 @@ public class ConfigurationActivity extends BaseActivity {
 				//send params directly to server (use case 1 of 2)
 				//load use case 1 by default
 				String jsonFileName = USE_CASE_1_JSON;
-				try {
-					if (wizardJsonObject.getString(USE_CASE_KEY).equals(USE_CASE_2)) {
-						jsonFileName = USE_CASE_2_JSON;
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
+				if (useCaseType == UseCaseType.USE_CASE_2) {
+					jsonFileName = USE_CASE_2_JSON;
 				}
 
 				disposable.add(bluetoothService.sendFakeMessage(jsonFileName).subscribe(measurement -> {
 						measurementViewModel.saveMeasurement(measurement);
-						startActivity(new Intent(ConfigurationActivity.this, MeasurementResultsActivity.class));
+						final Intent intent = new Intent(ConfigurationActivity.this, MeasurementResultsActivity.class);
+						intent.putExtra("title", "Results from BT device");
+						startActivity(intent);
 					},
 					e -> Log.d(TAG, "onError: " + e.getMessage())
 				));
@@ -342,11 +284,11 @@ public class ConfigurationActivity extends BaseActivity {
 		// load from preferences or set defaults
 		loadStartingValues();
 
-		Intent intent = new Intent(this, BluetoothService.class);
-		//startService(intent); //Starting the service
-		bindService(intent, connection, Context.BIND_AUTO_CREATE); //Binding to the service!
-
 		loadWizardJson();
+
+		// start bluetooth service
+		final Intent intent = new Intent(this, BluetoothService.class);
+		bindService(intent, connection, Context.BIND_AUTO_CREATE); //Binding to the service!
 	}
 
 	private ServiceConnection connection = new ServiceConnection() {
@@ -362,17 +304,68 @@ public class ConfigurationActivity extends BaseActivity {
 		}
 	};
 
-	@Override
-	protected void onDestroy() {
-		//stopService(new Intent(this, BluetoothService.class));
-		if (bluetoothService != null && connection != null) {
-			bluetoothService.closeConnection();
+	private void loadWizardJson() {
+
+		if (getIntent() == null || getIntent().getExtras() == null || !getIntent().getExtras().containsKey(Constants.WIZARD_DATA_KEY)) {
+			riseError("Error loading JSON from wizard! Contact support");
 		}
 
-		if (!disposable.isDisposed()) {
-			disposable.clear();
+		final String json = getIntent().getExtras().getString(Constants.WIZARD_DATA_KEY);
+
+		try {
+			wizardJsonObject = new JSONObject(json);
+
+			if (!wizardJsonObject.has(Constants.USE_CASE_KEY)) {
+				riseError("No use cases found! Contact support");
+			}
+
+			final String useCaseKey = wizardJsonObject.getString(Constants.USE_CASE_KEY);
+			switch (useCaseKey) {
+				case Constants.USE_CASE_1:
+					useCase1LabelsGroup.setVisibility(View.VISIBLE);
+					nirGroup.setVisibility(View.VISIBLE);
+					visGroup.setVisibility(View.VISIBLE);
+					useCaseType = UseCaseType.USE_CASE_1;
+					break;
+				case Constants.USE_CASE_2:
+					useCase2LabelsGroup.setVisibility(View.VISIBLE);
+					nirGroup.setVisibility(View.VISIBLE);
+					visGroup.setVisibility(View.VISIBLE);
+					useCaseType = UseCaseType.USE_CASE_2;
+					break;
+				case Constants.USE_CASE_3:
+					useCaseType = UseCaseType.USE_CASE_3;
+					break;
+				case Constants.USE_CASE_WHITE_REF:
+					useCaseType = UseCaseType.USE_CASE_WHITE_REFERENCE;
+					break;
+				case Constants.USE_CASE_TEST:
+					testSample = wizardJsonObject.getString(Constants.USE_CASE_TEST);
+					if (testSample.contains(Constants.USE_CASE_TEST_NIR)) {
+						nirGroup.setVisibility(View.VISIBLE);
+					}
+					if (testSample.contains(Constants.USE_CASE_TEST_VIS_FLUO)) {
+						visGroup.setVisibility(View.VISIBLE);
+					}
+					useCaseType = UseCaseType.USE_CASE_TEST;
+					break;
+				default:
+					useCase1LabelsGroup.setVisibility(View.GONE);
+					useCase2LabelsGroup.setVisibility(View.GONE);
+					nirGroup.setVisibility(View.VISIBLE);
+					visGroup.setVisibility(View.VISIBLE);
+					useCaseType = UseCaseType.USE_CASE_1;
+					break;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+			riseError(e.getMessage());
 		}
-		super.onDestroy();
+	}
+
+	private void riseError(@NonNull final String error) {
+		Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+		finish();
 	}
 
 	private void loadStartingValues() {
@@ -496,41 +489,47 @@ public class ConfigurationActivity extends BaseActivity {
 			return null;
 		}
 
+		final Configuration configuration = new Configuration();
+
 		// Camera
 		final Camera camera = Camera.builder()
 			.setTCam(getValue(cameraExposureTime))
 			.setVwCam(getValue(cameraVoltage))
 			.build();
+		configuration.setCamera(camera);
 
 		// NirMicrolamps
-		final NirMicrolamps nirMicrolamps = new NirMicrolamps();
-		nirMicrolamps.setTNir(getValue(nirMicrolampsWarmingTime));
-		nirMicrolamps.setVNir(getValue(nirMicrolampsCurrent));
+		// Add if not test sample at all OR it's a NIR test sample
+		if (testSample == null || testSample.contains(Constants.USE_CASE_TEST_NIR)) {
+			final NirMicrolamps nirMicrolamps = new NirMicrolamps();
+			nirMicrolamps.setTNir(getValue(nirMicrolampsWarmingTime));
+			nirMicrolamps.setVNir(getValue(nirMicrolampsCurrent));
 
-		final String selectedOption = singleShotRadioGroup.getCheckedRadioButtonId() == R.id.yes ? "Y" : "N";
-		final NirSpectrometer nirSpectrometer = NirSpectrometer.builder()
-			.setSingle(selectedOption)
-			.setAvNIRm(getValue(averagesEditText))
-			.setNirMicrolamps(nirMicrolamps)
-			.build();
+			final String selectedOption = singleShotRadioGroup.getCheckedRadioButtonId() == R.id.yes ? "Y" : "N";
+			final NirSpectrometer nirSpectrometer = NirSpectrometer.builder()
+				.setSingle(selectedOption)
+				.setAvNIRm(getValue(averagesEditText))
+				.setNirMicrolamps(nirMicrolamps)
+				.build();
+			configuration.setNirSpectrometer(nirSpectrometer);
+		}
 
 		// VIS
-		final VisLeds visLeds = new VisLeds();
-		visLeds.setVUV(getValue(UVLEDsCurrent));
-		visLeds.setVwVis(getValue(whiteLEDsCurrent));
+		// Add if not test sample at all OR it's a VIS-FLUO test sample
+		if (testSample == null || testSample.contains(Constants.USE_CASE_TEST_VIS_FLUO)) {
+			final VisLeds visLeds = new VisLeds();
+			visLeds.setVUV(getValue(UVLEDsCurrent));
+			visLeds.setVwVis(getValue(whiteLEDsCurrent));
 
-		final VisSpectrometer visSpectrometer = new VisSpectrometer();
-		visSpectrometer.setBFluo(getValue(binningFluorescence));
-		visSpectrometer.setBVis(getValue(binningReflectance));
-		visSpectrometer.setGFluo(getValue(gainFluorescence));
-		visSpectrometer.setGVis(getValue(gainReflectance));
-		visSpectrometer.setTFluo(getValue(exposureTimeFluorescence));
-		visSpectrometer.setTVis(getValue(exposureTimeReflectance));
-
-		final Configuration configuration = new Configuration();
-		configuration.setCamera(camera);
-		configuration.setNirSpectrometer(nirSpectrometer);
-		configuration.setVisSpectrometer(visSpectrometer);
+			final VisSpectrometer visSpectrometer = new VisSpectrometer();
+			visSpectrometer.setBFluo(getValue(binningFluorescence));
+			visSpectrometer.setBVis(getValue(binningReflectance));
+			visSpectrometer.setGFluo(getValue(gainFluorescence));
+			visSpectrometer.setGVis(getValue(gainReflectance));
+			visSpectrometer.setTFluo(getValue(exposureTimeFluorescence));
+			visSpectrometer.setTVis(getValue(exposureTimeReflectance));
+			configuration.setVisSpectrometer(visSpectrometer);
+		}
 
 		return configuration;
 	}
@@ -552,4 +551,24 @@ public class ConfigurationActivity extends BaseActivity {
 		editText.startAnimation(shake);
 	}
 
+	@Override
+	protected void onDestroy() {
+		//stopService(new Intent(this, BluetoothService.class));
+		if (bluetoothService != null && connection != null) {
+			bluetoothService.closeConnection();
+		}
+
+		if (!disposable.isDisposed()) {
+			disposable.clear();
+		}
+		super.onDestroy();
+	}
+
+	private enum UseCaseType {
+		USE_CASE_1,
+		USE_CASE_2,
+		USE_CASE_3,
+		USE_CASE_WHITE_REFERENCE,
+		USE_CASE_TEST
+	}
 }

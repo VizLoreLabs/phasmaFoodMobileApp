@@ -66,6 +66,9 @@ public class MeasurementResultsActivity extends BaseActivity {
 	private MeasurementViewModel measurementViewModel;
 	private DeviceViewModel deviceViewModel;
 
+	@BindView(R.id.title)
+	TextView title;
+
 	@BindView(R.id.useCaseValue)
 	TextView useCaseValue;
 
@@ -175,6 +178,11 @@ public class MeasurementResultsActivity extends BaseActivity {
 
 		final Bundle bundle = getIntent().getExtras();
 		if (bundle != null) {
+
+			if (bundle.containsKey("title")) {
+				title.setText(bundle.getString("title"));
+			}
+
 			if (bundle.containsKey("VIS")) {
 				visValue.setVisibility(View.VISIBLE);
 				visValue.setText(bundle.getString("VIS"));

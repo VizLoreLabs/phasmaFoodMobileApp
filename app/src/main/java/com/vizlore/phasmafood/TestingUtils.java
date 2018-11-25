@@ -58,6 +58,7 @@ public class TestingUtils {
 			measurementRepository.saveMeasurement(measurement);
 
 			final Intent intent = new Intent(activity, MeasurementResultsActivity.class);
+			intent.putExtra("title", "Results from BT device");
 			intent.putExtra("VIS", "N/A");
 			intent.putExtra("NIR", "N/A");
 			intent.putExtra("FLOU", "N/A");

@@ -75,15 +75,14 @@ public class MultipleChoiceFragment extends ListFragment {
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-							 Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_page, container, false);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		final View rootView = inflater.inflate(R.layout.fragment_page, container, false);
 		final String title = Utils.removeMagicChar(mPage.getTitle());
 		((TextView) rootView.findViewById(android.R.id.title)).setText(title);
 
 		final ListView listView = rootView.findViewById(android.R.id.list);
 		setListAdapter(new ArrayAdapter<>(getActivity(),
-			android.R.layout.simple_list_item_multiple_choice,
+			R.layout.wizard_multiple_choice,
 			android.R.id.text1,
 			mChoices));
 		listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);

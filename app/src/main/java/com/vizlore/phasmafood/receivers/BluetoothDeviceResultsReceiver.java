@@ -16,6 +16,7 @@ public class BluetoothDeviceResultsReceiver extends BroadcastReceiver {
 	public void onReceive(@NonNull final Context context, final Intent intent) {
 		Log.d(TAG, "onReceive: ");
 		final Intent intentNew = new Intent(context, MeasurementResultsActivity.class);
+		intent.putExtra("title", "Results from server");
 		intentNew.putExtra("extras", intent.getExtras());
 		context.startActivity(intent);
 	}
