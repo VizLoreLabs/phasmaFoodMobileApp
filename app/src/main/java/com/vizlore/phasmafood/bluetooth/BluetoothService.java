@@ -206,7 +206,7 @@ public class BluetoothService extends Service {
 
 					// start activity where user can see measurement charts and captured image
 					final Intent intent = new Intent(BluetoothService.this, MeasurementResultsActivity.class);
-					intent.putExtra("title", "Results from server");
+					intent.putExtra(MeasurementResultsActivity.IS_FROM_SERVER, true);
 					intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 					startActivity(intent);
 				} else {
@@ -411,7 +411,7 @@ public class BluetoothService extends Service {
 		createNotificationChannel();
 
 		final Intent intent = new Intent(BluetoothService.this, MeasurementResultsActivity.class);
-		intent.putExtra("title", "Results from server");
+		intent.putExtra(MeasurementResultsActivity.IS_FROM_SERVER, true);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 		final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,

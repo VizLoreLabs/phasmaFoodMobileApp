@@ -32,14 +32,16 @@ import com.vizlore.phasmafood.model.results.Sample;
 import com.vizlore.phasmafood.model.results.VIS;
 import com.vizlore.phasmafood.ui.BaseActivity;
 import com.vizlore.phasmafood.ui.view.ChartMarkerView;
+import com.vizlore.phasmafood.utils.Constants;
+import com.vizlore.phasmafood.utils.Utils;
 import com.vizlore.phasmafood.viewmodel.DeviceViewModel;
 import com.vizlore.phasmafood.viewmodel.MeasurementViewModel;
-import com.vizlore.phasmafood.viewmodel.UserViewModel;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
@@ -48,6 +50,9 @@ import butterknife.OnClick;
 public class MeasurementResultsActivity extends BaseActivity {
 
 	private static final String TAG = "SMEDIC";
+
+	public static final String TITLE = "title";
+	public static final String IS_FROM_SERVER = "IS_FROM_SERVER";
 
 	private static final String SAMPLE_PREPROCESSED = "preprocessed";
 	private static final String SAMPLE_DARK_REFERENCE = "dark_reference";
@@ -62,7 +67,6 @@ public class MeasurementResultsActivity extends BaseActivity {
 
 	private List<ILineDataSet> currentlySelectedDataSet = new ArrayList<>();
 
-	private UserViewModel userViewModel;
 	private MeasurementViewModel measurementViewModel;
 	private DeviceViewModel deviceViewModel;
 
@@ -116,6 +120,27 @@ public class MeasurementResultsActivity extends BaseActivity {
 	@BindView(R.id.btDeviceCameraImage)
 	ImageView btDeviceCameraImage;
 
+	@BindView(R.id.previousButton)
+	Button previousButton;
+
+	@BindView(R.id.storeOnServerAndAnalyze)
+	Button storeOnServerAndAnalyze;
+
+	@BindView(R.id.storeOnServer)
+	Button storeOnServer;
+
+	@BindString(R.string.granularity)
+	String granularityString;
+
+	@BindString(R.string.temperatureString)
+	String temperatureString;
+
+	@BindString(R.string.resultsFromServer)
+	String resultsFromServer;
+
+	@BindString(R.string.resultsFromBtDevice)
+	String resultsFromBtDevice;
+
 	@OnClick({R.id.buttonPreprocessed, R.id.buttonDarkReference, R.id.buttonWhiteReference,
 		R.id.buttonRawData, R.id.buttonRawDark, R.id.buttonRawWhite, R.id.buttonShowAllSamples})
 	void onSampleTypeClicked(final View view) {
@@ -153,10 +178,11 @@ public class MeasurementResultsActivity extends BaseActivity {
 		finish();
 	}
 
-	@OnClick(R.id.sendToServer)
-	void onNextClick() {
+	@OnClick({R.id.storeOnServerAndAnalyze, R.id.storeOnServer})
+	void onNextClick(final View v) {
 		final Measurement measurement = measurementViewModel.getSavedMeasurement();
-		sendMeasurementToServer(measurement.getResponse().getSample());
+		final boolean shouldAnalyze = v.getId() == R.id.storeOnServerAndAnalyze;
+		sendMeasurementToServer(measurement.getResponse().getSample(), shouldAnalyze);
 	}
 
 	@OnClick(R.id.previousButton)
@@ -172,28 +198,35 @@ public class MeasurementResultsActivity extends BaseActivity {
 		setContentView(R.layout.activity_bt_device_measurements);
 		ButterKnife.bind(this);
 
-		userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
 		measurementViewModel = ViewModelProviders.of(this).get(MeasurementViewModel.class);
 		deviceViewModel = ViewModelProviders.of(this).get(DeviceViewModel.class);
 
 		final Bundle bundle = getIntent().getExtras();
 		if (bundle != null) {
 
-			if (bundle.containsKey("title")) {
-				title.setText(bundle.getString("title"));
+			if (bundle.containsKey(IS_FROM_SERVER)) {
+				final boolean isFromServer = bundle.getBoolean(IS_FROM_SERVER);
+				title.setText(isFromServer ? resultsFromServer : resultsFromBtDevice);
+				storeOnServer.setVisibility(isFromServer ? View.GONE : View.VISIBLE);
+				storeOnServerAndAnalyze.setVisibility(isFromServer ? View.GONE : View.VISIBLE);
+				previousButton.setVisibility(isFromServer ? View.GONE : View.VISIBLE);
 			}
 
-			if (bundle.containsKey("VIS")) {
+			if (bundle.containsKey(TITLE)) {
+				title.setText(bundle.getString(TITLE));
+			}
+
+			if (bundle.containsKey(Constants.VIS)) {
 				visValue.setVisibility(View.VISIBLE);
-				visValue.setText(bundle.getString("VIS"));
+				visValue.setText(bundle.getString(Constants.VIS));
 			}
-			if (bundle.containsKey("NIR")) {
+			if (bundle.containsKey(Constants.NIR)) {
 				nirValue.setVisibility(View.VISIBLE);
-				nirValue.setText(bundle.getString("NIR"));
+				nirValue.setText(bundle.getString(Constants.NIR));
 			}
-			if (bundle.containsKey("FLUO")) {
+			if (bundle.containsKey(Constants.FLUO)) {
 				fluoValue.setVisibility(View.VISIBLE);
-				fluoValue.setText(bundle.getString("FLUO"));
+				fluoValue.setText(bundle.getString(Constants.FLUO));
 			}
 		}
 
@@ -219,10 +252,10 @@ public class MeasurementResultsActivity extends BaseActivity {
 			sampleValue.setText(sample.getFoodType());
 
 			if (sample.getGranularity() != null) {
-				param1Title.setText("Granularity:");
+				param1Title.setText(granularityString);
 				param1Value.setText(sample.getGranularity());
 			} else {
-				param1Title.setText("Temperature:");
+				param1Title.setText(temperatureString);
 				param1Value.setText(sample.getTemperature());
 			}
 
@@ -428,22 +461,14 @@ public class MeasurementResultsActivity extends BaseActivity {
 		onSampleTypeClicked(buttonShowAllSamples);
 	}
 
-	private void sendMeasurementToServer(@NonNull final Sample sample) {
-		userViewModel.getUserProfile().observe(this, user -> {
-			//deviceViewModel.createDevice().observe(this, res -> {
-			//Log.d(TAG, "sendMeasurementToServer: device created ? " + res);
-			String deviceId = deviceViewModel.getDeviceID();
-			deviceId = "90:70:65:EF:4A:CE"; // TODO: 9/11/18 fix
-			Log.d(TAG, "sendMeasurementToServer: device id: " + deviceId);
-			if (deviceId != null) {
-				measurementViewModel.createMeasurementRequest(user.id(), sample, deviceId).observe(this, status -> {
-					Log.d(TAG, "sendMeasurementToServer: status: " + status);
-				});
-			} else {
-				Toast.makeText(this, "Device null! Not registered yet?", Toast.LENGTH_SHORT).show();
-			}
-			//});
-		});
+	private void sendMeasurementToServer(@NonNull final Sample sample, boolean shouldAnalyze) {
+		final String deviceId = deviceViewModel.getDeviceID();
+		Log.d(TAG, "sendMeasurementToServer: device id: " + deviceId);
+		if (deviceId != null) {
+			measurementViewModel.createMeasurementRequest(Utils.getUserId(), sample, deviceId, shouldAnalyze).observe(this,
+				status -> Log.d(TAG, "sendMeasurementToServer: status: " + status));
+		} else {
+			Toast.makeText(this, "Device null! Not registered yet?", Toast.LENGTH_SHORT).show();
+		}
 	}
-
 }

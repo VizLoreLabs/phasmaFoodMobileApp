@@ -7,11 +7,10 @@ import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.model.results.Sample;
 
 import io.reactivex.Completable;
-import retrofit2.http.Body;
 
 public interface MeasurementRepository {
 
-	Completable createMeasurementRequest(@Body Sample measurement);
+	Completable createMeasurementRequest(@NonNull Sample measurement, boolean shouldAnalyze);
 
 	//save locally for now
 	// TODO: 11/23/18 implement Room db

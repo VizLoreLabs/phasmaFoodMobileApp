@@ -66,11 +66,16 @@
     <string name="nirAnalysis">NIR data analysis:</string>
     <string name="fluoAnalysis">FLUO data analysis:</string>
     <string name="na">N/A</string>
-    <string name="sendToServer">Send to server</string>
+    <string name="storeOnServerAndAnalyze">Send to server (store &amp; analyze)</string>
+    <string name="storeOnServer">Send to server (store only)</string>
     <string name="goBackAndRetest">Go back and retest</string>
     <string name="waveMeasurementMarker">%s\n%s</string>
     <string name="sendRequest">Send request</string>
     <string name="setDefaults">Set defaults</string>
     <string name="useCase1LabelsTitle">Configure use case 1 labels</string>
     <string name="useCase2LabelsTitle">Configure use case 2 labels</string>
+    <string name="granularity">Granularity:</string>
+    <string name="temperatureString">Temperature</string>
+    <string name="resultsFromServer">Results from server</string>
+    <string name="resultsFromBtDevice">Results from BT device</string>
 </resources>

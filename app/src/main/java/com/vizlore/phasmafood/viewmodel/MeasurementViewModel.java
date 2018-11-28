@@ -43,7 +43,7 @@ public class MeasurementViewModel extends ViewModel {
 	}
 
 	public LiveData<Boolean> createMeasurementRequest(final String userId, final Sample sample,
-													  final String deviceId) {
+													  final String deviceId, boolean shouldAnalyze) {
 
 		if (measurementLiveData == null) {
 			measurementLiveData = new SingleLiveEvent<>();
@@ -59,7 +59,7 @@ public class MeasurementViewModel extends ViewModel {
 		sample.setMobileID(Utils.getMobileUUID());
 		sample.setConfiguration(measurementRepository.getConfiguration());
 
-		disposable = measurementRepository.createMeasurementRequest(sample)
+		disposable = measurementRepository.createMeasurementRequest(sample, shouldAnalyze)
 			.subscribeOn(Schedulers.io())
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribe(() -> measurementLiveData.postValue(true),

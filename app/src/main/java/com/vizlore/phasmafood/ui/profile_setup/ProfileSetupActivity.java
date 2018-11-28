@@ -223,7 +223,7 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 		isConnected = bluetoothService.isConnected();
 		if (isConnected) {
 			bluetoothService.disconnectFromCommunicationController();
+			isConnected = false;
 		}
-		isConnected = false;
 	}
 }

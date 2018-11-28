@@ -381,13 +381,6 @@
                     android:textColor="@color/white" />
             </RadioGroup>
 
-            <android.support.constraint.Guideline
-                android:id="@+id/guideline4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.5" />
-
             <ImageView
                 android:id="@+id/divider1"
                 android:layout_width="0dp"
@@ -399,7 +392,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/btDeviceCameraImage" />
 
             <Button
-                android:id="@+id/sendToServer"
+                android:id="@+id/storeOnServerAndAnalyze"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:background="@drawable/selectable_item_background"
@@ -407,10 +400,30 @@
                 android:shadowDx="1"
                 android:shadowDy="1"
                 android:shadowRadius="2"
-                android:text="@string/sendToServer"
+                android:text="@string/storeOnServerAndAnalyze"
                 android:textColor="@color/white"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guideline4"
+                app:layout_constraintEnd_toStartOf="@+id/storeOnServer"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/previousButton"
+                app:layout_constraintTop_toBottomOf="@+id/divider1" />
+
+            <Button
+                android:id="@+id/storeOnServer"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:background="@drawable/selectable_item_background"
+                android:shadowColor="@color/text_shadow"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="@string/storeOnServer"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/storeOnServerAndAnalyze"
                 app:layout_constraintTop_toBottomOf="@+id/divider1" />
 
             <Button
@@ -424,7 +437,9 @@
                 android:shadowRadius="2"
                 android:text="@string/goBackAndRetest"
                 android:textColor="@color/white"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@+id/storeOnServerAndAnalyze"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider1" />
         </android.support.constraint.ConstraintLayout>

@@ -21,8 +21,8 @@ android {
         applicationId "com.vizlore.phasmafood"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 17
-        versionName "1.16"
+        versionCode 18
+        versionName "1.17"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -103,9 +103,7 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
         transitive = true
     }
-
     compile 'com.facebook.stetho:stetho:1.5.0'
-
 }
 
 apply plugin: 'com.google.gms.google-services'

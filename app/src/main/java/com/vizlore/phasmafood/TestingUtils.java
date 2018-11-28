@@ -14,7 +14,9 @@ import com.vizlore.phasmafood.api.AutoValueGsonFactory;
 import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.repositories.MeasurementRepository;
 import com.vizlore.phasmafood.ui.results.MeasurementResultsActivity;
+import com.vizlore.phasmafood.utils.Constants;
 import com.vizlore.phasmafood.utils.JsonFileLoader;
+import com.vizlore.phasmafood.utils.Utils;
 import com.vizlore.phasmafood.viewmodel.DeviceViewModel;
 import com.vizlore.phasmafood.viewmodel.MeasurementViewModel;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
@@ -48,44 +50,42 @@ public class TestingUtils {
 
 		dialog.dismiss();
 
-		userViewModel.getUserProfile().observe(activity, user -> {
+		final Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
+		final String json = new JsonFileLoader().fromAsset(MEASUREMENT_10_SAMPLES);
+		final Measurement measurement = gson.fromJson(json, Measurement.class);
 
-			final Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
-			final String json = new JsonFileLoader().fromAsset(MEASUREMENT_10_SAMPLES);
-			final Measurement measurement = gson.fromJson(json, Measurement.class);
+		// TODO: 9/8/18 refactor
+		measurementRepository.saveMeasurement(measurement);
 
-			// TODO: 9/8/18 refactor
-			measurementRepository.saveMeasurement(measurement);
+		final Intent intent = new Intent(activity, MeasurementResultsActivity.class);
+		intent.putExtra(MeasurementResultsActivity.IS_FROM_SERVER, false);
+		intent.putExtra(Constants.VIS, "N/A");
+		intent.putExtra(Constants.NIR, "N/A");
+		intent.putExtra(Constants.FLUO, "N/A");
 
-			final Intent intent = new Intent(activity, MeasurementResultsActivity.class);
-			intent.putExtra("title", "Results from BT device");
-			intent.putExtra("VIS", "N/A");
-			intent.putExtra("NIR", "N/A");
-			intent.putExtra("FLOU", "N/A");
+		if (IS_DEBUG) {
+			activity.startActivity(intent);
+		} else {
+			dialog.show();
 
-			if (IS_DEBUG) {
-				activity.startActivity(intent);
-			} else {
-				dialog.show();
+			Log.d(TAG, "performTestMeasurement: user id: " + Utils.getUserId());
+			deviceViewModel.createDevice().observe(activity, res -> {
 
-				Log.d(TAG, "performTestMeasurement: user id: " + user.id());
-				deviceViewModel.createDevice().observe(activity, res -> {
+				Log.d(TAG, "performTestMeasurement: create device result: " + res);
 
-					Log.d(TAG, "performTestMeasurement: create device result: " + res);
-
-					model.createMeasurementRequest(user.id(), measurement.getResponse().getSample(), "90:70:65:EF:4A:CE") // TODO: 9/11/18 fix)
-						.observe(activity, result -> {
-							if (result != null && !result) {
-								Toast.makeText(activity, "Examination request failed!", Toast.LENGTH_SHORT).show();
-							} else {
-								Toast.makeText(activity, "Examination successful!", Toast.LENGTH_SHORT).show();
-								activity.startActivity(intent);
-							}
-							dialog.dismiss();
-						});
-				});
-			}
-		});
+				model.createMeasurementRequest(Utils.getUserId(), measurement.getResponse().getSample(),
+					"90:70:65:EF:4A:CE", true) // TODO: 9/11/18 fix)
+					.observe(activity, result -> {
+						if (result != null && !result) {
+							Toast.makeText(activity, "Examination request failed!", Toast.LENGTH_SHORT).show();
+						} else {
+							Toast.makeText(activity, "Examination successful!", Toast.LENGTH_SHORT).show();
+							activity.startActivity(intent);
+						}
+						dialog.dismiss();
+					});
+			});
+		}
 	}
 
 	public static Measurement readMeasurementFromJson(@NonNull final String jsonName) {

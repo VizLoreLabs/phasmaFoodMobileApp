@@ -7,6 +7,7 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.vizlore.phasmafood.ui.results.MeasurementResultsActivity;
+import com.vizlore.phasmafood.utils.Constants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,16 +33,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 		Log.d(TAG, "*** onMessageReceived: " + remoteMessage.getNotification().getBody());
 
 		Intent intent = new Intent(this, MeasurementResultsActivity.class);
-		intent.putExtra("title", "Results from server");
+		intent.putExtra(MeasurementResultsActivity.IS_FROM_SERVER, true);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		try {
 			JSONObject jsonObject = new JSONObject(remoteMessage.getNotification().getBody());
-			if (jsonObject.has("VIS"))
-				intent.putExtra("VIS", jsonObject.getString("VIS"));
-			if (jsonObject.has("NIR"))
-				intent.putExtra("NIR", jsonObject.getString("NIR"));
-			if (jsonObject.has("FLUO"))
-				intent.putExtra("FLUO", jsonObject.getString("FLUO"));
+			if (jsonObject.has(Constants.VIS))
+				intent.putExtra(Constants.VIS, jsonObject.getString(Constants.VIS));
+			if (jsonObject.has(Constants.NIR))
+				intent.putExtra(Constants.NIR, jsonObject.getString(Constants.NIR));
+			if (jsonObject.has(Constants.FLUO))
+				intent.putExtra(Constants.FLUO, jsonObject.getString(Constants.FLUO));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

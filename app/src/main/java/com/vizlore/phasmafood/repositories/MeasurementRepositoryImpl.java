@@ -1,6 +1,7 @@
 package com.vizlore.phasmafood.repositories;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.vizlore.phasmafood.api.MeasurementApi;
 import com.vizlore.phasmafood.model.configuration.Configuration;
@@ -19,8 +20,10 @@ public class MeasurementRepositoryImpl implements MeasurementRepository {
 	}
 
 	@Override
-	public Completable createMeasurementRequest(Sample measurement) {
-		return measurementApi.createMeasurementRequest(measurement)
+	public Completable createMeasurementRequest(@NonNull final Sample measurement, boolean shouldAnalyze) {
+		String loggg = shouldAnalyze ? "analyze" : "store";
+		Log.d("SMEDIC", "createMeasurementRequest: LOG: " + loggg);
+		return measurementApi.createMeasurementRequest(measurement, loggg)
 			.subscribeOn(Schedulers.computation());
 	}
 

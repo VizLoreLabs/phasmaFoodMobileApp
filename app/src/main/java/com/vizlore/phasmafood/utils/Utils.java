@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -16,12 +17,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.List;
-import java.util.UUID;
 
-import static com.vizlore.phasmafood.ui.wizard.WizardActivity.DEBUG_MODE_KEY;
 import static com.vizlore.phasmafood.utils.Config.BT_DEVICE_UUID_KEY;
 import static com.vizlore.phasmafood.utils.Config.MOBILE_DEVICE_UUID_KEY;
 import static com.vizlore.phasmafood.viewmodel.UserViewModel.TOKEN_KEY;
+import static com.vizlore.phasmafood.viewmodel.UserViewModel.USER_ID_KEY;
 
 /**
  * Created by smedic on 1/15/18.
@@ -54,26 +54,47 @@ public class Utils {
 
 	@Nullable
 	public synchronized static String getBluetoothDeviceUUID() {
-		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getInstance());
-		final boolean isDebugMode = prefs.getBoolean(DEBUG_MODE_KEY, false);
-		if (isDebugMode) {
-			return UUID.randomUUID().toString();
-		}
-		return prefs.getString(BT_DEVICE_UUID_KEY, null);
+//		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getInstance());
+//		final boolean isDebugMode = prefs.getBoolean(DEBUG_MODE_KEY, false);
+//		if (isDebugMode) {
+//			return UUID.randomUUID().toString();
+//		}
+//		return prefs.getString(BT_DEVICE_UUID_KEY, null);
+		// TODO: 11/28/18 fix getting of id
+		return "90:70:65:EF:4A:CE";
 	}
 
 	//do on logout
 	public synchronized static void clearUuids() {
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getInstance());
-		SharedPreferences.Editor editor = prefs.edit();
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getInstance());
+		final SharedPreferences.Editor editor = prefs.edit();
 		editor.remove(MOBILE_DEVICE_UUID_KEY);
 		editor.remove(BT_DEVICE_UUID_KEY);
 		editor.apply();
 	}
 
-	public static String getHeader() {
+	public static void saveAuthToken(@NonNull final String authToken) {
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getInstance());
+		final SharedPreferences.Editor editor = prefs.edit();
+		editor.putString(TOKEN_KEY, "JWT " + authToken);
+		editor.apply();
+	}
+
+	public static String getAuthToken() {
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getInstance());
 		return prefs.getString(TOKEN_KEY, "");
+	}
+
+	public static void saveUserId(@NonNull final String userId) {
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getInstance());
+		final SharedPreferences.Editor editor = prefs.edit();
+		editor.putString(USER_ID_KEY, userId);
+		editor.apply();
+	}
+
+	public static String getUserId() {
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getInstance());
+		return prefs.getString(USER_ID_KEY, "");
 	}
 
 	public static String removeMagicChar(String string) {

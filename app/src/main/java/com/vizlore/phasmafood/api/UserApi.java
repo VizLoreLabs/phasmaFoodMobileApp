@@ -1,5 +1,7 @@
 package com.vizlore.phasmafood.api;
 
+import com.vizlore.phasmafood.model.User;
+
 import java.util.Map;
 
 import io.reactivex.Completable;
@@ -21,7 +23,7 @@ public interface UserApi {
 	Completable createAccount(@Body Map<String, String> body);
 
 	@POST("/api/v1/auth/jwt/create/")
-	Single<ResponseBody> getToken(@Body Map<String, String> body);
+	Single<ResponseBody> login(@Body Map<String, String> body);
 
 	@Headers("Content-Type: application/json")
 	@POST("/api/v1/auth/jwt/refresh/")
@@ -31,7 +33,7 @@ public interface UserApi {
 	Single<ResponseBody> verifyToken(@Body Map<String, String> body);
 
 	@GET("/api/v1/auth/me/")
-	Single<ResponseBody> getCurrentProfile();
+	Single<User> getCurrentProfile();
 
 	@PUT("/api/v1/auth/me/")
 	Completable updateProfile(@Body Map<String, String> body);

@@ -39,7 +39,7 @@ public class NetworkModule {
 	@Singleton
 	HttpLoggingInterceptor provideHttpLoggingInterceptor() {
 		HttpLoggingInterceptor logging = new HttpLoggingInterceptor(message -> Log.d("SMEDIC", "log: " + message));
-		logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+		logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
 		return logging;
 	}
 
@@ -53,9 +53,9 @@ public class NetworkModule {
 			.addInterceptor(chain -> {
 				final Request original = chain.request();
 				final Request request;
-				if (Utils.getHeader() != null && !Utils.getHeader().isEmpty()) {
+				if (Utils.getAuthToken() != null && !Utils.getAuthToken().isEmpty()) {
 					request = original.newBuilder()
-						.header("Authorization", Utils.getHeader())
+						.header("Authorization", Utils.getAuthToken())
 						.method(original.method(), original.body())
 						.build();
 				} else {

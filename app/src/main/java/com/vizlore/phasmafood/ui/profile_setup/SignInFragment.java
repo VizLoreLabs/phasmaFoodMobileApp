@@ -43,7 +43,7 @@ public class SignInFragment extends ProfileBaseFragment {
 			final String emailText = email.getText().toString();
 			final String passwordText = password.getText().toString();
 
-			userViewModel.getToken(emailText, passwordText).observe(this, receivedToken -> {
+			userViewModel.login(emailText, passwordText).observe(this, receivedToken -> {
 				if (receivedToken != null) {
 					profileSetupViewModel.setSelected(ProfileAction.SIGNED_IN);
 				} else {

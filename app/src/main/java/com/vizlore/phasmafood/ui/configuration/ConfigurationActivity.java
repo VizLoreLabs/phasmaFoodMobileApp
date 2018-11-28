@@ -259,7 +259,7 @@ public class ConfigurationActivity extends BaseActivity {
 				disposable.add(bluetoothService.sendFakeMessage(jsonFileName).subscribe(measurement -> {
 						measurementViewModel.saveMeasurement(measurement);
 						final Intent intent = new Intent(ConfigurationActivity.this, MeasurementResultsActivity.class);
-						intent.putExtra("title", "Results from BT device");
+						intent.putExtra(MeasurementResultsActivity.IS_FROM_SERVER, false);
 						startActivity(intent);
 					},
 					e -> Log.d(TAG, "onError: " + e.getMessage())
@@ -337,6 +337,8 @@ public class ConfigurationActivity extends BaseActivity {
 					useCaseType = UseCaseType.USE_CASE_3;
 					break;
 				case Constants.USE_CASE_WHITE_REF:
+					nirGroup.setVisibility(View.VISIBLE);
+					visGroup.setVisibility(View.VISIBLE);
 					useCaseType = UseCaseType.USE_CASE_WHITE_REFERENCE;
 					break;
 				case Constants.USE_CASE_TEST:
@@ -553,11 +555,6 @@ public class ConfigurationActivity extends BaseActivity {
 
 	@Override
 	protected void onDestroy() {
-		//stopService(new Intent(this, BluetoothService.class));
-		if (bluetoothService != null && connection != null) {
-			bluetoothService.closeConnection();
-		}
-
 		if (!disposable.isDisposed()) {
 			disposable.clear();
 		}

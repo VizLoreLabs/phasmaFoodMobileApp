@@ -9,12 +9,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.ui.adapters.DevicesAdapter;
 import com.vizlore.phasmafood.ui.profile_setup.viewmodel.ProfileSetupViewModel;
-import com.vizlore.phasmafood.utils.Utils;
 import com.vizlore.phasmafood.viewmodel.BluetoothViewModel;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
 
@@ -35,7 +33,6 @@ public class YourProfileFragment extends ProfileBaseFragment {
 	private UserViewModel userViewModel;
 	private ProfileSetupViewModel profileSetupViewModel;
 	private List<BluetoothDevice> devicesList = new ArrayList<>();
-	private DevicesAdapter devicesAdapter;
 
 	private OnConnect onConnectListener;
 
@@ -63,15 +60,8 @@ public class YourProfileFragment extends ProfileBaseFragment {
 				profileSetupViewModel.setSelected(ProfileAction.GO_BACK);
 				break;
 			case R.id.logOut:
-				userViewModel.signOut().observe(this, signedOut -> {
-					if (signedOut != null && signedOut) {
-						profileSetupViewModel.setSelected(ProfileAction.SIGN_OUT_CLICKED);
-						Utils.clearUuids();
-						// TODO: 1/18/18 show dialog
-					} else {
-						Toast.makeText(getContext(), getString(R.string.signingOutError), Toast.LENGTH_SHORT).show();
-					}
-				});
+				userViewModel.signOut();
+				profileSetupViewModel.setSelected(ProfileAction.SIGN_OUT_CLICKED);
 				break;
 		}
 	}
@@ -83,11 +73,11 @@ public class YourProfileFragment extends ProfileBaseFragment {
 		profileSetupViewModel = ViewModelProviders.of(getActivity()).get(ProfileSetupViewModel.class);
 		userViewModel = ViewModelProviders.of(getActivity()).get(UserViewModel.class);
 
-		devicesAdapter = new DevicesAdapter(devicesList);
+		final DevicesAdapter devicesAdapter = new DevicesAdapter(devicesList);
 		devicesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 		devicesRecyclerView.setAdapter(devicesAdapter);
 
-		BluetoothViewModel bluetoothViewModel = ViewModelProviders.of(getActivity()).get(BluetoothViewModel.class);
+		final BluetoothViewModel bluetoothViewModel = ViewModelProviders.of(getActivity()).get(BluetoothViewModel.class);
 		bluetoothViewModel.getBondedDevices().observe(this, devices -> {
 			devicesList.clear();
 			devicesList.addAll(devices);
