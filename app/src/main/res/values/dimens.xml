@@ -8,6 +8,7 @@
     <dimen name="buttonsSmallSpacing">6dp</dimen>
     <dimen name="titleTextSize">26sp</dimen>
     <dimen name="subtitleTextSize">20sp</dimen>
+    <dimen name="messageTextSize">18sp</dimen>
     <dimen name="indicatorSize">20dp</dimen>
     <dimen name="indicatorMarginBottom">20dp</dimen>
     <dimen name="indicatorSpacing">8dp</dimen>

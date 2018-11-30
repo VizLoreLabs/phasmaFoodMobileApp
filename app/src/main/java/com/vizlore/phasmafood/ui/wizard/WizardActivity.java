@@ -1,21 +1,20 @@
 package com.vizlore.phasmafood.ui.wizard;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Switch;
 
 import com.vizlore.phasmafood.R;
+import com.vizlore.phasmafood.ui.BaseActivity;
+import com.vizlore.phasmafood.ui.SendRequestActivity;
 import com.vizlore.phasmafood.ui.configuration.ConfigurationActivity;
 import com.vizlore.phasmafood.utils.Constants;
 import com.vizlore.phasmafood.utils.Utils;
@@ -26,7 +25,6 @@ import org.json.JSONObject;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import wizardpager.model.AbstractWizardModel;
 import wizardpager.model.ModelCallbacks;
@@ -36,12 +34,10 @@ import wizardpager.ui.PageFragmentCallbacks;
 import wizardpager.ui.ReviewFragment;
 import wizardpager.ui.StepPagerStrip;
 
-public class WizardActivity extends AppCompatActivity implements PageFragmentCallbacks,
+public class WizardActivity extends BaseActivity implements PageFragmentCallbacks,
 	ReviewFragment.Callbacks, ModelCallbacks {
 
 	private static final String TAG = "SMEDIC";
-
-	public static final String DEBUG_MODE_KEY = "debug_mode";
 
 	private MyPagerAdapter pagerAdapter;
 	private boolean editingAfterReview;
@@ -62,10 +58,6 @@ public class WizardActivity extends AppCompatActivity implements PageFragmentCal
 	@BindView(R.id.strip)
 	StepPagerStrip stepPagerStrip;
 
-	//for testing purposes
-	@BindView(R.id.debugModeSwitch)
-	Switch debugModeSwitch;
-
 	@OnClick({R.id.backButton, R.id.nextButton, R.id.previousButton})
 	void onClick(View v) {
 		switch (v.getId()) {
@@ -74,7 +66,7 @@ public class WizardActivity extends AppCompatActivity implements PageFragmentCal
 				break;
 			case R.id.nextButton:
 				if (pager.getCurrentItem() == currentPageSequence.size()) {
-					sendToBluetoothDevice();
+					proceedToConfigurationSettings();
 				} else {
 					if (editingAfterReview) {
 						pager.setCurrentItem(pagerAdapter.getCount() - 1);
@@ -92,28 +84,32 @@ public class WizardActivity extends AppCompatActivity implements PageFragmentCal
 	/**
 	 * Connect to bluetooth device and send data
 	 */
-	private void sendToBluetoothDevice() {
+	private void proceedToConfigurationSettings() {
 		if (pager.getAdapter() != null) {
 
-			Object o = pager.getAdapter().instantiateItem(pager, pager.getCurrentItem());
+			final Object o = pager.getAdapter().instantiateItem(pager, pager.getCurrentItem());
 			if (o instanceof ReviewFragment) {
 
-				List<ReviewItem> items = ((ReviewFragment) o).getReviewItems();
+				final List<ReviewItem> items = ((ReviewFragment) o).getReviewItems();
 				if (items != null) {
-					JSONObject jsonObject = new JSONObject();
+					boolean shouldSkipConfiguration = false;
+					final JSONObject jsonObject = new JSONObject();
 					for (ReviewItem item : items) {
 						String title = Utils.removeMagicChar(item.getTitle());
 						String value = Utils.removeMagicChar(item.getDisplayValue());
 						Log.d(TAG, "Item: " + title + "\t" + value);
+						if (value.equals("EXISTING")) {
+							Log.d(TAG, "proceedToConfigurationSettings: SKIP CONFIGURATION");
+							shouldSkipConfiguration = true;
+						}
 						try {
 							jsonObject.put(title, value);
 						} catch (JSONException e) {
 							e.printStackTrace();
 						}
 					}
-					final Intent intent = new Intent(this, ConfigurationActivity.class);
-					intent.putExtra(Constants.WIZARD_DATA_KEY, jsonObject.toString());
-					startActivity(intent);
+					// next step - either configuration or sending to bluetooth device
+					proceedToNextStep(jsonObject.toString(), shouldSkipConfiguration);
 				}
 			}
 		} else {
@@ -121,10 +117,25 @@ public class WizardActivity extends AppCompatActivity implements PageFragmentCal
 		}
 	}
 
+	private void proceedToNextStep(@NonNull final String json, boolean shouldSkipConfiguration) {
+		// next step - either configuration or sending to bluetooth device
+		final Intent intent;
+		if (!shouldSkipConfiguration) {
+			intent = new Intent(this, ConfigurationActivity.class);
+		} else {
+			intent = new Intent(this, SendRequestActivity.class);
+		}
+		intent.putExtra(Constants.WIZARD_DATA_KEY, json);
+		startActivity(intent);
+	}
+
+	@Override
+	public int getLayoutId() {
+		return R.layout.activity_wizard;
+	}
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_wizard);
-		ButterKnife.bind(this);
 
 		if (savedInstanceState != null) {
 			wizardModel.load(savedInstanceState.getBundle("model"));
@@ -158,13 +169,6 @@ public class WizardActivity extends AppCompatActivity implements PageFragmentCal
 
 		onPageTreeChanged();
 		updateBottomBar();
-
-		// just for testing (is debug mode or not)
-		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		debugModeSwitch.setChecked(prefs.getBoolean(DEBUG_MODE_KEY, false));
-
-		debugModeSwitch.setOnCheckedChangeListener((compoundButton, isChecked) ->
-			prefs.edit().putBoolean(DEBUG_MODE_KEY, isChecked).apply());
 	}
 
 	@Override
@@ -172,8 +176,7 @@ public class WizardActivity extends AppCompatActivity implements PageFragmentCal
 		currentPageSequence = wizardModel.getCurrentPageSequence();
 		recalculateCutOffPage();
 		stepPagerStrip.setPageCount(currentPageSequence.size() + 1); // + 1 =
-		// review
-		// step
+		// review step
 		pagerAdapter.notifyDataSetChanged();
 		updateBottomBar();
 	}
@@ -181,12 +184,11 @@ public class WizardActivity extends AppCompatActivity implements PageFragmentCal
 	private void updateBottomBar() {
 		int position = pager.getCurrentItem();
 		if (position == currentPageSequence.size()) {
-			nextButton.setText(R.string.configureParams);
-			//nextButton.setBackgroundColor(getResources().getColor(R.color.step_pager_selected_tab_color));
+			nextButton.setText(R.string.next);
+			//nextButton.setText(R.string.configureParams);
 			nextButton.setTextAppearance(this, R.style.TextAppearanceFinish);
 		} else {
 			nextButton.setText(editingAfterReview ? R.string.summary : R.string.next);
-			//nextButton.setBackgroundResource(R.drawable.selectable_item_background);
 			nextButton.setEnabled(position != pagerAdapter.getCutOffPage());
 		}
 

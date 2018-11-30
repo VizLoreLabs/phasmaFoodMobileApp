@@ -27,8 +27,6 @@ import com.vizlore.phasmafood.ui.profile_setup.viewmodel.ProfileSetupViewModel;
 import com.vizlore.phasmafood.ui.wizard.WizardActivity;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
 
-import butterknife.ButterKnife;
-
 /**
  * Created by smedic on 1/16/18.
  */
@@ -41,16 +39,19 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 	private BluetoothService bluetoothService;
 
 	@Override
+	public int getLayoutId() {
+		return R.layout.activity_profile_setup;
+	}
+
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_profile_setup);
-		ButterKnife.bind(this);
 
 		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 		getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.grey));
 
-		ProfileSetupViewModel profileSetupViewModel = ViewModelProviders.of(this).get(ProfileSetupViewModel.class);
+		final ProfileSetupViewModel profileSetupViewModel = ViewModelProviders.of(this).get(ProfileSetupViewModel.class);
 		profileSetupViewModel.getSelectedEvent().observe(this, actionSelection -> {
 			if (actionSelection != null) {
 				switch (actionSelection) {

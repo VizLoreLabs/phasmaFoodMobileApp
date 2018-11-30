@@ -78,4 +78,6 @@
     <string name="temperatureString">Temperature</string>
     <string name="resultsFromServer">Results from server</string>
     <string name="resultsFromBtDevice">Results from BT device</string>
+    <string name="sendRequestToBtDevice">Send request to\nBluetooth device</string>
+    <string name="sendRequestInfo">Parameters selected in wizard\nwill be sent to a connected\nPhasma food bluetooth device.\nMeasurement progress can be\nobserved in a notification bar.</string>
 </resources>

@@ -8,6 +8,7 @@ package com.vizlore.phasmafood.utils;
 public class Constants {
 
 	public static final String WIZARD_DATA_KEY = "wizard_data";
+	public static final String USE_CASE_TYPE_KEY = "use_case_type_key";
 
 	public static final String NIR = "NIR";
 	public static final String VIS = "VIS";

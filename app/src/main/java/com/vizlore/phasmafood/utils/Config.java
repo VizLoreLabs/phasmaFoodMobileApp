@@ -29,14 +29,10 @@ public class Config {
 
 	// NIR
 	public static final String KEY_VIS_EXPOSURE_TIME_REFLECTANCE = "vis_exposure_time_reflectence";
-	public static final String KEY_VIS_GAIN_REFLECTANCE = "vis_gain_reflectance";
-	public static final String KEY_VIS_BINNING_REFLECTANCE = "vis_binning_reflectance";
 	public static final String KEY_VIS_WHITE_LEDS_VOLTAGE = "vis_white_leds_voltage";
 
 	// VIS
 	public static final String KEY_VIS_EXPOSURE_TIME_FLOURESCENCE = "vis_exposure_time_fluorescence";
-	public static final String KEY_VIS_GAIN_FLOURESCENCE = "vis_gain_fluorescence";
-	public static final String KEY_VIS_BINNING_FLOURESCENCE = "vis_binning_fluorescence";
 	public static final String KEY_VIS_UV_LEDS_VOLTAGE = "vis_uv_leds_voltage";
 
 	//default values
@@ -49,14 +45,11 @@ public class Config {
 
 	// NIR
 	public static final int DEFAULT_VIS_EXPOSURE_TIME_REFLECTANCE = 100000;
-	public static final int DEFAULT_VIS_GAIN_REFLECTANCE = 5;
 	public static final int DEFAULT_VIS_BINNING_REFLECTANCE = 2;
 	public static final int DEFAULT_VIS_WHITE_LEDS_CURRENT = 50;
 
 	// VIS
 	public static final int DEFAULT_VIS_EXPOSURE_TIME_FLUORESCENCE = 100000;
-	public static final int DEFAULT_VIS_GAIN_FLUORESCENCE = 5;
-	public static final int DEFAULT_VIS_BINNING_FLUORESCENCE = 3;
 	public static final int DEFAULT_VIS_UV_LEDS_VOLTAGE = 200;
 
 	// Camera

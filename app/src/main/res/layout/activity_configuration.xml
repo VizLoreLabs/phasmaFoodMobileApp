@@ -531,62 +531,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/visParam2"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/configurationTowHeight"
-                    android:orientation="horizontal"
-                    android:paddingBottom="@dimen/configurationVerticalRowPadding"
-                    android:paddingEnd="@dimen/configurationHorizontalRowPadding"
-                    android:paddingStart="@dimen/configurationHorizontalRowPadding"
-                    android:paddingTop="@dimen/configurationVerticalRowPadding">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:gravity="center_vertical"
-                        android:text="@string/gainVisibleReflectance"
-                        android:textColor="@color/white" />
-
-                    <EditText
-                        android:id="@+id/gainReflectance"
-                        style="@style/PFEditTextDigits"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:hint="1-10"
-                        android:textColor="@color/white" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/visParam3"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/configurationTowHeight"
-                    android:orientation="horizontal"
-                    android:paddingBottom="@dimen/configurationVerticalRowPadding"
-                    android:paddingEnd="@dimen/configurationHorizontalRowPadding"
-                    android:paddingStart="@dimen/configurationHorizontalRowPadding"
-                    android:paddingTop="@dimen/configurationVerticalRowPadding">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:gravity="center_vertical"
-                        android:text="@string/binningVisibleReflectance"
-                        android:textColor="@color/white" />
-
-                    <EditText
-                        android:id="@+id/binningReflectance"
-                        style="@style/PFEditTextDigits"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:hint="1-4"
-                        android:textColor="@color/white" />
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/visParam4"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/configurationTowHeight"
@@ -640,62 +584,6 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:hint="1-300000"
-                        android:textColor="@color/white" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/visParam6"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/configurationTowHeight"
-                    android:orientation="horizontal"
-                    android:paddingBottom="@dimen/configurationVerticalRowPadding"
-                    android:paddingEnd="@dimen/configurationHorizontalRowPadding"
-                    android:paddingStart="@dimen/configurationHorizontalRowPadding"
-                    android:paddingTop="@dimen/configurationVerticalRowPadding">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:gravity="center_vertical"
-                        android:text="@string/gainFluorescence"
-                        android:textColor="@color/white" />
-
-                    <EditText
-                        android:id="@+id/gainFluorescence"
-                        style="@style/PFEditTextDigits"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:hint="1-10"
-                        android:textColor="@color/white" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/visParam7"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/configurationTowHeight"
-                    android:orientation="horizontal"
-                    android:paddingBottom="@dimen/configurationVerticalRowPadding"
-                    android:paddingEnd="@dimen/configurationHorizontalRowPadding"
-                    android:paddingStart="@dimen/configurationHorizontalRowPadding"
-                    android:paddingTop="@dimen/configurationVerticalRowPadding">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:gravity="center_vertical"
-                        android:text="@string/binningFluorescence"
-                        android:textColor="@color/white" />
-
-                    <EditText
-                        android:id="@+id/binningFluorescence"
-                        style="@style/PFEditTextDigits"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:hint="1-4"
                         android:textColor="@color/white" />
                 </LinearLayout>
 

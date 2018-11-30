@@ -1,18 +1,12 @@
 package com.vizlore.phasmafood.ui.configuration;
 
-import android.app.AlertDialog;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -23,7 +17,6 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.vizlore.phasmafood.R;
-import com.vizlore.phasmafood.bluetooth.BluetoothService;
 import com.vizlore.phasmafood.model.configuration.Camera;
 import com.vizlore.phasmafood.model.configuration.Configuration;
 import com.vizlore.phasmafood.model.configuration.NirMicrolamps;
@@ -31,8 +24,7 @@ import com.vizlore.phasmafood.model.configuration.NirSpectrometer;
 import com.vizlore.phasmafood.model.configuration.VisLeds;
 import com.vizlore.phasmafood.model.configuration.VisSpectrometer;
 import com.vizlore.phasmafood.ui.BaseActivity;
-import com.vizlore.phasmafood.ui.results.MeasurementResultsActivity;
-import com.vizlore.phasmafood.ui.wizard.WizardActivity;
+import com.vizlore.phasmafood.ui.SendRequestActivity;
 import com.vizlore.phasmafood.utils.Constants;
 import com.vizlore.phasmafood.viewmodel.MeasurementViewModel;
 
@@ -42,21 +34,15 @@ import org.json.JSONObject;
 import java.util.Date;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.disposables.CompositeDisposable;
 
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_CAMERA_EXPOSURE_TIME;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_CAMERA_VOLTAGE;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_NIR_MICROLAMPS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_NIR_MICROLAMPS_WARMING_TIME;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_NIR_SPEC_AVERAGES;
-import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_BINNING_FLUORESCENCE;
-import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_BINNING_REFLECTANCE;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_EXPOSURE_TIME_FLUORESCENCE;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_EXPOSURE_TIME_REFLECTANCE;
-import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_GAIN_FLUORESCENCE;
-import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_GAIN_REFLECTANCE;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_UV_LEDS_VOLTAGE;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_WHITE_LEDS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.KEY_CAMERA_EXPOSURE_TIME;
@@ -65,12 +51,8 @@ import static com.vizlore.phasmafood.utils.Config.KEY_NIR_MICROLAMPS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.KEY_NIR_MICROLAMPS_WARMING_TIME;
 import static com.vizlore.phasmafood.utils.Config.KEY_NIR_SINGLE_SHOT;
 import static com.vizlore.phasmafood.utils.Config.KEY_NIR_SPEC_AVERAGES;
-import static com.vizlore.phasmafood.utils.Config.KEY_VIS_BINNING_FLOURESCENCE;
-import static com.vizlore.phasmafood.utils.Config.KEY_VIS_BINNING_REFLECTANCE;
 import static com.vizlore.phasmafood.utils.Config.KEY_VIS_EXPOSURE_TIME_FLOURESCENCE;
 import static com.vizlore.phasmafood.utils.Config.KEY_VIS_EXPOSURE_TIME_REFLECTANCE;
-import static com.vizlore.phasmafood.utils.Config.KEY_VIS_GAIN_FLOURESCENCE;
-import static com.vizlore.phasmafood.utils.Config.KEY_VIS_GAIN_REFLECTANCE;
 import static com.vizlore.phasmafood.utils.Config.KEY_VIS_UV_LEDS_VOLTAGE;
 import static com.vizlore.phasmafood.utils.Config.KEY_VIS_WHITE_LEDS_VOLTAGE;
 import static com.vizlore.phasmafood.utils.Config.MAX_CAMERA_EXPOSURE_TIME;
@@ -78,12 +60,8 @@ import static com.vizlore.phasmafood.utils.Config.MAX_CAMERA_VOLTAGE_TIME;
 import static com.vizlore.phasmafood.utils.Config.MAX_NIR_MICROLAMPS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.MAX_NIR_MICROLAMPS_WARMING_TIME;
 import static com.vizlore.phasmafood.utils.Config.MAX_NIR_SPEC_AVERAGES;
-import static com.vizlore.phasmafood.utils.Config.MAX_VIS_BINNING_FLUORESCENCE;
-import static com.vizlore.phasmafood.utils.Config.MAX_VIS_BINNING_REFLECTANCE;
 import static com.vizlore.phasmafood.utils.Config.MAX_VIS_EXPOSURE_TIME_FLUORESCENCE;
 import static com.vizlore.phasmafood.utils.Config.MAX_VIS_EXPOSURE_TIME_REFLECTANCE;
-import static com.vizlore.phasmafood.utils.Config.MAX_VIS_GAIN_FLUORESCENCE;
-import static com.vizlore.phasmafood.utils.Config.MAX_VIS_GAIN_REFLECTANCE;
 import static com.vizlore.phasmafood.utils.Config.MAX_VIS_UV_LEDS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.MAX_VIS_WHITE_LEDS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.MIN_CAMERA_EXPOSURE_TIME;
@@ -91,12 +69,8 @@ import static com.vizlore.phasmafood.utils.Config.MIN_CAMERA_VOLTAGE_TIME;
 import static com.vizlore.phasmafood.utils.Config.MIN_NIR_MICROLAMPS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.MIN_NIR_MICROLAMPS_WARMING_TIME;
 import static com.vizlore.phasmafood.utils.Config.MIN_NIR_SPEC_AVERAGES;
-import static com.vizlore.phasmafood.utils.Config.MIN_VIS_BINNING_FLUORESCENCE;
-import static com.vizlore.phasmafood.utils.Config.MIN_VIS_BINNING_REFLECTANCE;
 import static com.vizlore.phasmafood.utils.Config.MIN_VIS_EXPOSURE_TIME_FLUORESCENCE;
 import static com.vizlore.phasmafood.utils.Config.MIN_VIS_EXPOSURE_TIME_REFLECTANCE;
-import static com.vizlore.phasmafood.utils.Config.MIN_VIS_GAIN_FLUORESCENCE;
-import static com.vizlore.phasmafood.utils.Config.MIN_VIS_GAIN_REFLECTANCE;
 import static com.vizlore.phasmafood.utils.Config.MIN_VIS_UV_LEDS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.MIN_VIS_WHITE_LEDS_CURRENT;
 
@@ -113,16 +87,10 @@ public class ConfigurationActivity extends BaseActivity {
 
 	private static final String USE_CASE_WHITE_REF_PARAM_1 = "timestamp";
 
-	private static final String USE_CASE_1_JSON = "measurements_10_sample_full.json";
-	private static final String USE_CASE_2_JSON = "usecase2_updated_response.json";
-
-	private BluetoothService bluetoothService;
-	private CompositeDisposable disposable = new CompositeDisposable();
 	private MeasurementViewModel measurementViewModel;
 	private JSONObject wizardJsonObject = null;
 	private SharedPreferences prefs;
 
-	private UseCaseType useCaseType;
 	private String testSample;
 
 	//use case labels
@@ -165,19 +133,11 @@ public class ConfigurationActivity extends BaseActivity {
 	LinearLayout visGroup;
 	@BindView(R.id.exposureTimeReflectance)
 	EditText exposureTimeReflectance;
-	@BindView(R.id.gainReflectance)
-	EditText gainReflectance;
-	@BindView(R.id.binningReflectance)
-	EditText binningReflectance;
 	@BindView(R.id.whiteLEDs)
 	EditText whiteLEDsCurrent;
 
 	@BindView(R.id.exposureTimeFluorescence)
 	EditText exposureTimeFluorescence;
-	@BindView(R.id.gainFluorescence)
-	EditText gainFluorescence;
-	@BindView(R.id.binningFluorescence)
-	EditText binningFluorescence;
 	@BindView(R.id.UVLEDs)
 	EditText UVLEDsCurrent;
 
@@ -225,57 +185,26 @@ public class ConfigurationActivity extends BaseActivity {
 			measurementViewModel.saveConfigurationParams(configuration);
 
 			final String configurationJson = new Gson().toJson(configuration);
-			wizardJsonObject.put("configuration", configurationJson);
-			//wrap into request
-			final JSONObject jsonObjectRequest = new JSONObject();
-			jsonObjectRequest.put("Request", wizardJsonObject);
+			wizardJsonObject.put("configuration", new JSONObject(configurationJson));
 
-			Log.d(TAG, "sendRequest: SEND: \n" + jsonObjectRequest.toString());
+			// next step - send request
+			final Intent intent = new Intent(this, SendRequestActivity.class);
+			intent.putExtra(Constants.WIZARD_DATA_KEY, wizardJsonObject.toString());
+			startActivity(intent);
 
-			showSendActionDialog(jsonObjectRequest.toString());
 		} else {
 			Toast.makeText(this, "Wrong input. Check fields", Toast.LENGTH_SHORT).show();
 		}
 	}
 
-	private void showSendActionDialog(final String jsonToSend) {
-		final AlertDialog alertDialog = new AlertDialog.Builder(ConfigurationActivity.this).create();
-		alertDialog.setMessage(getString(R.string.sendDataMessage));
-		alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(android.R.string.yes), (dialog, which) -> {
-
-			final boolean isDebugMode = prefs.getBoolean(WizardActivity.DEBUG_MODE_KEY, false);
-			if (!isDebugMode) {
-				Log.d(TAG, "showSendActionDialog: SEND REAL MESSAGE TO DEVICE!");
-				bluetoothService.sendMessage(jsonToSend);
-			} else {
-				Log.d(TAG, "showSendActionDialog: PERFORM FAKE MEASUREMENT (debug mode)");
-				//send params directly to server (use case 1 of 2)
-				//load use case 1 by default
-				String jsonFileName = USE_CASE_1_JSON;
-				if (useCaseType == UseCaseType.USE_CASE_2) {
-					jsonFileName = USE_CASE_2_JSON;
-				}
-
-				disposable.add(bluetoothService.sendFakeMessage(jsonFileName).subscribe(measurement -> {
-						measurementViewModel.saveMeasurement(measurement);
-						final Intent intent = new Intent(ConfigurationActivity.this, MeasurementResultsActivity.class);
-						intent.putExtra(MeasurementResultsActivity.IS_FROM_SERVER, false);
-						startActivity(intent);
-					},
-					e -> Log.d(TAG, "onError: " + e.getMessage())
-				));
-			}
-			dialog.dismiss();
-		});
-		alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(android.R.string.no), (dialog, which) -> dialog.dismiss());
-		alertDialog.show();
+	@Override
+	public int getLayoutId() {
+		return R.layout.activity_configuration;
 	}
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_configuration);
-		ButterKnife.bind(this);
 
 		measurementViewModel = ViewModelProviders.of(this).get(MeasurementViewModel.class);
 
@@ -284,27 +213,10 @@ public class ConfigurationActivity extends BaseActivity {
 		// load from preferences or set defaults
 		loadStartingValues();
 
-		loadWizardJson();
-
-		// start bluetooth service
-		final Intent intent = new Intent(this, BluetoothService.class);
-		bindService(intent, connection, Context.BIND_AUTO_CREATE); //Binding to the service!
+		readWizardJson();
 	}
 
-	private ServiceConnection connection = new ServiceConnection() {
-		@Override
-		public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-			BluetoothService.LocalBinder binder = (BluetoothService.LocalBinder) iBinder;
-			bluetoothService = binder.getServiceInstance(); //Get instance of your service!
-		}
-
-		@Override
-		public void onServiceDisconnected(ComponentName componentName) {
-			bluetoothService = null;
-		}
-	};
-
-	private void loadWizardJson() {
+	private void readWizardJson() {
 
 		if (getIntent() == null || getIntent().getExtras() == null || !getIntent().getExtras().containsKey(Constants.WIZARD_DATA_KEY)) {
 			riseError("Error loading JSON from wizard! Contact support");
@@ -325,21 +237,17 @@ public class ConfigurationActivity extends BaseActivity {
 					useCase1LabelsGroup.setVisibility(View.VISIBLE);
 					nirGroup.setVisibility(View.VISIBLE);
 					visGroup.setVisibility(View.VISIBLE);
-					useCaseType = UseCaseType.USE_CASE_1;
 					break;
 				case Constants.USE_CASE_2:
 					useCase2LabelsGroup.setVisibility(View.VISIBLE);
 					nirGroup.setVisibility(View.VISIBLE);
 					visGroup.setVisibility(View.VISIBLE);
-					useCaseType = UseCaseType.USE_CASE_2;
 					break;
 				case Constants.USE_CASE_3:
-					useCaseType = UseCaseType.USE_CASE_3;
 					break;
 				case Constants.USE_CASE_WHITE_REF:
 					nirGroup.setVisibility(View.VISIBLE);
 					visGroup.setVisibility(View.VISIBLE);
-					useCaseType = UseCaseType.USE_CASE_WHITE_REFERENCE;
 					break;
 				case Constants.USE_CASE_TEST:
 					testSample = wizardJsonObject.getString(Constants.USE_CASE_TEST);
@@ -349,14 +257,12 @@ public class ConfigurationActivity extends BaseActivity {
 					if (testSample.contains(Constants.USE_CASE_TEST_VIS_FLUO)) {
 						visGroup.setVisibility(View.VISIBLE);
 					}
-					useCaseType = UseCaseType.USE_CASE_TEST;
 					break;
 				default:
 					useCase1LabelsGroup.setVisibility(View.GONE);
 					useCase2LabelsGroup.setVisibility(View.GONE);
 					nirGroup.setVisibility(View.VISIBLE);
 					visGroup.setVisibility(View.VISIBLE);
-					useCaseType = UseCaseType.USE_CASE_1;
 					break;
 			}
 		} catch (JSONException e) {
@@ -382,12 +288,8 @@ public class ConfigurationActivity extends BaseActivity {
 		nirMicrolampsWarmingTime.setText(String.valueOf(prefs.getInt(KEY_NIR_MICROLAMPS_WARMING_TIME, DEFAULT_NIR_MICROLAMPS_WARMING_TIME)));
 		// vis
 		exposureTimeReflectance.setText(String.valueOf(prefs.getInt(KEY_VIS_EXPOSURE_TIME_REFLECTANCE, DEFAULT_VIS_EXPOSURE_TIME_REFLECTANCE)));
-		gainReflectance.setText(String.valueOf(prefs.getInt(KEY_VIS_GAIN_REFLECTANCE, DEFAULT_VIS_GAIN_REFLECTANCE)));
-		binningReflectance.setText(String.valueOf(prefs.getInt(KEY_VIS_BINNING_REFLECTANCE, DEFAULT_VIS_BINNING_REFLECTANCE)));
 		whiteLEDsCurrent.setText(String.valueOf(prefs.getInt(KEY_VIS_WHITE_LEDS_VOLTAGE, DEFAULT_VIS_WHITE_LEDS_CURRENT)));
 		exposureTimeFluorescence.setText(String.valueOf(prefs.getInt(KEY_VIS_EXPOSURE_TIME_FLOURESCENCE, DEFAULT_VIS_EXPOSURE_TIME_FLUORESCENCE)));
-		gainFluorescence.setText(String.valueOf(prefs.getInt(KEY_VIS_GAIN_FLOURESCENCE, DEFAULT_VIS_GAIN_FLUORESCENCE)));
-		binningFluorescence.setText(String.valueOf(prefs.getInt(KEY_VIS_BINNING_FLOURESCENCE, DEFAULT_VIS_BINNING_FLUORESCENCE)));
 		UVLEDsCurrent.setText(String.valueOf(prefs.getInt(KEY_VIS_UV_LEDS_VOLTAGE, DEFAULT_VIS_UV_LEDS_VOLTAGE)));
 	}
 
@@ -402,12 +304,8 @@ public class ConfigurationActivity extends BaseActivity {
 		nirMicrolampsWarmingTime.setText(String.valueOf(DEFAULT_NIR_MICROLAMPS_WARMING_TIME));
 		// vis
 		exposureTimeReflectance.setText(String.valueOf(DEFAULT_VIS_EXPOSURE_TIME_REFLECTANCE));
-		gainReflectance.setText(String.valueOf(DEFAULT_VIS_GAIN_REFLECTANCE));
-		binningReflectance.setText(String.valueOf(DEFAULT_VIS_BINNING_REFLECTANCE));
 		whiteLEDsCurrent.setText(String.valueOf(DEFAULT_VIS_WHITE_LEDS_CURRENT));
 		exposureTimeFluorescence.setText(String.valueOf(DEFAULT_VIS_EXPOSURE_TIME_FLUORESCENCE));
-		gainFluorescence.setText(String.valueOf(DEFAULT_VIS_GAIN_FLUORESCENCE));
-		binningFluorescence.setText(String.valueOf(DEFAULT_VIS_BINNING_FLUORESCENCE));
 		UVLEDsCurrent.setText(String.valueOf(DEFAULT_VIS_UV_LEDS_VOLTAGE));
 	}
 
@@ -425,13 +323,9 @@ public class ConfigurationActivity extends BaseActivity {
 		editor.putInt(KEY_NIR_MICROLAMPS_WARMING_TIME, getValue(nirMicrolampsWarmingTime));
 
 		editor.putInt(KEY_VIS_EXPOSURE_TIME_REFLECTANCE, getValue(exposureTimeReflectance));
-		editor.putInt(KEY_VIS_GAIN_REFLECTANCE, getValue(gainReflectance));
-		editor.putInt(KEY_VIS_BINNING_REFLECTANCE, getValue(binningReflectance));
 		editor.putInt(KEY_VIS_UV_LEDS_VOLTAGE, getValue(UVLEDsCurrent));
 
 		editor.putInt(KEY_VIS_EXPOSURE_TIME_FLOURESCENCE, getValue(exposureTimeFluorescence));
-		editor.putInt(KEY_VIS_GAIN_FLOURESCENCE, getValue(gainFluorescence));
-		editor.putInt(KEY_VIS_BINNING_FLOURESCENCE, getValue(binningFluorescence));
 		editor.putInt(KEY_VIS_WHITE_LEDS_VOLTAGE, getValue(whiteLEDsCurrent));
 
 		editor.apply();
@@ -462,14 +356,6 @@ public class ConfigurationActivity extends BaseActivity {
 			showError(exposureTimeReflectance);
 			return null;
 		}
-		if (!isWithinBounds(getValue(gainReflectance), MIN_VIS_GAIN_REFLECTANCE, MAX_VIS_GAIN_REFLECTANCE)) {
-			showError(gainReflectance);
-			return null;
-		}
-		if (!isWithinBounds(getValue(binningReflectance), MIN_VIS_BINNING_REFLECTANCE, MAX_VIS_BINNING_REFLECTANCE)) {
-			showError(binningReflectance);
-			return null;
-		}
 		if (!isWithinBounds(getValue(whiteLEDsCurrent), MIN_VIS_WHITE_LEDS_CURRENT, MAX_VIS_WHITE_LEDS_CURRENT)) {
 			showError(whiteLEDsCurrent);
 			return null;
@@ -478,14 +364,7 @@ public class ConfigurationActivity extends BaseActivity {
 			showError(exposureTimeFluorescence);
 			return null;
 		}
-		if (!isWithinBounds(getValue(gainFluorescence), MIN_VIS_GAIN_FLUORESCENCE, MAX_VIS_GAIN_FLUORESCENCE)) {
-			showError(gainFluorescence);
-			return null;
-		}
-		if (!isWithinBounds(getValue(binningFluorescence), MIN_VIS_BINNING_FLUORESCENCE, MAX_VIS_BINNING_FLUORESCENCE)) {
-			showError(binningFluorescence);
-			return null;
-		}
+
 		if (!isWithinBounds(getValue(UVLEDsCurrent), MIN_VIS_UV_LEDS_CURRENT, MAX_VIS_UV_LEDS_CURRENT)) {
 			showError(UVLEDsCurrent);
 			return null;
@@ -516,6 +395,8 @@ public class ConfigurationActivity extends BaseActivity {
 			configuration.setNirSpectrometer(nirSpectrometer);
 		}
 
+		//remove the g_fluo b_fluo g_vis b_vis for all measurement configuration.
+
 		// VIS
 		// Add if not test sample at all OR it's a VIS-FLUO test sample
 		if (testSample == null || testSample.contains(Constants.USE_CASE_TEST_VIS_FLUO)) {
@@ -524,12 +405,10 @@ public class ConfigurationActivity extends BaseActivity {
 			visLeds.setVwVis(getValue(whiteLEDsCurrent));
 
 			final VisSpectrometer visSpectrometer = new VisSpectrometer();
-			visSpectrometer.setBFluo(getValue(binningFluorescence));
-			visSpectrometer.setBVis(getValue(binningReflectance));
-			visSpectrometer.setGFluo(getValue(gainFluorescence));
-			visSpectrometer.setGVis(getValue(gainReflectance));
 			visSpectrometer.setTFluo(getValue(exposureTimeFluorescence));
 			visSpectrometer.setTVis(getValue(exposureTimeReflectance));
+			visSpectrometer.setVisLeds(visLeds);
+
 			configuration.setVisSpectrometer(visSpectrometer);
 		}
 
@@ -551,21 +430,5 @@ public class ConfigurationActivity extends BaseActivity {
 	private void showError(EditText editText) {
 		Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
 		editText.startAnimation(shake);
-	}
-
-	@Override
-	protected void onDestroy() {
-		if (!disposable.isDisposed()) {
-			disposable.clear();
-		}
-		super.onDestroy();
-	}
-
-	private enum UseCaseType {
-		USE_CASE_1,
-		USE_CASE_2,
-		USE_CASE_3,
-		USE_CASE_WHITE_REFERENCE,
-		USE_CASE_TEST
 	}
 }

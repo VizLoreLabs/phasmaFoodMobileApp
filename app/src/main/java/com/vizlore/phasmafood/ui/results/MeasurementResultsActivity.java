@@ -193,9 +193,14 @@ public class MeasurementResultsActivity extends BaseActivity {
 	}
 
 	@Override
+	public int getLayoutId() {
+		return R.layout.activity_measurement_results;
+	}
+
+	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_bt_device_measurements);
+		setContentView(R.layout.activity_measurement_results);
 		ButterKnife.bind(this);
 
 		measurementViewModel = ViewModelProviders.of(this).get(MeasurementViewModel.class);

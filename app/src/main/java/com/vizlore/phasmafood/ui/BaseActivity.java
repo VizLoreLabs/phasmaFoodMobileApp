@@ -1,15 +1,28 @@
 package com.vizlore.phasmafood.ui;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.vizlore.phasmafood.R;
+
+import butterknife.ButterKnife;
 
 /**
  * Created by smedic on 1/18/18.
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
+
+	public abstract int getLayoutId();
+
+	@Override
+	protected void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(getLayoutId());
+		ButterKnife.bind(this);
+	}
 
 	@Override
 	public void finish() {
