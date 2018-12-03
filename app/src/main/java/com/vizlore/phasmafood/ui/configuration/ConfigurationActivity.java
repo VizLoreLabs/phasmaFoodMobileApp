@@ -136,6 +136,9 @@ public class ConfigurationActivity extends BaseActivity {
 	@BindView(R.id.whiteLEDs)
 	EditText whiteLEDsCurrent;
 
+	// FLUO
+	@BindView(R.id.fluoGroup)
+	LinearLayout fluoGroup;
 	@BindView(R.id.exposureTimeFluorescence)
 	EditText exposureTimeFluorescence;
 	@BindView(R.id.UVLEDs)
@@ -254,8 +257,11 @@ public class ConfigurationActivity extends BaseActivity {
 					if (testSample.contains(Constants.USE_CASE_TEST_NIR)) {
 						nirGroup.setVisibility(View.VISIBLE);
 					}
-					if (testSample.contains(Constants.USE_CASE_TEST_VIS_FLUO)) {
+					if (testSample.contains(Constants.USE_CASE_TEST_VIS)) {
 						visGroup.setVisibility(View.VISIBLE);
+					}
+					if (testSample.contains(Constants.USE_CASE_TEST_FLUO)) {
+						fluoGroup.setVisibility(View.VISIBLE);
 					}
 					break;
 				default:
@@ -289,6 +295,7 @@ public class ConfigurationActivity extends BaseActivity {
 		// vis
 		exposureTimeReflectance.setText(String.valueOf(prefs.getInt(KEY_VIS_EXPOSURE_TIME_REFLECTANCE, DEFAULT_VIS_EXPOSURE_TIME_REFLECTANCE)));
 		whiteLEDsCurrent.setText(String.valueOf(prefs.getInt(KEY_VIS_WHITE_LEDS_VOLTAGE, DEFAULT_VIS_WHITE_LEDS_CURRENT)));
+		//fluo
 		exposureTimeFluorescence.setText(String.valueOf(prefs.getInt(KEY_VIS_EXPOSURE_TIME_FLOURESCENCE, DEFAULT_VIS_EXPOSURE_TIME_FLUORESCENCE)));
 		UVLEDsCurrent.setText(String.valueOf(prefs.getInt(KEY_VIS_UV_LEDS_VOLTAGE, DEFAULT_VIS_UV_LEDS_VOLTAGE)));
 	}
@@ -305,6 +312,7 @@ public class ConfigurationActivity extends BaseActivity {
 		// vis
 		exposureTimeReflectance.setText(String.valueOf(DEFAULT_VIS_EXPOSURE_TIME_REFLECTANCE));
 		whiteLEDsCurrent.setText(String.valueOf(DEFAULT_VIS_WHITE_LEDS_CURRENT));
+		//fluo
 		exposureTimeFluorescence.setText(String.valueOf(DEFAULT_VIS_EXPOSURE_TIME_FLUORESCENCE));
 		UVLEDsCurrent.setText(String.valueOf(DEFAULT_VIS_UV_LEDS_VOLTAGE));
 	}
@@ -379,6 +387,10 @@ public class ConfigurationActivity extends BaseActivity {
 			.build();
 		configuration.setCamera(camera);
 
+		boolean isNirAvailable = false;
+		boolean isVisAvailable = false;
+		boolean isFluoAvailable = false;
+
 		// NirMicrolamps
 		// Add if not test sample at all OR it's a NIR test sample
 		if (testSample == null || testSample.contains(Constants.USE_CASE_TEST_NIR)) {
@@ -393,22 +405,57 @@ public class ConfigurationActivity extends BaseActivity {
 				.setNirMicrolamps(nirMicrolamps)
 				.build();
 			configuration.setNirSpectrometer(nirSpectrometer);
+			isNirAvailable = true;
 		}
 
-		//remove the g_fluo b_fluo g_vis b_vis for all measurement configuration.
-
+		final VisSpectrometer visSpectrometer = new VisSpectrometer();
+		final VisLeds visLeds = new VisLeds();
 		// VIS
-		// Add if not test sample at all OR it's a VIS-FLUO test sample
-		if (testSample == null || testSample.contains(Constants.USE_CASE_TEST_VIS_FLUO)) {
-			final VisLeds visLeds = new VisLeds();
-			visLeds.setVUV(getValue(UVLEDsCurrent));
+		// Add if not test sample at all OR it's a VIS test sample
+		if (testSample == null || testSample.contains(Constants.USE_CASE_TEST_VIS)) {
 			visLeds.setVwVis(getValue(whiteLEDsCurrent));
-
-			final VisSpectrometer visSpectrometer = new VisSpectrometer();
-			visSpectrometer.setTFluo(getValue(exposureTimeFluorescence));
 			visSpectrometer.setTVis(getValue(exposureTimeReflectance));
 			visSpectrometer.setVisLeds(visLeds);
+			configuration.setVisSpectrometer(visSpectrometer);
+			isVisAvailable = true;
+		}
 
+		// FLUO
+		// Add if not test sample at all OR it's a FLUO test sample
+		if (testSample == null || testSample.contains(Constants.USE_CASE_TEST_FLUO)) {
+			visLeds.setVUV(getValue(UVLEDsCurrent));
+			visSpectrometer.setTFluo(getValue(exposureTimeFluorescence));
+			visSpectrometer.setVisLeds(visLeds);
+			configuration.setVisSpectrometer(visSpectrometer);
+			isFluoAvailable = true;
+		}
+
+		// NIR not available, fill with zeroes
+		if (!isNirAvailable) {
+			final NirMicrolamps nirMicrolamps = new NirMicrolamps();
+			nirMicrolamps.setTNir(0);
+			nirMicrolamps.setVNir(0);
+			final NirSpectrometer nirSpectrometer = NirSpectrometer.builder()
+				.setSingle("N")
+				.setAvNIRm(0)
+				.setNirMicrolamps(nirMicrolamps)
+				.build();
+			configuration.setNirSpectrometer(nirSpectrometer);
+		}
+
+		// VIS not available, fill with zeroes
+		if (!isVisAvailable) {
+			visLeds.setVwVis(0);
+			visSpectrometer.setTVis(0);
+			visSpectrometer.setVisLeds(visLeds);
+			configuration.setVisSpectrometer(visSpectrometer);
+		}
+
+		// FLUO not available, fill with zeroes
+		if (!isFluoAvailable) {
+			visLeds.setVUV(0);
+			visSpectrometer.setTFluo(0);
+			visSpectrometer.setVisLeds(visLeds);
 			configuration.setVisSpectrometer(visSpectrometer);
 		}
 

@@ -21,6 +21,7 @@ public class Constants {
 	public static final String USE_CASE_WHITE_REF = "White Reference";
 	public static final String USE_CASE_TEST = "Test";
 	public static final String USE_CASE_TEST_NIR = "NIR";
-	public static final String USE_CASE_TEST_VIS_FLUO = "VIS-FLUO";
+	public static final String USE_CASE_TEST_VIS = "VIS";
+	public static final String USE_CASE_TEST_FLUO = "FLUO";
 	public static final String USE_CASE_TEST_CAMERA = "Camera";
 }

@@ -38,13 +38,8 @@
 
     <string name="vis">VIS</string>
     <string name="exposureTimeVisibleReflectance">Exposure time for visible reflectance spectra [us]</string>
-    <string name="gainVisibleReflectance">Gain for visible reflectance spectra [n]</string>
-    <string name="binningVisibleReflectance">Binning for visible reflectance spectra</string>
     <string name="whiteLEDs">Driving current for visible reflectance measurements [mA]</string>
-
     <string name="exposureTimeFluorescence">Exposure time for fluorescence spectra [us]</string>
-    <string name="gainFluorescence">Gain for fluorescence spectra</string>
-    <string name="binningFluorescence">Binning for fluorescence spectra</string>
     <string name="UVLEDs">Driving current for fluorescence measurements [mA]</string>
     <string name="fluo">FLUO</string>
     <string name="preprocessed">Preproc.</string>

@@ -131,7 +131,8 @@ public class PhasmaFoodWizardModel extends AbstractWizardModel {
 						.setRequired(true))
 				.addBranch(Constants.USE_CASE_TEST,
 					new MultipleFixedChoicePage(this, Constants.USE_CASE_TEST)
-						.setChoices(Constants.USE_CASE_TEST_VIS_FLUO, Constants.USE_CASE_TEST_NIR, Constants.USE_CASE_TEST_CAMERA)
+						.setChoices(Constants.USE_CASE_TEST_VIS, Constants.USE_CASE_TEST_NIR,
+							Constants.USE_CASE_TEST_FLUO, Constants.USE_CASE_TEST_CAMERA)
 						.setRequired(true)));
 	}
 }

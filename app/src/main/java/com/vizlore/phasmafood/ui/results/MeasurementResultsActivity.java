@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.Group;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -72,6 +73,9 @@ public class MeasurementResultsActivity extends BaseActivity {
 
 	@BindView(R.id.title)
 	TextView title;
+
+	@BindView(R.id.resultsGroup)
+	Group resultsGroup;
 
 	@BindView(R.id.useCaseValue)
 	TextView useCaseValue;
@@ -215,6 +219,7 @@ public class MeasurementResultsActivity extends BaseActivity {
 				storeOnServer.setVisibility(isFromServer ? View.GONE : View.VISIBLE);
 				storeOnServerAndAnalyze.setVisibility(isFromServer ? View.GONE : View.VISIBLE);
 				previousButton.setVisibility(isFromServer ? View.GONE : View.VISIBLE);
+				resultsGroup.setVisibility(isFromServer ? View.VISIBLE : View.GONE);
 			}
 
 			if (bundle.containsKey(TITLE)) {

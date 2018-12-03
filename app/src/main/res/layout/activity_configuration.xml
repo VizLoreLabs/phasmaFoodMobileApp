@@ -556,11 +556,27 @@
                         android:layout_weight="1"
                         android:hint="1-100"
                         android:textColor="@color/white" />
-
                 </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fluoGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/fluoTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/configurationTitleHeight"
+                    android:gravity="center"
+                    android:text="@string/fluo"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
                 <LinearLayout
-                    android:id="@+id/visParam5"
+                    android:id="@+id/fluoParam1"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/configurationTowHeight"
                     android:orientation="horizontal"
@@ -588,7 +604,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/visParam8"
+                    android:id="@+id/fluoParam2"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/configurationTowHeight"
                     android:orientation="horizontal"
@@ -614,7 +630,6 @@
                         android:hint="0-350"
                         android:textColor="@color/white" />
                 </LinearLayout>
-
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
