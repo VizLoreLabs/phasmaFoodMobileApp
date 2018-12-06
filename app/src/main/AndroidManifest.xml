@@ -45,6 +45,9 @@
         <activity
             android:name=".ui.SendRequestActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.CancelMeasurementActivity"
+            android:screenOrientation="portrait" />
 
         <service android:name=".services.MyFirebaseInstanceIDService">
             <intent-filter>

@@ -345,6 +345,16 @@ public class CommunicationController {
 					// Read from the InputStream
 					bytes = inputStream.read(buffer);
 					final String readMessage = new String(buffer, 0, bytes);
+
+					if (readMessage.equals("Cancelled")) {
+						handler.obtainMessage(BluetoothService.MESSAGE_READ, outputStream.toByteArray().length,
+							7, outputStream.toByteArray()).sendToTarget();
+						state = 0;
+						outputStream = new ByteArrayOutputStream();
+						stage = 0;
+						endFlag = 6;
+						continue;
+					}
 					if (state == 0) {
 						if (decode(readMessage)) {
 							switch (type) {
@@ -371,6 +381,7 @@ public class CommunicationController {
 							endFlag = 6;
 						}
 						if (readMessage.equals("End of Response")) {
+							Log.d(TAG, "run: end of response");
 							state = 0; //reset state
 							handler.obtainMessage(BluetoothService.MESSAGE_READ, outputStream.toByteArray().length,
 								endFlag, outputStream.toByteArray()).sendToTarget();
@@ -396,7 +407,6 @@ public class CommunicationController {
 							}
 						}
 					}
-
 					// Send the obtained bytes to the UI Activity
 					//  handler.obtainMessage(MainActivity.MESSAGE_READ, bytes, -1, buffer).sendToTarget();
 				} catch (IOException e) {
@@ -425,6 +435,24 @@ public class CommunicationController {
 		}
 
 		private boolean decode(final String json) {
+			try {
+				final JSONObject jsonObject = (JSONObject) new JSONTokener(json).nextValue();
+				final JSONObject response = jsonObject.getJSONObject("response");
+				status = response.getString("status");
+				type = response.getString("type");
+				dataSize = response.getInt("size");
+				dataType = response.getString("datatype");
+
+				Log.d(TAG, "decode: status: " + status + ", type: " + type + ", size: " + dataType + ", datatype: " + dataType);
+
+				return true;
+			} catch (JSONException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+
+		private boolean decodeCancelMessage(final String json) {
 			try {
 				final JSONObject jsonObject = (JSONObject) new JSONTokener(json).nextValue();
 				final JSONObject response = jsonObject.getJSONObject("response");

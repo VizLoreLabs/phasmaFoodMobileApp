@@ -16,7 +16,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.WindowManager;
 
 import com.vizlore.phasmafood.R;
@@ -210,8 +209,7 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 	public void onConnectClick(BluetoothDevice device) {
 		isConnected = bluetoothService.isConnected();
 		if (!isConnected) {
-			Log.d(TAG, "onConnectClick: not connected. Connecting...");
-			bluetoothService.connectToCommunicationController(device.getAddress());
+			bluetoothService.openConnection(device.getAddress());
 			isConnected = !isConnected;
 		}
 	}
@@ -220,7 +218,7 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 	public void onDisconnectClick() {
 		isConnected = bluetoothService.isConnected();
 		if (isConnected) {
-			bluetoothService.disconnectFromCommunicationController();
+			bluetoothService.closeConnection();
 			isConnected = false;
 		}
 	}

@@ -76,4 +76,12 @@
     <string name="sendRequestToBtDevice">Send request to\nBluetooth device</string>
     <string name="sendRequestInfo">Parameters selected in wizard\nwill be sent to a connected\nPhasma food bluetooth device.\nMeasurement progress can be\nobserved in a notification bar.</string>
     <string name="timestamp">Timestamp:</string>
+    <string name="cancelOngoingMeasurement">Cancel ongoing\nmeasurement?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="processingInfo">Measurement processing</string>
+    <string name="storeMeasurement">Sending measurement to be stored on server.</string>
+    <string name="storeMeasurementAndAnalyzing">Sending measurement to be stored and analyzed on server. Waiting for analyze report…</string>
+    <string name="resultsSuccessfullyProcessed">Results successfully processed</string>
+    <string name="errorSendingResultsToServer">Error sending results to server</string>
 </resources>

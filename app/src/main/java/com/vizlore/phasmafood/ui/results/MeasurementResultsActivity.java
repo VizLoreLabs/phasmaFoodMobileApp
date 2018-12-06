@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.Group;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +34,7 @@ import com.vizlore.phasmafood.model.results.Sample;
 import com.vizlore.phasmafood.model.results.VIS;
 import com.vizlore.phasmafood.ui.BaseActivity;
 import com.vizlore.phasmafood.ui.view.ChartMarkerView;
+import com.vizlore.phasmafood.utils.ConnectivityChecker;
 import com.vizlore.phasmafood.utils.Constants;
 import com.vizlore.phasmafood.utils.Utils;
 import com.vizlore.phasmafood.viewmodel.DeviceViewModel;
@@ -154,6 +156,21 @@ public class MeasurementResultsActivity extends BaseActivity {
 	@BindString(R.string.resultsFromBtDevice)
 	String resultsFromBtDevice;
 
+	@BindString(R.string.processingInfo)
+	String processingInfo;
+
+	@BindString(R.string.storeMeasurement)
+	String storeMeasurement;
+
+	@BindString(R.string.storeMeasurementAndAnalyzing)
+	String storeMeasurementAndAnalyzing;
+
+	@BindString(R.string.resultsSuccessfullyProcessed)
+	String resultsSuccessfullyProcessed;
+
+	@BindString(R.string.errorSendingResultsToServer)
+	String errorSendingResultsToServer;
+
 	@OnClick({R.id.buttonPreprocessed, R.id.buttonDarkReference, R.id.buttonWhiteReference,
 		R.id.buttonRawData, R.id.buttonRawDark, R.id.buttonRawWhite, R.id.buttonShowAllSamples})
 	void onSampleTypeClicked(final View view) {
@@ -193,9 +210,15 @@ public class MeasurementResultsActivity extends BaseActivity {
 
 	@OnClick({R.id.storeOnServerAndAnalyze, R.id.storeOnServer})
 	void onNextClick(final View v) {
+		if (!ConnectivityChecker.isNetworkEnabled(this)) {
+			Toast.makeText(this, getString(R.string.networkNotEnabled), Toast.LENGTH_SHORT).show();
+			return;
+		}
+
 		final Measurement measurement = measurementViewModel.getSavedMeasurement();
 		final boolean shouldAnalyze = v.getId() == R.id.storeOnServerAndAnalyze;
 		sendMeasurementToServer(measurement.getResponse().getSample(), shouldAnalyze);
+		showInformationDialog(shouldAnalyze ? storeMeasurementAndAnalyzing : storeMeasurement);
 	}
 
 	@OnClick(R.id.previousButton)
@@ -314,6 +337,8 @@ public class MeasurementResultsActivity extends BaseActivity {
 			lineChart.setMarker(new ChartMarkerView(this));
 			lineChart.getDescription().setText("");
 			lineChart.setScaleEnabled(false);
+			lineChart.getLegend().setWordWrapEnabled(true);
+			lineChart.getLegend().setTextColor(getColor(R.color.white));
 
 			lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
 				@Override
@@ -496,9 +521,36 @@ public class MeasurementResultsActivity extends BaseActivity {
 		Log.d(TAG, "sendMeasurementToServer: device id: " + deviceId);
 		if (deviceId != null) {
 			measurementViewModel.createMeasurementRequest(Utils.getUserId(), sample, deviceId, shouldAnalyze).observe(this,
-				status -> Log.d(TAG, "sendMeasurementToServer: status: " + status));
+				status -> {
+					Toast.makeText(this, status ? resultsSuccessfullyProcessed : errorSendingResultsToServer,
+						Toast.LENGTH_SHORT).show();
+					hideDialog();
+				});
 		} else {
 			Toast.makeText(this, "Device null! Not registered yet?", Toast.LENGTH_SHORT).show();
 		}
+	}
+
+	private AlertDialog alertDialog;
+
+	private void showInformationDialog(final String message) {
+		alertDialog = new AlertDialog.Builder(this).create();
+		alertDialog.setTitle(processingInfo);
+		alertDialog.setMessage(message);
+		alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(android.R.string.ok),
+			(dialog, which) -> dialog.dismiss());
+		alertDialog.show();
+	}
+
+	private void hideDialog() {
+		if (alertDialog != null) {
+			alertDialog.dismiss();
+		}
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		hideDialog();
 	}
 }

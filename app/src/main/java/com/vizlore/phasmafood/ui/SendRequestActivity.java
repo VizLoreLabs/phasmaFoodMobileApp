@@ -156,8 +156,7 @@ public class SendRequestActivity extends BaseActivity {
 			final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 			final boolean isDebugMode = prefs.getBoolean(DEBUG_MODE_KEY, false);
 			if (!isDebugMode) {
-				Log.d(TAG, "showSendActionDialog: SEND REAL MESSAGE TO DEVICE!");
-				bluetoothService.sendMessage(jsonToSend);
+				bluetoothService.sendMessage(jsonToSend, false);
 			} else {
 				Log.d(TAG, "showSendActionDialog: PERFORM FAKE MEASUREMENT (debug mode)");
 				//send params directly to server (use case 1 of 2)

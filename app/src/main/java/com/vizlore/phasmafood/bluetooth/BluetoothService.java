@@ -32,6 +32,7 @@ import com.vizlore.phasmafood.api.AutoValueGsonFactory;
 import com.vizlore.phasmafood.api.DeviceApi;
 import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.repositories.MeasurementRepository;
+import com.vizlore.phasmafood.ui.CancelMeasurementActivity;
 import com.vizlore.phasmafood.ui.results.MeasurementResultsActivity;
 import com.vizlore.phasmafood.utils.Config;
 
@@ -45,10 +46,8 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-import io.reactivex.CompletableObserver;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.vizlore.phasmafood.utils.Config.BT_DEVICE_UUID_KEY;
@@ -74,13 +73,15 @@ public class BluetoothService extends Service {
 
 	private CommunicationController bluetoothController;
 	private BluetoothDevice connectingDevice;
-	private Disposable disposable = new CompositeDisposable();
+	private CompositeDisposable disposable = new CompositeDisposable();
 	private String measurementDataResponse;
 
 	//notification stuff
 	private NotificationCompat.Builder notificationBuilder;
 	private NotificationManager notificationManager;
 	private int notificationId = 10;
+
+	private boolean isMeasurementStarted;
 
 	@Inject
 	RxBluetooth rxBluetooth;
@@ -156,8 +157,13 @@ public class BluetoothService extends Service {
 				break;
 			case 1: // receiving captured image
 				int progressImage = (int) param;
-				notificationBuilder.setContentTitle("Receiving captured image");
-				notificationBuilder.setContentText(progressImage + "%");
+				if (progressImage < 100) {
+					notificationBuilder.setContentTitle("Receiving captured image");
+					notificationBuilder.setContentText(progressImage + "%");
+				} else {
+					notificationBuilder.setContentTitle("Completed!");
+					notificationBuilder.setContentText("");
+				}
 				notificationBuilder.setProgress(100, progressImage, false);
 				notificationManager.notify(notificationId, notificationBuilder.build());
 				break;
@@ -186,22 +192,19 @@ public class BluetoothService extends Service {
 				notificationManager.notify(notificationId, notificationBuilder.build());
 				break;
 			case 5: // Image received
-				Log.d(TAG, "handleMessage: IMAGE RECEIVED");
 				final byte[] readBufData = (byte[]) param;
 				final Bitmap bitmap = BitmapFactory.decodeByteArray(readBufData, 0, readBufData.length);
 				if (bitmap != null) {
 					final String savedImagePath = tempFileImage(getApplicationContext(), bitmap, "captured_image");
 					measurementRepository.saveMeasurementImagePath(savedImagePath);
-					Log.d(TAG, "handleMessage: image path: " + savedImagePath);
-					Log.e(TAG, "handleMessage: image size: " + readBufData.length);
+					Log.d(TAG, "handleMessageRead: image path: " + savedImagePath);
+					Log.e(TAG, "handleMessageRead: image size: " + readBufData.length);
 				}
 
 				final Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
 				Measurement measurement = gson.fromJson(measurementDataResponse, Measurement.class);
-				Log.d(TAG, "handleMessage: measurement: " + measurement);
-				// TODO: 9/11/18 improve and move out of here
 				if (measurement != null && measurement.getResponse() != null) {
-					Log.d(TAG, "handleMessage: ok measurement");
+					Log.d(TAG, "handleMessageRead: ok measurement");
 					//save measurement (too big to put in bundle or parcelable)
 					measurementRepository.saveMeasurement(measurement);
 
@@ -212,13 +215,19 @@ public class BluetoothService extends Service {
 				} else {
 					Toast.makeText(getApplicationContext(), "Parsing examination failed", Toast.LENGTH_SHORT).show();
 				}
-
+				isMeasurementStarted = false;
 				break;
 			case 6:
-				Log.d(TAG, "handleMessage: Measurement data received");
+				Log.d(TAG, "handleMessageRead: Measurement data received");
 				final byte[] readBufImage = (byte[]) param;
 				measurementDataResponse = new String(readBufImage);
-				Log.d(TAG, "handleMessage: data: " + measurementDataResponse);
+				Log.d(TAG, "handleMessageRead: data: " + measurementDataResponse);
+				isMeasurementStarted = false;
+				break;
+			case 7:
+				Log.d(TAG, "handleMessageRead: Cancel");
+				isMeasurementStarted = false;
+				notificationManager.cancel(notificationId);
 				break;
 		}
 	}
@@ -285,8 +294,8 @@ public class BluetoothService extends Service {
 	}
 
 	//must be called just once from outside (activity for instance)
-	public void sendMessage(final String message) {
-		sendData(message);
+	public void sendMessage(final String message, boolean isCancelMessage) {
+		sendData(message, isCancelMessage);
 	}
 
 	// mock sending a message (testing)
@@ -297,7 +306,14 @@ public class BluetoothService extends Service {
 	}
 
 	//called multiple times
-	private void sendData(final String data) {
+	private void sendData(final String data, boolean isCancelMessage) {
+
+		Log.d(TAG, "sendData: SEND MESSAGE TO BT DEVICE");
+		if (!isCancelMessage && isMeasurementStarted) {
+			Log.d(TAG, "sendData: measurement already in progress...");
+			return;
+		}
+
 		if (bluetoothController == null) {
 			Log.e(TAG, "sendData: controller null");
 			Toast.makeText(this, "Device not connected!", Toast.LENGTH_SHORT).show();
@@ -311,6 +327,8 @@ public class BluetoothService extends Service {
 		if (data.length() > 0) {
 			byte[] send = data.getBytes();
 			bluetoothController.write(send);
+
+			isMeasurementStarted = true;
 		}
 	}
 
@@ -319,32 +337,25 @@ public class BluetoothService extends Service {
 		super.onCreate();
 		MyApplication.getComponent().inject(this);
 		Log.d(TAG, "BluetoothService started! service: " + rxBluetooth);
-
-//		// check if bluetooth is currently enabled and ready for use
-//		if (!rxBluetooth.isBluetoothEnabled()) {
-//			Log.d(TAG, "Bluetooth should be enabled first!");
-//			stopSelf();
-//		}
 		bluetoothController = new CommunicationController(handler);
 	}
 
 	@Override
 	public void onDestroy() {
-//		compositeDisposable.dispose();
-//		disposable.dispose();
-//		super.onDestroy();
-//		Log.d(TAG, "BluetoothService stopped!");
-		Log.d(TAG, "onDestroy: ");
 		if (bluetoothController != null) {
 			bluetoothController.stop();
 		}
+		isMeasurementStarted = false;
 	}
 
-	public void connectToCommunicationController(String deviceAddress) {
+	public boolean isConnected() {
+		return bluetoothController != null && bluetoothController.getState() == CommunicationController.STATE_CONNECTED;
+	}
+
+	public void openConnection(String deviceAddress) {
 		rxBluetooth.cancelDiscovery();
 		BluetoothDevice device = rxBluetooth.getRemoteDevice(deviceAddress);
 		if (bluetoothController != null) {
-			Log.d(TAG, "Going For Connection");
 			bluetoothController.connect(device);
 		} else {
 			bluetoothController = new CommunicationController(handler);
@@ -352,72 +363,49 @@ public class BluetoothService extends Service {
 		}
 	}
 
-	public void disconnectFromCommunicationController() {
-		Log.d(TAG, "disconnect");
+	public void closeConnection() {
+		Log.d(TAG, "Disconnecting...");
 		if (bluetoothController != null) {
-			Log.d(TAG, "Stopping Controller");
 			bluetoothController.stop();
 			bluetoothController = null;
 		}
+		isMeasurementStarted = false;
 	}
 
-	// TODO: 3/5/18 refactor in RxJava fashion
 	private void registerBtDevice(final BluetoothDevice device) {
-		deviceApi.readDevice(device.getAddress())
+		disposable.add(deviceApi.readDevice(device.getAddress())
 			.subscribeOn(Schedulers.computation())
-			.subscribe(new CompletableObserver() {
-				@Override
-				public void onSubscribe(Disposable d) {
-				}
+			.subscribe(() -> { //completed
+				},
+				error -> createNewDevice(device)));
+	}
 
-				@Override
-				public void onComplete() {
-					//device found - already registered
-				}
-
-				@Override
-				public void onError(Throwable e) {
-					// device did not find, register it
-
-					// TODO: 9/8/18
-					final String deviceUuid = device.getUuids()[0].getUuid().toString();
-					Map<String, String> requestBody = new HashMap<>();
-					requestBody.put(Config.DEVICE_MAC, deviceUuid);
-					requestBody.put(Config.DEVICE_UUID, "1234567890");
-
-					deviceApi.createDevice(requestBody)
-						.subscribeOn(Schedulers.computation())
-						.subscribe(new CompletableObserver() {
-							@Override
-							public void onSubscribe(Disposable d) {
-							}
-
-							@Override
-							public void onComplete() {
-								Log.d(TAG, "onComplete: device created");
-								final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getInstance());
-								prefs.edit().putString(BT_DEVICE_UUID_KEY, deviceUuid).apply();
-							}
-
-							@Override
-							public void onError(Throwable e) {
-								Log.d(TAG, "onError: device not created:" + e.getMessage());
-							}
-						});
-
-				}
-			});
+	private void createNewDevice(final BluetoothDevice device) {
+		final String deviceUuid = device.getUuids()[0].getUuid().toString();
+		Map<String, String> requestBody = new HashMap<>();
+		requestBody.put(Config.DEVICE_MAC, deviceUuid);
+		requestBody.put(Config.DEVICE_UUID, "1234567890");
+		disposable.add(deviceApi.createDevice(requestBody)
+			.subscribeOn(Schedulers.computation())
+			.subscribe(() -> {
+					Log.d(TAG, "onComplete: device created");
+					final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getInstance());
+					prefs.edit().putString(BT_DEVICE_UUID_KEY, deviceUuid).apply();
+				},
+				error -> Log.d(TAG, "onError: device not created:" + error.getMessage())));
 	}
 
 	private void createNotification() {
 		createNotificationChannel();
 
-		final Intent intent = new Intent(BluetoothService.this, MeasurementResultsActivity.class);
-		intent.putExtra(MeasurementResultsActivity.IS_FROM_SERVER, true);
+		final Intent intent = new Intent(this, MeasurementResultsActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
 		final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
 			intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+		final Intent cancelMeasurementIntent = new Intent(this, CancelMeasurementActivity.class);
+		final PendingIntent cancelPendingEvent = PendingIntent.getActivity(this, 0,
+			cancelMeasurementIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
 		notificationBuilder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
 			.setPriority(Notification.PRIORITY_MAX)
@@ -425,6 +413,7 @@ public class BluetoothService extends Service {
 			.setSmallIcon(R.mipmap.ic_launcher)
 			.setContentIntent(pendingIntent)
 			.setChannelId(CHANNEL_ID)
+			.addAction(android.R.drawable.ic_menu_close_clear_cancel, "Cancel", cancelPendingEvent)
 			.setAutoCancel(true);
 		//do not show it yet
 	}
@@ -442,19 +431,5 @@ public class BluetoothService extends Service {
 			// or other notification behaviors after this
 			notificationManager.createNotificationChannel(channel);
 		}
-	}
-
-	public void closeConnection() {
-		if (bluetoothController != null) {
-			if (disposable != null) {
-				disposable.dispose();
-			}
-			bluetoothController.stop();
-			bluetoothController = null;
-		}
-	}
-
-	public boolean isConnected() {
-		return bluetoothController != null && bluetoothController.getState() == CommunicationController.STATE_CONNECTED;
 	}
 }
