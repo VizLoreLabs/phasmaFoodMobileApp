@@ -240,17 +240,20 @@ public class ConfigurationActivity extends BaseActivity {
 					useCase1LabelsGroup.setVisibility(View.VISIBLE);
 					nirGroup.setVisibility(View.VISIBLE);
 					visGroup.setVisibility(View.VISIBLE);
+					fluoGroup.setVisibility(View.VISIBLE);
 					break;
 				case Constants.USE_CASE_2:
 					useCase2LabelsGroup.setVisibility(View.VISIBLE);
 					nirGroup.setVisibility(View.VISIBLE);
 					visGroup.setVisibility(View.VISIBLE);
+					fluoGroup.setVisibility(View.VISIBLE);
 					break;
 				case Constants.USE_CASE_3:
 					break;
 				case Constants.USE_CASE_WHITE_REF:
 					nirGroup.setVisibility(View.VISIBLE);
 					visGroup.setVisibility(View.VISIBLE);
+					fluoGroup.setVisibility(View.VISIBLE);
 					break;
 				case Constants.USE_CASE_TEST:
 					testSample = wizardJsonObject.getString(Constants.USE_CASE_TEST);
@@ -269,6 +272,7 @@ public class ConfigurationActivity extends BaseActivity {
 					useCase2LabelsGroup.setVisibility(View.GONE);
 					nirGroup.setVisibility(View.VISIBLE);
 					visGroup.setVisibility(View.VISIBLE);
+					fluoGroup.setVisibility(View.VISIBLE);
 					break;
 			}
 		} catch (JSONException e) {
@@ -381,10 +385,7 @@ public class ConfigurationActivity extends BaseActivity {
 		final Configuration configuration = new Configuration();
 
 		// Camera
-		final Camera camera = Camera.builder()
-			.setTCam(getValue(cameraExposureTime))
-			.setVwCam(getValue(cameraVoltage))
-			.build();
+		final Camera camera = new Camera(getValue(cameraExposureTime), getValue(cameraVoltage));
 		configuration.setCamera(camera);
 
 		boolean isNirAvailable = false;
@@ -399,11 +400,7 @@ public class ConfigurationActivity extends BaseActivity {
 			nirMicrolamps.setVNir(getValue(nirMicrolampsCurrent));
 
 			final String selectedOption = singleShotRadioGroup.getCheckedRadioButtonId() == R.id.yes ? "Y" : "N";
-			final NirSpectrometer nirSpectrometer = NirSpectrometer.builder()
-				.setSingle(selectedOption)
-				.setAvNIRm(getValue(averagesEditText))
-				.setNirMicrolamps(nirMicrolamps)
-				.build();
+			final NirSpectrometer nirSpectrometer = new NirSpectrometer(selectedOption, getValue(averagesEditText), nirMicrolamps);
 			configuration.setNirSpectrometer(nirSpectrometer);
 			isNirAvailable = true;
 		}
@@ -435,11 +432,7 @@ public class ConfigurationActivity extends BaseActivity {
 			final NirMicrolamps nirMicrolamps = new NirMicrolamps();
 			nirMicrolamps.setTNir(0);
 			nirMicrolamps.setVNir(0);
-			final NirSpectrometer nirSpectrometer = NirSpectrometer.builder()
-				.setSingle("N")
-				.setAvNIRm(0)
-				.setNirMicrolamps(nirMicrolamps)
-				.build();
+			final NirSpectrometer nirSpectrometer = new NirSpectrometer("N", 0, nirMicrolamps);
 			configuration.setNirSpectrometer(nirSpectrometer);
 		}
 

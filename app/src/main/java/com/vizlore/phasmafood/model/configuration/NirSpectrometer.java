@@ -1,33 +1,49 @@
 
 package com.vizlore.phasmafood.model.configuration;
 
-import com.google.auto.value.AutoValue;
 import com.google.gson.annotations.SerializedName;
 
-@AutoValue
-public abstract class NirSpectrometer {
+public class NirSpectrometer {
 
 	@SerializedName("single")
-	public abstract String single();
+	public String single;
 
 	@SerializedName("av_NIR")
-	public abstract Integer avNIRm();
+	public Integer avNIRm;
 
 	@SerializedName("NirMicrolamps")
-	public abstract NirMicrolamps nirMicrolamps();
+	public NirMicrolamps nirMicrolamps;
 
-	public static Builder builder() {
-		return new AutoValue_NirSpectrometer.Builder();
+	public NirSpectrometer(String single, Integer avNIRm, NirMicrolamps nirMicrolamps) {
+		this.single = single;
+		this.avNIRm = avNIRm;
+		this.nirMicrolamps = nirMicrolamps;
 	}
 
-	@AutoValue.Builder
-	public abstract static class Builder {
-		public abstract Builder setSingle(String single);
+	public NirSpectrometer() {
+	}
 
-		public abstract Builder setAvNIRm(Integer avNIRm);
+	public String getSingle() {
+		return single;
+	}
 
-		public abstract Builder setNirMicrolamps(NirMicrolamps nirMicrolamps);
+	public void setSingle(String single) {
+		this.single = single;
+	}
 
-		public abstract NirSpectrometer build();
+	public Integer getAvNIRm() {
+		return avNIRm;
+	}
+
+	public void setAvNIRm(Integer avNIRm) {
+		this.avNIRm = avNIRm;
+	}
+
+	public NirMicrolamps getNirMicrolamps() {
+		return nirMicrolamps;
+	}
+
+	public void setNirMicrolamps(NirMicrolamps nirMicrolamps) {
+		this.nirMicrolamps = nirMicrolamps;
 	}
 }

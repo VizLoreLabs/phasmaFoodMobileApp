@@ -246,8 +246,10 @@ public class MeasurementResultsActivity extends BaseActivity {
 			Log.d(TAG, "onCreate: image path: " + savedImagePath);
 			final File file = new File(savedImagePath);
 			final Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-			btDeviceCameraImage.setVisibility(View.VISIBLE);
-			btDeviceCameraImage.setImageBitmap(bitmap);
+			if (bitmap != null) {
+				btDeviceCameraImage.setVisibility(View.VISIBLE);
+				btDeviceCameraImage.setImageBitmap(bitmap);
+			}
 		}
 
 		// show measurement chart

@@ -135,6 +135,7 @@ public class CommunicationController {
 
 	// stop all threads
 	public synchronized void stop() {
+		Log.d(TAG, "stop: ");
 		if (connectThread != null) {
 			connectThread.cancel();
 			connectThread = null;
@@ -332,11 +333,9 @@ public class CommunicationController {
 
 			int dataFlag = 0; // TODO: 10/16/18 fix
 			int endFlag = 6; // TODO: 10/16/18 fix
-			double percentage;
-			boolean flag;
 
 			int stage = 0;
-			int[] stages = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
+			final int[] stages = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
 
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
@@ -367,7 +366,7 @@ public class CommunicationController {
 						if (dataType.equals("Image")) {
 							dataFlag = 1;
 							endFlag = 5;
-						} else if (dataType.equals("Measurement Data")) {
+						} else if (dataType.equals("data")) {
 							dataFlag = 0;
 							endFlag = 6;
 						}
@@ -379,9 +378,9 @@ public class CommunicationController {
 							stage = 0;
 						} else {
 							outputStream.write(buffer, 0, bytes);
-							percentage = ((double) outputStream.size() / dataSize) * 100;
+							double percentage = ((double) outputStream.size() / dataSize) * 100;
 
-							flag = false;
+							boolean flag = false;
 							for (int stage1 : stages) {
 								if (percentage >= stage1) {
 									if (stage < stage1) {
@@ -434,10 +433,7 @@ public class CommunicationController {
 				dataSize = response.getInt("size");
 				dataType = response.getString("datatype");
 
-				Log.d(TAG, "run: status: " + status);
-				Log.d(TAG, "run: type: " + type);
-				Log.d(TAG, "run: dataSize: " + dataSize);
-				Log.d(TAG, "run: dataType: " + dataType);
+				Log.d(TAG, "decode: status: " + status + ", type: " + type + ", size: " + dataType + ", datatype: " + dataType);
 
 				return true;
 			} catch (JSONException e) {

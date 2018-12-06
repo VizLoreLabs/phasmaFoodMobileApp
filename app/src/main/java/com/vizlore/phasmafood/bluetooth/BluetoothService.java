@@ -189,20 +189,21 @@ public class BluetoothService extends Service {
 				Log.d(TAG, "handleMessage: IMAGE RECEIVED");
 				final byte[] readBufData = (byte[]) param;
 				final Bitmap bitmap = BitmapFactory.decodeByteArray(readBufData, 0, readBufData.length);
-				final String savedImagePath = tempFileImage(getApplicationContext(), bitmap, "captured_image");
-				Log.d(TAG, "handleMessage: image path: " + savedImagePath);
-				Log.e(TAG, "handleMessage: image size: " + readBufData.length);
-				// TODO: 10/21/18 dismiss notification?
+				if (bitmap != null) {
+					final String savedImagePath = tempFileImage(getApplicationContext(), bitmap, "captured_image");
+					measurementRepository.saveMeasurementImagePath(savedImagePath);
+					Log.d(TAG, "handleMessage: image path: " + savedImagePath);
+					Log.e(TAG, "handleMessage: image size: " + readBufData.length);
+				}
 
 				final Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
-				final Measurement measurement = gson.fromJson(measurementDataResponse, Measurement.class);
+				Measurement measurement = gson.fromJson(measurementDataResponse, Measurement.class);
 				Log.d(TAG, "handleMessage: measurement: " + measurement);
 				// TODO: 9/11/18 improve and move out of here
 				if (measurement != null && measurement.getResponse() != null) {
 					Log.d(TAG, "handleMessage: ok measurement");
 					//save measurement (too big to put in bundle or parcelable)
 					measurementRepository.saveMeasurement(measurement);
-					measurementRepository.saveMeasurementImagePath(savedImagePath);
 
 					// start activity where user can see measurement charts and captured image
 					final Intent intent = new Intent(BluetoothService.this, MeasurementResultsActivity.class);
@@ -212,6 +213,7 @@ public class BluetoothService extends Service {
 				} else {
 					Toast.makeText(getApplicationContext(), "Parsing examination failed", Toast.LENGTH_SHORT).show();
 				}
+
 				break;
 			case 6:
 				Log.d(TAG, "handleMessage: Measurement data received");
@@ -333,6 +335,7 @@ public class BluetoothService extends Service {
 //		disposable.dispose();
 //		super.onDestroy();
 //		Log.d(TAG, "BluetoothService stopped!");
+		Log.d(TAG, "onDestroy: ");
 		if (bluetoothController != null) {
 			bluetoothController.stop();
 		}
