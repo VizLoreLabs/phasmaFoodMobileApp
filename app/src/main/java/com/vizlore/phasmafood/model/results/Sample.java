@@ -32,6 +32,9 @@ public class Sample {
 	@Nullable
 	private String mobileID;
 
+	@Nullable
+	private Long timestamp;
+
 	// use case 1 specific // TODO: 9/4/18 reconsider
 	@Expose
 	@SerializedName("granularity")
@@ -228,6 +231,15 @@ public class Sample {
 
 	public void setMicrobiologicalUnit(@Nullable String microbiologicalUnit) {
 		this.microbiologicalUnit = microbiologicalUnit;
+	}
+
+	@Nullable
+	public Long getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(@Nullable Long timestamp) {
+		this.timestamp = timestamp;
 	}
 
 	public VIS getVIS() {

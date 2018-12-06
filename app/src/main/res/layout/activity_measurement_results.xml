@@ -242,6 +242,29 @@
                 app:layout_constraintStart_toEndOf="@+id/fluoTitle"
                 app:layout_constraintTop_toTopOf="@+id/fluoTitle" />
 
+            <TextView
+                android:id="@+id/timestampTitle"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/timestamp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fluoTitle" />
+
+            <TextView
+                android:id="@+id/timestampValue"
+                style="@style/PFTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/timestampTitle"
+                app:layout_constraintStart_toEndOf="@+id/timestampTitle"
+                app:layout_constraintTop_toTopOf="@+id/timestampTitle" />
+
             <ImageView
                 android:id="@+id/btDeviceCameraImage"
                 android:layout_width="200dp"
@@ -250,7 +273,7 @@
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fluoTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/timestampTitle" />
 
             <Button
                 android:id="@+id/buttonPreprocessed"

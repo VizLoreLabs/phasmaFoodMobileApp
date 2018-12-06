@@ -62,7 +62,7 @@ public class Config {
 	public static final int MIN_NIR_SPEC_AVERAGES = 1;
 	public static final int MAX_NIR_SPEC_AVERAGES = 1000;
 	public static final int MIN_NIR_MICROLAMPS_CURRENT = 1;
-	public static final int MAX_NIR_MICROLAMPS_CURRENT = 115;
+	public static final int MAX_NIR_MICROLAMPS_CURRENT = 160;
 	public static final int MIN_NIR_MICROLAMPS_WARMING_TIME = 10;
 	public static final int MAX_NIR_MICROLAMPS_WARMING_TIME = 1000;
 

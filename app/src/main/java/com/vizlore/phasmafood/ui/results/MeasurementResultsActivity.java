@@ -39,8 +39,11 @@ import com.vizlore.phasmafood.viewmodel.DeviceViewModel;
 import com.vizlore.phasmafood.viewmodel.MeasurementViewModel;
 
 import java.io.File;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -129,6 +132,12 @@ public class MeasurementResultsActivity extends BaseActivity {
 
 	@BindView(R.id.storeOnServerAndAnalyze)
 	Button storeOnServerAndAnalyze;
+
+	@BindView(R.id.timestampTitle)
+	TextView timestampTitle;
+
+	@BindView(R.id.timestampValue)
+	TextView timestampValue;
 
 	@BindView(R.id.storeOnServer)
 	Button storeOnServer;
@@ -269,6 +278,15 @@ public class MeasurementResultsActivity extends BaseActivity {
 			} else {
 				param1Title.setText(temperatureString);
 				param1Value.setText(sample.getTemperature());
+			}
+
+			//only white ref contains timestamp
+			if (sample.getTimestamp() != null) {
+				timestampTitle.setVisibility(View.VISIBLE);
+				timestampValue.setVisibility(View.VISIBLE);
+				final Date date = new Date(sample.getTimestamp());
+				final DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.getDefault());
+				timestampValue.setText(dateFormat.format(date));
 			}
 
 			final VIS vis = sample.getVIS();

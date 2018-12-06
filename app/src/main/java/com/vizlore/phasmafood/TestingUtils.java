@@ -51,7 +51,7 @@ public class TestingUtils {
 		dialog.dismiss();
 
 		final Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
-		final String json = new JsonFileLoader().fromAsset(MEASUREMENT_10_SAMPLES);
+		final String json = new JsonFileLoader().fromAsset(WHITE_REF_MEASUREMENT_10_SAMPLES);
 		final Measurement measurement = gson.fromJson(json, Measurement.class);
 
 		// TODO: 9/8/18 refactor

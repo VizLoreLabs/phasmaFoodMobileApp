@@ -12,6 +12,7 @@ import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.utils.ConnectivityChecker;
 import com.vizlore.phasmafood.viewmodel.FcmMobileViewModel;
 
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -21,6 +22,9 @@ import butterknife.OnClick;
 public class ProfileHomeScreenFragment extends ProfileBaseFragment {
 
 	private FcmMobileViewModel configViewModel;
+
+	@BindView(R.id.measurementHistory)
+	Button measurementHistory;
 
 	@OnClick({R.id.startMeasurement, R.id.measurementHistory, R.id.yourProfile})
 	void onClick(Button button) {
@@ -74,6 +78,8 @@ public class ProfileHomeScreenFragment extends ProfileBaseFragment {
 	@Override
 	public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+
+		measurementHistory.setEnabled(false);
 	}
 
 	@Override

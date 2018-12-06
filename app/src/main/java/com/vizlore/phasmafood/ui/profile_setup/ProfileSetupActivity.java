@@ -76,11 +76,8 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 						startActivity(new Intent(this, WizardActivity.class));
 						break;
 					case MEASUREMENT_HISTORY_CLICKED:
-
-						// TODO: 2/23/18 remove
+						// TODO: 2/23/18 remove and implement history
 						new TestingUtils().performTestMeasurement(this);
-
-						// TODO: 1/16/18
 						break;
 					case YOUR_PROFILE_CLICKED:
 						replaceFragment(new YourProfileFragment());
