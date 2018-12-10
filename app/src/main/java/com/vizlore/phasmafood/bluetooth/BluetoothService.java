@@ -13,7 +13,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Binder;
 import android.os.Build;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -28,18 +27,14 @@ import com.google.gson.GsonBuilder;
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.TestingUtils;
-import com.vizlore.phasmafood.api.AutoValueGsonFactory;
 import com.vizlore.phasmafood.api.DeviceApi;
 import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.repositories.MeasurementRepository;
 import com.vizlore.phasmafood.ui.CancelMeasurementActivity;
 import com.vizlore.phasmafood.ui.results.MeasurementResultsActivity;
 import com.vizlore.phasmafood.utils.Config;
+import com.vizlore.phasmafood.utils.Utils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -74,7 +69,6 @@ public class BluetoothService extends Service {
 	private CommunicationController bluetoothController;
 	private BluetoothDevice connectingDevice;
 	private CompositeDisposable disposable = new CompositeDisposable();
-	private String measurementDataResponse;
 
 	//notification stuff
 	private NotificationCompat.Builder notificationBuilder;
@@ -174,6 +168,8 @@ public class BluetoothService extends Service {
 				switch ((String) param) {
 					case "00":
 						notificationBuilder.setContentTitle("(1/3) Getting VIS Data");
+						//add cancel button
+						notificationBuilder.addAction(createCancelAction());
 						break;
 					case "01":
 						notificationBuilder.setContentTitle("(2/3) Getting NIR Data");
@@ -195,41 +191,65 @@ public class BluetoothService extends Service {
 				final byte[] readBufData = (byte[]) param;
 				final Bitmap bitmap = BitmapFactory.decodeByteArray(readBufData, 0, readBufData.length);
 				if (bitmap != null) {
-					final String savedImagePath = tempFileImage(getApplicationContext(), bitmap, "captured_image");
+					final String savedImagePath = Utils.tempFileImage(getApplicationContext(), bitmap, "captured_image");
 					measurementRepository.saveMeasurementImagePath(savedImagePath);
 					Log.d(TAG, "handleMessageRead: image path: " + savedImagePath);
 					Log.e(TAG, "handleMessageRead: image size: " + readBufData.length);
 				}
 
-				final Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
-				Measurement measurement = gson.fromJson(measurementDataResponse, Measurement.class);
-				if (measurement != null && measurement.getResponse() != null) {
-					Log.d(TAG, "handleMessageRead: ok measurement");
-					//save measurement (too big to put in bundle or parcelable)
-					measurementRepository.saveMeasurement(measurement);
+				//saveMeasurement(measurementDataResponse);
+				//startResultsActivity();
 
-					// start activity where user can see measurement charts and captured image
-					final Intent intent = new Intent(BluetoothService.this, MeasurementResultsActivity.class);
-					intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					startActivity(intent);
-				} else {
-					Toast.makeText(getApplicationContext(), "Parsing examination failed", Toast.LENGTH_SHORT).show();
-				}
 				isMeasurementStarted = false;
 				break;
 			case 6:
 				Log.d(TAG, "handleMessageRead: Measurement data received");
 				final byte[] readBufImage = (byte[]) param;
-				measurementDataResponse = new String(readBufImage);
+				final String measurementDataResponse = new String(readBufImage);
 				Log.d(TAG, "handleMessageRead: data: " + measurementDataResponse);
+
+				saveMeasurement(measurementDataResponse);
+				startResultsActivity();
+
 				isMeasurementStarted = false;
 				break;
 			case 7:
 				Log.d(TAG, "handleMessageRead: Cancel");
 				isMeasurementStarted = false;
-				notificationManager.cancel(notificationId);
+				if (notificationBuilder.mActions != null) {
+					notificationBuilder.mActions.clear();
+				}
+				notificationBuilder.setContentTitle("Measurement canceled!");
+				notificationBuilder.setContentText("");
 				break;
 		}
+	}
+
+	private void saveMeasurement(@NonNull final String data) {
+		Log.d(TAG, "saveMeasurement: ");
+		final Gson gson = new GsonBuilder().create();
+		Measurement measurement = gson.fromJson(data, Measurement.class);
+		if (measurement != null && measurement.getResponse() != null) {
+			Log.d(TAG, "handleMessageRead: MEASUREMENT OK");
+			//save measurement (too big to put in bundle or parcelable)
+			measurementRepository.saveMeasurement(measurement);
+			Log.d(TAG, "saveMeasurement: MEASUREMENT SAVED!");
+		} else {
+			Log.d(TAG, "saveMeasurement: ERROR SAVING MEASUREMENT!");
+			Toast.makeText(getApplicationContext(), "Parsing examination failed", Toast.LENGTH_SHORT).show();
+			notificationBuilder.setContentTitle("Parsing examination and saving failed!");
+			if (measurement == null) {
+				notificationBuilder.setContentText("Measurement is null!");
+			} else {
+				notificationBuilder.setContentText("Measurement response is null!");
+			}
+		}
+	}
+
+	private void startResultsActivity() {
+		final Intent intent = new Intent(BluetoothService.this, MeasurementResultsActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(intent);
 	}
 
 	@Override
@@ -258,41 +278,6 @@ public class BluetoothService extends Service {
 		createNotification();
 	}
 
-	public String tempFileImage(Context context, Bitmap bitmap, String name) {
-
-		File outputDir = context.getCacheDir();
-		File imageFile = new File(outputDir, name + ".jpg");
-
-		OutputStream os;
-		try {
-			os = new FileOutputStream(imageFile);
-			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
-			os.flush();
-			os.close();
-		} catch (Exception e) {
-			Log.e(TAG, "Error writing file", e);
-		}
-
-		return imageFile.getAbsolutePath();
-	}
-
-	// dump measurement response data if needed
-	private static String tempFile2(byte[] text) {
-		File sdCard = Environment.getExternalStorageDirectory();
-		File dir = new File(sdCard.getAbsolutePath() + "/smedic");
-		dir.mkdirs();
-		File file = new File(dir, "output.txt");
-		try {
-			FileOutputStream f = new FileOutputStream(file);
-			f.write(text);
-			f.flush();
-			f.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return file.getAbsolutePath();
-	}
-
 	//must be called just once from outside (activity for instance)
 	public void sendMessage(final String message, boolean isCancelMessage) {
 		sendData(message, isCancelMessage);
@@ -311,6 +296,7 @@ public class BluetoothService extends Service {
 		Log.d(TAG, "sendData: SEND MESSAGE TO BT DEVICE");
 		if (!isCancelMessage && isMeasurementStarted) {
 			Log.d(TAG, "sendData: measurement already in progress...");
+			Toast.makeText(this, "Measurement in progress...", Toast.LENGTH_SHORT).show();
 			return;
 		}
 
@@ -361,6 +347,7 @@ public class BluetoothService extends Service {
 			bluetoothController = new CommunicationController(handler);
 			bluetoothController.connect(device);
 		}
+		isMeasurementStarted = false;
 	}
 
 	public void closeConnection() {
@@ -403,19 +390,22 @@ public class BluetoothService extends Service {
 		final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
 			intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-		final Intent cancelMeasurementIntent = new Intent(this, CancelMeasurementActivity.class);
-		final PendingIntent cancelPendingEvent = PendingIntent.getActivity(this, 0,
-			cancelMeasurementIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-
 		notificationBuilder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
 			.setPriority(Notification.PRIORITY_MAX)
 			.setProgress(100, 0, false)
 			.setSmallIcon(R.mipmap.ic_launcher)
 			.setContentIntent(pendingIntent)
 			.setChannelId(CHANNEL_ID)
-			.addAction(android.R.drawable.ic_menu_close_clear_cancel, "Cancel", cancelPendingEvent)
+			.addAction(createCancelAction())
 			.setAutoCancel(true);
 		//do not show it yet
+	}
+
+	private NotificationCompat.Action createCancelAction() {
+		final Intent cancelMeasurementIntent = new Intent(this, CancelMeasurementActivity.class);
+		final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
+			cancelMeasurementIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+		return new NotificationCompat.Action(android.R.drawable.ic_menu_close_clear_cancel, "Cancel", pendingIntent);
 	}
 
 	private void createNotificationChannel() {

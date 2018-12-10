@@ -110,7 +110,7 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 			checkUserStatus();
 		}
 
-		Intent intent = new Intent(this, BluetoothService.class);
+		final Intent intent = new Intent(this, BluetoothService.class);
 		startService(intent); //Starting the service
 		bindService(intent, connection, Context.BIND_AUTO_CREATE); //Binding to the service!
 	}

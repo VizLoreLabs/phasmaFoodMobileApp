@@ -83,7 +83,7 @@ public class SignInFragment extends ProfileBaseFragment {
 		userViewModel = ViewModelProviders.of(getActivity()).get(UserViewModel.class);
 
 		// testing values
-		email.setText("vanste25@gmail.com");
-		password.setText("username123");
+		//email.setText("vanste25@gmail.com");
+		//password.setText("username123");
 	}
 }

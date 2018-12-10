@@ -1,7 +1,9 @@
 package com.vizlore.phasmafood.utils;
 
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -15,6 +17,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.List;
 
@@ -123,5 +126,40 @@ public class Utils {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static String tempFileImage(Context context, Bitmap bitmap, String name) {
+
+		File outputDir = context.getCacheDir();
+		File imageFile = new File(outputDir, name + ".jpg");
+
+		OutputStream os;
+		try {
+			os = new FileOutputStream(imageFile);
+			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
+			os.flush();
+			os.close();
+		} catch (Exception e) {
+			Log.e(TAG, "Error writing file", e);
+		}
+
+		return imageFile.getAbsolutePath();
+	}
+
+	// dump measurement response data if needed
+	public static String tempFile2(byte[] text) {
+		File sdCard = Environment.getExternalStorageDirectory();
+		File dir = new File(sdCard.getAbsolutePath() + "/smedic");
+		dir.mkdirs();
+		File file = new File(dir, "output.txt");
+		try {
+			FileOutputStream f = new FileOutputStream(file);
+			f.write(text);
+			f.flush();
+			f.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return file.getAbsolutePath();
 	}
 }
