@@ -362,7 +362,7 @@ public class CommunicationController {
 								case "01": // VIS Measurement Captured
 								case "02": // NIR Measurement Captured
 								case "03": // FLUO Measurement Captured
-								case "05": // White Reference Captured
+									//case "05": // White Reference Captured
 									state = 0;
 									handler.obtainMessage(BluetoothService.MESSAGE_READ, outputStream.toByteArray().length,
 										3, type).sendToTarget();

@@ -157,6 +157,8 @@ public class SendRequestActivity extends BaseActivity {
 			final boolean isDebugMode = prefs.getBoolean(DEBUG_MODE_KEY, false);
 			if (!isDebugMode) {
 				bluetoothService.sendMessage(jsonToSend, false);
+				Toast.makeText(this, "Sending data to BT device", Toast.LENGTH_LONG).show();
+				finish();
 			} else {
 				Log.d(TAG, "showSendActionDialog: PERFORM FAKE MEASUREMENT (debug mode)");
 				//send params directly to server (use case 1 of 2)
