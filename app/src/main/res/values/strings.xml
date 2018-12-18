@@ -84,4 +84,5 @@
     <string name="storeMeasurementAndAnalyzing">Sending measurement to be stored and analyzed on server. Waiting for analyze report…</string>
     <string name="resultsSuccessfullyProcessed">Results successfully processed</string>
     <string name="errorSendingResultsToServer">Error sending results to server</string>
+    <string name="microbioSampleId">Microb. Sample ID</string>
 </resources>

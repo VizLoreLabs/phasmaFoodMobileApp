@@ -38,6 +38,7 @@ import butterknife.OnClick;
 
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_CAMERA_EXPOSURE_TIME;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_CAMERA_VOLTAGE;
+import static com.vizlore.phasmafood.utils.Config.DEFAULT_MICROBIOLOGICAL_UNIT;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_NIR_MICROLAMPS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_NIR_MICROLAMPS_WARMING_TIME;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_NIR_SPEC_AVERAGES;
@@ -47,6 +48,7 @@ import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_UV_LEDS_VOLTAGE;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_WHITE_LEDS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.KEY_CAMERA_EXPOSURE_TIME;
 import static com.vizlore.phasmafood.utils.Config.KEY_CAMERA_VOLTAGE;
+import static com.vizlore.phasmafood.utils.Config.KEY_MICROBIOLOGICAL_UNIT;
 import static com.vizlore.phasmafood.utils.Config.KEY_NIR_MICROLAMPS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.KEY_NIR_MICROLAMPS_WARMING_TIME;
 import static com.vizlore.phasmafood.utils.Config.KEY_NIR_SINGLE_SHOT;
@@ -84,6 +86,7 @@ public class ConfigurationActivity extends BaseActivity {
 
 	private static final String USE_CASE_2_PARAM_1 = "microbiologicalUnit";
 	private static final String USE_CASE_2_PARAM_2 = "microbiologicalValue";
+	private static final String USE_CASE_2_PARAM_3 = "microbioSampleId";
 
 	private static final String USE_CASE_WHITE_REF_PARAM_1 = "timestamp";
 
@@ -109,6 +112,8 @@ public class ConfigurationActivity extends BaseActivity {
 	EditText microbiologicalUnit;
 	@BindView(R.id.microbiologicalValue)
 	EditText microbiologicalValue;
+	@BindView(R.id.microbioSampleId)
+	EditText microbioSampleId;
 
 	//camera configuration
 	@BindView(R.id.exposureTime)
@@ -172,8 +177,9 @@ public class ConfigurationActivity extends BaseActivity {
 				wizardJsonObject.put(USE_CASE_1_PARAM_3, alfatoxinUnit.getText().toString());
 				break;
 			case Constants.USE_CASE_2:
-				wizardJsonObject.put(USE_CASE_2_PARAM_1, microbiologicalValue.getText().toString());
-				wizardJsonObject.put(USE_CASE_2_PARAM_2, microbiologicalUnit.getText().toString());
+				wizardJsonObject.put(USE_CASE_2_PARAM_1, microbiologicalUnit.getText().toString());
+				wizardJsonObject.put(USE_CASE_2_PARAM_2, microbiologicalValue.getText().toString());
+				wizardJsonObject.put(USE_CASE_2_PARAM_3, microbioSampleId.getText().toString());
 				break;
 			case Constants.USE_CASE_WHITE_REF:
 				wizardJsonObject.put(USE_CASE_WHITE_REF_PARAM_1, String.valueOf(new Date().getTime()));
@@ -287,6 +293,8 @@ public class ConfigurationActivity extends BaseActivity {
 	}
 
 	private void loadStartingValues() {
+		// use case 2
+		microbiologicalUnit.setText(String.valueOf(prefs.getString(KEY_MICROBIOLOGICAL_UNIT, DEFAULT_MICROBIOLOGICAL_UNIT)));
 		// camera
 		cameraExposureTime.setText(String.valueOf(prefs.getInt(KEY_CAMERA_EXPOSURE_TIME, DEFAULT_CAMERA_EXPOSURE_TIME)));
 		cameraVoltage.setText(String.valueOf(prefs.getInt(KEY_CAMERA_VOLTAGE, DEFAULT_CAMERA_VOLTAGE)));
@@ -299,17 +307,19 @@ public class ConfigurationActivity extends BaseActivity {
 		// vis
 		exposureTimeReflectance.setText(String.valueOf(prefs.getInt(KEY_VIS_EXPOSURE_TIME_REFLECTANCE, DEFAULT_VIS_EXPOSURE_TIME_REFLECTANCE)));
 		whiteLEDsCurrent.setText(String.valueOf(prefs.getInt(KEY_VIS_WHITE_LEDS_VOLTAGE, DEFAULT_VIS_WHITE_LEDS_CURRENT)));
-		//fluo
+		// fluo
 		exposureTimeFluorescence.setText(String.valueOf(prefs.getInt(KEY_VIS_EXPOSURE_TIME_FLOURESCENCE, DEFAULT_VIS_EXPOSURE_TIME_FLUORESCENCE)));
 		UVLEDsCurrent.setText(String.valueOf(prefs.getInt(KEY_VIS_UV_LEDS_VOLTAGE, DEFAULT_VIS_UV_LEDS_VOLTAGE)));
 	}
 
 	private void setDefaults() {
+		//use case 2
+		microbiologicalUnit.setText(DEFAULT_MICROBIOLOGICAL_UNIT);
 		// camera
 		cameraExposureTime.setText(String.valueOf(DEFAULT_CAMERA_EXPOSURE_TIME));
 		cameraVoltage.setText(String.valueOf(DEFAULT_CAMERA_VOLTAGE));
 		// nir
-		singleShotRadioGroup.check(singleShotRadioGroup.getChildAt(1).getId()); //no is default // TODO: 4/22/18
+		singleShotRadioGroup.check(singleShotRadioGroup.getChildAt(1).getId());
 		averagesEditText.setText(String.valueOf(DEFAULT_NIR_SPEC_AVERAGES));
 		nirMicrolampsCurrent.setText(String.valueOf(DEFAULT_NIR_MICROLAMPS_CURRENT));
 		nirMicrolampsWarmingTime.setText(String.valueOf(DEFAULT_NIR_MICROLAMPS_WARMING_TIME));

@@ -35,6 +35,8 @@ public class Config {
 	public static final String KEY_VIS_EXPOSURE_TIME_FLOURESCENCE = "vis_exposure_time_fluorescence";
 	public static final String KEY_VIS_UV_LEDS_VOLTAGE = "vis_uv_leds_voltage";
 
+	public static final String KEY_MICROBIOLOGICAL_UNIT = "microbiological_unit";
+
 	//default values
 	//camera
 	public static final int DEFAULT_CAMERA_EXPOSURE_TIME = 100000; // TODO: 4/22/18 check
@@ -42,6 +44,8 @@ public class Config {
 	public static final int DEFAULT_NIR_SPEC_AVERAGES = 500;
 	public static final int DEFAULT_NIR_MICROLAMPS_CURRENT = 50;
 	public static final int DEFAULT_NIR_MICROLAMPS_WARMING_TIME = 500;
+
+	public static final String DEFAULT_MICROBIOLOGICAL_UNIT = "log CFU/g";
 
 	// NIR
 	public static final int DEFAULT_VIS_EXPOSURE_TIME_REFLECTANCE = 100000;
