@@ -13,6 +13,8 @@ import com.vizlore.phasmafood.repositories.MeasurementRepository;
 import com.vizlore.phasmafood.utils.SingleLiveEvent;
 import com.vizlore.phasmafood.utils.Utils;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.Random;
 
 import javax.inject.Inject;
@@ -84,6 +86,14 @@ public class MeasurementViewModel extends ViewModel {
 
 	public Measurement getSavedMeasurement() {
 		return measurementRepository.getMeasurement();
+	}
+
+	public String getSuccessfulMeasurementTime() {
+		final Date date = measurementRepository.getMeasurementCompletedTime();
+		if (date != null) {
+			return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(date);
+		}
+		return "";
 	}
 
 	public String getMeasurementImagePath() {

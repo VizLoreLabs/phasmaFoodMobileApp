@@ -47,6 +47,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.BindViews;
@@ -78,6 +79,9 @@ public class MeasurementResultsActivity extends BaseActivity {
 
 	@BindView(R.id.title)
 	TextView title;
+
+	@BindView(R.id.completedOn)
+	TextView completedOn;
 
 	@BindView(R.id.resultsGroup)
 	Group resultsGroup;
@@ -170,6 +174,24 @@ public class MeasurementResultsActivity extends BaseActivity {
 
 	@BindString(R.string.errorSendingResultsToServer)
 	String errorSendingResultsToServer;
+
+	@BindColor(R.color.red)
+	int redColor;
+
+	@BindColor(R.color.white)
+	int whiteColor;
+
+	@BindColor(R.color.black)
+	int blackColor;
+
+	@BindColor(R.color.green)
+	int greenColor;
+
+	@BindColor(R.color.blue)
+	int blueColor;
+
+	@BindColor(R.color.orange)
+	int orangeColor;
 
 	@OnClick({R.id.buttonPreprocessed, R.id.buttonDarkReference, R.id.buttonWhiteReference,
 		R.id.buttonRawData, R.id.buttonRawDark, R.id.buttonRawWhite, R.id.buttonShowAllSamples})
@@ -292,6 +314,7 @@ public class MeasurementResultsActivity extends BaseActivity {
 				return;
 			}
 
+			completedOn.setText(measurementViewModel.getSuccessfulMeasurementTime());
 			useCaseValue.setText(sample.getUseCase());
 			sampleValue.setText(sample.getFoodType());
 
@@ -338,7 +361,7 @@ public class MeasurementResultsActivity extends BaseActivity {
 			lineChart.getDescription().setText("");
 			lineChart.setScaleEnabled(false);
 			lineChart.getLegend().setWordWrapEnabled(true);
-			lineChart.getLegend().setTextColor(getColor(R.color.white));
+			lineChart.getLegend().setTextColor(whiteColor);
 
 			lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
 				@Override
@@ -393,46 +416,46 @@ public class MeasurementResultsActivity extends BaseActivity {
 
 		if (preprocessedList != null) {
 			final LineDataSet dataSet = new LineDataSet(getMeasuredSamplesEntries(preprocessedList), SAMPLE_PREPROCESSED);
-			dataSet.setColor(getResources().getColor(R.color.orange));
-			dataSet.setCircleColor(getResources().getColor(R.color.orange));
+			dataSet.setColor(orangeColor);
+			dataSet.setCircleColor(orangeColor);
 			dataSets.add(dataSet);
 		}
 
 		if (darkReferenceList != null) {
 			final LineDataSet dataSet = new LineDataSet(getMeasuredSamplesEntries(darkReferenceList), SAMPLE_DARK_REFERENCE);
-			dataSet.setColor(getResources().getColor(R.color.black));
-			dataSet.setCircleColor(getResources().getColor(R.color.black));
+			dataSet.setColor(blackColor);
+			dataSet.setCircleColor(blackColor);
 			dataSets.add(dataSet);
 		}
 
 		if (whiteReferenceList != null) {
 			final LineDataSet dataSet = new LineDataSet(getMeasuredSamplesEntries(whiteReferenceList), SAMPLE_WHITE_REFERENCE);
-			dataSet.setColor(getResources().getColor(R.color.white));
-			dataSet.setCircleColor(getResources().getColor(R.color.white));
+			dataSet.setColor(whiteColor);
+			dataSet.setCircleColor(whiteColor);
 			dataSets.add(dataSet);
 		}
 
 		if (rawDataList != null) {
 			final List<MeasuredSample> averages = calculateAverages(rawDataList);
 			final LineDataSet dataSet = new LineDataSet(getMeasuredSamplesEntries(averages), SAMPLE_RAW_DATA_REFERENCE);
-			dataSet.setColor(getResources().getColor(R.color.blue));
-			dataSet.setCircleColor(getResources().getColor(R.color.blue));
+			dataSet.setColor(blueColor);
+			dataSet.setCircleColor(blueColor);
 			dataSets.add(dataSet);
 		}
 
 		if (rawDarkList != null) {
 			final List<MeasuredSample> averages = calculateAverages(rawDarkList);
 			final LineDataSet dataSet = new LineDataSet(getMeasuredSamplesEntries(averages), SAMPLE_RAW_DARK_REFERENCE);
-			dataSet.setColor(getResources().getColor(R.color.green));
-			dataSet.setCircleColor(getResources().getColor(R.color.green));
+			dataSet.setColor(greenColor);
+			dataSet.setCircleColor(greenColor);
 			dataSets.add(dataSet);
 		}
 
 		if (rawWhiteList != null) {
 			final List<MeasuredSample> averages = calculateAverages(rawWhiteList);
 			final LineDataSet dataSet = new LineDataSet(getMeasuredSamplesEntries(averages), SAMPLE_RAW_WHITE_REFERENCE);
-			dataSet.setColor(getResources().getColor(R.color.red));
-			dataSet.setCircleColor(getResources().getColor(R.color.red));
+			dataSet.setColor(redColor);
+			dataSet.setCircleColor(redColor);
 			dataSets.add(dataSet);
 		}
 		return dataSets;

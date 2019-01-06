@@ -6,6 +6,8 @@ import com.vizlore.phasmafood.model.configuration.Configuration;
 import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.model.results.Sample;
 
+import java.util.Date;
+
 import io.reactivex.Completable;
 
 public interface MeasurementRepository {
@@ -17,6 +19,8 @@ public interface MeasurementRepository {
 	void saveMeasurement(@NonNull Measurement measurement);
 
 	Measurement getMeasurement();
+
+	Date getMeasurementCompletedTime();
 
 	void saveMeasurementImagePath(@NonNull String measurementImagePath);
 

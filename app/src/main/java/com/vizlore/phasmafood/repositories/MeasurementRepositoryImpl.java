@@ -8,6 +8,8 @@ import com.vizlore.phasmafood.model.configuration.Configuration;
 import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.model.results.Sample;
 
+import java.util.Date;
+
 import io.reactivex.Completable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -31,19 +33,29 @@ public class MeasurementRepositoryImpl implements MeasurementRepository {
 	private Measurement measurement;
 	private Configuration configuration;
 	private String measurementImagePath;
+	private Date successfulMeasurementTime;
 
 	public void saveMeasurement(@NonNull final Measurement measurement) {
 		this.measurement = measurement;
+		this.successfulMeasurementTime = new Date();
 	}
 
+	@Override
 	public Measurement getMeasurement() {
 		return measurement;
 	}
 
+	@Override
+	public Date getMeasurementCompletedTime() {
+		return successfulMeasurementTime;
+	}
+
+	@Override
 	public String getMeasurementImagePath() {
 		return measurementImagePath;
 	}
 
+	@Override
 	public void saveMeasurementImagePath(@NonNull final String measurementImagePath) {
 		this.measurementImagePath = measurementImagePath;
 	}

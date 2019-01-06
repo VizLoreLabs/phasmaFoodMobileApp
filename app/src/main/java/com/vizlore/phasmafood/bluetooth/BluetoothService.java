@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.TestingUtils;
@@ -72,8 +73,13 @@ public class BluetoothService extends Service {
 
 	//notification stuff
 	private NotificationCompat.Builder notificationBuilder;
+	private NotificationCompat.Builder completedNotificationBuilder;
+	private NotificationCompat.Builder canceledNotificationBuilder;
 	private NotificationManager notificationManager;
+
 	private int notificationId = 10;
+	private int completedNotificationId = 11;
+	private int canceledNotificationId = 12;
 
 	private boolean isMeasurementStarted;
 
@@ -147,6 +153,12 @@ public class BluetoothService extends Service {
 				notificationBuilder.setContentText(progressData + "%");
 				notificationBuilder.setProgress(100, progressData, false);
 				notificationManager.notify(notificationId, notificationBuilder.build());
+
+				// workaround -> if stuck at 90, unlock for next measurement
+				// TODO improve
+				if (progressData >= 90) {
+					isMeasurementStarted = false;
+				}
 				break;
 			case 1: // receiving captured image
 				int progressImage = (int) param;
@@ -167,10 +179,6 @@ public class BluetoothService extends Service {
 				switch ((String) param) {
 					case "00":
 						notificationBuilder.setContentTitle("(1/3) Getting VIS Data");
-						//add cancel button
-						if (notificationBuilder.mActions != null && notificationBuilder.mActions.isEmpty()) {
-							notificationBuilder.addAction(createCancelAction());
-						}
 						break;
 					case "01":
 						notificationBuilder.setContentTitle("(2/3) Getting NIR Data");
@@ -179,7 +187,7 @@ public class BluetoothService extends Service {
 						notificationBuilder.setContentTitle("(3/3) Getting FLUO Data");
 						break;
 					case "03":
-						notificationBuilder.setContentTitle("Measurement Finished. Waiting for data...");
+						notificationBuilder.setContentTitle("Measurement done. Waiting for data");
 						break;
 					case "05":
 						notificationBuilder.setContentTitle("White Reference (TODO)");
@@ -204,9 +212,7 @@ public class BluetoothService extends Service {
 				isMeasurementStarted = false;
 				break;
 			case 6:
-				notifyStatus("Completed!", "");
-				removeNotificationButtons();
-				isMeasurementStarted = false;
+				notifyFinishedStatus("Measurement completed!", "");
 				Log.d(TAG, "handleMessageRead: Measurement data received");
 				final byte[] readBufImage = (byte[]) param;
 				final String measurementDataResponse = new String(readBufImage);
@@ -216,8 +222,7 @@ public class BluetoothService extends Service {
 				break;
 			case 7:
 				Log.d(TAG, "handleMessageRead: Cancel");
-				notifyStatus("Measurement canceled!", "");
-				isMeasurementStarted = false;
+				notifyCanceledStatus("Measurement canceled!", "");
 				break;
 		}
 	}
@@ -225,7 +230,19 @@ public class BluetoothService extends Service {
 	private void saveMeasurement(@NonNull final String data) {
 		Log.d(TAG, "saveMeasurement - string size: " + data.length());
 		final Gson gson = new GsonBuilder().create();
-		Measurement measurement = gson.fromJson(data, Measurement.class);
+
+		Measurement measurement;
+		try {
+			measurement = gson.fromJson(data, Measurement.class);
+		} catch (IllegalStateException | JsonSyntaxException exception) {
+			Log.e(TAG, "saveMeasurement: Wrong JSON format! Data: " + data);
+			Toast.makeText(getApplicationContext(), "Parsing examination failed. Wrong JSON format", Toast.LENGTH_SHORT).show();
+			notificationManager.cancel(notificationId);
+			isMeasurementStarted = false;
+			return;
+		}
+
+		// received message parsed successfully
 		if (measurement != null && measurement.getResponse() != null) {
 			Log.d(TAG, "handleMessageRead: MEASUREMENT OK");
 			//save measurement (too big to put in bundle or parcelable)
@@ -234,21 +251,31 @@ public class BluetoothService extends Service {
 		} else {
 			Log.d(TAG, "saveMeasurement: ERROR SAVING MEASUREMENT!");
 			Toast.makeText(getApplicationContext(), "Parsing examination failed", Toast.LENGTH_SHORT).show();
-			notifyStatus("Parsing examination and saving failed!", measurement == null ? "Measurement is null!" :
+			notifyFinishedStatus("Parsing examination and saving failed!", measurement == null ? "Measurement is null!" :
 				"Measurement response is null!");
 		}
 	}
 
-	private void notifyStatus(@NonNull final String title, @NonNull final String message) {
-		notificationBuilder.setContentTitle(title);
-		notificationBuilder.setContentText(message);
-		notificationManager.notify(notificationId, notificationBuilder.build());
+	/**
+	 * Notify when measurement is completed
+	 */
+	private void notifyFinishedStatus(@NonNull final String title, @NonNull final String message) {
+		isMeasurementStarted = false;
+		completedNotificationBuilder.setContentTitle(title);
+		completedNotificationBuilder.setContentText(message);
+		notificationManager.cancel(notificationId);
+		notificationManager.notify(completedNotificationId, completedNotificationBuilder.build());
 	}
 
-	private void removeNotificationButtons() {
-		if (notificationBuilder.mActions != null) {
-			notificationBuilder.mActions.clear();
-		}
+	/**
+	 * Notify when measurement is canceled
+	 */
+	private void notifyCanceledStatus(@NonNull final String title, @NonNull final String message) {
+		isMeasurementStarted = false;
+		canceledNotificationBuilder.setContentTitle(title);
+		canceledNotificationBuilder.setContentText(message);
+		notificationManager.cancel(notificationId);
+		notificationManager.notify(canceledNotificationId, canceledNotificationBuilder.build());
 	}
 
 	private void startResultsActivity() {
@@ -275,12 +302,14 @@ public class BluetoothService extends Service {
 		public BluetoothService getServiceInstance() {
 			return BluetoothService.this;
 		}
-
 	}
 
 	private void init() {
 		notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		createNotification();
+		createNotificationChannel();
+		createInProgressNotification();
+		createCompletedNotification();
+		createCanceledNotification();
 	}
 
 	// mock sending a message (testing)
@@ -294,8 +323,9 @@ public class BluetoothService extends Service {
 	public void sendMessage(final String data, boolean isCancelMessage) {
 		Log.d(TAG, "sendData: SEND MESSAGE TO BT DEVICE. Is cancel: " + isCancelMessage);
 
+		//unlock for new calls even if cancel fails
 		if (isCancelMessage) {
-			removeNotificationButtons();
+			isMeasurementStarted = false;
 		}
 
 		if (!isCancelMessage && isMeasurementStarted) {
@@ -371,7 +401,12 @@ public class BluetoothService extends Service {
 	}
 
 	private void createNewDevice(final BluetoothDevice device) {
-		final String deviceUuid = device.getUuids()[0].getUuid().toString();
+		final String deviceUuid;
+		if (device != null && device.getUuids() != null && device.getUuids()[0] != null) {
+			deviceUuid = device.getUuids()[0].getUuid().toString();
+		} else {
+			deviceUuid = "12345678910";
+		}
 		Map<String, String> requestBody = new HashMap<>();
 		requestBody.put(Config.DEVICE_MAC, deviceUuid);
 		requestBody.put(Config.DEVICE_UUID, "1234567890");
@@ -385,21 +420,45 @@ public class BluetoothService extends Service {
 				error -> Log.d(TAG, "onError: device not created:" + error.getMessage())));
 	}
 
-	private void createNotification() {
-		createNotificationChannel();
-
-		final Intent intent = new Intent(this, MeasurementResultsActivity.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
-			intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
+	/**
+	 * Show this notification only when measurement is in progress
+	 */
+	private void createInProgressNotification() {
 		notificationBuilder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
 			.setPriority(Notification.PRIORITY_MAX)
 			.setProgress(100, 0, false)
 			.setSmallIcon(R.mipmap.ic_launcher)
-			.setContentIntent(pendingIntent)
 			.setChannelId(CHANNEL_ID)
 			.addAction(createCancelAction())
+			.setAutoCancel(true);
+		//do not show it yet
+	}
+
+	/**
+	 * Show this notification only when measurement is completed
+	 */
+	private void createCompletedNotification() {
+		final Intent intent = new Intent(this, MeasurementResultsActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
+			intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		completedNotificationBuilder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
+			.setPriority(Notification.PRIORITY_MAX)
+			.setSmallIcon(R.mipmap.ic_launcher)
+			.setContentIntent(pendingIntent)
+			.setChannelId(CHANNEL_ID)
+			.setAutoCancel(true);
+		//do not show it yet
+	}
+
+	/**
+	 * Show this notification only when measurement is completed
+	 */
+	private void createCanceledNotification() {
+		canceledNotificationBuilder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
+			.setPriority(Notification.PRIORITY_MAX)
+			.setSmallIcon(R.mipmap.ic_launcher)
+			.setChannelId(CHANNEL_ID)
 			.setAutoCancel(true);
 		//do not show it yet
 	}
