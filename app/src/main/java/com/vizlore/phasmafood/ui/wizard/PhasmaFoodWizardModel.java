@@ -10,6 +10,7 @@ import wizardpager.model.MultipleFixedChoicePage;
 import wizardpager.model.NumberPage;
 import wizardpager.model.PageList;
 import wizardpager.model.SingleFixedChoicePage;
+import wizardpager.model.TextPage;
 
 public class PhasmaFoodWizardModel extends AbstractWizardModel {
 
@@ -102,28 +103,22 @@ public class PhasmaFoodWizardModel extends AbstractWizardModel {
 					new BranchPage(this, "3!Food type")
 						.addBranch("Alcoholic beverages", new BranchPage(this, "Alcoholic beverages")
 							.addBranch("Spirits",
-								new SingleFixedChoicePage(this, "9!Analysis type")
-									.setChoices("Dilution", "Technical alcohol", "Counterfeit").setRequired(true))
+								new SingleFixedChoicePage(this, "9!Sample type")
+									.setChoices("Whiskey", "Vodka", "Dutch gin", "gin", "bourbon", "tequila", "cognac", "grappa"),
+								new TextPage(this, "Strength on label"))
 							.addBranch("Wines and beers",
 								new SingleFixedChoicePage(this, "10!Analysis type")
-									.setChoices("Sugar", "Acid", "Alcohol (alcohol by volume)").setRequired(true))
+									.setChoices("Sugar", "Acid", "Alcohol (alcohol by volume)"))
 						)
-						.addBranch("Edible oils", new BranchPage(this, "Edible oils")
-							.addBranch("Olive oil",
-								new SingleFixedChoicePage(this, "11!Analysis type")
-									.setChoices("Dilution", "Counterfeit").setRequired(true))
-							.addBranch("SunfLower oil",
-								new SingleFixedChoicePage(this, "12!Analysis type")
-									.setChoices("Dilution", "Counterfeit").setRequired(true))
-						)
+						.addBranch("Edible oils",
+							new SingleFixedChoicePage(this, "11!Edible oils")
+								.setChoices("Olive oil", "Sunflower Oil (refined)"))
 						.addBranch("Skimmed milk powder",
-							new SingleFixedChoicePage(this, "13!Analysis type")
-								.setChoices("Milk powder dilution", "Nitrogen enhancers").setRequired(true))
-
-						.addBranch("Meat",
-							new SingleFixedChoicePage(this, "14!Analysis type")
-								.setChoices("Adulteration with unspecified meat species", "Adulteration with Low value additives")
-								.setRequired(true))
+							new SingleFixedChoicePage(this, "12!Skimmed milk powder")
+								.setChoices("Milk powder dilution", "Nitrogen enhancers"))
+						.addBranch("Minced raw meat",
+							new SingleFixedChoicePage(this, "13!Type of meat")
+								.setChoices("Chicken", "Beef", "Pork", "Horse"))
 				)
 				.addBranch(Constants.USE_CASE_WHITE_REF,
 					new SingleFixedChoicePage(this, "type")

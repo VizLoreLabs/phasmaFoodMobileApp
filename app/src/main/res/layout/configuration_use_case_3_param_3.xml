@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?><!--Use case 3 additional labels-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/useCase3Label1Title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/configurationTitleHeight"
+        android:gravity="center"
+        android:text="@string/useCase3Title"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/configurationTowHeight"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/configurationHorizontalRowPadding"
+        android:paddingTop="@dimen/configurationVerticalRowPadding"
+        android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+        android:paddingBottom="@dimen/configurationVerticalRowPadding">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:text="@string/adulterationSampleID"
+            android:textColor="@color/white" />
+
+        <EditText
+            android:id="@+id/adulterationSampleIDParam3"
+            style="@style/PFEditTextLetters"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="@string/enterValue"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/configurationTowHeight"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/configurationHorizontalRowPadding"
+        android:paddingTop="@dimen/configurationVerticalRowPadding"
+        android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+        android:paddingBottom="@dimen/configurationVerticalRowPadding">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:text="@string/purity"
+            android:textColor="@color/white" />
+
+        <EditText
+            android:id="@+id/purity"
+            style="@style/PFEditTextLetters"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="@string/enterValue"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/configurationTowHeight"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/configurationHorizontalRowPadding"
+        android:paddingTop="@dimen/configurationVerticalRowPadding"
+        android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+        android:paddingBottom="@dimen/configurationVerticalRowPadding">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:text="@string/lowValueFiller"
+            android:textColor="@color/white" />
+
+        <EditText
+            android:id="@+id/lowValueFiller"
+            style="@style/PFEditTextLetters"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="@string/enterValue"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/configurationTowHeight"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/configurationHorizontalRowPadding"
+        android:paddingTop="@dimen/configurationVerticalRowPadding"
+        android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+        android:paddingBottom="@dimen/configurationVerticalRowPadding">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:text="@string/nitrogenEnhancer"
+            android:textColor="@color/white" />
+
+        <EditText
+            android:id="@+id/nitrogenEnhancer"
+            style="@style/PFEditTextLetters"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="@string/enterValue"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>

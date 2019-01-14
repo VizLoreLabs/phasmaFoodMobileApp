@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -115,6 +116,63 @@ public class ConfigurationActivity extends BaseActivity {
 	@BindView(R.id.microbioSampleId)
 	EditText microbioSampleId;
 
+	//use case 3
+	//param 1 - spirits
+	@BindView(R.id.uc3param1)
+	LinearLayout uc3param1Holder;
+	@BindView(R.id.adulterationSampleID)
+	EditText adulterationSampleID;
+	@BindView(R.id.authentic)
+	EditText authentic;
+	@BindView(R.id.diluted)
+	EditText diluted;
+	@BindView(R.id.hazard1)
+	EditText hazard1;
+	@BindView(R.id.hazard1Percent)
+	EditText hazard1Percent;
+	@BindView(R.id.hazard2)
+	EditText hazard2;
+	@BindView(R.id.hazard2Percent)
+	EditText hazard2Percent;
+
+	//param 2 - Minced raw meat
+	@BindView(R.id.uc3param2)
+	LinearLayout uc3param2Holder;
+	@BindView(R.id.adulterationSampleIDParam2)
+	EditText adulterationSampleIDParam2;
+	@BindView(R.id.authenticParam2)
+	EditText authenticParam2;
+	@BindView(R.id.dilution1)
+	EditText dilution1;
+	@BindView(R.id.dilution1Percent)
+	EditText dilution1Percent;
+	@BindView(R.id.dilution2)
+	EditText dilution2;
+	@BindView(R.id.dilution2Percent)
+	EditText dilution2Percent;
+
+	//param 3 - Edible oils
+	@BindView(R.id.uc3param3)
+	LinearLayout uc3param3Holder;
+	@BindView(R.id.adulterationSampleIDParam3)
+	EditText adulterationSampleIDParam3;
+	@BindView(R.id.purity)
+	EditText purity;
+	@BindView(R.id.lowValueFiller)
+	EditText lowValueFiller;
+	@BindView(R.id.nitrogenEnhancer)
+	EditText nitrogenEnhancer;
+
+	//param 4 - Skimmed milk powder
+	@BindView(R.id.uc3param4)
+	LinearLayout uc3param4Holder;
+	@BindView(R.id.adulterationSampleIDParam4)
+	EditText adulterationSampleIDParam4;
+	@BindView(R.id.authenticParam4)
+	EditText authenticParam4;
+	@BindView(R.id.otherSpecies)
+	EditText otherSpecies;
+
 	//camera configuration
 	@BindView(R.id.exposureTime)
 	EditText cameraExposureTime;
@@ -180,6 +238,39 @@ public class ConfigurationActivity extends BaseActivity {
 				wizardJsonObject.put(USE_CASE_2_PARAM_1, microbiologicalUnit.getText().toString());
 				wizardJsonObject.put(USE_CASE_2_PARAM_2, microbiologicalValue.getText().toString());
 				wizardJsonObject.put(USE_CASE_2_PARAM_3, microbioSampleId.getText().toString());
+				break;
+			case Constants.USE_CASE_3:
+				final String useCase3Param = wizardJsonObject.getString(Constants.USE_CASE_3_FOOD_TYPE);
+				switch (useCase3Param) {
+					case Constants.USE_CASE_3_PARAM_1:
+						wizardJsonObject.put(getString(R.string.adulterationSampleID), adulterationSampleID.getText().toString());
+						wizardJsonObject.put(getString(R.string.authentic), authentic.getText().toString());
+						wizardJsonObject.put(getString(R.string.diluted), diluted.getText().toString());
+						wizardJsonObject.put(getString(R.string.hazard1), hazard1.getText().toString());
+						wizardJsonObject.put(getString(R.string.hazard1Percent), hazard1Percent.getText().toString());
+						wizardJsonObject.put(getString(R.string.hazard2), hazard2.getText().toString());
+						wizardJsonObject.put(getString(R.string.hazard2Percent), hazard2Percent.getText().toString());
+						break;
+					case Constants.USE_CASE_3_PARAM_2:
+						wizardJsonObject.put(getString(R.string.adulterationSampleID), adulterationSampleIDParam2.getText().toString());
+						wizardJsonObject.put(getString(R.string.authentic), authenticParam2.getText().toString());
+						wizardJsonObject.put(getString(R.string.dilution1), dilution1.getText().toString());
+						wizardJsonObject.put(getString(R.string.dilution1Percent), dilution1Percent.getText().toString());
+						wizardJsonObject.put(getString(R.string.dilution2), dilution2.getText().toString());
+						wizardJsonObject.put(getString(R.string.dilution2Percent), dilution2Percent.getText().toString());
+						break;
+					case Constants.USE_CASE_3_PARAM_3:
+						wizardJsonObject.put(getString(R.string.adulterationSampleID), adulterationSampleIDParam3.getText().toString());
+						wizardJsonObject.put(getString(R.string.purity), purity.getText().toString());
+						wizardJsonObject.put(getString(R.string.lowValueFiller), lowValueFiller.getText().toString());
+						wizardJsonObject.put(getString(R.string.nitrogenEnhancer), nitrogenEnhancer.getText().toString());
+						break;
+					case Constants.USE_CASE_3_PARAM_4:
+						wizardJsonObject.put(getString(R.string.adulterationSampleID), adulterationSampleIDParam4.getText().toString());
+						wizardJsonObject.put(getString(R.string.authentic), authenticParam4.getText().toString());
+						wizardJsonObject.put(getString(R.string.otherSpecies), otherSpecies.getText().toString());
+						break;
+				}
 				break;
 			case Constants.USE_CASE_WHITE_REF:
 				wizardJsonObject.put(USE_CASE_WHITE_REF_PARAM_1, String.valueOf(new Date().getTime()));
@@ -255,6 +346,24 @@ public class ConfigurationActivity extends BaseActivity {
 					fluoGroup.setVisibility(View.VISIBLE);
 					break;
 				case Constants.USE_CASE_3:
+					final String useCase3Param = wizardJsonObject.getString(Constants.USE_CASE_3_FOOD_TYPE);
+					switch (useCase3Param) {
+						case Constants.USE_CASE_3_PARAM_1:
+							uc3param1Holder.setVisibility(View.VISIBLE);
+							break;
+						case Constants.USE_CASE_3_PARAM_2:
+							uc3param2Holder.setVisibility(View.VISIBLE);
+							break;
+						case Constants.USE_CASE_3_PARAM_3:
+							uc3param3Holder.setVisibility(View.VISIBLE);
+							break;
+						case Constants.USE_CASE_3_PARAM_4:
+							uc3param4Holder.setVisibility(View.VISIBLE);
+							break;
+					}
+					nirGroup.setVisibility(View.VISIBLE);
+					visGroup.setVisibility(View.VISIBLE);
+					fluoGroup.setVisibility(View.VISIBLE);
 					break;
 				case Constants.USE_CASE_WHITE_REF:
 					nirGroup.setVisibility(View.VISIBLE);

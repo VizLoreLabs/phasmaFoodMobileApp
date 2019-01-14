@@ -299,6 +299,27 @@
 
             </LinearLayout>
 
+            <!--Use case 3 additional labels-->
+            <include
+                android:id="@+id/uc3param1"
+                layout="@layout/configuration_use_case_3_param_1"
+                android:visibility="gone" />
+
+            <include
+                android:id="@+id/uc3param2"
+                layout="@layout/configuration_use_case_3_param_2"
+                android:visibility="gone" />
+
+            <include
+                android:id="@+id/uc3param3"
+                layout="@layout/configuration_use_case_3_param_3"
+                android:visibility="gone" />
+
+            <include
+                android:id="@+id/uc3param4"
+                layout="@layout/configuration_use_case_3_param_4"
+                android:visibility="gone" />
+
             <!--CAMERA PARAMS-->
             <TextView
                 android:layout_width="match_parent"
