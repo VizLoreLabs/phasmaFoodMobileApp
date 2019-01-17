@@ -11,8 +11,9 @@
       "useCase": "Food spoilage",
       "temperature": "",
       "tempExposureHours": "",
-      "microbiologicalValue": "",
-      "microbiologicalUnit": "",
+      "microbioSampleId": "abc_123",
+      "microbiologicalValue": "111",
+      "microbiologicalUnit": "222",
       "VIS": {
         "preprocessed": [
           {

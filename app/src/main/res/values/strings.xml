@@ -83,6 +83,7 @@
     <string name="resultsSuccessfullyProcessed">Results successfully processed</string>
     <string name="errorSendingResultsToServer">Error sending results to server</string>
     <string name="microbioSampleId">Microb. Sample ID</string>
+    <string name="packageParam">Package</string>
     <string name="useCase3Title">Food adulteration params</string>
     <string name="adulterationSampleID">adulterationSampleID:</string>
     <string name="authentic">Authentic:</string>

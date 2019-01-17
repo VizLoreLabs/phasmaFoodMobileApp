@@ -66,6 +66,11 @@ public class Sample {
 	@Nullable
 	private String aflatoxinUnit;
 
+	@SerializedName("package")
+	@Expose
+	@Nullable
+	private String packageParam;
+
 	//use case 2 specific
 	@SerializedName("temperature")
 	@Expose
@@ -76,6 +81,11 @@ public class Sample {
 	@Expose
 	@Nullable
 	private String tempExposureHours;
+
+	@SerializedName("microbioSampleId")
+	@Expose
+	@Nullable
+	private String microbioSampleId;
 
 	@SerializedName("microbiologicalValue")
 	@Expose
@@ -198,6 +208,15 @@ public class Sample {
 	}
 
 	@Nullable
+	public String getPackageParam() {
+		return packageParam;
+	}
+
+	public void setPackageParam(@Nullable String packageParam) {
+		this.packageParam = packageParam;
+	}
+
+	@Nullable
 	public String getTemperature() {
 		return temperature;
 	}
@@ -213,6 +232,15 @@ public class Sample {
 
 	public void setTempExposureHours(@Nullable String tempExposureHours) {
 		this.tempExposureHours = tempExposureHours;
+	}
+
+	public void setMicrobioSampleId(@Nullable String microbioSampleId) {
+		this.microbioSampleId = microbioSampleId;
+	}
+
+	@Nullable
+	public String getMicrobioSampleId() {
+		return microbioSampleId;
 	}
 
 	@Nullable

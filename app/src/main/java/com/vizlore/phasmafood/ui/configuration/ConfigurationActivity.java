@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -88,6 +87,19 @@ public class ConfigurationActivity extends BaseActivity {
 	private static final String USE_CASE_2_PARAM_1 = "microbiologicalUnit";
 	private static final String USE_CASE_2_PARAM_2 = "microbiologicalValue";
 	private static final String USE_CASE_2_PARAM_3 = "microbioSampleId";
+	private static final String USE_CASE_2_PARAM_4 = "package";
+
+	private static final String USE_CASE_3_PARAM_ADULTERATION_SAMPLE_ID = "adulterationSampleId";
+	private static final String USE_CASE_3_PARAM_AUTHENTIC = "authentic";
+	private static final String USE_CASE_3_PARAM_PURITY_SMP = "puritySMP";
+	private static final String USE_CASE_3_PARAM_LOW_VALUE_FILLER = "lowValueFiller";
+	private static final String USE_CASE_3_PARAM_NITROGEN_ENHANCER = "nitrogenEnhancer";
+	private static final String USE_CASE_3_PARAM_HAZARD_1_NAME = "hazardOneName";
+	private static final String USE_CASE_3_PARAM_HAZARD_1_PCT = "hazardOnePct";
+	private static final String USE_CASE_3_PARAM_HAZARD_2_NAME = "hazardTwoName";
+	private static final String USE_CASE_3_PARAM_HAZARD_2_PCT = "hazardTwoPct";
+	private static final String USE_CASE_3_PARAM_OTHER_SPECIES = "otherSpecies";
+	private static final String USE_CASE_3_PARAM_DILUTED_PCT = "dilutedPct";
 
 	private static final String USE_CASE_WHITE_REF_PARAM_1 = "timestamp";
 
@@ -115,6 +127,8 @@ public class ConfigurationActivity extends BaseActivity {
 	EditText microbiologicalValue;
 	@BindView(R.id.microbioSampleId)
 	EditText microbioSampleId;
+	@BindView(R.id.packageParam)
+	EditText packageParam;
 
 	//use case 3
 	//param 1 - spirits
@@ -238,37 +252,38 @@ public class ConfigurationActivity extends BaseActivity {
 				wizardJsonObject.put(USE_CASE_2_PARAM_1, microbiologicalUnit.getText().toString());
 				wizardJsonObject.put(USE_CASE_2_PARAM_2, microbiologicalValue.getText().toString());
 				wizardJsonObject.put(USE_CASE_2_PARAM_3, microbioSampleId.getText().toString());
+				wizardJsonObject.put(USE_CASE_2_PARAM_4, packageParam.getText().toString());
 				break;
 			case Constants.USE_CASE_3:
 				final String useCase3Param = wizardJsonObject.getString(Constants.USE_CASE_3_FOOD_TYPE);
 				switch (useCase3Param) {
 					case Constants.USE_CASE_3_PARAM_1:
-						wizardJsonObject.put(getString(R.string.adulterationSampleID), adulterationSampleID.getText().toString());
-						wizardJsonObject.put(getString(R.string.authentic), authentic.getText().toString());
-						wizardJsonObject.put(getString(R.string.diluted), diluted.getText().toString());
-						wizardJsonObject.put(getString(R.string.hazard1), hazard1.getText().toString());
-						wizardJsonObject.put(getString(R.string.hazard1Percent), hazard1Percent.getText().toString());
-						wizardJsonObject.put(getString(R.string.hazard2), hazard2.getText().toString());
-						wizardJsonObject.put(getString(R.string.hazard2Percent), hazard2Percent.getText().toString());
+						wizardJsonObject.put(USE_CASE_3_PARAM_ADULTERATION_SAMPLE_ID, adulterationSampleID.getText().toString());
+						wizardJsonObject.put(USE_CASE_3_PARAM_AUTHENTIC, authentic.getText().toString());
+						wizardJsonObject.put(USE_CASE_3_PARAM_DILUTED_PCT, diluted.getText().toString());
+						wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_1_NAME, hazard1.getText().toString());
+						wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_1_PCT, hazard1Percent.getText().toString());
+						wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_2_NAME, hazard2.getText().toString());
+						wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_2_PCT, hazard2Percent.getText().toString());
 						break;
 					case Constants.USE_CASE_3_PARAM_2:
-						wizardJsonObject.put(getString(R.string.adulterationSampleID), adulterationSampleIDParam2.getText().toString());
-						wizardJsonObject.put(getString(R.string.authentic), authenticParam2.getText().toString());
-						wizardJsonObject.put(getString(R.string.dilution1), dilution1.getText().toString());
-						wizardJsonObject.put(getString(R.string.dilution1Percent), dilution1Percent.getText().toString());
-						wizardJsonObject.put(getString(R.string.dilution2), dilution2.getText().toString());
-						wizardJsonObject.put(getString(R.string.dilution2Percent), dilution2Percent.getText().toString());
+						wizardJsonObject.put(USE_CASE_3_PARAM_ADULTERATION_SAMPLE_ID, adulterationSampleIDParam2.getText().toString());
+						wizardJsonObject.put(USE_CASE_3_PARAM_AUTHENTIC, authenticParam2.getText().toString());
+						wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_1_NAME, dilution1.getText().toString());
+						wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_1_PCT, dilution1Percent.getText().toString());
+						wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_2_NAME, dilution2.getText().toString());
+						wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_2_PCT, dilution2Percent.getText().toString());
 						break;
 					case Constants.USE_CASE_3_PARAM_3:
-						wizardJsonObject.put(getString(R.string.adulterationSampleID), adulterationSampleIDParam3.getText().toString());
-						wizardJsonObject.put(getString(R.string.purity), purity.getText().toString());
-						wizardJsonObject.put(getString(R.string.lowValueFiller), lowValueFiller.getText().toString());
-						wizardJsonObject.put(getString(R.string.nitrogenEnhancer), nitrogenEnhancer.getText().toString());
+						wizardJsonObject.put(USE_CASE_3_PARAM_ADULTERATION_SAMPLE_ID, adulterationSampleIDParam3.getText().toString());
+						wizardJsonObject.put(USE_CASE_3_PARAM_PURITY_SMP, purity.getText().toString());
+						wizardJsonObject.put(USE_CASE_3_PARAM_LOW_VALUE_FILLER, lowValueFiller.getText().toString());
+						wizardJsonObject.put(USE_CASE_3_PARAM_NITROGEN_ENHANCER, nitrogenEnhancer.getText().toString());
 						break;
 					case Constants.USE_CASE_3_PARAM_4:
-						wizardJsonObject.put(getString(R.string.adulterationSampleID), adulterationSampleIDParam4.getText().toString());
-						wizardJsonObject.put(getString(R.string.authentic), authenticParam4.getText().toString());
-						wizardJsonObject.put(getString(R.string.otherSpecies), otherSpecies.getText().toString());
+						wizardJsonObject.put(USE_CASE_3_PARAM_ADULTERATION_SAMPLE_ID, adulterationSampleIDParam4.getText().toString());
+						wizardJsonObject.put(USE_CASE_3_PARAM_AUTHENTIC, authenticParam4.getText().toString());
+						wizardJsonObject.put(USE_CASE_3_PARAM_OTHER_SPECIES, otherSpecies.getText().toString());
 						break;
 				}
 				break;

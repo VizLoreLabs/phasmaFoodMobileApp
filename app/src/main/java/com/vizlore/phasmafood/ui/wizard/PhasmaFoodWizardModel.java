@@ -62,62 +62,26 @@ public class PhasmaFoodWizardModel extends AbstractWizardModel {
 						.addBranch("Ready to eat rocket salad",
 							new NumberPage(this, "5!Exposure time"),
 							new NumberPage(this, "5!Sample temperature"))
-
-//						.addBranch("Meat",
-//							new SingleFixedChoicePage(this, "1!Meat type")
-//								.setChoices("Chicken", "Pork", "Beef"),
-//							new SingleFixedChoicePage(this, "1!Sample state")
-//								.setChoices("Minced", "Whole piece"),
-//							new SingleFixedChoicePage(this, "1!Packaging")
-//								.setChoices("Foil", "No package"),
-//							new NumberPage(this, "1!Exposure time"),
-//							new NumberPage(this, "1!Sample temperature"))
-//						.addBranch("Fish",
-//							new SingleFixedChoicePage(this, "2!Fish type")
-//								.setChoices("Gilthead Seabream"), // TODO: 2/19/18 add more options later
-//							new SingleFixedChoicePage(this, "2!Sample state")
-//								.setChoices("Fillet", "Whole fish"),
-//							new SingleFixedChoicePage(this, "2!Packaging")
-//								.setChoices("Foil", "No package"),
-//							new NumberPage(this, "2!Exposure time"),
-//							new NumberPage(this, "2!Sample temperature"))
-//						.addBranch("Fruits and vegetables", new BranchPage(this, "3!Fruits and vegetables")
-//							.addBranch("Ready-to-eat rocket",
-//								new NumberPage(this, "3!Exposure time"),
-//								new NumberPage(this, "3!Sample temperature"))
-//							.addBranch("Ready-to-eat pineapple",
-//								new NumberPage(this, "4!Exposure time"),
-//								new NumberPage(this, "4!Sample temperature"))
-//							.addBranch("Baby spinach",
-//								new NumberPage(this, "5!Exposure time"),
-//								new NumberPage(this, "5!Sample temperature"))
-//							.addBranch("Pineapple",
-//								new NumberPage(this, "6!Exposure time"),
-//								new NumberPage(this, "6!Sample temperature"))
-//							.addBranch("Rocket salad",
-//								new NumberPage(this, "7!Exposure time"),
-//								new NumberPage(this, "7!Sample temperature"))
-//						).setRequired(true)
 				)
 				.addBranch(Constants.USE_CASE_3,
 					new BranchPage(this, "3!Food type")
 						.addBranch("Alcoholic beverages", new BranchPage(this, "Alcoholic beverages")
 							.addBranch("Spirits",
-								new SingleFixedChoicePage(this, "9!Sample type")
+								new SingleFixedChoicePage(this, "9!foodSubtype")
 									.setChoices("Whiskey", "Vodka", "Dutch gin", "gin", "bourbon", "tequila", "cognac", "grappa"),
-								new TextPage(this, "Strength on label"))
+								new TextPage(this, "alcoholLabel"))
 							.addBranch("Wines and beers",
-								new SingleFixedChoicePage(this, "10!Analysis type")
+								new SingleFixedChoicePage(this, "10!foodSubtype")
 									.setChoices("Sugar", "Acid", "Alcohol (alcohol by volume)"))
 						)
 						.addBranch("Edible oils",
-							new SingleFixedChoicePage(this, "11!Edible oils")
+							new SingleFixedChoicePage(this, "11!foodSubtype")
 								.setChoices("Olive oil", "Sunflower Oil (refined)"))
 						.addBranch("Skimmed milk powder",
-							new SingleFixedChoicePage(this, "12!Skimmed milk powder")
+							new SingleFixedChoicePage(this, "12!foodSubtype")
 								.setChoices("Milk powder dilution", "Nitrogen enhancers"))
 						.addBranch("Minced raw meat",
-							new SingleFixedChoicePage(this, "13!Type of meat")
+							new SingleFixedChoicePage(this, "13!foodSubtype")
 								.setChoices("Chicken", "Beef", "Pork", "Horse"))
 				)
 				.addBranch(Constants.USE_CASE_WHITE_REF,
