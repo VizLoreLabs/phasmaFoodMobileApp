@@ -16,6 +16,7 @@ import com.vizlore.phasmafood.repositories.MeasurementRepository;
 import com.vizlore.phasmafood.ui.results.MeasurementResultsActivity;
 import com.vizlore.phasmafood.utils.Constants;
 import com.vizlore.phasmafood.utils.JsonFileLoader;
+import com.vizlore.phasmafood.utils.Resource;
 import com.vizlore.phasmafood.utils.Utils;
 import com.vizlore.phasmafood.viewmodel.DeviceViewModel;
 import com.vizlore.phasmafood.viewmodel.MeasurementViewModel;
@@ -76,10 +77,16 @@ public class TestingUtils {
 				model.createMeasurementRequest(Utils.getUserId(), measurement.getResponse().getSample(),
 					"90:70:65:EF:4A:CE", true) // TODO: 9/11/18 fix)
 					.observe(activity, result -> {
-						if (result != null && !result) {
-							Toast.makeText(activity, "Examination request failed!", Toast.LENGTH_SHORT).show();
+						if (result == null) {
+							Toast.makeText(activity, "Result null! Contact support", Toast.LENGTH_SHORT).show();
+							return;
+						}
+
+						if (result.status == Resource.Status.ERROR) {
+							//Toast.makeText(activity, "Examination request failed!", Toast.LENGTH_SHORT).show();
+							Toast.makeText(activity, "Failure! Error: " + result.message, Toast.LENGTH_SHORT).show();
 						} else {
-							Toast.makeText(activity, "Examination successful!", Toast.LENGTH_SHORT).show();
+							Toast.makeText(activity, result.message, Toast.LENGTH_SHORT).show();
 							activity.startActivity(intent);
 						}
 						dialog.dismiss();

@@ -10,6 +10,7 @@ import com.vizlore.phasmafood.model.configuration.Configuration;
 import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.model.results.Sample;
 import com.vizlore.phasmafood.repositories.MeasurementRepository;
+import com.vizlore.phasmafood.utils.Resource;
 import com.vizlore.phasmafood.utils.SingleLiveEvent;
 import com.vizlore.phasmafood.utils.Utils;
 
@@ -35,7 +36,7 @@ public class MeasurementViewModel extends ViewModel {
 
 	private Disposable disposable;
 
-	private SingleLiveEvent<Boolean> measurementLiveData;
+	private SingleLiveEvent<Resource<String>> measurementLiveData;
 
 	@Inject
 	MeasurementRepository measurementRepository;
@@ -44,8 +45,8 @@ public class MeasurementViewModel extends ViewModel {
 		MyApplication.getComponent().inject(this);
 	}
 
-	public LiveData<Boolean> createMeasurementRequest(final String userId, final Sample sample,
-													  final String deviceId, boolean shouldAnalyze) {
+	public LiveData<Resource<String>> createMeasurementRequest(final String userId, final Sample sample,
+															   final String deviceId, boolean shouldAnalyze) {
 
 		if (measurementLiveData == null) {
 			measurementLiveData = new SingleLiveEvent<>();
@@ -64,10 +65,10 @@ public class MeasurementViewModel extends ViewModel {
 		disposable = measurementRepository.createMeasurementRequest(sample, shouldAnalyze)
 			.subscribeOn(Schedulers.io())
 			.observeOn(AndroidSchedulers.mainThread())
-			.subscribe(() -> measurementLiveData.postValue(true),
+			.subscribe(() -> measurementLiveData.postValue(Resource.success("Success!")),
 				error -> {
 					Log.d(TAG, "onError: " + error.toString());
-					measurementLiveData.postValue(false);
+					measurementLiveData.postValue(Resource.error(error.toString(), null));
 				});
 		return measurementLiveData;
 	}

@@ -36,6 +36,7 @@ import com.vizlore.phasmafood.ui.BaseActivity;
 import com.vizlore.phasmafood.ui.view.ChartMarkerView;
 import com.vizlore.phasmafood.utils.ConnectivityChecker;
 import com.vizlore.phasmafood.utils.Constants;
+import com.vizlore.phasmafood.utils.Resource;
 import com.vizlore.phasmafood.utils.Utils;
 import com.vizlore.phasmafood.viewmodel.DeviceViewModel;
 import com.vizlore.phasmafood.viewmodel.MeasurementViewModel;
@@ -544,9 +545,17 @@ public class MeasurementResultsActivity extends BaseActivity {
 		Log.d(TAG, "sendMeasurementToServer: device id: " + deviceId);
 		if (deviceId != null) {
 			measurementViewModel.createMeasurementRequest(Utils.getUserId(), sample, deviceId, shouldAnalyze).observe(this,
-				status -> {
-					Toast.makeText(this, status ? resultsSuccessfullyProcessed : errorSendingResultsToServer,
-						Toast.LENGTH_SHORT).show();
+				result -> {
+					if (result == null) {
+						Toast.makeText(this, "Result null! Contact support", Toast.LENGTH_SHORT).show();
+						return;
+					}
+					if (result.status == Resource.Status.ERROR) {
+						//Toast.makeText(activity, "Examination request failed!", Toast.LENGTH_SHORT).show();
+						Toast.makeText(this, "Failure! Error: " + result.message, Toast.LENGTH_SHORT).show();
+					} else {
+						Toast.makeText(this, "Processing successfully completed", Toast.LENGTH_SHORT).show();
+					}
 					hideDialog();
 				});
 		} else {
