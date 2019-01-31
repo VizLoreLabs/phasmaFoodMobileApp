@@ -10,11 +10,14 @@ import android.support.annotation.Nullable;
 import android.support.constraint.Group;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -112,6 +115,9 @@ public class MeasurementResultsActivity extends BaseActivity {
 	@BindView(R.id.chart)
 	LineChart lineChart;
 
+	@BindView(R.id.loadingProgressBar)
+	RelativeLayout loadingProgressBar;
+
 	@BindViews({R.id.buttonPreprocessed, R.id.buttonDarkReference, R.id.buttonWhiteReference,
 		R.id.buttonRawData, R.id.buttonRawDark, R.id.buttonRawWhite, R.id.buttonShowAllSamples})
 	List<Button> sampleTypes;
@@ -163,12 +169,6 @@ public class MeasurementResultsActivity extends BaseActivity {
 
 	@BindString(R.string.processingInfo)
 	String processingInfo;
-
-	@BindString(R.string.storeMeasurement)
-	String storeMeasurement;
-
-	@BindString(R.string.storeMeasurementAndAnalyzing)
-	String storeMeasurementAndAnalyzing;
 
 	@BindString(R.string.resultsSuccessfullyProcessed)
 	String resultsSuccessfullyProcessed;
@@ -241,7 +241,6 @@ public class MeasurementResultsActivity extends BaseActivity {
 		final Measurement measurement = measurementViewModel.getSavedMeasurement();
 		final boolean shouldAnalyze = v.getId() == R.id.storeOnServerAndAnalyze;
 		sendMeasurementToServer(measurement.getResponse().getSample(), shouldAnalyze);
-		showInformationDialog(shouldAnalyze ? storeMeasurementAndAnalyzing : storeMeasurement);
 	}
 
 	@OnClick(R.id.previousButton)
@@ -544,8 +543,19 @@ public class MeasurementResultsActivity extends BaseActivity {
 		final String deviceId = deviceViewModel.getDeviceID();
 		Log.d(TAG, "sendMeasurementToServer: device id: " + deviceId);
 		if (deviceId != null) {
+
+			loadingProgressBar.setVisibility(View.VISIBLE);
+			Toast.makeText(this, R.string.processingRequestSent, Toast.LENGTH_LONG).show();
+			//disable so user could not send multiple requests or navigate through app while measurement in progress
+			disableInteraction();
+
 			measurementViewModel.createMeasurementRequest(Utils.getUserId(), sample, deviceId, shouldAnalyze).observe(this,
 				result -> {
+				
+					//enable interaction again
+					enableInteraction();
+					loadingProgressBar.setVisibility(View.GONE);
+
 					if (result == null) {
 						Toast.makeText(this, "Result null! Contact support", Toast.LENGTH_SHORT).show();
 						return;
@@ -556,11 +566,19 @@ public class MeasurementResultsActivity extends BaseActivity {
 					} else {
 						Toast.makeText(this, "Processing successfully completed", Toast.LENGTH_SHORT).show();
 					}
-					hideDialog();
+					//hideDialog();
 				});
 		} else {
 			Toast.makeText(this, "Device null! Not registered yet?", Toast.LENGTH_SHORT).show();
 		}
+	}
+
+	private void disableInteraction() {
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+	}
+
+	private void enableInteraction() {
+		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 	}
 
 	private AlertDialog alertDialog;
@@ -584,5 +602,14 @@ public class MeasurementResultsActivity extends BaseActivity {
 	protected void onPause() {
 		super.onPause();
 		hideDialog();
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		//don't allow user to go back while measurement is in progress
+		if (loadingProgressBar.getVisibility() == View.VISIBLE) {
+			return false;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

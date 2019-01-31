@@ -78,8 +78,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="processingInfo">Measurement processing</string>
-    <string name="storeMeasurement">Sending measurement to be stored on server.</string>
-    <string name="storeMeasurementAndAnalyzing">Sending measurement to be stored and analyzed on server. Waiting for analyze report…</string>
+    <string name="processingRequestSent">Sent! Waiting for response from server, may take up to 15sec</string>
     <string name="resultsSuccessfullyProcessed">Results successfully processed</string>
     <string name="errorSendingResultsToServer">Error sending results to server</string>
     <string name="microbioSampleId">Microb. Sample ID</string>
