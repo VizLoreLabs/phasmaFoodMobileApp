@@ -551,7 +551,7 @@ public class MeasurementResultsActivity extends BaseActivity {
 
 			measurementViewModel.createMeasurementRequest(Utils.getUserId(), sample, deviceId, shouldAnalyze).observe(this,
 				result -> {
-				
+
 					//enable interaction again
 					enableInteraction();
 					loadingProgressBar.setVisibility(View.GONE);

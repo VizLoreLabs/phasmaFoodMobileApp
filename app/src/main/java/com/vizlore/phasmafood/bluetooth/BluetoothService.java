@@ -314,8 +314,9 @@ public class BluetoothService extends Service {
 
 	// mock sending a message (testing)
 	public Single<Measurement> sendFakeMessage(@NonNull final String jsonFileName) {
-		final Measurement measurementJson = TestingUtils.readMeasurementFromJson(jsonFileName);
-		return Single.just(measurementJson)
+		final Measurement measurement = TestingUtils.readMeasurementFromJson(jsonFileName);
+
+		return Single.just(measurement)
 			.delay(2000, TimeUnit.MILLISECONDS);
 	}
 

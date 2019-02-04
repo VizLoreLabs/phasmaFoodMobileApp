@@ -43,6 +43,7 @@ public class SendRequestActivity extends BaseActivity {
 
 	private static final String USE_CASE_1_JSON = "output_micotoxins_detection.json";
 	private static final String USE_CASE_2_JSON = "usecase2_updated_response.json";
+	private static final String USE_CASE_3_JSON = "use_case_3_sample.json";
 
 	private UseCaseType useCaseType;
 	private JSONObject wizardJsonObject = null;
@@ -166,6 +167,8 @@ public class SendRequestActivity extends BaseActivity {
 				String jsonFileName = USE_CASE_1_JSON;
 				if (useCaseType == UseCaseType.USE_CASE_2) {
 					jsonFileName = USE_CASE_2_JSON;
+				} else if (useCaseType == UseCaseType.USE_CASE_3) {
+					jsonFileName = USE_CASE_3_JSON;
 				}
 
 				disposable.add(bluetoothService.sendFakeMessage(jsonFileName).subscribe(measurement -> {

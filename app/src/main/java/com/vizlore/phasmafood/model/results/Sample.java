@@ -97,6 +97,73 @@ public class Sample {
 	@Nullable
 	private String microbiologicalUnit;
 
+	//use case 3 specific
+
+	@SerializedName("otherSpecies")
+	@Expose
+	@Nullable
+	private String otherSpecies;
+
+	@SerializedName("foodSubtype")
+	@Expose
+	@Nullable
+	private String foodSubtype;
+
+	@SerializedName("adulterationSampleId")
+	@Expose
+	@Nullable
+	private String adulterationSampleId;
+
+	@SerializedName("alcoholLabel")
+	@Expose
+	@Nullable
+	private String alcoholLabel;
+
+	@SerializedName("authentic")
+	@Expose
+	@Nullable
+	private String authentic;
+
+	@SerializedName("puritySMP")
+	@Expose
+	@Nullable
+	private String puritySMP;
+
+	@SerializedName("lowValueFiller")
+	@Expose
+	@Nullable
+	private String lowValueFiller;
+
+	@SerializedName("nitrogenEnhancer")
+	@Expose
+	@Nullable
+	private String nitrogenEnhancer;
+
+	@SerializedName("hazardOneName")
+	@Expose
+	@Nullable
+	private String hazardOneName;
+
+	@SerializedName("hazardOnePct")
+	@Expose
+	@Nullable
+	private String hazardOnePct;
+
+	@SerializedName("hazardTwoName")
+	@Expose
+	@Nullable
+	private String hazardTwoName;
+
+	@SerializedName("hazardTwoPct")
+	@Expose
+	@Nullable
+	private String hazardTwoPct;
+
+	@SerializedName("dilutedPct")
+	@Expose
+	@Nullable
+	private String dilutedPct;
+
 	@SerializedName("VIS")
 	@Expose
 	private VIS vIS;
@@ -300,5 +367,195 @@ public class Sample {
 
 	public void setConfiguration(@NonNull Configuration configuration) {
 		this.configuration = configuration;
+	}
+
+	@Nullable
+	public String getMobileID() {
+		return mobileID;
+	}
+
+	@Nullable
+	public String getOtherSpecies() {
+		return otherSpecies;
+	}
+
+	public void setOtherSpecies(@Nullable String otherSpecies) {
+		this.otherSpecies = otherSpecies;
+	}
+
+	@Nullable
+	public String getFoodSubtype() {
+		return foodSubtype;
+	}
+
+	public void setFoodSubtype(@Nullable String foodSubtype) {
+		this.foodSubtype = foodSubtype;
+	}
+
+	@Nullable
+	public String getAdulterationSampleId() {
+		return adulterationSampleId;
+	}
+
+	public void setAdulterationSampleId(@Nullable String adulterationSampleId) {
+		this.adulterationSampleId = adulterationSampleId;
+	}
+
+	@Nullable
+	public String getAlcoholLabel() {
+		return alcoholLabel;
+	}
+
+	public void setAlcoholLabel(@Nullable String alcoholLabel) {
+		this.alcoholLabel = alcoholLabel;
+	}
+
+	@Nullable
+	public String getAuthentic() {
+		return authentic;
+	}
+
+	public void setAuthentic(@Nullable String authentic) {
+		this.authentic = authentic;
+	}
+
+	@Nullable
+	public String getPuritySMP() {
+		return puritySMP;
+	}
+
+	public void setPuritySMP(@Nullable String puritySMP) {
+		this.puritySMP = puritySMP;
+	}
+
+	@Nullable
+	public String getLowValueFiller() {
+		return lowValueFiller;
+	}
+
+	public void setLowValueFiller(@Nullable String lowValueFiller) {
+		this.lowValueFiller = lowValueFiller;
+	}
+
+	@Nullable
+	public String getNitrogenEnhancer() {
+		return nitrogenEnhancer;
+	}
+
+	public void setNitrogenEnhancer(@Nullable String nitrogenEnhancer) {
+		this.nitrogenEnhancer = nitrogenEnhancer;
+	}
+
+	@Nullable
+	public String getHazardOneName() {
+		return hazardOneName;
+	}
+
+	public void setHazardOneName(@Nullable String hazardOneName) {
+		this.hazardOneName = hazardOneName;
+	}
+
+	@Nullable
+	public String getHazardOnePct() {
+		return hazardOnePct;
+	}
+
+	public void setHazardOnePct(@Nullable String hazardOnePct) {
+		this.hazardOnePct = hazardOnePct;
+	}
+
+	@Nullable
+	public String getHazardTwoName() {
+		return hazardTwoName;
+	}
+
+	public void setHazardTwoName(@Nullable String hazardTwoName) {
+		this.hazardTwoName = hazardTwoName;
+	}
+
+	@Nullable
+	public String getHazardTwoPct() {
+		return hazardTwoPct;
+	}
+
+	public void setHazardTwoPct(@Nullable String hazardTwoPct) {
+		this.hazardTwoPct = hazardTwoPct;
+	}
+
+	@Nullable
+	public String getDilutedPct() {
+		return dilutedPct;
+	}
+
+	public void setDilutedPct(@Nullable String dilutedPct) {
+		this.dilutedPct = dilutedPct;
+	}
+
+	public VIS getvIS() {
+		return vIS;
+	}
+
+	public void setvIS(VIS vIS) {
+		this.vIS = vIS;
+	}
+
+	public NIR getnIR() {
+		return nIR;
+	}
+
+	public void setnIR(NIR nIR) {
+		this.nIR = nIR;
+	}
+
+	public FLUO getfLUO() {
+		return fLUO;
+	}
+
+	public void setfLUO(FLUO fLUO) {
+		this.fLUO = fLUO;
+	}
+
+	@Nullable
+	public Configuration getConfiguration() {
+		return configuration;
+	}
+
+	@Override
+	public String toString() {
+		return "Sample{" +
+			"sampleID='" + sampleID + '\'' +
+			", laboratory='" + laboratory + '\'' +
+			", userID='" + userID + '\'' +
+			", deviceID='" + deviceID + '\'' +
+			", foodType='" + foodType + '\'' +
+			", useCase='" + useCase + '\'' +
+			", mobileID='" + mobileID + '\'' +
+			", timestamp=" + timestamp +
+			", granularity='" + granularity + '\'' +
+			", contamination='" + contamination + '\'' +
+			", mycotoxins='" + mycotoxins + '\'' +
+			", aflatoxinName='" + aflatoxinName + '\'' +
+			", aflatoxinValue='" + aflatoxinValue + '\'' +
+			", aflatoxinUnit='" + aflatoxinUnit + '\'' +
+			", packageParam='" + packageParam + '\'' +
+			", temperature='" + temperature + '\'' +
+			", tempExposureHours='" + tempExposureHours + '\'' +
+			", microbioSampleId='" + microbioSampleId + '\'' +
+			", microbiologicalValue='" + microbiologicalValue + '\'' +
+			", microbiologicalUnit='" + microbiologicalUnit + '\'' +
+			", otherSpecies='" + otherSpecies + '\'' +
+			", foodSubtype='" + foodSubtype + '\'' +
+			", adulterationSampleId='" + adulterationSampleId + '\'' +
+			", alcoholLabel='" + alcoholLabel + '\'' +
+			", authentic='" + authentic + '\'' +
+			", puritySMP='" + puritySMP + '\'' +
+			", lowValueFiller='" + lowValueFiller + '\'' +
+			", nitrogenEnhancer='" + nitrogenEnhancer + '\'' +
+			", hazardOneName='" + hazardOneName + '\'' +
+			", hazardOnePct='" + hazardOnePct + '\'' +
+			", hazardTwoName='" + hazardTwoName + '\'' +
+			", hazardTwoPct='" + hazardTwoPct + '\'' +
+			", dilutedPct='" + dilutedPct + '\'' +
+			'}';
 	}
 }

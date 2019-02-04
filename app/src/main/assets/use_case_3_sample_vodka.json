@@ -3,55 +3,58 @@
     "status": "OK",
     "result": "SUCCESS",
     "sample": {
-      "sampleID": "string",
-      "laboratory": "PhasmaFOOD",
+      "sampleID": "900179",
+      "laboratory": "PhasmaFood_v1",
       "UserID": "string",
-      "mobileID": "6643437748387",
       "deviceID": "38:D2:69:DD:44:72",
-      "foodType": "Ready to eat rocket salad",
-      "useCase": "Food spoilage",
-      "temperature": "",
-      "tempExposureHours": "",
-      "microbioSampleId": "abc_123",
-      "microbiologicalValue": "111",
-      "microbiologicalUnit": "222",
+      "foodType": "Alcoholic beverages",
+      "useCase": "Food adulteration",
+      "foodSubtype": "Whiskey",
+      "adulterationSampleId": "13",
+      "alcoholLabel": "vodka 1",
+      "authentic": "",
+      "hazardOneName": "h1",
+      "hazardOnePct": "20",
+      "hazardTwoName": "h2",
+      "hazardTwoPct": "30",
+      "dilutedPct": "60",
       "VIS": {
         "preprocessed": [
           {
             "wave": "320.468994",
-            "measurement": "0.185185"
+            "measurement": "1.148148"
           },
           {
             "wave": "323.165985",
-            "measurement": "0.146919"
+            "measurement": "0.203791"
           },
           {
             "wave": "325.862976",
-            "measurement": "0.155172"
+            "measurement": "0.534483"
           },
           {
             "wave": "328.559967",
-            "measurement": "0.282927"
+            "measurement": "0.219512"
           },
           {
             "wave": "331.256958",
-            "measurement": "0.245810"
+            "measurement": "0.385475"
           },
           {
             "wave": "333.953949",
-            "measurement": "0.246988"
+            "measurement": "0.174699"
           },
           {
             "wave": "336.650940",
-            "measurement": "0.088542"
+            "measurement": "0.255208"
           },
           {
             "wave": "339.347931",
-            "measurement": "0.172043"
+            "measurement": "0.365591"
           },
           {
             "wave": "342.044922",
-            "measurement": "0.268817"
+            "measurement": "0.209677"
           },
           {
             "wave": "344.741913",
@@ -59,87 +62,87 @@
           },
           {
             "wave": "347.438904",
-            "measurement": "0.263441"
+            "measurement": "0.295699"
           },
           {
             "wave": "350.135895",
-            "measurement": "0.246914"
+            "measurement": "0.444444"
           },
           {
             "wave": "352.832886",
-            "measurement": "0.181319"
+            "measurement": "0.247253"
           },
           {
             "wave": "355.529877",
-            "measurement": "0.164474"
+            "measurement": "0.151316"
           },
           {
             "wave": "358.226868",
-            "measurement": "0.280000"
+            "measurement": "0.234286"
           },
           {
             "wave": "360.923859",
-            "measurement": "0.055556"
+            "measurement": "0.255556"
           },
           {
             "wave": "363.620850",
-            "measurement": "0.215054"
+            "measurement": "0.064516"
           },
           {
             "wave": "366.317841",
-            "measurement": "0.222222"
+            "measurement": "0.291667"
           },
           {
             "wave": "369.014832",
-            "measurement": "0.120000"
+            "measurement": "0.337143"
           },
           {
             "wave": "371.711823",
-            "measurement": "-0.018018"
+            "measurement": "-0.022523"
           },
           {
             "wave": "374.408813",
-            "measurement": "0.301136"
+            "measurement": "0.232955"
           },
           {
             "wave": "377.105804",
-            "measurement": "0.106742"
+            "measurement": "0.235955"
           },
           {
             "wave": "379.802795",
-            "measurement": "0.178947"
+            "measurement": "0.215789"
           },
           {
             "wave": "382.499786",
-            "measurement": "0.105820"
+            "measurement": "0.111111"
           },
           {
             "wave": "385.196777",
-            "measurement": "0.074766"
+            "measurement": "0.200935"
           },
           {
             "wave": "387.893768",
-            "measurement": "0.200000"
+            "measurement": "-0.034286"
           },
           {
             "wave": "390.590759",
-            "measurement": "0.037037"
+            "measurement": "0.349206"
           },
           {
             "wave": "393.287750",
-            "measurement": "0.116000"
+            "measurement": "0.024000"
           },
           {
             "wave": "395.984741",
-            "measurement": "0.220930"
+            "measurement": "0.436047"
           },
           {
             "wave": "398.681732",
-            "measurement": "0.315789"
+            "measurement": "0.311404"
           },
           {
             "wave": "401.378723",
-            "measurement": "0.255396"
+            "measurement": "0.165468"
           },
           {
             "wave": "404.075714",
@@ -147,1027 +150,1027 @@
           },
           {
             "wave": "406.772705",
-            "measurement": "0.376271"
+            "measurement": "0.386441"
           },
           {
             "wave": "409.469696",
-            "measurement": "0.685921"
+            "measurement": "0.339350"
           },
           {
             "wave": "412.166687",
-            "measurement": "0.627273"
+            "measurement": "0.357576"
           },
           {
             "wave": "414.863678",
-            "measurement": "0.539759"
+            "measurement": "0.383133"
           },
           {
             "wave": "417.560669",
-            "measurement": "0.606119"
+            "measurement": "0.346080"
           },
           {
             "wave": "420.257660",
-            "measurement": "0.446133"
+            "measurement": "0.252762"
           },
           {
             "wave": "422.954651",
-            "measurement": "0.362659"
+            "measurement": "0.197458"
           },
           {
             "wave": "425.651642",
-            "measurement": "0.280190"
+            "measurement": "0.144505"
           },
           {
             "wave": "428.348633",
-            "measurement": "0.193038"
+            "measurement": "0.122514"
           },
           {
             "wave": "431.045624",
-            "measurement": "0.140274"
+            "measurement": "0.107232"
           },
           {
             "wave": "433.742615",
-            "measurement": "0.103161"
+            "measurement": "0.084579"
           },
           {
             "wave": "436.439606",
-            "measurement": "0.070290"
+            "measurement": "0.076818"
           },
           {
             "wave": "439.136597",
-            "measurement": "0.049459"
+            "measurement": "0.069586"
           },
           {
             "wave": "441.833588",
-            "measurement": "0.037231"
+            "measurement": "0.067423"
           },
           {
             "wave": "444.530579",
-            "measurement": "0.031189"
+            "measurement": "0.061689"
           },
           {
             "wave": "447.227570",
-            "measurement": "0.022617"
+            "measurement": "0.061014"
           },
           {
             "wave": "449.924561",
-            "measurement": "0.019216"
+            "measurement": "0.060785"
           },
           {
             "wave": "452.621552",
-            "measurement": "0.015957"
+            "measurement": "0.061611"
           },
           {
             "wave": "455.318542",
-            "measurement": "0.013161"
+            "measurement": "0.064091"
           },
           {
             "wave": "458.015533",
-            "measurement": "0.013697"
+            "measurement": "0.076371"
           },
           {
             "wave": "460.712524",
-            "measurement": "0.014781"
+            "measurement": "0.092829"
           },
           {
             "wave": "463.409515",
-            "measurement": "0.014999"
+            "measurement": "0.109152"
           },
           {
             "wave": "466.106506",
-            "measurement": "0.016304"
+            "measurement": "0.119955"
           },
           {
             "wave": "468.803497",
-            "measurement": "0.016122"
+            "measurement": "0.125063"
           },
           {
             "wave": "471.500488",
-            "measurement": "0.017538"
+            "measurement": "0.122913"
           },
           {
             "wave": "474.197479",
-            "measurement": "0.017599"
+            "measurement": "0.115151"
           },
           {
             "wave": "476.894470",
-            "measurement": "0.018115"
+            "measurement": "0.100447"
           },
           {
             "wave": "479.591461",
-            "measurement": "0.018424"
+            "measurement": "0.090390"
           },
           {
             "wave": "482.288452",
-            "measurement": "0.018516"
+            "measurement": "0.080877"
           },
           {
             "wave": "484.985443",
-            "measurement": "0.020231"
+            "measurement": "0.075396"
           },
           {
             "wave": "487.682434",
-            "measurement": "0.021678"
+            "measurement": "0.073344"
           },
           {
             "wave": "490.379425",
-            "measurement": "0.024941"
+            "measurement": "0.074676"
           },
           {
             "wave": "493.076416",
-            "measurement": "0.028599"
+            "measurement": "0.075353"
           },
           {
             "wave": "495.773407",
-            "measurement": "0.032609"
+            "measurement": "0.077761"
           },
           {
             "wave": "498.470398",
-            "measurement": "0.035591"
+            "measurement": "0.078566"
           },
           {
             "wave": "501.167389",
-            "measurement": "0.041059"
+            "measurement": "0.081708"
           },
           {
             "wave": "503.864380",
-            "measurement": "0.043360"
+            "measurement": "0.083952"
           },
           {
             "wave": "506.561371",
-            "measurement": "0.044760"
+            "measurement": "0.088262"
           },
           {
             "wave": "509.258362",
-            "measurement": "0.050242"
+            "measurement": "0.089380"
           },
           {
             "wave": "511.955353",
-            "measurement": "0.052028"
+            "measurement": "0.093762"
           },
           {
             "wave": "514.652344",
-            "measurement": "0.051066"
+            "measurement": "0.091589"
           },
           {
             "wave": "517.349365",
-            "measurement": "0.051550"
+            "measurement": "0.092245"
           },
           {
             "wave": "520.046387",
-            "measurement": "0.049499"
+            "measurement": "0.096423"
           },
           {
             "wave": "522.743408",
-            "measurement": "0.046123"
+            "measurement": "0.096060"
           },
           {
             "wave": "525.440430",
-            "measurement": "0.043149"
+            "measurement": "0.095274"
           },
           {
             "wave": "528.137451",
-            "measurement": "0.038036"
+            "measurement": "0.095068"
           },
           {
             "wave": "530.834473",
-            "measurement": "0.036387"
+            "measurement": "0.096393"
           },
           {
             "wave": "533.531494",
-            "measurement": "0.033306"
+            "measurement": "0.096968"
           },
           {
             "wave": "536.228516",
-            "measurement": "0.030801"
+            "measurement": "0.095909"
           },
           {
             "wave": "538.925537",
-            "measurement": "0.028871"
+            "measurement": "0.098757"
           },
           {
             "wave": "541.622559",
-            "measurement": "0.027951"
+            "measurement": "0.099332"
           },
           {
             "wave": "544.319580",
-            "measurement": "0.026508"
+            "measurement": "0.101392"
           },
           {
             "wave": "547.016602",
-            "measurement": "0.026497"
+            "measurement": "0.103152"
           },
           {
             "wave": "549.713623",
-            "measurement": "0.026009"
+            "measurement": "0.103518"
           },
           {
             "wave": "552.410645",
-            "measurement": "0.025598"
+            "measurement": "0.105560"
           },
           {
             "wave": "555.107666",
-            "measurement": "0.025069"
+            "measurement": "0.108008"
           },
           {
             "wave": "557.804688",
-            "measurement": "0.024850"
+            "measurement": "0.108485"
           },
           {
             "wave": "560.501709",
-            "measurement": "0.025179"
+            "measurement": "0.109356"
           },
           {
             "wave": "563.198730",
-            "measurement": "0.026396"
+            "measurement": "0.110600"
           },
           {
             "wave": "565.895752",
-            "measurement": "0.025245"
+            "measurement": "0.112599"
           },
           {
             "wave": "568.592773",
-            "measurement": "0.026981"
+            "measurement": "0.114424"
           },
           {
             "wave": "571.289795",
-            "measurement": "0.027237"
+            "measurement": "0.116433"
           },
           {
             "wave": "573.986816",
-            "measurement": "0.028102"
+            "measurement": "0.118909"
           },
           {
             "wave": "576.683838",
-            "measurement": "0.028875"
+            "measurement": "0.120472"
           },
           {
             "wave": "579.380859",
-            "measurement": "0.029652"
+            "measurement": "0.121204"
           },
           {
             "wave": "582.077881",
-            "measurement": "0.030012"
+            "measurement": "0.123628"
           },
           {
             "wave": "584.774902",
-            "measurement": "0.031447"
+            "measurement": "0.126632"
           },
           {
             "wave": "587.471924",
-            "measurement": "0.030738"
+            "measurement": "0.128002"
           },
           {
             "wave": "590.168945",
-            "measurement": "0.030945"
+            "measurement": "0.131259"
           },
           {
             "wave": "592.865967",
-            "measurement": "0.031791"
+            "measurement": "0.132656"
           },
           {
             "wave": "595.562988",
-            "measurement": "0.032386"
+            "measurement": "0.133285"
           },
           {
             "wave": "598.260010",
-            "measurement": "0.033137"
+            "measurement": "0.136331"
           },
           {
             "wave": "600.957031",
-            "measurement": "0.034042"
+            "measurement": "0.139149"
           },
           {
             "wave": "603.654053",
-            "measurement": "0.034636"
+            "measurement": "0.138544"
           },
           {
             "wave": "606.351074",
-            "measurement": "0.035456"
+            "measurement": "0.142070"
           },
           {
             "wave": "609.048096",
-            "measurement": "0.035799"
+            "measurement": "0.142273"
           },
           {
             "wave": "611.745117",
-            "measurement": "0.036882"
+            "measurement": "0.144692"
           },
           {
             "wave": "614.442139",
-            "measurement": "0.036407"
+            "measurement": "0.146697"
           },
           {
             "wave": "617.139160",
-            "measurement": "0.036603"
+            "measurement": "0.150351"
           },
           {
             "wave": "619.836182",
-            "measurement": "0.038028"
+            "measurement": "0.150616"
           },
           {
             "wave": "622.533203",
-            "measurement": "0.036952"
+            "measurement": "0.153548"
           },
           {
             "wave": "625.230225",
-            "measurement": "0.038444"
+            "measurement": "0.156073"
           },
           {
             "wave": "627.927246",
-            "measurement": "0.039455"
+            "measurement": "0.158400"
           },
           {
             "wave": "630.624268",
-            "measurement": "0.040140"
+            "measurement": "0.160362"
           },
           {
             "wave": "633.321289",
-            "measurement": "0.042130"
+            "measurement": "0.163180"
           },
           {
             "wave": "636.018311",
-            "measurement": "0.044629"
+            "measurement": "0.166471"
           },
           {
             "wave": "638.715332",
-            "measurement": "0.045014"
+            "measurement": "0.168520"
           },
           {
             "wave": "641.412354",
-            "measurement": "0.045910"
+            "measurement": "0.170470"
           },
           {
             "wave": "644.109375",
-            "measurement": "0.049062"
+            "measurement": "0.173223"
           },
           {
             "wave": "646.806396",
-            "measurement": "0.049788"
+            "measurement": "0.176778"
           },
           {
             "wave": "649.503418",
-            "measurement": "0.051800"
+            "measurement": "0.179379"
           },
           {
             "wave": "652.200439",
-            "measurement": "0.053709"
+            "measurement": "0.182081"
           },
           {
             "wave": "654.897461",
-            "measurement": "0.054179"
+            "measurement": "0.185494"
           },
           {
             "wave": "657.594482",
-            "measurement": "0.055564"
+            "measurement": "0.186922"
           },
           {
             "wave": "660.291504",
-            "measurement": "0.057025"
+            "measurement": "0.189495"
           },
           {
             "wave": "662.988525",
-            "measurement": "0.059887"
+            "measurement": "0.192626"
           },
           {
             "wave": "665.685547",
-            "measurement": "0.060428"
+            "measurement": "0.196392"
           },
           {
             "wave": "668.382568",
-            "measurement": "0.061384"
+            "measurement": "0.199782"
           },
           {
             "wave": "671.079590",
-            "measurement": "0.063753"
+            "measurement": "0.200565"
           },
           {
             "wave": "673.776611",
-            "measurement": "0.066339"
+            "measurement": "0.205015"
           },
           {
             "wave": "676.473633",
-            "measurement": "0.071232"
+            "measurement": "0.208619"
           },
           {
             "wave": "679.170654",
-            "measurement": "0.070051"
+            "measurement": "0.212419"
           },
           {
             "wave": "681.867676",
-            "measurement": "0.075024"
+            "measurement": "0.215175"
           },
           {
             "wave": "684.564697",
-            "measurement": "0.077214"
+            "measurement": "0.217193"
           },
           {
             "wave": "687.261719",
-            "measurement": "0.079344"
+            "measurement": "0.219841"
           },
           {
             "wave": "689.958740",
-            "measurement": "0.082183"
+            "measurement": "0.222874"
           },
           {
             "wave": "692.655762",
-            "measurement": "0.084853"
+            "measurement": "0.226907"
           },
           {
             "wave": "695.352783",
-            "measurement": "0.088783"
+            "measurement": "0.230935"
           },
           {
             "wave": "698.049805",
-            "measurement": "0.091786"
+            "measurement": "0.237924"
           },
           {
             "wave": "700.746826",
-            "measurement": "0.095354"
+            "measurement": "0.241559"
           },
           {
             "wave": "703.443848",
-            "measurement": "0.098595"
+            "measurement": "0.247161"
           },
           {
             "wave": "706.140869",
-            "measurement": "0.105624"
+            "measurement": "0.250354"
           },
           {
             "wave": "708.837891",
-            "measurement": "0.114014"
+            "measurement": "0.253685"
           },
           {
             "wave": "711.534912",
-            "measurement": "0.119609"
+            "measurement": "0.260660"
           },
           {
             "wave": "714.231934",
-            "measurement": "0.128983"
+            "measurement": "0.268644"
           },
           {
             "wave": "716.928955",
-            "measurement": "0.141933"
+            "measurement": "0.274918"
           },
           {
             "wave": "719.625977",
-            "measurement": "0.148563"
+            "measurement": "0.285181"
           },
           {
             "wave": "722.322998",
-            "measurement": "0.156057"
+            "measurement": "0.283368"
           },
           {
             "wave": "725.020020",
-            "measurement": "0.161931"
+            "measurement": "0.292670"
           },
           {
             "wave": "727.717041",
-            "measurement": "0.175062"
+            "measurement": "0.302026"
           },
           {
             "wave": "730.414062",
-            "measurement": "0.186155"
+            "measurement": "0.307754"
           },
           {
             "wave": "733.111084",
-            "measurement": "0.199833"
+            "measurement": "0.311648"
           },
           {
             "wave": "735.808105",
-            "measurement": "0.214186"
+            "measurement": "0.321532"
           },
           {
             "wave": "738.505127",
-            "measurement": "0.230465"
+            "measurement": "0.330385"
           },
           {
             "wave": "741.202148",
-            "measurement": "0.245157"
+            "measurement": "0.344948"
           },
           {
             "wave": "743.899170",
-            "measurement": "0.252827"
+            "measurement": "0.352711"
           },
           {
             "wave": "746.596191",
-            "measurement": "0.269248"
+            "measurement": "0.360268"
           },
           {
             "wave": "749.293213",
-            "measurement": "0.282438"
+            "measurement": "0.373536"
           },
           {
             "wave": "751.990234",
-            "measurement": "0.287838"
+            "measurement": "0.378383"
           },
           {
             "wave": "754.687256",
-            "measurement": "0.319633"
+            "measurement": "0.399541"
           },
           {
             "wave": "757.384277",
-            "measurement": "0.339578"
+            "measurement": "0.406061"
           },
           {
             "wave": "760.081299",
-            "measurement": "0.366712"
+            "measurement": "0.417067"
           },
           {
             "wave": "762.778320",
-            "measurement": "0.383691"
+            "measurement": "0.427770"
           },
           {
             "wave": "765.475342",
-            "measurement": "0.411617"
+            "measurement": "0.439295"
           },
           {
             "wave": "768.172363",
-            "measurement": "0.432587"
+            "measurement": "0.455204"
           },
           {
             "wave": "770.869385",
-            "measurement": "0.456857"
+            "measurement": "0.459809"
           },
           {
             "wave": "773.566406",
-            "measurement": "0.477687"
+            "measurement": "0.474568"
           },
           {
             "wave": "776.263428",
-            "measurement": "0.507189"
+            "measurement": "0.489836"
           },
           {
             "wave": "778.960449",
-            "measurement": "0.524922"
+            "measurement": "0.504154"
           },
           {
             "wave": "781.657471",
-            "measurement": "0.550027"
+            "measurement": "0.519136"
           },
           {
             "wave": "784.354492",
-            "measurement": "0.559966"
+            "measurement": "0.519138"
           },
           {
             "wave": "787.051514",
-            "measurement": "0.574456"
+            "measurement": "0.513537"
           },
           {
             "wave": "789.748535",
-            "measurement": "0.558140"
+            "measurement": "0.517519"
           },
           {
             "wave": "792.445557",
-            "measurement": "0.563713"
+            "measurement": "0.507439"
           },
           {
             "wave": "795.142578",
-            "measurement": "0.550118"
+            "measurement": "0.519406"
           },
           {
             "wave": "797.839600",
-            "measurement": "0.576152"
+            "measurement": "0.522687"
           },
           {
             "wave": "800.536621",
-            "measurement": "0.569889"
+            "measurement": "0.524973"
           },
           {
             "wave": "803.233643",
-            "measurement": "0.586899"
+            "measurement": "0.529724"
           },
           {
             "wave": "805.930664",
-            "measurement": "0.635156"
+            "measurement": "0.550391"
           },
           {
             "wave": "808.627686",
-            "measurement": "0.624447"
+            "measurement": "0.548452"
           },
           {
             "wave": "811.324707",
-            "measurement": "0.653720"
+            "measurement": "0.537204"
           },
           {
             "wave": "814.021729",
-            "measurement": "0.686007"
+            "measurement": "0.535410"
           },
           {
             "wave": "816.718750",
-            "measurement": "0.706172"
+            "measurement": "0.573345"
           },
           {
             "wave": "819.415771",
-            "measurement": "0.756189"
+            "measurement": "0.578702"
           },
           {
             "wave": "822.112793",
-            "measurement": "0.760550"
+            "measurement": "0.587956"
           },
           {
             "wave": "824.809814",
-            "measurement": "0.798507"
+            "measurement": "0.606468"
           },
           {
             "wave": "827.506836",
-            "measurement": "0.816254"
+            "measurement": "0.586068"
           },
           {
             "wave": "830.203857",
-            "measurement": "0.846606"
+            "measurement": "0.601817"
           },
           {
             "wave": "832.900879",
-            "measurement": "0.847682"
+            "measurement": "0.589404"
           },
           {
             "wave": "835.597900",
-            "measurement": "0.826891"
+            "measurement": "0.587675"
           },
           {
             "wave": "838.294922",
-            "measurement": "0.888425"
+            "measurement": "0.599642"
           },
           {
             "wave": "840.991943",
-            "measurement": "0.907191"
+            "measurement": "0.591272"
           },
           {
             "wave": "843.688965",
-            "measurement": "0.862888"
+            "measurement": "0.565509"
           },
           {
             "wave": "846.385986",
-            "measurement": "0.834700"
+            "measurement": "0.531861"
           },
           {
             "wave": "849.083008",
-            "measurement": "0.836280"
+            "measurement": "0.513425"
           },
           {
             "wave": "851.780029",
-            "measurement": "0.768506"
+            "measurement": "0.493943"
           },
           {
             "wave": "854.477051",
-            "measurement": "0.713194"
+            "measurement": "0.473611"
           },
           {
             "wave": "857.174072",
-            "measurement": "0.656870"
+            "measurement": "0.437913"
           },
           {
             "wave": "859.871094",
-            "measurement": "0.573343"
+            "measurement": "0.388682"
           },
           {
             "wave": "862.568115",
-            "measurement": "0.556245"
+            "measurement": "0.401862"
           },
           {
             "wave": "865.265137",
-            "measurement": "0.550689"
+            "measurement": "0.371452"
           },
           {
             "wave": "867.962158",
-            "measurement": "0.538398"
+            "measurement": "0.327828"
           },
           {
             "wave": "870.659180",
-            "measurement": "0.572506"
+            "measurement": "0.337804"
           },
           {
             "wave": "873.356201",
-            "measurement": "0.683274"
+            "measurement": "0.329181"
           },
           {
             "wave": "876.053223",
-            "measurement": "0.701138"
+            "measurement": "0.331120"
           },
           {
             "wave": "878.750244",
-            "measurement": "0.723136"
+            "measurement": "0.254598"
           },
           {
             "wave": "881.447266",
-            "measurement": "0.741935"
+            "measurement": "0.266389"
           },
           {
             "wave": "884.144287",
-            "measurement": "0.673913"
+            "measurement": "0.204545"
           },
           {
             "wave": "886.841309",
-            "measurement": "0.689549"
+            "measurement": "0.191598"
           },
           {
             "wave": "889.538330",
-            "measurement": "0.669633"
+            "measurement": "0.153504"
           },
           {
             "wave": "892.235352",
-            "measurement": "0.666280"
+            "measurement": "0.107764"
           },
           {
             "wave": "894.932373",
-            "measurement": "0.632606"
+            "measurement": "0.080367"
           },
           {
             "wave": "897.629395",
-            "measurement": "0.620988"
+            "measurement": "0.056790"
           },
           {
             "wave": "900.326416",
-            "measurement": "0.614489"
+            "measurement": "0.020699"
           },
           {
             "wave": "903.023438",
-            "measurement": "0.568032"
+            "measurement": "0.013210"
           },
           {
             "wave": "905.720459",
-            "measurement": "0.609986"
+            "measurement": "-0.063428"
           },
           {
             "wave": "908.417480",
-            "measurement": "0.545455"
+            "measurement": "-0.082251"
           },
           {
             "wave": "911.114502",
-            "measurement": "0.482090"
+            "measurement": "-0.059701"
           },
           {
             "wave": "913.811523",
-            "measurement": "0.511041"
+            "measurement": "-0.127760"
           },
           {
             "wave": "916.508545",
-            "measurement": "0.538715"
+            "measurement": "-0.232290"
           },
           {
             "wave": "919.205566",
-            "measurement": "0.534768"
+            "measurement": "-0.218543"
           },
           {
             "wave": "921.902588",
-            "measurement": "0.473504"
+            "measurement": "-0.143590"
           },
           {
             "wave": "924.599609",
-            "measurement": "0.496337"
+            "measurement": "-0.249084"
           },
           {
             "wave": "927.296631",
-            "measurement": "0.418048"
+            "measurement": "-0.263352"
           },
           {
             "wave": "929.993652",
-            "measurement": "0.453532"
+            "measurement": "-0.215613"
           },
           {
             "wave": "932.690674",
-            "measurement": "0.452569"
+            "measurement": "-0.312253"
           },
           {
             "wave": "935.387695",
-            "measurement": "0.397614"
+            "measurement": "-0.296223"
           },
           {
             "wave": "938.084717",
-            "measurement": "0.464503"
+            "measurement": "-0.379310"
           },
           {
             "wave": "940.781738",
-            "measurement": "0.263158"
+            "measurement": "-0.388158"
           },
           {
             "wave": "943.478760",
-            "measurement": "0.381053"
+            "measurement": "-0.303158"
           },
           {
             "wave": "946.175781",
-            "measurement": "0.300236"
+            "measurement": "-0.356974"
           },
           {
             "wave": "948.872803",
-            "measurement": "0.373206"
+            "measurement": "-0.358852"
           },
           {
             "wave": "951.569824",
-            "measurement": "0.277647"
+            "measurement": "-0.376471"
           },
           {
             "wave": "954.266846",
-            "measurement": "0.265464"
+            "measurement": "-0.337629"
           },
           {
             "wave": "956.963867",
-            "measurement": "0.260766"
+            "measurement": "-0.270335"
           },
           {
             "wave": "959.660889",
-            "measurement": "0.273349"
+            "measurement": "-0.305239"
           },
           {
             "wave": "962.357910",
-            "measurement": "0.275510"
+            "measurement": "-0.339286"
           },
           {
             "wave": "965.054932",
-            "measurement": "0.170673"
+            "measurement": "-0.259615"
           },
           {
             "wave": "967.751953",
-            "measurement": "0.174263"
+            "measurement": "-0.324397"
           },
           {
             "wave": "970.448975",
-            "measurement": "0.325459"
+            "measurement": "-0.343832"
           },
           {
             "wave": "973.145996",
-            "measurement": "0.233596"
+            "measurement": "-0.375328"
           },
           {
             "wave": "975.843018",
-            "measurement": "0.342342"
+            "measurement": "-0.426426"
           },
           {
             "wave": "978.540039",
-            "measurement": "0.266082"
+            "measurement": "-0.283626"
           },
           {
             "wave": "981.237061",
-            "measurement": "0.283912"
+            "measurement": "-0.495268"
           },
           {
             "wave": "983.934082",
-            "measurement": "0.252336"
+            "measurement": "-0.489097"
           },
           {
             "wave": "986.631104",
-            "measurement": "0.358804"
+            "measurement": "-0.392027"
           },
           {
             "wave": "989.328125",
-            "measurement": "0.288973"
+            "measurement": "-0.646388"
           },
           {
             "wave": "992.025146",
-            "measurement": "0.280822"
+            "measurement": "-0.455479"
           },
           {
             "wave": "994.722168",
-            "measurement": "0.364807"
+            "measurement": "-0.630901"
           },
           {
             "wave": "997.419189",
-            "measurement": "0.206667"
+            "measurement": "-0.456667"
           },
           {
             "wave": "1000.116211",
-            "measurement": "0.211321"
+            "measurement": "-0.554717"
           },
           {
             "wave": "1002.813232",
-            "measurement": "0.343096"
+            "measurement": "-0.581590"
           },
           {
             "wave": "1005.510254",
-            "measurement": "0.500000"
+            "measurement": "-0.623967"
           },
           {
             "wave": "1008.207275",
-            "measurement": "0.346341"
+            "measurement": "-0.702439"
           },
           {
             "wave": "1010.904297",
-            "measurement": "0.269841"
+            "measurement": "-0.535714"
           },
           {
             "wave": "1013.601318",
-            "measurement": "0.265560"
+            "measurement": "-0.464730"
           },
           {
             "wave": "1016.298340",
-            "measurement": "0.276498"
+            "measurement": "-0.566820"
           },
           {
             "wave": "1018.995361",
-            "measurement": "0.307339"
+            "measurement": "-0.486239"
           },
           {
             "wave": "1021.692383",
-            "measurement": "0.231441"
+            "measurement": "-0.541485"
           },
           {
             "wave": "1024.389404",
-            "measurement": "0.315508"
+            "measurement": "-0.550802"
           },
           {
             "wave": "1027.086426",
-            "measurement": "0.294393"
+            "measurement": "-0.509346"
           },
           {
             "wave": "1029.783447",
-            "measurement": "0.284360"
+            "measurement": "-0.516588"
           },
           {
             "wave": "1032.480469",
-            "measurement": "0.355422"
+            "measurement": "-0.632530"
           },
           {
             "wave": "1035.177490",
-            "measurement": "0.318681"
+            "measurement": "-0.576923"
           },
           {
             "wave": "1037.874512",
-            "measurement": "0.467836"
+            "measurement": "-0.520468"
           },
           {
             "wave": "1040.571533",
-            "measurement": "0.385714"
+            "measurement": "-0.542857"
           },
           {
             "wave": "1043.268555",
-            "measurement": "0.471204"
+            "measurement": "-0.481675"
           },
           {
             "wave": "1045.965576",
-            "measurement": "0.282297"
+            "measurement": "-0.425837"
           },
           {
             "wave": "1048.662598",
-            "measurement": "0.466346"
+            "measurement": "-0.389423"
           },
           {
             "wave": "1051.359619",
-            "measurement": "0.351190"
+            "measurement": "-0.339286"
           },
           {
             "wave": "1054.056641",
-            "measurement": "0.474576"
+            "measurement": "-0.593220"
           },
           {
             "wave": "1056.753662",
-            "measurement": "0.412088"
+            "measurement": "-0.565934"
           },
           {
             "wave": "1059.450684",
-            "measurement": "0.361446"
+            "measurement": "-0.493976"
           },
           {
             "wave": "1062.147705",
-            "measurement": "0.634146"
+            "measurement": "-0.666667"
           },
           {
             "wave": "1064.844727",
-            "measurement": "0.363128"
+            "measurement": "-0.391061"
           },
           {
             "wave": "1067.541748",
-            "measurement": "0.540984"
+            "measurement": "-0.303279"
           },
           {
             "wave": "1070.238770",
-            "measurement": "0.312500"
+            "measurement": "-0.756944"
           },
           {
             "wave": "1072.935791",
-            "measurement": "0.211957"
+            "measurement": "-0.364130"
           },
           {
             "wave": "1075.632812",
-            "measurement": "0.510345"
+            "measurement": "-0.406897"
           },
           {
             "wave": "1078.329834",
-            "measurement": "0.227273"
+            "measurement": "-0.460227"
           },
           {
             "wave": "1081.026855",
-            "measurement": "0.421053"
+            "measurement": "-0.368421"
           },
           {
             "wave": "1083.723877",
-            "measurement": "0.436242"
+            "measurement": "-0.342282"
           },
           {
             "wave": "1086.420898",
-            "measurement": "0.561983"
+            "measurement": "-0.520661"
           },
           {
             "wave": "1089.117920",
-            "measurement": "0.674797"
+            "measurement": "-0.617886"
           },
           {
             "wave": "1091.814941",
-            "measurement": "0.730000"
+            "measurement": "-0.470000"
           },
           {
             "wave": "1094.511963",
-            "measurement": "0.119403"
+            "measurement": "-0.320896"
           }
         ],
         "whiteReference": [
@@ -2327,831 +2330,831 @@
         "darkReference": [
           {
             "wave": "320.468994",
-            "measurement": "7431"
+            "measurement": "7454"
           },
           {
             "wave": "323.165985",
-            "measurement": "6096"
-          },
-          {
-            "wave": "325.862976",
-            "measurement": "6163"
-          },
-          {
-            "wave": "328.559967",
-            "measurement": "6046"
-          },
-          {
-            "wave": "331.256958",
-            "measurement": "6138"
-          },
-          {
-            "wave": "333.953949",
-            "measurement": "6038"
-          },
-          {
-            "wave": "336.650940",
-            "measurement": "6039"
-          },
-          {
-            "wave": "339.347931",
-            "measurement": "6216"
-          },
-          {
-            "wave": "342.044922",
-            "measurement": "6079"
-          },
-          {
-            "wave": "344.741913",
-            "measurement": "6158"
-          },
-          {
-            "wave": "347.438904",
-            "measurement": "6113"
-          },
-          {
-            "wave": "350.135895",
-            "measurement": "5957"
-          },
-          {
-            "wave": "352.832886",
-            "measurement": "6144"
-          },
-          {
-            "wave": "355.529877",
-            "measurement": "6035"
-          },
-          {
-            "wave": "358.226868",
-            "measurement": "6012"
-          },
-          {
-            "wave": "360.923859",
-            "measurement": "6199"
-          },
-          {
-            "wave": "363.620850",
-            "measurement": "5978"
-          },
-          {
-            "wave": "366.317841",
-            "measurement": "6101"
-          },
-          {
-            "wave": "369.014832",
-            "measurement": "6080"
-          },
-          {
-            "wave": "371.711823",
-            "measurement": "6013"
-          },
-          {
-            "wave": "374.408813",
-            "measurement": "6121"
-          },
-          {
-            "wave": "377.105804",
-            "measurement": "6084"
-          },
-          {
-            "wave": "379.802795",
-            "measurement": "5984"
-          },
-          {
-            "wave": "382.499786",
-            "measurement": "6160"
-          },
-          {
-            "wave": "385.196777",
-            "measurement": "5955"
-          },
-          {
-            "wave": "387.893768",
-            "measurement": "6123"
-          },
-          {
-            "wave": "390.590759",
-            "measurement": "6072"
-          },
-          {
-            "wave": "393.287750",
-            "measurement": "6025"
-          },
-          {
-            "wave": "395.984741",
-            "measurement": "6167"
-          },
-          {
-            "wave": "398.681732",
-            "measurement": "6092"
-          },
-          {
-            "wave": "401.378723",
-            "measurement": "6073"
-          },
-          {
-            "wave": "404.075714",
-            "measurement": "6220"
-          },
-          {
-            "wave": "406.772705",
-            "measurement": "5993"
-          },
-          {
-            "wave": "409.469696",
-            "measurement": "6110"
-          },
-          {
-            "wave": "412.166687",
-            "measurement": "6078"
-          },
-          {
-            "wave": "414.863678",
-            "measurement": "5943"
-          },
-          {
-            "wave": "417.560669",
-            "measurement": "6096"
-          },
-          {
-            "wave": "420.257660",
-            "measurement": "6014"
-          },
-          {
-            "wave": "422.954651",
-            "measurement": "5976"
-          },
-          {
-            "wave": "425.651642",
-            "measurement": "6229"
-          },
-          {
-            "wave": "428.348633",
-            "measurement": "5995"
-          },
-          {
-            "wave": "431.045624",
-            "measurement": "6078"
-          },
-          {
-            "wave": "433.742615",
-            "measurement": "6143"
-          },
-          {
-            "wave": "436.439606",
-            "measurement": "6034"
-          },
-          {
-            "wave": "439.136597",
-            "measurement": "6094"
-          },
-          {
-            "wave": "441.833588",
-            "measurement": "6024"
-          },
-          {
-            "wave": "444.530579",
-            "measurement": "5968"
-          },
-          {
-            "wave": "447.227570",
-            "measurement": "6057"
-          },
-          {
-            "wave": "449.924561",
-            "measurement": "5960"
-          },
-          {
-            "wave": "452.621552",
-            "measurement": "6112"
-          },
-          {
-            "wave": "455.318542",
-            "measurement": "6100"
-          },
-          {
-            "wave": "458.015533",
-            "measurement": "5995"
-          },
-          {
-            "wave": "460.712524",
-            "measurement": "6165"
-          },
-          {
-            "wave": "463.409515",
-            "measurement": "6127"
-          },
-          {
-            "wave": "466.106506",
-            "measurement": "6034"
-          },
-          {
-            "wave": "468.803497",
-            "measurement": "6167"
-          },
-          {
-            "wave": "471.500488",
-            "measurement": "5992"
-          },
-          {
-            "wave": "474.197479",
-            "measurement": "6158"
-          },
-          {
-            "wave": "476.894470",
-            "measurement": "6125"
-          },
-          {
-            "wave": "479.591461",
-            "measurement": "6035"
-          },
-          {
-            "wave": "482.288452",
-            "measurement": "6142"
-          },
-          {
-            "wave": "484.985443",
-            "measurement": "6055"
-          },
-          {
-            "wave": "487.682434",
-            "measurement": "6091"
-          },
-          {
-            "wave": "490.379425",
-            "measurement": "6167"
-          },
-          {
-            "wave": "493.076416",
-            "measurement": "6089"
-          },
-          {
-            "wave": "495.773407",
-            "measurement": "6079"
-          },
-          {
-            "wave": "498.470398",
-            "measurement": "6112"
-          },
-          {
-            "wave": "501.167389",
-            "measurement": "5949"
-          },
-          {
-            "wave": "503.864380",
-            "measurement": "6144"
-          },
-          {
-            "wave": "506.561371",
-            "measurement": "6109"
-          },
-          {
-            "wave": "509.258362",
-            "measurement": "6106"
-          },
-          {
-            "wave": "511.955353",
-            "measurement": "6262"
-          },
-          {
-            "wave": "514.652344",
-            "measurement": "6024"
-          },
-          {
-            "wave": "517.349365",
-            "measurement": "6169"
-          },
-          {
-            "wave": "520.046387",
-            "measurement": "6115"
-          },
-          {
-            "wave": "522.743408",
-            "measurement": "6011"
-          },
-          {
-            "wave": "525.440430",
-            "measurement": "6126"
-          },
-          {
-            "wave": "528.137451",
-            "measurement": "6112"
-          },
-          {
-            "wave": "530.834473",
-            "measurement": "6042"
-          },
-          {
-            "wave": "533.531494",
-            "measurement": "6170"
-          },
-          {
-            "wave": "536.228516",
-            "measurement": "6016"
-          },
-          {
-            "wave": "538.925537",
-            "measurement": "6156"
-          },
-          {
-            "wave": "541.622559",
-            "measurement": "6107"
-          },
-          {
-            "wave": "544.319580",
-            "measurement": "6084"
-          },
-          {
-            "wave": "547.016602",
-            "measurement": "6172"
-          },
-          {
-            "wave": "549.713623",
-            "measurement": "6046"
-          },
-          {
-            "wave": "552.410645",
-            "measurement": "6030"
-          },
-          {
-            "wave": "555.107666",
-            "measurement": "6219"
-          },
-          {
-            "wave": "557.804688",
-            "measurement": "5971"
-          },
-          {
-            "wave": "560.501709",
-            "measurement": "6131"
-          },
-          {
-            "wave": "563.198730",
-            "measurement": "6106"
-          },
-          {
-            "wave": "565.895752",
-            "measurement": "6034"
-          },
-          {
-            "wave": "568.592773",
-            "measurement": "6197"
-          },
-          {
-            "wave": "571.289795",
-            "measurement": "6032"
-          },
-          {
-            "wave": "573.986816",
-            "measurement": "5998"
-          },
-          {
-            "wave": "576.683838",
-            "measurement": "6184"
-          },
-          {
-            "wave": "579.380859",
-            "measurement": "6035"
-          },
-          {
-            "wave": "582.077881",
-            "measurement": "6056"
-          },
-          {
-            "wave": "584.774902",
-            "measurement": "6109"
-          },
-          {
-            "wave": "587.471924",
-            "measurement": "6040"
-          },
-          {
-            "wave": "590.168945",
-            "measurement": "6204"
-          },
-          {
-            "wave": "592.865967",
-            "measurement": "6091"
-          },
-          {
-            "wave": "595.562988",
-            "measurement": "6020"
-          },
-          {
-            "wave": "598.260010",
-            "measurement": "6122"
-          },
-          {
-            "wave": "600.957031",
-            "measurement": "5973"
-          },
-          {
-            "wave": "603.654053",
-            "measurement": "6125"
-          },
-          {
-            "wave": "606.351074",
-            "measurement": "6072"
-          },
-          {
-            "wave": "609.048096",
-            "measurement": "6061"
-          },
-          {
-            "wave": "611.745117",
-            "measurement": "6109"
-          },
-          {
-            "wave": "614.442139",
-            "measurement": "6086"
-          },
-          {
-            "wave": "617.139160",
-            "measurement": "6046"
-          },
-          {
-            "wave": "619.836182",
-            "measurement": "6195"
-          },
-          {
-            "wave": "622.533203",
-            "measurement": "6033"
-          },
-          {
-            "wave": "625.230225",
-            "measurement": "6131"
-          },
-          {
-            "wave": "627.927246",
-            "measurement": "6162"
-          },
-          {
-            "wave": "630.624268",
-            "measurement": "5973"
-          },
-          {
-            "wave": "633.321289",
-            "measurement": "6136"
-          },
-          {
-            "wave": "636.018311",
-            "measurement": "6072"
-          },
-          {
-            "wave": "638.715332",
-            "measurement": "6030"
-          },
-          {
-            "wave": "641.412354",
-            "measurement": "6213"
-          },
-          {
-            "wave": "644.109375",
-            "measurement": "6048"
-          },
-          {
-            "wave": "646.806396",
-            "measurement": "6193"
-          },
-          {
-            "wave": "649.503418",
-            "measurement": "6089"
-          },
-          {
-            "wave": "652.200439",
-            "measurement": "6068"
-          },
-          {
-            "wave": "654.897461",
-            "measurement": "6211"
-          },
-          {
-            "wave": "657.594482",
-            "measurement": "6083"
-          },
-          {
-            "wave": "660.291504",
-            "measurement": "6037"
-          },
-          {
-            "wave": "662.988525",
-            "measurement": "6206"
-          },
-          {
-            "wave": "665.685547",
-            "measurement": "5968"
-          },
-          {
-            "wave": "668.382568",
-            "measurement": "6218"
-          },
-          {
-            "wave": "671.079590",
-            "measurement": "6108"
-          },
-          {
-            "wave": "673.776611",
-            "measurement": "6037"
-          },
-          {
-            "wave": "676.473633",
-            "measurement": "6193"
-          },
-          {
-            "wave": "679.170654",
-            "measurement": "6098"
-          },
-          {
-            "wave": "681.867676",
-            "measurement": "6133"
-          },
-          {
-            "wave": "684.564697",
-            "measurement": "6206"
-          },
-          {
-            "wave": "687.261719",
-            "measurement": "6015"
-          },
-          {
-            "wave": "689.958740",
-            "measurement": "6181"
-          },
-          {
-            "wave": "692.655762",
-            "measurement": "6171"
-          },
-          {
-            "wave": "695.352783",
             "measurement": "6069"
           },
           {
-            "wave": "698.049805",
-            "measurement": "6196"
+            "wave": "325.862976",
+            "measurement": "6116"
           },
           {
-            "wave": "700.746826",
-            "measurement": "6105"
+            "wave": "328.559967",
+            "measurement": "6023"
           },
           {
-            "wave": "703.443848",
-            "measurement": "6088"
+            "wave": "331.256958",
+            "measurement": "6086"
           },
           {
-            "wave": "706.140869",
-            "measurement": "6205"
+            "wave": "333.953949",
+            "measurement": "6027"
           },
           {
-            "wave": "708.837891",
-            "measurement": "6056"
+            "wave": "336.650940",
+            "measurement": "6011"
           },
           {
-            "wave": "711.534912",
-            "measurement": "6187"
+            "wave": "339.347931",
+            "measurement": "6171"
           },
           {
-            "wave": "714.231934",
-            "measurement": "6166"
+            "wave": "342.044922",
+            "measurement": "6054"
           },
           {
-            "wave": "716.928955",
-            "measurement": "6053"
+            "wave": "344.741913",
+            "measurement": "6148"
           },
           {
-            "wave": "719.625977",
-            "measurement": "6214"
+            "wave": "347.438904",
+            "measurement": "6066"
           },
           {
-            "wave": "722.322998",
-            "measurement": "6145"
+            "wave": "350.135895",
+            "measurement": "5913"
           },
           {
-            "wave": "725.020020",
-            "measurement": "6111"
-          },
-          {
-            "wave": "727.717041",
-            "measurement": "6223"
-          },
-          {
-            "wave": "730.414062",
-            "measurement": "6029"
-          },
-          {
-            "wave": "733.111084",
-            "measurement": "6212"
-          },
-          {
-            "wave": "735.808105",
-            "measurement": "6160"
-          },
-          {
-            "wave": "738.505127",
-            "measurement": "6068"
-          },
-          {
-            "wave": "741.202148",
-            "measurement": "6248"
-          },
-          {
-            "wave": "743.899170",
+            "wave": "352.832886",
             "measurement": "6118"
           },
           {
-            "wave": "746.596191",
-            "measurement": "6060"
+            "wave": "355.529877",
+            "measurement": "6007"
           },
           {
-            "wave": "749.293213",
-            "measurement": "6250"
+            "wave": "358.226868",
+            "measurement": "6000"
           },
           {
-            "wave": "751.990234",
-            "measurement": "6090"
+            "wave": "360.923859",
+            "measurement": "6136"
           },
           {
-            "wave": "754.687256",
-            "measurement": "6205"
+            "wave": "363.620850",
+            "measurement": "5966"
           },
           {
-            "wave": "757.384277",
-            "measurement": "6147"
+            "wave": "366.317841",
+            "measurement": "6067"
           },
           {
-            "wave": "760.081299",
-            "measurement": "6056"
+            "wave": "369.014832",
+            "measurement": "6029"
           },
           {
-            "wave": "762.778320",
-            "measurement": "6243"
+            "wave": "371.711823",
+            "measurement": "6010"
           },
           {
-            "wave": "765.475342",
-            "measurement": "6125"
+            "wave": "374.408813",
+            "measurement": "6102"
           },
           {
-            "wave": "768.172363",
-            "measurement": "6083"
+            "wave": "377.105804",
+            "measurement": "6043"
           },
           {
-            "wave": "770.869385",
-            "measurement": "6248"
+            "wave": "379.802795",
+            "measurement": "5982"
           },
           {
-            "wave": "773.566406",
-            "measurement": "6080"
+            "wave": "382.499786",
+            "measurement": "6132"
           },
           {
-            "wave": "776.263428",
-            "measurement": "6155"
+            "wave": "385.196777",
+            "measurement": "5914"
           },
           {
-            "wave": "778.960449",
-            "measurement": "6165"
-          },
-          {
-            "wave": "781.657471",
-            "measurement": "6072"
-          },
-          {
-            "wave": "784.354492",
-            "measurement": "6137"
-          },
-          {
-            "wave": "787.051514",
-            "measurement": "6055"
-          },
-          {
-            "wave": "789.748535",
-            "measurement": "6056"
-          },
-          {
-            "wave": "792.445557",
-            "measurement": "6209"
-          },
-          {
-            "wave": "795.142578",
-            "measurement": "6123"
-          },
-          {
-            "wave": "797.839600",
-            "measurement": "6230"
-          },
-          {
-            "wave": "800.536621",
-            "measurement": "6311"
-          },
-          {
-            "wave": "803.233643",
+            "wave": "387.893768",
             "measurement": "6127"
           },
           {
+            "wave": "390.590759",
+            "measurement": "6018"
+          },
+          {
+            "wave": "393.287750",
+            "measurement": "6004"
+          },
+          {
+            "wave": "395.984741",
+            "measurement": "6105"
+          },
+          {
+            "wave": "398.681732",
+            "measurement": "6056"
+          },
+          {
+            "wave": "401.378723",
+            "measurement": "6083"
+          },
+          {
+            "wave": "404.075714",
+            "measurement": "6163"
+          },
+          {
+            "wave": "406.772705",
+            "measurement": "5950"
+          },
+          {
+            "wave": "409.469696",
+            "measurement": "6103"
+          },
+          {
+            "wave": "412.166687",
+            "measurement": "6057"
+          },
+          {
+            "wave": "414.863678",
+            "measurement": "5887"
+          },
+          {
+            "wave": "417.560669",
+            "measurement": "6062"
+          },
+          {
+            "wave": "420.257660",
+            "measurement": "5984"
+          },
+          {
+            "wave": "422.954651",
+            "measurement": "5948"
+          },
+          {
+            "wave": "425.651642",
+            "measurement": "6218"
+          },
+          {
+            "wave": "428.348633",
+            "measurement": "5985"
+          },
+          {
+            "wave": "431.045624",
+            "measurement": "6016"
+          },
+          {
+            "wave": "433.742615",
+            "measurement": "6126"
+          },
+          {
+            "wave": "436.439606",
+            "measurement": "5993"
+          },
+          {
+            "wave": "439.136597",
+            "measurement": "6083"
+          },
+          {
+            "wave": "441.833588",
+            "measurement": "5967"
+          },
+          {
+            "wave": "444.530579",
+            "measurement": "5959"
+          },
+          {
+            "wave": "447.227570",
+            "measurement": "6034"
+          },
+          {
+            "wave": "449.924561",
+            "measurement": "5917"
+          },
+          {
+            "wave": "452.621552",
+            "measurement": "6080"
+          },
+          {
+            "wave": "455.318542",
+            "measurement": "6056"
+          },
+          {
+            "wave": "458.015533",
+            "measurement": "5983"
+          },
+          {
+            "wave": "460.712524",
+            "measurement": "6137"
+          },
+          {
+            "wave": "463.409515",
+            "measurement": "6083"
+          },
+          {
+            "wave": "466.106506",
+            "measurement": "6016"
+          },
+          {
+            "wave": "468.803497",
+            "measurement": "6118"
+          },
+          {
+            "wave": "471.500488",
+            "measurement": "5975"
+          },
+          {
+            "wave": "474.197479",
+            "measurement": "6113"
+          },
+          {
+            "wave": "476.894470",
+            "measurement": "6083"
+          },
+          {
+            "wave": "479.591461",
+            "measurement": "6001"
+          },
+          {
+            "wave": "482.288452",
+            "measurement": "6093"
+          },
+          {
+            "wave": "484.985443",
+            "measurement": "6011"
+          },
+          {
+            "wave": "487.682434",
+            "measurement": "6048"
+          },
+          {
+            "wave": "490.379425",
+            "measurement": "6135"
+          },
+          {
+            "wave": "493.076416",
+            "measurement": "6069"
+          },
+          {
+            "wave": "495.773407",
+            "measurement": "6051"
+          },
+          {
+            "wave": "498.470398",
+            "measurement": "6097"
+          },
+          {
+            "wave": "501.167389",
+            "measurement": "5927"
+          },
+          {
+            "wave": "503.864380",
+            "measurement": "6097"
+          },
+          {
+            "wave": "506.561371",
+            "measurement": "6048"
+          },
+          {
+            "wave": "509.258362",
+            "measurement": "6095"
+          },
+          {
+            "wave": "511.955353",
+            "measurement": "6191"
+          },
+          {
+            "wave": "514.652344",
+            "measurement": "6016"
+          },
+          {
+            "wave": "517.349365",
+            "measurement": "6168"
+          },
+          {
+            "wave": "520.046387",
+            "measurement": "6092"
+          },
+          {
+            "wave": "522.743408",
+            "measurement": "5993"
+          },
+          {
+            "wave": "525.440430",
+            "measurement": "6117"
+          },
+          {
+            "wave": "528.137451",
+            "measurement": "6074"
+          },
+          {
+            "wave": "530.834473",
+            "measurement": "6017"
+          },
+          {
+            "wave": "533.531494",
+            "measurement": "6130"
+          },
+          {
+            "wave": "536.228516",
+            "measurement": "5980"
+          },
+          {
+            "wave": "538.925537",
+            "measurement": "6116"
+          },
+          {
+            "wave": "541.622559",
+            "measurement": "6090"
+          },
+          {
+            "wave": "544.319580",
+            "measurement": "6048"
+          },
+          {
+            "wave": "547.016602",
+            "measurement": "6128"
+          },
+          {
+            "wave": "549.713623",
+            "measurement": "6022"
+          },
+          {
+            "wave": "552.410645",
+            "measurement": "5992"
+          },
+          {
+            "wave": "555.107666",
+            "measurement": "6169"
+          },
+          {
+            "wave": "557.804688",
+            "measurement": "5905"
+          },
+          {
+            "wave": "560.501709",
+            "measurement": "6099"
+          },
+          {
+            "wave": "563.198730",
+            "measurement": "6111"
+          },
+          {
+            "wave": "565.895752",
+            "measurement": "5973"
+          },
+          {
+            "wave": "568.592773",
+            "measurement": "6162"
+          },
+          {
+            "wave": "571.289795",
+            "measurement": "5992"
+          },
+          {
+            "wave": "573.986816",
+            "measurement": "5980"
+          },
+          {
+            "wave": "576.683838",
+            "measurement": "6164"
+          },
+          {
+            "wave": "579.380859",
+            "measurement": "6008"
+          },
+          {
+            "wave": "582.077881",
+            "measurement": "6043"
+          },
+          {
+            "wave": "584.774902",
+            "measurement": "6081"
+          },
+          {
+            "wave": "587.471924",
+            "measurement": "6001"
+          },
+          {
+            "wave": "590.168945",
+            "measurement": "6168"
+          },
+          {
+            "wave": "592.865967",
+            "measurement": "6046"
+          },
+          {
+            "wave": "595.562988",
+            "measurement": "5997"
+          },
+          {
+            "wave": "598.260010",
+            "measurement": "6096"
+          },
+          {
+            "wave": "600.957031",
+            "measurement": "5940"
+          },
+          {
+            "wave": "603.654053",
+            "measurement": "6110"
+          },
+          {
+            "wave": "606.351074",
+            "measurement": "6024"
+          },
+          {
+            "wave": "609.048096",
+            "measurement": "6044"
+          },
+          {
+            "wave": "611.745117",
+            "measurement": "6101"
+          },
+          {
+            "wave": "614.442139",
+            "measurement": "6041"
+          },
+          {
+            "wave": "617.139160",
+            "measurement": "6003"
+          },
+          {
+            "wave": "619.836182",
+            "measurement": "6174"
+          },
+          {
+            "wave": "622.533203",
+            "measurement": "6002"
+          },
+          {
+            "wave": "625.230225",
+            "measurement": "6091"
+          },
+          {
+            "wave": "627.927246",
+            "measurement": "6110"
+          },
+          {
+            "wave": "630.624268",
+            "measurement": "5958"
+          },
+          {
+            "wave": "633.321289",
+            "measurement": "6093"
+          },
+          {
+            "wave": "636.018311",
+            "measurement": "6029"
+          },
+          {
+            "wave": "638.715332",
+            "measurement": "5994"
+          },
+          {
+            "wave": "641.412354",
+            "measurement": "6159"
+          },
+          {
+            "wave": "644.109375",
+            "measurement": "6034"
+          },
+          {
+            "wave": "646.806396",
+            "measurement": "6153"
+          },
+          {
+            "wave": "649.503418",
+            "measurement": "6062"
+          },
+          {
+            "wave": "652.200439",
+            "measurement": "6041"
+          },
+          {
+            "wave": "654.897461",
+            "measurement": "6151"
+          },
+          {
+            "wave": "657.594482",
+            "measurement": "6042"
+          },
+          {
+            "wave": "660.291504",
+            "measurement": "6025"
+          },
+          {
+            "wave": "662.988525",
+            "measurement": "6190"
+          },
+          {
+            "wave": "665.685547",
+            "measurement": "5941"
+          },
+          {
+            "wave": "668.382568",
+            "measurement": "6177"
+          },
+          {
+            "wave": "671.079590",
+            "measurement": "6088"
+          },
+          {
+            "wave": "673.776611",
+            "measurement": "5976"
+          },
+          {
+            "wave": "676.473633",
+            "measurement": "6186"
+          },
+          {
+            "wave": "679.170654",
+            "measurement": "6060"
+          },
+          {
+            "wave": "681.867676",
+            "measurement": "6078"
+          },
+          {
+            "wave": "684.564697",
+            "measurement": "6166"
+          },
+          {
+            "wave": "687.261719",
+            "measurement": "5972"
+          },
+          {
+            "wave": "689.958740",
+            "measurement": "6141"
+          },
+          {
+            "wave": "692.655762",
+            "measurement": "6149"
+          },
+          {
+            "wave": "695.352783",
+            "measurement": "6072"
+          },
+          {
+            "wave": "698.049805",
+            "measurement": "6169"
+          },
+          {
+            "wave": "700.746826",
+            "measurement": "6075"
+          },
+          {
+            "wave": "703.443848",
+            "measurement": "6037"
+          },
+          {
+            "wave": "706.140869",
+            "measurement": "6165"
+          },
+          {
+            "wave": "708.837891",
+            "measurement": "6023"
+          },
+          {
+            "wave": "711.534912",
+            "measurement": "6161"
+          },
+          {
+            "wave": "714.231934",
+            "measurement": "6152"
+          },
+          {
+            "wave": "716.928955",
+            "measurement": "6030"
+          },
+          {
+            "wave": "719.625977",
+            "measurement": "6154"
+          },
+          {
+            "wave": "722.322998",
+            "measurement": "6141"
+          },
+          {
+            "wave": "725.020020",
+            "measurement": "6062"
+          },
+          {
+            "wave": "727.717041",
+            "measurement": "6194"
+          },
+          {
+            "wave": "730.414062",
+            "measurement": "5989"
+          },
+          {
+            "wave": "733.111084",
+            "measurement": "6185"
+          },
+          {
+            "wave": "735.808105",
+            "measurement": "6147"
+          },
+          {
+            "wave": "738.505127",
+            "measurement": "6037"
+          },
+          {
+            "wave": "741.202148",
+            "measurement": "6216"
+          },
+          {
+            "wave": "743.899170",
+            "measurement": "6106"
+          },
+          {
+            "wave": "746.596191",
+            "measurement": "6029"
+          },
+          {
+            "wave": "749.293213",
+            "measurement": "6211"
+          },
+          {
+            "wave": "751.990234",
+            "measurement": "6038"
+          },
+          {
+            "wave": "754.687256",
+            "measurement": "6159"
+          },
+          {
+            "wave": "757.384277",
+            "measurement": "6103"
+          },
+          {
+            "wave": "760.081299",
+            "measurement": "6023"
+          },
+          {
+            "wave": "762.778320",
+            "measurement": "6229"
+          },
+          {
+            "wave": "765.475342",
+            "measurement": "6076"
+          },
+          {
+            "wave": "768.172363",
+            "measurement": "6029"
+          },
+          {
+            "wave": "770.869385",
+            "measurement": "6196"
+          },
+          {
+            "wave": "773.566406",
+            "measurement": "6018"
+          },
+          {
+            "wave": "776.263428",
+            "measurement": "6124"
+          },
+          {
+            "wave": "778.960449",
+            "measurement": "6105"
+          },
+          {
+            "wave": "781.657471",
+            "measurement": "6031"
+          },
+          {
+            "wave": "784.354492",
+            "measurement": "6111"
+          },
+          {
+            "wave": "787.051514",
+            "measurement": "6052"
+          },
+          {
+            "wave": "789.748535",
+            "measurement": "6007"
+          },
+          {
+            "wave": "792.445557",
+            "measurement": "6181"
+          },
+          {
+            "wave": "795.142578",
+            "measurement": "6083"
+          },
+          {
+            "wave": "797.839600",
+            "measurement": "6210"
+          },
+          {
+            "wave": "800.536621",
+            "measurement": "6258"
+          },
+          {
+            "wave": "803.233643",
+            "measurement": "6107"
+          },
+          {
             "wave": "805.930664",
-            "measurement": "6301"
+            "measurement": "6284"
           },
           {
             "wave": "808.627686",
-            "measurement": "6298"
+            "measurement": "6246"
           },
           {
             "wave": "811.324707",
-            "measurement": "6179"
+            "measurement": "6168"
           },
           {
             "wave": "814.021729",
-            "measurement": "6299"
+            "measurement": "6318"
           },
           {
             "wave": "816.718750",
-            "measurement": "6180"
+            "measurement": "6134"
           },
           {
             "wave": "819.415771",
-            "measurement": "6353"
+            "measurement": "6338"
           },
           {
             "wave": "822.112793",
-            "measurement": "6363"
+            "measurement": "6335"
           },
           {
             "wave": "824.809814",
-            "measurement": "6324"
+            "measurement": "6279"
           },
           {
             "wave": "827.506836",
-            "measurement": "6492"
+            "measurement": "6494"
           },
           {
             "wave": "830.203857",
-            "measurement": "6447"
+            "measurement": "6425"
           },
           {
             "wave": "832.900879",
-            "measurement": "6403"
+            "measurement": "6370"
           },
           {
             "wave": "835.597900",
-            "measurement": "6701"
+            "measurement": "6623"
           },
           {
             "wave": "838.294922",
-            "measurement": "6491"
+            "measurement": "6466"
           },
           {
             "wave": "840.991943",
-            "measurement": "6611"
+            "measurement": "6590"
           },
           {
             "wave": "843.688965",
-            "measurement": "6704"
+            "measurement": "6668"
           },
           {
             "wave": "846.385986",
-            "measurement": "6618"
+            "measurement": "6591"
           },
           {
             "wave": "849.083008",
-            "measurement": "6751"
+            "measurement": "6730"
           },
           {
             "wave": "851.780029",
-            "measurement": "6791"
+            "measurement": "6759"
           },
           {
             "wave": "854.477051",
-            "measurement": "6703"
+            "measurement": "6654"
           },
           {
             "wave": "857.174072",
-            "measurement": "6740"
+            "measurement": "6736"
           },
           {
             "wave": "859.871094",
-            "measurement": "6645"
+            "measurement": "6644"
           },
           {
             "wave": "862.568115",
-            "measurement": "6740"
+            "measurement": "6696"
           },
           {
             "wave": "865.265137",
-            "measurement": "6752"
+            "measurement": "6739"
           },
           {
             "wave": "867.962158",
-            "measurement": "6807"
+            "measurement": "6802"
           },
           {
             "wave": "870.659180",
-            "measurement": "7051"
+            "measurement": "6999"
           },
           {
             "wave": "873.356201",
-            "measurement": "6944"
+            "measurement": "6938"
           },
           {
             "wave": "876.053223",
-            "measurement": "7078"
+            "measurement": "7033"
           },
           {
             "wave": "878.750244",
@@ -3159,43 +3162,43 @@
           },
           {
             "wave": "881.447266",
-            "measurement": "7219"
+            "measurement": "7186"
           },
           {
             "wave": "884.144287",
-            "measurement": "7334"
+            "measurement": "7296"
           },
           {
             "wave": "886.841309",
-            "measurement": "7390"
+            "measurement": "7375"
           },
           {
             "wave": "889.538330",
-            "measurement": "7261"
+            "measurement": "7219"
           },
           {
             "wave": "892.235352",
-            "measurement": "7421"
+            "measurement": "7404"
           },
           {
             "wave": "894.932373",
-            "measurement": "7451"
+            "measurement": "7419"
           },
           {
             "wave": "897.629395",
-            "measurement": "7360"
+            "measurement": "7330"
           },
           {
             "wave": "900.326416",
-            "measurement": "7515"
+            "measurement": "7495"
           },
           {
             "wave": "903.023438",
-            "measurement": "7364"
+            "measurement": "7358"
           },
           {
             "wave": "905.720459",
-            "measurement": "7370"
+            "measurement": "7397"
           },
           {
             "wave": "908.417480",
@@ -3203,279 +3206,279 @@
           },
           {
             "wave": "911.114502",
-            "measurement": "7361"
+            "measurement": "7307"
           },
           {
             "wave": "913.811523",
-            "measurement": "7451"
+            "measurement": "7439"
           },
           {
             "wave": "916.508545",
-            "measurement": "7424"
+            "measurement": "7456"
           },
           {
             "wave": "919.205566",
-            "measurement": "7301"
+            "measurement": "7330"
           },
           {
             "wave": "921.902588",
-            "measurement": "7471"
+            "measurement": "7450"
           },
           {
             "wave": "924.599609",
-            "measurement": "7255"
+            "measurement": "7281"
           },
           {
             "wave": "927.296631",
-            "measurement": "7432"
+            "measurement": "7419"
           },
           {
             "wave": "929.993652",
-            "measurement": "7413"
+            "measurement": "7402"
           },
           {
             "wave": "932.690674",
-            "measurement": "7255"
+            "measurement": "7253"
           },
           {
             "wave": "935.387695",
-            "measurement": "7463"
+            "measurement": "7432"
           },
           {
             "wave": "938.084717",
-            "measurement": "7326"
+            "measurement": "7374"
           },
           {
             "wave": "940.781738",
-            "measurement": "7322"
+            "measurement": "7308"
           },
           {
             "wave": "943.478760",
-            "measurement": "7410"
+            "measurement": "7407"
           },
           {
             "wave": "946.175781",
-            "measurement": "7199"
+            "measurement": "7172"
           },
           {
             "wave": "948.872803",
-            "measurement": "7243"
+            "measurement": "7254"
           },
           {
             "wave": "951.569824",
-            "measurement": "7228"
+            "measurement": "7234"
           },
           {
             "wave": "954.266846",
-            "measurement": "7104"
+            "measurement": "7070"
           },
           {
             "wave": "956.963867",
-            "measurement": "7163"
+            "measurement": "7161"
           },
           {
             "wave": "959.660889",
-            "measurement": "7141"
+            "measurement": "7123"
           },
           {
             "wave": "962.357910",
-            "measurement": "6929"
+            "measurement": "6912"
           },
           {
             "wave": "965.054932",
-            "measurement": "7086"
+            "measurement": "7066"
           },
           {
             "wave": "967.751953",
-            "measurement": "7021"
+            "measurement": "6983"
           },
           {
             "wave": "970.448975",
-            "measurement": "7020"
+            "measurement": "7035"
           },
           {
             "wave": "973.145996",
-            "measurement": "7099"
+            "measurement": "7072"
           },
           {
             "wave": "975.843018",
-            "measurement": "6957"
+            "measurement": "6958"
           },
           {
             "wave": "978.540039",
-            "measurement": "7063"
+            "measurement": "7037"
           },
           {
             "wave": "981.237061",
-            "measurement": "6978"
+            "measurement": "6981"
           },
           {
             "wave": "983.934082",
-            "measurement": "6943"
+            "measurement": "6958"
           },
           {
             "wave": "986.631104",
-            "measurement": "7144"
+            "measurement": "7129"
           },
           {
             "wave": "989.328125",
-            "measurement": "6974"
+            "measurement": "6983"
           },
           {
             "wave": "992.025146",
-            "measurement": "6996"
+            "measurement": "6978"
           },
           {
             "wave": "994.722168",
-            "measurement": "7017"
+            "measurement": "7027"
           },
           {
             "wave": "997.419189",
-            "measurement": "6943"
+            "measurement": "6914"
           },
           {
             "wave": "1000.116211",
-            "measurement": "7031"
+            "measurement": "7021"
           },
           {
             "wave": "1002.813232",
-            "measurement": "6936"
+            "measurement": "6907"
           },
           {
             "wave": "1005.510254",
-            "measurement": "6835"
+            "measurement": "6839"
           },
           {
             "wave": "1008.207275",
-            "measurement": "6986"
+            "measurement": "6949"
           },
           {
             "wave": "1010.904297",
-            "measurement": "6909"
+            "measurement": "6906"
           },
           {
             "wave": "1013.601318",
-            "measurement": "6910"
+            "measurement": "6872"
           },
           {
             "wave": "1016.298340",
-            "measurement": "6902"
+            "measurement": "6880"
           },
           {
             "wave": "1018.995361",
-            "measurement": "6786"
+            "measurement": "6765"
           },
           {
             "wave": "1021.692383",
-            "measurement": "6927"
+            "measurement": "6906"
           },
           {
             "wave": "1024.389404",
-            "measurement": "6892"
+            "measurement": "6856"
           },
           {
             "wave": "1027.086426",
-            "measurement": "6782"
+            "measurement": "6755"
           },
           {
             "wave": "1029.783447",
-            "measurement": "6963"
+            "measurement": "6948"
           },
           {
             "wave": "1032.480469",
-            "measurement": "6687"
+            "measurement": "6689"
           },
           {
             "wave": "1035.177490",
-            "measurement": "6738"
+            "measurement": "6699"
           },
           {
             "wave": "1037.874512",
-            "measurement": "6806"
+            "measurement": "6791"
           },
           {
             "wave": "1040.571533",
-            "measurement": "6721"
-          },
-          {
-            "wave": "1043.268555",
-            "measurement": "6801"
-          },
-          {
-            "wave": "1045.965576",
             "measurement": "6734"
           },
           {
+            "wave": "1043.268555",
+            "measurement": "6811"
+          },
+          {
+            "wave": "1045.965576",
+            "measurement": "6702"
+          },
+          {
             "wave": "1048.662598",
-            "measurement": "6656"
+            "measurement": "6639"
           },
           {
             "wave": "1051.359619",
-            "measurement": "6803"
+            "measurement": "6734"
           },
           {
             "wave": "1054.056641",
-            "measurement": "6680"
+            "measurement": "6679"
           },
           {
             "wave": "1056.753662",
-            "measurement": "6790"
+            "measurement": "6774"
           },
           {
             "wave": "1059.450684",
-            "measurement": "6747"
+            "measurement": "6713"
           },
           {
             "wave": "1062.147705",
-            "measurement": "6554"
+            "measurement": "6542"
           },
           {
             "wave": "1064.844727",
-            "measurement": "6718"
+            "measurement": "6681"
           },
           {
             "wave": "1067.541748",
-            "measurement": "6692"
+            "measurement": "6656"
           },
           {
             "wave": "1070.238770",
-            "measurement": "6568"
+            "measurement": "6561"
           },
           {
             "wave": "1072.935791",
-            "measurement": "6706"
+            "measurement": "6674"
           },
           {
             "wave": "1075.632812",
-            "measurement": "6524"
+            "measurement": "6517"
           },
           {
             "wave": "1078.329834",
-            "measurement": "6574"
+            "measurement": "6570"
           },
           {
             "wave": "1081.026855",
-            "measurement": "6680"
+            "measurement": "6647"
           },
           {
             "wave": "1083.723877",
-            "measurement": "6513"
+            "measurement": "6491"
           },
           {
             "wave": "1086.420898",
-            "measurement": "6628"
+            "measurement": "6588"
           },
           {
             "wave": "1089.117920",
-            "measurement": "6566"
+            "measurement": "6572"
           },
           {
             "wave": "1091.814941",
-            "measurement": "6424"
+            "measurement": "6415"
           },
           {
             "wave": "1094.511963",
-            "measurement": "6651"
+            "measurement": "6594"
           }
         ]
       },
@@ -10673,7 +10676,7 @@
           },
           {
             "wave": "1696",
-            "measurement": "nan"
+            "measurement": "0.000000"
           },
           {
             "wave": "1697",
@@ -15503,1155 +15506,1155 @@
         "preprocessed": [
           {
             "wave": "320.468994",
-            "measurement": "-0.092105"
+            "measurement": "0.828947"
           },
           {
             "wave": "323.165985",
-            "measurement": "0.783784"
+            "measurement": "0.000000"
           },
           {
             "wave": "325.862976",
-            "measurement": "1.300000"
+            "measurement": "1.100000"
           },
           {
             "wave": "328.559967",
-            "measurement": "0.120000"
-          },
-          {
-            "wave": "331.256958",
-            "measurement": "0.487179"
-          },
-          {
-            "wave": "333.953949",
-            "measurement": "0.368421"
-          },
-          {
-            "wave": "336.650940",
-            "measurement": "0.823529"
-          },
-          {
-            "wave": "339.347931",
-            "measurement": "0.162162"
-          },
-          {
-            "wave": "342.044922",
             "measurement": "1.800000"
           },
           {
+            "wave": "331.256958",
+            "measurement": "0.307692"
+          },
+          {
+            "wave": "333.953949",
+            "measurement": "0.289474"
+          },
+          {
+            "wave": "336.650940",
+            "measurement": "0.647059"
+          },
+          {
+            "wave": "339.347931",
+            "measurement": "0.540541"
+          },
+          {
+            "wave": "342.044922",
+            "measurement": "0.900000"
+          },
+          {
             "wave": "344.741913",
-            "measurement": "1.181818"
+            "measurement": "0.606061"
           },
           {
             "wave": "347.438904",
-            "measurement": "0.033333"
+            "measurement": "0.233333"
           },
           {
             "wave": "350.135895",
-            "measurement": "1.069767"
+            "measurement": "-0.116279"
           },
           {
             "wave": "352.832886",
-            "measurement": "0.871795"
+            "measurement": "0.487179"
           },
           {
             "wave": "355.529877",
-            "measurement": "0.714286"
+            "measurement": "0.107143"
           },
           {
             "wave": "358.226868",
-            "measurement": "-0.080000"
+            "measurement": "-0.920000"
           },
           {
             "wave": "360.923859",
-            "measurement": "0.793103"
+            "measurement": "0.103448"
           },
           {
             "wave": "363.620850",
-            "measurement": "1.058824"
+            "measurement": "1.176471"
           },
           {
             "wave": "366.317841",
-            "measurement": "0.384615"
+            "measurement": "2.153846"
           },
           {
             "wave": "369.014832",
-            "measurement": "0.875000"
+            "measurement": "0.625000"
           },
           {
             "wave": "371.711823",
-            "measurement": "0.322034"
+            "measurement": "0.101695"
           },
           {
             "wave": "374.408813",
-            "measurement": "0.129252"
+            "measurement": "0.068027"
           },
           {
             "wave": "377.105804",
-            "measurement": "0.121076"
+            "measurement": "0.049327"
           },
           {
             "wave": "379.802795",
-            "measurement": "0.106796"
+            "measurement": "-0.077670"
           },
           {
             "wave": "382.499786",
-            "measurement": "0.103333"
+            "measurement": "-0.023333"
           },
           {
             "wave": "385.196777",
-            "measurement": "0.046083"
+            "measurement": "0.050691"
           },
           {
             "wave": "387.893768",
-            "measurement": "0.440367"
+            "measurement": "0.091743"
           },
           {
             "wave": "390.590759",
-            "measurement": "0.437500"
+            "measurement": "0.000000"
           },
           {
             "wave": "393.287750",
-            "measurement": "0.363636"
+            "measurement": "0.313131"
           },
           {
             "wave": "395.984741",
-            "measurement": "0.126482"
+            "measurement": "0.031621"
           },
           {
             "wave": "398.681732",
-            "measurement": "0.091451"
+            "measurement": "0.067594"
           },
           {
             "wave": "401.378723",
-            "measurement": "0.080808"
+            "measurement": "0.061869"
           },
           {
             "wave": "404.075714",
-            "measurement": "0.079844"
+            "measurement": "0.066212"
           },
           {
             "wave": "406.772705",
-            "measurement": "0.059061"
+            "measurement": "0.039644"
           },
           {
             "wave": "409.469696",
-            "measurement": "0.080966"
+            "measurement": "0.063920"
           },
           {
             "wave": "412.166687",
-            "measurement": "0.074254"
+            "measurement": "0.066951"
           },
           {
             "wave": "414.863678",
-            "measurement": "0.069386"
+            "measurement": "0.068326"
           },
           {
             "wave": "417.560669",
-            "measurement": "0.074668"
+            "measurement": "0.051764"
           },
           {
             "wave": "420.257660",
-            "measurement": "0.083299"
+            "measurement": "0.055118"
           },
           {
             "wave": "422.954651",
-            "measurement": "0.076169"
+            "measurement": "0.064480"
           },
           {
             "wave": "425.651642",
-            "measurement": "0.072990"
+            "measurement": "0.053949"
           },
           {
             "wave": "428.348633",
-            "measurement": "0.091124"
+            "measurement": "0.058724"
           },
           {
             "wave": "431.045624",
-            "measurement": "0.075322"
+            "measurement": "0.064751"
           },
           {
             "wave": "433.742615",
-            "measurement": "0.077456"
+            "measurement": "0.067568"
           },
           {
             "wave": "436.439606",
-            "measurement": "0.089455"
+            "measurement": "0.064316"
           },
           {
             "wave": "439.136597",
-            "measurement": "0.087685"
+            "measurement": "0.062863"
           },
           {
             "wave": "441.833588",
-            "measurement": "0.074959"
+            "measurement": "0.064157"
           },
           {
             "wave": "444.530579",
-            "measurement": "0.089303"
+            "measurement": "0.063283"
           },
           {
             "wave": "447.227570",
-            "measurement": "0.092419"
+            "measurement": "0.075188"
           },
           {
             "wave": "449.924561",
-            "measurement": "0.088371"
+            "measurement": "0.072415"
           },
           {
             "wave": "452.621552",
-            "measurement": "0.103131"
+            "measurement": "0.081952"
           },
           {
             "wave": "455.318542",
-            "measurement": "0.107763"
+            "measurement": "0.085845"
           },
           {
             "wave": "458.015533",
-            "measurement": "0.112515"
+            "measurement": "0.091554"
           },
           {
             "wave": "460.712524",
-            "measurement": "0.127977"
+            "measurement": "0.098444"
           },
           {
             "wave": "463.409515",
-            "measurement": "0.133934"
+            "measurement": "0.100129"
           },
           {
             "wave": "466.106506",
-            "measurement": "0.151824"
+            "measurement": "0.105817"
           },
           {
             "wave": "468.803497",
-            "measurement": "0.152847"
+            "measurement": "0.123210"
           },
           {
             "wave": "471.500488",
-            "measurement": "0.166266"
+            "measurement": "0.126074"
           },
           {
             "wave": "474.197479",
-            "measurement": "0.177981"
+            "measurement": "0.138586"
           },
           {
             "wave": "476.894470",
-            "measurement": "0.198106"
+            "measurement": "0.141296"
           },
           {
             "wave": "479.591461",
-            "measurement": "0.204701"
+            "measurement": "0.146702"
           },
           {
             "wave": "482.288452",
-            "measurement": "0.221242"
+            "measurement": "0.153908"
           },
           {
             "wave": "484.985443",
-            "measurement": "0.205128"
+            "measurement": "0.168321"
           },
           {
             "wave": "487.682434",
-            "measurement": "0.244318"
+            "measurement": "0.163024"
           },
           {
             "wave": "490.379425",
-            "measurement": "0.233784"
+            "measurement": "0.180588"
           },
           {
             "wave": "493.076416",
-            "measurement": "0.272501"
+            "measurement": "0.194928"
           },
           {
             "wave": "495.773407",
-            "measurement": "0.284049"
+            "measurement": "0.214096"
           },
           {
             "wave": "498.470398",
-            "measurement": "0.297447"
+            "measurement": "0.199778"
           },
           {
             "wave": "501.167389",
-            "measurement": "0.301750"
+            "measurement": "0.217864"
           },
           {
             "wave": "503.864380",
-            "measurement": "0.338838"
+            "measurement": "0.247028"
           },
           {
             "wave": "506.561371",
-            "measurement": "0.379747"
+            "measurement": "0.237693"
           },
           {
             "wave": "509.258362",
-            "measurement": "0.395629"
+            "measurement": "0.251696"
           },
           {
             "wave": "511.955353",
-            "measurement": "0.424092"
+            "measurement": "0.285479"
           },
           {
             "wave": "514.652344",
-            "measurement": "0.434706"
+            "measurement": "0.299737"
           },
           {
             "wave": "517.349365",
-            "measurement": "0.457689"
+            "measurement": "0.293904"
           },
           {
             "wave": "520.046387",
-            "measurement": "0.482318"
+            "measurement": "0.353635"
           },
           {
             "wave": "522.743408",
-            "measurement": "0.508790"
+            "measurement": "0.316443"
           },
           {
             "wave": "525.440430",
-            "measurement": "0.535912"
+            "measurement": "0.362431"
           },
           {
             "wave": "528.137451",
-            "measurement": "0.595128"
+            "measurement": "0.415313"
           },
           {
             "wave": "530.834473",
-            "measurement": "0.643392"
+            "measurement": "0.392768"
           },
           {
             "wave": "533.531494",
-            "measurement": "0.637997"
+            "measurement": "0.394095"
           },
           {
             "wave": "536.228516",
-            "measurement": "0.747839"
+            "measurement": "0.465418"
           },
           {
             "wave": "538.925537",
-            "measurement": "0.778434"
+            "measurement": "0.474151"
           },
           {
             "wave": "541.622559",
-            "measurement": "0.856918"
+            "measurement": "0.536164"
           },
           {
             "wave": "544.319580",
-            "measurement": "0.897010"
+            "measurement": "0.593023"
           },
           {
             "wave": "547.016602",
-            "measurement": "0.923205"
+            "measurement": "0.572621"
           },
           {
             "wave": "549.713623",
-            "measurement": "1.010345"
+            "measurement": "0.644828"
           },
           {
             "wave": "552.410645",
-            "measurement": "1.107664"
+            "measurement": "0.687956"
           },
           {
             "wave": "555.107666",
-            "measurement": "1.226488"
+            "measurement": "0.692898"
           },
           {
             "wave": "557.804688",
-            "measurement": "1.246436"
+            "measurement": "0.757638"
           },
           {
             "wave": "560.501709",
-            "measurement": "1.478261"
+            "measurement": "0.855835"
           },
           {
             "wave": "563.198730",
-            "measurement": "1.495327"
+            "measurement": "0.876168"
           },
           {
             "wave": "565.895752",
-            "measurement": "1.763224"
+            "measurement": "1.032746"
           },
           {
             "wave": "568.592773",
-            "measurement": "1.873995"
+            "measurement": "1.142091"
           },
           {
             "wave": "571.289795",
-            "measurement": "1.916216"
+            "measurement": "1.062162"
           },
           {
             "wave": "573.986816",
-            "measurement": "2.053221"
+            "measurement": "1.190476"
           },
           {
             "wave": "576.683838",
-            "measurement": "2.371601"
+            "measurement": "1.335347"
           },
           {
             "wave": "579.380859",
-            "measurement": "2.537415"
+            "measurement": "1.428571"
           },
           {
             "wave": "582.077881",
-            "measurement": "2.563107"
+            "measurement": "1.469256"
           },
           {
             "wave": "584.774902",
-            "measurement": "2.748299"
+            "measurement": "1.646258"
           },
           {
             "wave": "587.471924",
-            "measurement": "2.971631"
+            "measurement": "1.744681"
           },
           {
             "wave": "590.168945",
-            "measurement": "2.996169"
+            "measurement": "1.697318"
           },
           {
             "wave": "592.865967",
-            "measurement": "3.410042"
+            "measurement": "2.050209"
           },
           {
             "wave": "595.562988",
-            "measurement": "3.383673"
+            "measurement": "1.946939"
           },
           {
             "wave": "598.260010",
-            "measurement": "3.668182"
+            "measurement": "2.209091"
           },
           {
             "wave": "600.957031",
-            "measurement": "3.523809"
+            "measurement": "2.082251"
           },
           {
             "wave": "603.654053",
-            "measurement": "3.880184"
+            "measurement": "2.211982"
           },
           {
             "wave": "606.351074",
-            "measurement": "3.922018"
+            "measurement": "2.169725"
           },
           {
             "wave": "609.048096",
-            "measurement": "3.895735"
+            "measurement": "2.345972"
           },
           {
             "wave": "611.745117",
-            "measurement": "4.030000"
+            "measurement": "2.580000"
           },
           {
             "wave": "614.442139",
-            "measurement": "4.005000"
+            "measurement": "2.485000"
           },
           {
             "wave": "617.139160",
-            "measurement": "4.100000"
+            "measurement": "2.573684"
           },
           {
             "wave": "619.836182",
-            "measurement": "4.304348"
+            "measurement": "2.646739"
           },
           {
             "wave": "622.533203",
-            "measurement": "4.121053"
+            "measurement": "2.626316"
           },
           {
             "wave": "625.230225",
-            "measurement": "4.375690"
+            "measurement": "2.712707"
           },
           {
             "wave": "627.927246",
-            "measurement": "5.069620"
+            "measurement": "3.215190"
           },
           {
             "wave": "630.624268",
-            "measurement": "5.701389"
+            "measurement": "3.277778"
           },
           {
             "wave": "633.321289",
-            "measurement": "5.638158"
+            "measurement": "3.302632"
           },
           {
             "wave": "636.018311",
-            "measurement": "5.503030"
+            "measurement": "3.236364"
           },
           {
             "wave": "638.715332",
-            "measurement": "5.212644"
+            "measurement": "2.959770"
           },
           {
             "wave": "641.412354",
-            "measurement": "6.200000"
+            "measurement": "3.526667"
           },
           {
             "wave": "644.109375",
-            "measurement": "5.986667"
+            "measurement": "3.493333"
           },
           {
             "wave": "646.806396",
-            "measurement": "5.795031"
+            "measurement": "3.459627"
           },
           {
             "wave": "649.503418",
-            "measurement": "6.618055"
+            "measurement": "3.847222"
           },
           {
             "wave": "652.200439",
-            "measurement": "8.542056"
+            "measurement": "5.168224"
           },
           {
             "wave": "654.897461",
-            "measurement": "7.770492"
+            "measurement": "4.639344"
           },
           {
             "wave": "657.594482",
-            "measurement": "5.637500"
+            "measurement": "3.343750"
           },
           {
             "wave": "660.291504",
-            "measurement": "6.951049"
+            "measurement": "3.657343"
           },
           {
             "wave": "662.988525",
-            "measurement": "6.582734"
+            "measurement": "4.223022"
           },
           {
             "wave": "665.685547",
-            "measurement": "6.863309"
+            "measurement": "4.158273"
           },
           {
             "wave": "668.382568",
-            "measurement": "6.787879"
+            "measurement": "4.234848"
           },
           {
             "wave": "671.079590",
-            "measurement": "5.176136"
+            "measurement": "3.119318"
           },
           {
             "wave": "673.776611",
-            "measurement": "6.226027"
+            "measurement": "3.582192"
           },
           {
             "wave": "676.473633",
-            "measurement": "5.854430"
+            "measurement": "3.392405"
           },
           {
             "wave": "679.170654",
-            "measurement": "5.760479"
+            "measurement": "3.538922"
           },
           {
             "wave": "681.867676",
-            "measurement": "6.208054"
+            "measurement": "3.818792"
           },
           {
             "wave": "684.564697",
-            "measurement": "5.261364"
+            "measurement": "3.159091"
           },
           {
             "wave": "687.261719",
-            "measurement": "5.549707"
+            "measurement": "3.339181"
           },
           {
             "wave": "689.958740",
-            "measurement": "5.646341"
+            "measurement": "3.475610"
           },
           {
             "wave": "692.655762",
-            "measurement": "5.745098"
+            "measurement": "3.601307"
           },
           {
             "wave": "695.352783",
-            "measurement": "5.706250"
+            "measurement": "3.325000"
           },
           {
             "wave": "698.049805",
-            "measurement": "6.703704"
+            "measurement": "4.155556"
           },
           {
             "wave": "700.746826",
-            "measurement": "5.692307"
+            "measurement": "3.679487"
           },
           {
             "wave": "703.443848",
-            "measurement": "5.151685"
+            "measurement": "3.112360"
           },
           {
             "wave": "706.140869",
-            "measurement": "5.284024"
+            "measurement": "3.414201"
           },
           {
             "wave": "708.837891",
-            "measurement": "5.838710"
+            "measurement": "3.632258"
           },
           {
             "wave": "711.534912",
-            "measurement": "6.720280"
+            "measurement": "4.223776"
           },
           {
             "wave": "714.231934",
-            "measurement": "6.364780"
+            "measurement": "3.842767"
           },
           {
             "wave": "716.928955",
-            "measurement": "5.576271"
+            "measurement": "3.548023"
           },
           {
             "wave": "719.625977",
-            "measurement": "6.028902"
+            "measurement": "3.826590"
           },
           {
             "wave": "722.322998",
-            "measurement": "6.891026"
+            "measurement": "4.442307"
           },
           {
             "wave": "725.020020",
-            "measurement": "6.518750"
+            "measurement": "3.981250"
           },
           {
             "wave": "727.717041",
-            "measurement": "5.882022"
+            "measurement": "3.943820"
           },
           {
             "wave": "730.414062",
-            "measurement": "5.907104"
+            "measurement": "3.770492"
           },
           {
             "wave": "733.111084",
-            "measurement": "5.817679"
+            "measurement": "4.049724"
           },
           {
             "wave": "735.808105",
-            "measurement": "5.916667"
+            "measurement": "3.843750"
           },
           {
             "wave": "738.505127",
-            "measurement": "5.896907"
+            "measurement": "3.788660"
           },
           {
             "wave": "741.202148",
-            "measurement": "6.180851"
+            "measurement": "3.941489"
           },
           {
             "wave": "743.899170",
-            "measurement": "5.890052"
+            "measurement": "4.020942"
           },
           {
             "wave": "746.596191",
-            "measurement": "6.195652"
+            "measurement": "4.070652"
           },
           {
             "wave": "749.293213",
-            "measurement": "6.470930"
+            "measurement": "4.412791"
           },
           {
             "wave": "751.990234",
-            "measurement": "5.600985"
+            "measurement": "3.748769"
           },
           {
             "wave": "754.687256",
-            "measurement": "6.072917"
+            "measurement": "3.968750"
           },
           {
             "wave": "757.384277",
-            "measurement": "6.050761"
+            "measurement": "4.172589"
           },
           {
             "wave": "760.081299",
-            "measurement": "5.744076"
+            "measurement": "3.985782"
           },
           {
             "wave": "762.778320",
-            "measurement": "5.806604"
+            "measurement": "4.047170"
           },
           {
             "wave": "765.475342",
-            "measurement": "6.225962"
+            "measurement": "4.187500"
           },
           {
             "wave": "768.172363",
-            "measurement": "6.787234"
+            "measurement": "4.664894"
           },
           {
             "wave": "770.869385",
-            "measurement": "6.046512"
+            "measurement": "4.079070"
           },
           {
             "wave": "773.566406",
-            "measurement": "6.442211"
+            "measurement": "4.608040"
           },
           {
             "wave": "776.263428",
-            "measurement": "6.295774"
+            "measurement": "4.211267"
           },
           {
             "wave": "778.960449",
-            "measurement": "6.558824"
+            "measurement": "4.490196"
           },
           {
             "wave": "781.657471",
-            "measurement": "6.680412"
+            "measurement": "4.726804"
           },
           {
             "wave": "784.354492",
-            "measurement": "7.611765"
+            "measurement": "5.270588"
           },
           {
             "wave": "787.051514",
-            "measurement": "6.636364"
+            "measurement": "4.577540"
           },
           {
             "wave": "789.748535",
-            "measurement": "6.695402"
+            "measurement": "4.752873"
           },
           {
             "wave": "792.445557",
-            "measurement": "6.147541"
+            "measurement": "4.284153"
           },
           {
             "wave": "795.142578",
-            "measurement": "5.720430"
+            "measurement": "4.247312"
           },
           {
             "wave": "797.839600",
-            "measurement": "4.877934"
+            "measurement": "3.431925"
           },
           {
             "wave": "800.536621",
-            "measurement": "4.908213"
+            "measurement": "3.613527"
           },
           {
             "wave": "803.233643",
-            "measurement": "4.781553"
+            "measurement": "3.339806"
           },
           {
             "wave": "805.930664",
-            "measurement": "5.144330"
+            "measurement": "3.608248"
           },
           {
             "wave": "808.627686",
-            "measurement": "5.265306"
+            "measurement": "3.673469"
           },
           {
             "wave": "811.324707",
-            "measurement": "5.000000"
+            "measurement": "3.640000"
           },
           {
             "wave": "814.021729",
-            "measurement": "5.132653"
+            "measurement": "3.821429"
           },
           {
             "wave": "816.718750",
-            "measurement": "5.033493"
+            "measurement": "3.234450"
           },
           {
             "wave": "819.415771",
-            "measurement": "5.521505"
+            "measurement": "3.752688"
           },
           {
             "wave": "822.112793",
-            "measurement": "5.035000"
+            "measurement": "3.695000"
           },
           {
             "wave": "824.809814",
-            "measurement": "5.303030"
+            "measurement": "3.565657"
           },
           {
             "wave": "827.506836",
-            "measurement": "6.111111"
+            "measurement": "4.146199"
           },
           {
             "wave": "830.203857",
-            "measurement": "5.436464"
+            "measurement": "3.613260"
           },
           {
             "wave": "832.900879",
-            "measurement": "4.871287"
+            "measurement": "3.321782"
           },
           {
             "wave": "835.597900",
-            "measurement": "5.307262"
+            "measurement": "3.513967"
           },
           {
             "wave": "838.294922",
-            "measurement": "4.339713"
+            "measurement": "2.755981"
           },
           {
             "wave": "840.991943",
-            "measurement": "5.515528"
+            "measurement": "3.639751"
           },
           {
             "wave": "843.688965",
-            "measurement": "4.629834"
+            "measurement": "3.276243"
           },
           {
             "wave": "846.385986",
-            "measurement": "4.039801"
+            "measurement": "2.587065"
           },
           {
             "wave": "849.083008",
-            "measurement": "4.707006"
+            "measurement": "3.089172"
           },
           {
             "wave": "851.780029",
-            "measurement": "4.357143"
+            "measurement": "2.688312"
           },
           {
             "wave": "854.477051",
-            "measurement": "3.472393"
+            "measurement": "2.257669"
           },
           {
             "wave": "857.174072",
-            "measurement": "2.777174"
+            "measurement": "1.668478"
           },
           {
             "wave": "859.871094",
-            "measurement": "2.806452"
+            "measurement": "1.341936"
           },
           {
             "wave": "862.568115",
-            "measurement": "2.068571"
+            "measurement": "1.114286"
           },
           {
             "wave": "865.265137",
-            "measurement": "2.198758"
+            "measurement": "1.118012"
           },
           {
             "wave": "867.962158",
-            "measurement": "2.030120"
+            "measurement": "0.915663"
           },
           {
             "wave": "870.659180",
-            "measurement": "2.876923"
+            "measurement": "1.269231"
           },
           {
             "wave": "873.356201",
-            "measurement": "1.717703"
+            "measurement": "0.870813"
           },
           {
             "wave": "876.053223",
-            "measurement": "2.348387"
+            "measurement": "1.180645"
           },
           {
             "wave": "878.750244",
-            "measurement": "2.400000"
+            "measurement": "0.896296"
           },
           {
             "wave": "881.447266",
-            "measurement": "2.526718"
+            "measurement": "0.633588"
           },
           {
             "wave": "884.144287",
-            "measurement": "2.035971"
+            "measurement": "0.568345"
           },
           {
             "wave": "886.841309",
-            "measurement": "1.907143"
+            "measurement": "0.378571"
           },
           {
             "wave": "889.538330",
-            "measurement": "1.757812"
+            "measurement": "0.539062"
           },
           {
             "wave": "892.235352",
-            "measurement": "1.962406"
+            "measurement": "-0.082707"
           },
           {
             "wave": "894.932373",
-            "measurement": "1.666667"
+            "measurement": "-0.075758"
           },
           {
             "wave": "897.629395",
-            "measurement": "1.474074"
+            "measurement": "-0.155556"
           },
           {
             "wave": "900.326416",
-            "measurement": "1.102362"
+            "measurement": "-0.322835"
           },
           {
             "wave": "903.023438",
-            "measurement": "0.924138"
+            "measurement": "-0.406897"
           },
           {
             "wave": "905.720459",
-            "measurement": "1.279070"
+            "measurement": "-0.720930"
           },
           {
             "wave": "908.417480",
-            "measurement": "0.752381"
+            "measurement": "-0.628571"
           },
           {
             "wave": "911.114502",
-            "measurement": "0.230159"
+            "measurement": "-0.984127"
           },
           {
             "wave": "913.811523",
-            "measurement": "1.033613"
+            "measurement": "-0.873950"
           },
           {
             "wave": "916.508545",
-            "measurement": "0.156028"
+            "measurement": "-0.865248"
           },
           {
             "wave": "919.205566",
-            "measurement": "0.377358"
+            "measurement": "-0.896226"
           },
           {
             "wave": "921.902588",
-            "measurement": "-0.061224"
+            "measurement": "-1.214286"
           },
           {
             "wave": "924.599609",
-            "measurement": "0.291667"
+            "measurement": "-1.158333"
           },
           {
             "wave": "927.296631",
-            "measurement": "0.371134"
+            "measurement": "-1.422680"
           },
           {
             "wave": "929.993652",
-            "measurement": "0.500000"
+            "measurement": "-1.600000"
           },
           {
             "wave": "932.690674",
-            "measurement": "0.066667"
+            "measurement": "-1.171429"
           },
           {
             "wave": "935.387695",
-            "measurement": "-0.250000"
+            "measurement": "-1.575000"
           },
           {
             "wave": "938.084717",
-            "measurement": "-0.217391"
+            "measurement": "-2.014493"
           },
           {
             "wave": "940.781738",
-            "measurement": "0.243590"
+            "measurement": "-1.756410"
           },
           {
             "wave": "943.478760",
-            "measurement": "-0.404255"
+            "measurement": "-1.776596"
           },
           {
             "wave": "946.175781",
-            "measurement": "-0.528846"
+            "measurement": "-1.442308"
           },
           {
             "wave": "948.872803",
-            "measurement": "-0.200000"
+            "measurement": "-3.000000"
           },
           {
             "wave": "951.569824",
-            "measurement": "-0.187500"
+            "measurement": "-1.850000"
           },
           {
             "wave": "954.266846",
-            "measurement": "-0.289157"
+            "measurement": "-1.542169"
           },
           {
             "wave": "956.963867",
-            "measurement": "-0.589744"
+            "measurement": "-1.525641"
           },
           {
             "wave": "959.660889",
-            "measurement": "-0.436364"
+            "measurement": "-2.327273"
           },
           {
             "wave": "962.357910",
-            "measurement": "-0.540984"
+            "measurement": "-1.967213"
           },
           {
             "wave": "965.054932",
-            "measurement": "-0.284483"
+            "measurement": "-0.844828"
           },
           {
             "wave": "967.751953",
-            "measurement": "-0.857143"
+            "measurement": "-2.952381"
           },
           {
             "wave": "970.448975",
-            "measurement": "-1.527273"
+            "measurement": "-2.090909"
           },
           {
             "wave": "973.145996",
-            "measurement": "-3.238095"
+            "measurement": "-5.857143"
           },
           {
             "wave": "975.843018",
-            "measurement": "-1.785714"
+            "measurement": "-3.785714"
           },
           {
             "wave": "978.540039",
-            "measurement": "0.133333"
+            "measurement": "-3.866667"
           },
           {
             "wave": "981.237061",
-            "measurement": "-2.029412"
+            "measurement": "-3.735294"
           },
           {
             "wave": "983.934082",
-            "measurement": "-0.463768"
+            "measurement": "-1.898551"
           },
           {
             "wave": "986.631104",
-            "measurement": "-0.805970"
+            "measurement": "-1.552239"
           },
           {
             "wave": "989.328125",
-            "measurement": "-0.397059"
+            "measurement": "-2.000000"
           },
           {
             "wave": "992.025146",
-            "measurement": "-0.945946"
+            "measurement": "-1.945946"
           },
           {
             "wave": "994.722168",
-            "measurement": "-1.040816"
+            "measurement": "-2.306123"
           },
           {
             "wave": "997.419189",
-            "measurement": "-1.230769"
+            "measurement": "-4.769231"
           },
           {
             "wave": "1000.116211",
-            "measurement": "-0.793103"
+            "measurement": "-3.310345"
           },
           {
             "wave": "1002.813232",
-            "measurement": "-0.412698"
+            "measurement": "-1.746032"
           },
           {
             "wave": "1005.510254",
-            "measurement": "-0.685714"
+            "measurement": "-3.971429"
           },
           {
             "wave": "1008.207275",
-            "measurement": "-1.289474"
+            "measurement": "-2.368421"
           },
           {
             "wave": "1010.904297",
-            "measurement": "-0.950000"
+            "measurement": "-3.025000"
           },
           {
             "wave": "1013.601318",
-            "measurement": "-0.571429"
+            "measurement": "-1.821429"
           },
           {
             "wave": "1016.298340",
-            "measurement": "-1.814815"
+            "measurement": "-3.296296"
           },
           {
             "wave": "1018.995361",
-            "measurement": "-0.432836"
+            "measurement": "-1.238806"
           },
           {
             "wave": "1021.692383",
-            "measurement": "-0.913793"
+            "measurement": "-1.931034"
           },
           {
             "wave": "1024.389404",
-            "measurement": "-1.882353"
+            "measurement": "-6.882353"
           },
           {
             "wave": "1027.086426",
-            "measurement": "-0.380282"
+            "measurement": "-1.084507"
           },
           {
             "wave": "1029.783447",
-            "measurement": "-0.204082"
+            "measurement": "-1.081633"
           },
           {
             "wave": "1032.480469",
-            "measurement": "-8.400000"
+            "measurement": "-12.600000"
           },
           {
             "wave": "1035.177490",
-            "measurement": "0.473684"
+            "measurement": "-1.578947"
           },
           {
             "wave": "1037.874512",
-            "measurement": "-0.820000"
+            "measurement": "-1.220000"
           },
           {
             "wave": "1040.571533",
-            "measurement": "-0.613636"
+            "measurement": "-1.045455"
           },
           {
             "wave": "1043.268555",
-            "measurement": "0.250000"
+            "measurement": "-1.200000"
           },
           {
             "wave": "1045.965576",
-            "measurement": "-0.805556"
+            "measurement": "-1.305556"
           },
           {
             "wave": "1048.662598",
-            "measurement": "-0.230769"
+            "measurement": "-1.846154"
           },
           {
             "wave": "1051.359619",
-            "measurement": "0.083333"
+            "measurement": "-2.416667"
           },
           {
             "wave": "1054.056641",
-            "measurement": "-0.026316"
+            "measurement": "-0.631579"
           },
           {
             "wave": "1056.753662",
-            "measurement": "-0.651163"
+            "measurement": "-0.325581"
           },
           {
             "wave": "1059.450684",
-            "measurement": "0.020408"
+            "measurement": "-0.877551"
           },
           {
             "wave": "1062.147705",
-            "measurement": "0.000000"
+            "measurement": "-1.021277"
           },
           {
             "wave": "1064.844727",
-            "measurement": "-0.566667"
+            "measurement": "-0.933333"
           },
           {
             "wave": "1067.541748",
-            "measurement": "-0.034483"
+            "measurement": "-1.000000"
           },
           {
             "wave": "1070.238770",
-            "measurement": "-0.636364"
+            "measurement": "-2.727273"
           },
           {
             "wave": "1072.935791",
-            "measurement": "0.105263"
+            "measurement": "-1.578947"
           },
           {
             "wave": "1075.632812",
-            "measurement": "0.071429"
+            "measurement": "2.428571"
           },
           {
             "wave": "1078.329834",
-            "measurement": "0.297297"
+            "measurement": "-1.216216"
           },
           {
             "wave": "1081.026855",
-            "measurement": "0.000000"
+            "measurement": "-2.833333"
           },
           {
             "wave": "1083.723877",
-            "measurement": "0.055556"
+            "measurement": "-0.555556"
           },
           {
             "wave": "1086.420898",
-            "measurement": "-5.500000"
+            "measurement": "-19.500000"
           },
           {
             "wave": "1089.117920",
-            "measurement": "0.407407"
+            "measurement": "-1.407407"
           },
           {
             "wave": "1091.814941",
-            "measurement": "-0.107143"
+            "measurement": "-0.785714"
           },
           {
             "wave": "1094.511963",
-            "measurement": "-2.500000"
+            "measurement": "-3.250000"
           }
         ],
         "whiteReference": [
@@ -17811,831 +17814,831 @@
         "darkReference": [
           {
             "wave": "320.468994",
-            "measurement": "7431"
+            "measurement": "7454"
           },
           {
             "wave": "323.165985",
-            "measurement": "6096"
-          },
-          {
-            "wave": "325.862976",
-            "measurement": "6163"
-          },
-          {
-            "wave": "328.559967",
-            "measurement": "6046"
-          },
-          {
-            "wave": "331.256958",
-            "measurement": "6138"
-          },
-          {
-            "wave": "333.953949",
-            "measurement": "6038"
-          },
-          {
-            "wave": "336.650940",
-            "measurement": "6039"
-          },
-          {
-            "wave": "339.347931",
-            "measurement": "6216"
-          },
-          {
-            "wave": "342.044922",
-            "measurement": "6079"
-          },
-          {
-            "wave": "344.741913",
-            "measurement": "6158"
-          },
-          {
-            "wave": "347.438904",
-            "measurement": "6113"
-          },
-          {
-            "wave": "350.135895",
-            "measurement": "5957"
-          },
-          {
-            "wave": "352.832886",
-            "measurement": "6144"
-          },
-          {
-            "wave": "355.529877",
-            "measurement": "6035"
-          },
-          {
-            "wave": "358.226868",
-            "measurement": "6012"
-          },
-          {
-            "wave": "360.923859",
-            "measurement": "6199"
-          },
-          {
-            "wave": "363.620850",
-            "measurement": "5978"
-          },
-          {
-            "wave": "366.317841",
-            "measurement": "6101"
-          },
-          {
-            "wave": "369.014832",
-            "measurement": "6080"
-          },
-          {
-            "wave": "371.711823",
-            "measurement": "6013"
-          },
-          {
-            "wave": "374.408813",
-            "measurement": "6121"
-          },
-          {
-            "wave": "377.105804",
-            "measurement": "6084"
-          },
-          {
-            "wave": "379.802795",
-            "measurement": "5984"
-          },
-          {
-            "wave": "382.499786",
-            "measurement": "6160"
-          },
-          {
-            "wave": "385.196777",
-            "measurement": "5955"
-          },
-          {
-            "wave": "387.893768",
-            "measurement": "6123"
-          },
-          {
-            "wave": "390.590759",
-            "measurement": "6072"
-          },
-          {
-            "wave": "393.287750",
-            "measurement": "6025"
-          },
-          {
-            "wave": "395.984741",
-            "measurement": "6167"
-          },
-          {
-            "wave": "398.681732",
-            "measurement": "6092"
-          },
-          {
-            "wave": "401.378723",
-            "measurement": "6073"
-          },
-          {
-            "wave": "404.075714",
-            "measurement": "6220"
-          },
-          {
-            "wave": "406.772705",
-            "measurement": "5993"
-          },
-          {
-            "wave": "409.469696",
-            "measurement": "6110"
-          },
-          {
-            "wave": "412.166687",
-            "measurement": "6078"
-          },
-          {
-            "wave": "414.863678",
-            "measurement": "5943"
-          },
-          {
-            "wave": "417.560669",
-            "measurement": "6096"
-          },
-          {
-            "wave": "420.257660",
-            "measurement": "6014"
-          },
-          {
-            "wave": "422.954651",
-            "measurement": "5976"
-          },
-          {
-            "wave": "425.651642",
-            "measurement": "6229"
-          },
-          {
-            "wave": "428.348633",
-            "measurement": "5995"
-          },
-          {
-            "wave": "431.045624",
-            "measurement": "6078"
-          },
-          {
-            "wave": "433.742615",
-            "measurement": "6143"
-          },
-          {
-            "wave": "436.439606",
-            "measurement": "6034"
-          },
-          {
-            "wave": "439.136597",
-            "measurement": "6094"
-          },
-          {
-            "wave": "441.833588",
-            "measurement": "6024"
-          },
-          {
-            "wave": "444.530579",
-            "measurement": "5968"
-          },
-          {
-            "wave": "447.227570",
-            "measurement": "6057"
-          },
-          {
-            "wave": "449.924561",
-            "measurement": "5960"
-          },
-          {
-            "wave": "452.621552",
-            "measurement": "6112"
-          },
-          {
-            "wave": "455.318542",
-            "measurement": "6100"
-          },
-          {
-            "wave": "458.015533",
-            "measurement": "5995"
-          },
-          {
-            "wave": "460.712524",
-            "measurement": "6165"
-          },
-          {
-            "wave": "463.409515",
-            "measurement": "6127"
-          },
-          {
-            "wave": "466.106506",
-            "measurement": "6034"
-          },
-          {
-            "wave": "468.803497",
-            "measurement": "6167"
-          },
-          {
-            "wave": "471.500488",
-            "measurement": "5992"
-          },
-          {
-            "wave": "474.197479",
-            "measurement": "6158"
-          },
-          {
-            "wave": "476.894470",
-            "measurement": "6125"
-          },
-          {
-            "wave": "479.591461",
-            "measurement": "6035"
-          },
-          {
-            "wave": "482.288452",
-            "measurement": "6142"
-          },
-          {
-            "wave": "484.985443",
-            "measurement": "6055"
-          },
-          {
-            "wave": "487.682434",
-            "measurement": "6091"
-          },
-          {
-            "wave": "490.379425",
-            "measurement": "6167"
-          },
-          {
-            "wave": "493.076416",
-            "measurement": "6089"
-          },
-          {
-            "wave": "495.773407",
-            "measurement": "6079"
-          },
-          {
-            "wave": "498.470398",
-            "measurement": "6112"
-          },
-          {
-            "wave": "501.167389",
-            "measurement": "5949"
-          },
-          {
-            "wave": "503.864380",
-            "measurement": "6144"
-          },
-          {
-            "wave": "506.561371",
-            "measurement": "6109"
-          },
-          {
-            "wave": "509.258362",
-            "measurement": "6106"
-          },
-          {
-            "wave": "511.955353",
-            "measurement": "6262"
-          },
-          {
-            "wave": "514.652344",
-            "measurement": "6024"
-          },
-          {
-            "wave": "517.349365",
-            "measurement": "6169"
-          },
-          {
-            "wave": "520.046387",
-            "measurement": "6115"
-          },
-          {
-            "wave": "522.743408",
-            "measurement": "6011"
-          },
-          {
-            "wave": "525.440430",
-            "measurement": "6126"
-          },
-          {
-            "wave": "528.137451",
-            "measurement": "6112"
-          },
-          {
-            "wave": "530.834473",
-            "measurement": "6042"
-          },
-          {
-            "wave": "533.531494",
-            "measurement": "6170"
-          },
-          {
-            "wave": "536.228516",
-            "measurement": "6016"
-          },
-          {
-            "wave": "538.925537",
-            "measurement": "6156"
-          },
-          {
-            "wave": "541.622559",
-            "measurement": "6107"
-          },
-          {
-            "wave": "544.319580",
-            "measurement": "6084"
-          },
-          {
-            "wave": "547.016602",
-            "measurement": "6172"
-          },
-          {
-            "wave": "549.713623",
-            "measurement": "6046"
-          },
-          {
-            "wave": "552.410645",
-            "measurement": "6030"
-          },
-          {
-            "wave": "555.107666",
-            "measurement": "6219"
-          },
-          {
-            "wave": "557.804688",
-            "measurement": "5971"
-          },
-          {
-            "wave": "560.501709",
-            "measurement": "6131"
-          },
-          {
-            "wave": "563.198730",
-            "measurement": "6106"
-          },
-          {
-            "wave": "565.895752",
-            "measurement": "6034"
-          },
-          {
-            "wave": "568.592773",
-            "measurement": "6197"
-          },
-          {
-            "wave": "571.289795",
-            "measurement": "6032"
-          },
-          {
-            "wave": "573.986816",
-            "measurement": "5998"
-          },
-          {
-            "wave": "576.683838",
-            "measurement": "6184"
-          },
-          {
-            "wave": "579.380859",
-            "measurement": "6035"
-          },
-          {
-            "wave": "582.077881",
-            "measurement": "6056"
-          },
-          {
-            "wave": "584.774902",
-            "measurement": "6109"
-          },
-          {
-            "wave": "587.471924",
-            "measurement": "6040"
-          },
-          {
-            "wave": "590.168945",
-            "measurement": "6204"
-          },
-          {
-            "wave": "592.865967",
-            "measurement": "6091"
-          },
-          {
-            "wave": "595.562988",
-            "measurement": "6020"
-          },
-          {
-            "wave": "598.260010",
-            "measurement": "6122"
-          },
-          {
-            "wave": "600.957031",
-            "measurement": "5973"
-          },
-          {
-            "wave": "603.654053",
-            "measurement": "6125"
-          },
-          {
-            "wave": "606.351074",
-            "measurement": "6072"
-          },
-          {
-            "wave": "609.048096",
-            "measurement": "6061"
-          },
-          {
-            "wave": "611.745117",
-            "measurement": "6109"
-          },
-          {
-            "wave": "614.442139",
-            "measurement": "6086"
-          },
-          {
-            "wave": "617.139160",
-            "measurement": "6046"
-          },
-          {
-            "wave": "619.836182",
-            "measurement": "6195"
-          },
-          {
-            "wave": "622.533203",
-            "measurement": "6033"
-          },
-          {
-            "wave": "625.230225",
-            "measurement": "6131"
-          },
-          {
-            "wave": "627.927246",
-            "measurement": "6162"
-          },
-          {
-            "wave": "630.624268",
-            "measurement": "5973"
-          },
-          {
-            "wave": "633.321289",
-            "measurement": "6136"
-          },
-          {
-            "wave": "636.018311",
-            "measurement": "6072"
-          },
-          {
-            "wave": "638.715332",
-            "measurement": "6030"
-          },
-          {
-            "wave": "641.412354",
-            "measurement": "6213"
-          },
-          {
-            "wave": "644.109375",
-            "measurement": "6048"
-          },
-          {
-            "wave": "646.806396",
-            "measurement": "6193"
-          },
-          {
-            "wave": "649.503418",
-            "measurement": "6089"
-          },
-          {
-            "wave": "652.200439",
-            "measurement": "6068"
-          },
-          {
-            "wave": "654.897461",
-            "measurement": "6211"
-          },
-          {
-            "wave": "657.594482",
-            "measurement": "6083"
-          },
-          {
-            "wave": "660.291504",
-            "measurement": "6037"
-          },
-          {
-            "wave": "662.988525",
-            "measurement": "6206"
-          },
-          {
-            "wave": "665.685547",
-            "measurement": "5968"
-          },
-          {
-            "wave": "668.382568",
-            "measurement": "6218"
-          },
-          {
-            "wave": "671.079590",
-            "measurement": "6108"
-          },
-          {
-            "wave": "673.776611",
-            "measurement": "6037"
-          },
-          {
-            "wave": "676.473633",
-            "measurement": "6193"
-          },
-          {
-            "wave": "679.170654",
-            "measurement": "6098"
-          },
-          {
-            "wave": "681.867676",
-            "measurement": "6133"
-          },
-          {
-            "wave": "684.564697",
-            "measurement": "6206"
-          },
-          {
-            "wave": "687.261719",
-            "measurement": "6015"
-          },
-          {
-            "wave": "689.958740",
-            "measurement": "6181"
-          },
-          {
-            "wave": "692.655762",
-            "measurement": "6171"
-          },
-          {
-            "wave": "695.352783",
             "measurement": "6069"
           },
           {
-            "wave": "698.049805",
-            "measurement": "6196"
+            "wave": "325.862976",
+            "measurement": "6116"
           },
           {
-            "wave": "700.746826",
-            "measurement": "6105"
+            "wave": "328.559967",
+            "measurement": "6023"
           },
           {
-            "wave": "703.443848",
-            "measurement": "6088"
+            "wave": "331.256958",
+            "measurement": "6086"
           },
           {
-            "wave": "706.140869",
-            "measurement": "6205"
+            "wave": "333.953949",
+            "measurement": "6027"
           },
           {
-            "wave": "708.837891",
-            "measurement": "6056"
+            "wave": "336.650940",
+            "measurement": "6011"
           },
           {
-            "wave": "711.534912",
-            "measurement": "6187"
+            "wave": "339.347931",
+            "measurement": "6171"
           },
           {
-            "wave": "714.231934",
-            "measurement": "6166"
+            "wave": "342.044922",
+            "measurement": "6054"
           },
           {
-            "wave": "716.928955",
-            "measurement": "6053"
+            "wave": "344.741913",
+            "measurement": "6148"
           },
           {
-            "wave": "719.625977",
-            "measurement": "6214"
+            "wave": "347.438904",
+            "measurement": "6066"
           },
           {
-            "wave": "722.322998",
-            "measurement": "6145"
+            "wave": "350.135895",
+            "measurement": "5913"
           },
           {
-            "wave": "725.020020",
-            "measurement": "6111"
-          },
-          {
-            "wave": "727.717041",
-            "measurement": "6223"
-          },
-          {
-            "wave": "730.414062",
-            "measurement": "6029"
-          },
-          {
-            "wave": "733.111084",
-            "measurement": "6212"
-          },
-          {
-            "wave": "735.808105",
-            "measurement": "6160"
-          },
-          {
-            "wave": "738.505127",
-            "measurement": "6068"
-          },
-          {
-            "wave": "741.202148",
-            "measurement": "6248"
-          },
-          {
-            "wave": "743.899170",
+            "wave": "352.832886",
             "measurement": "6118"
           },
           {
-            "wave": "746.596191",
-            "measurement": "6060"
+            "wave": "355.529877",
+            "measurement": "6007"
           },
           {
-            "wave": "749.293213",
-            "measurement": "6250"
+            "wave": "358.226868",
+            "measurement": "6000"
           },
           {
-            "wave": "751.990234",
-            "measurement": "6090"
+            "wave": "360.923859",
+            "measurement": "6136"
           },
           {
-            "wave": "754.687256",
-            "measurement": "6205"
+            "wave": "363.620850",
+            "measurement": "5966"
           },
           {
-            "wave": "757.384277",
-            "measurement": "6147"
+            "wave": "366.317841",
+            "measurement": "6067"
           },
           {
-            "wave": "760.081299",
-            "measurement": "6056"
+            "wave": "369.014832",
+            "measurement": "6029"
           },
           {
-            "wave": "762.778320",
-            "measurement": "6243"
+            "wave": "371.711823",
+            "measurement": "6010"
           },
           {
-            "wave": "765.475342",
-            "measurement": "6125"
+            "wave": "374.408813",
+            "measurement": "6102"
           },
           {
-            "wave": "768.172363",
-            "measurement": "6083"
+            "wave": "377.105804",
+            "measurement": "6043"
           },
           {
-            "wave": "770.869385",
-            "measurement": "6248"
+            "wave": "379.802795",
+            "measurement": "5982"
           },
           {
-            "wave": "773.566406",
-            "measurement": "6080"
+            "wave": "382.499786",
+            "measurement": "6132"
           },
           {
-            "wave": "776.263428",
-            "measurement": "6155"
+            "wave": "385.196777",
+            "measurement": "5914"
           },
           {
-            "wave": "778.960449",
-            "measurement": "6165"
-          },
-          {
-            "wave": "781.657471",
-            "measurement": "6072"
-          },
-          {
-            "wave": "784.354492",
-            "measurement": "6137"
-          },
-          {
-            "wave": "787.051514",
-            "measurement": "6055"
-          },
-          {
-            "wave": "789.748535",
-            "measurement": "6056"
-          },
-          {
-            "wave": "792.445557",
-            "measurement": "6209"
-          },
-          {
-            "wave": "795.142578",
-            "measurement": "6123"
-          },
-          {
-            "wave": "797.839600",
-            "measurement": "6230"
-          },
-          {
-            "wave": "800.536621",
-            "measurement": "6311"
-          },
-          {
-            "wave": "803.233643",
+            "wave": "387.893768",
             "measurement": "6127"
           },
           {
+            "wave": "390.590759",
+            "measurement": "6018"
+          },
+          {
+            "wave": "393.287750",
+            "measurement": "6004"
+          },
+          {
+            "wave": "395.984741",
+            "measurement": "6105"
+          },
+          {
+            "wave": "398.681732",
+            "measurement": "6056"
+          },
+          {
+            "wave": "401.378723",
+            "measurement": "6083"
+          },
+          {
+            "wave": "404.075714",
+            "measurement": "6163"
+          },
+          {
+            "wave": "406.772705",
+            "measurement": "5950"
+          },
+          {
+            "wave": "409.469696",
+            "measurement": "6103"
+          },
+          {
+            "wave": "412.166687",
+            "measurement": "6057"
+          },
+          {
+            "wave": "414.863678",
+            "measurement": "5887"
+          },
+          {
+            "wave": "417.560669",
+            "measurement": "6062"
+          },
+          {
+            "wave": "420.257660",
+            "measurement": "5984"
+          },
+          {
+            "wave": "422.954651",
+            "measurement": "5948"
+          },
+          {
+            "wave": "425.651642",
+            "measurement": "6218"
+          },
+          {
+            "wave": "428.348633",
+            "measurement": "5985"
+          },
+          {
+            "wave": "431.045624",
+            "measurement": "6016"
+          },
+          {
+            "wave": "433.742615",
+            "measurement": "6126"
+          },
+          {
+            "wave": "436.439606",
+            "measurement": "5993"
+          },
+          {
+            "wave": "439.136597",
+            "measurement": "6083"
+          },
+          {
+            "wave": "441.833588",
+            "measurement": "5967"
+          },
+          {
+            "wave": "444.530579",
+            "measurement": "5959"
+          },
+          {
+            "wave": "447.227570",
+            "measurement": "6034"
+          },
+          {
+            "wave": "449.924561",
+            "measurement": "5917"
+          },
+          {
+            "wave": "452.621552",
+            "measurement": "6080"
+          },
+          {
+            "wave": "455.318542",
+            "measurement": "6056"
+          },
+          {
+            "wave": "458.015533",
+            "measurement": "5983"
+          },
+          {
+            "wave": "460.712524",
+            "measurement": "6137"
+          },
+          {
+            "wave": "463.409515",
+            "measurement": "6083"
+          },
+          {
+            "wave": "466.106506",
+            "measurement": "6016"
+          },
+          {
+            "wave": "468.803497",
+            "measurement": "6118"
+          },
+          {
+            "wave": "471.500488",
+            "measurement": "5975"
+          },
+          {
+            "wave": "474.197479",
+            "measurement": "6113"
+          },
+          {
+            "wave": "476.894470",
+            "measurement": "6083"
+          },
+          {
+            "wave": "479.591461",
+            "measurement": "6001"
+          },
+          {
+            "wave": "482.288452",
+            "measurement": "6093"
+          },
+          {
+            "wave": "484.985443",
+            "measurement": "6011"
+          },
+          {
+            "wave": "487.682434",
+            "measurement": "6048"
+          },
+          {
+            "wave": "490.379425",
+            "measurement": "6135"
+          },
+          {
+            "wave": "493.076416",
+            "measurement": "6069"
+          },
+          {
+            "wave": "495.773407",
+            "measurement": "6051"
+          },
+          {
+            "wave": "498.470398",
+            "measurement": "6097"
+          },
+          {
+            "wave": "501.167389",
+            "measurement": "5927"
+          },
+          {
+            "wave": "503.864380",
+            "measurement": "6097"
+          },
+          {
+            "wave": "506.561371",
+            "measurement": "6048"
+          },
+          {
+            "wave": "509.258362",
+            "measurement": "6095"
+          },
+          {
+            "wave": "511.955353",
+            "measurement": "6191"
+          },
+          {
+            "wave": "514.652344",
+            "measurement": "6016"
+          },
+          {
+            "wave": "517.349365",
+            "measurement": "6168"
+          },
+          {
+            "wave": "520.046387",
+            "measurement": "6092"
+          },
+          {
+            "wave": "522.743408",
+            "measurement": "5993"
+          },
+          {
+            "wave": "525.440430",
+            "measurement": "6117"
+          },
+          {
+            "wave": "528.137451",
+            "measurement": "6074"
+          },
+          {
+            "wave": "530.834473",
+            "measurement": "6017"
+          },
+          {
+            "wave": "533.531494",
+            "measurement": "6130"
+          },
+          {
+            "wave": "536.228516",
+            "measurement": "5980"
+          },
+          {
+            "wave": "538.925537",
+            "measurement": "6116"
+          },
+          {
+            "wave": "541.622559",
+            "measurement": "6090"
+          },
+          {
+            "wave": "544.319580",
+            "measurement": "6048"
+          },
+          {
+            "wave": "547.016602",
+            "measurement": "6128"
+          },
+          {
+            "wave": "549.713623",
+            "measurement": "6022"
+          },
+          {
+            "wave": "552.410645",
+            "measurement": "5992"
+          },
+          {
+            "wave": "555.107666",
+            "measurement": "6169"
+          },
+          {
+            "wave": "557.804688",
+            "measurement": "5905"
+          },
+          {
+            "wave": "560.501709",
+            "measurement": "6099"
+          },
+          {
+            "wave": "563.198730",
+            "measurement": "6111"
+          },
+          {
+            "wave": "565.895752",
+            "measurement": "5973"
+          },
+          {
+            "wave": "568.592773",
+            "measurement": "6162"
+          },
+          {
+            "wave": "571.289795",
+            "measurement": "5992"
+          },
+          {
+            "wave": "573.986816",
+            "measurement": "5980"
+          },
+          {
+            "wave": "576.683838",
+            "measurement": "6164"
+          },
+          {
+            "wave": "579.380859",
+            "measurement": "6008"
+          },
+          {
+            "wave": "582.077881",
+            "measurement": "6043"
+          },
+          {
+            "wave": "584.774902",
+            "measurement": "6081"
+          },
+          {
+            "wave": "587.471924",
+            "measurement": "6001"
+          },
+          {
+            "wave": "590.168945",
+            "measurement": "6168"
+          },
+          {
+            "wave": "592.865967",
+            "measurement": "6046"
+          },
+          {
+            "wave": "595.562988",
+            "measurement": "5997"
+          },
+          {
+            "wave": "598.260010",
+            "measurement": "6096"
+          },
+          {
+            "wave": "600.957031",
+            "measurement": "5940"
+          },
+          {
+            "wave": "603.654053",
+            "measurement": "6110"
+          },
+          {
+            "wave": "606.351074",
+            "measurement": "6024"
+          },
+          {
+            "wave": "609.048096",
+            "measurement": "6044"
+          },
+          {
+            "wave": "611.745117",
+            "measurement": "6101"
+          },
+          {
+            "wave": "614.442139",
+            "measurement": "6041"
+          },
+          {
+            "wave": "617.139160",
+            "measurement": "6003"
+          },
+          {
+            "wave": "619.836182",
+            "measurement": "6174"
+          },
+          {
+            "wave": "622.533203",
+            "measurement": "6002"
+          },
+          {
+            "wave": "625.230225",
+            "measurement": "6091"
+          },
+          {
+            "wave": "627.927246",
+            "measurement": "6110"
+          },
+          {
+            "wave": "630.624268",
+            "measurement": "5958"
+          },
+          {
+            "wave": "633.321289",
+            "measurement": "6093"
+          },
+          {
+            "wave": "636.018311",
+            "measurement": "6029"
+          },
+          {
+            "wave": "638.715332",
+            "measurement": "5994"
+          },
+          {
+            "wave": "641.412354",
+            "measurement": "6159"
+          },
+          {
+            "wave": "644.109375",
+            "measurement": "6034"
+          },
+          {
+            "wave": "646.806396",
+            "measurement": "6153"
+          },
+          {
+            "wave": "649.503418",
+            "measurement": "6062"
+          },
+          {
+            "wave": "652.200439",
+            "measurement": "6041"
+          },
+          {
+            "wave": "654.897461",
+            "measurement": "6151"
+          },
+          {
+            "wave": "657.594482",
+            "measurement": "6042"
+          },
+          {
+            "wave": "660.291504",
+            "measurement": "6025"
+          },
+          {
+            "wave": "662.988525",
+            "measurement": "6190"
+          },
+          {
+            "wave": "665.685547",
+            "measurement": "5941"
+          },
+          {
+            "wave": "668.382568",
+            "measurement": "6177"
+          },
+          {
+            "wave": "671.079590",
+            "measurement": "6088"
+          },
+          {
+            "wave": "673.776611",
+            "measurement": "5976"
+          },
+          {
+            "wave": "676.473633",
+            "measurement": "6186"
+          },
+          {
+            "wave": "679.170654",
+            "measurement": "6060"
+          },
+          {
+            "wave": "681.867676",
+            "measurement": "6078"
+          },
+          {
+            "wave": "684.564697",
+            "measurement": "6166"
+          },
+          {
+            "wave": "687.261719",
+            "measurement": "5972"
+          },
+          {
+            "wave": "689.958740",
+            "measurement": "6141"
+          },
+          {
+            "wave": "692.655762",
+            "measurement": "6149"
+          },
+          {
+            "wave": "695.352783",
+            "measurement": "6072"
+          },
+          {
+            "wave": "698.049805",
+            "measurement": "6169"
+          },
+          {
+            "wave": "700.746826",
+            "measurement": "6075"
+          },
+          {
+            "wave": "703.443848",
+            "measurement": "6037"
+          },
+          {
+            "wave": "706.140869",
+            "measurement": "6165"
+          },
+          {
+            "wave": "708.837891",
+            "measurement": "6023"
+          },
+          {
+            "wave": "711.534912",
+            "measurement": "6161"
+          },
+          {
+            "wave": "714.231934",
+            "measurement": "6152"
+          },
+          {
+            "wave": "716.928955",
+            "measurement": "6030"
+          },
+          {
+            "wave": "719.625977",
+            "measurement": "6154"
+          },
+          {
+            "wave": "722.322998",
+            "measurement": "6141"
+          },
+          {
+            "wave": "725.020020",
+            "measurement": "6062"
+          },
+          {
+            "wave": "727.717041",
+            "measurement": "6194"
+          },
+          {
+            "wave": "730.414062",
+            "measurement": "5989"
+          },
+          {
+            "wave": "733.111084",
+            "measurement": "6185"
+          },
+          {
+            "wave": "735.808105",
+            "measurement": "6147"
+          },
+          {
+            "wave": "738.505127",
+            "measurement": "6037"
+          },
+          {
+            "wave": "741.202148",
+            "measurement": "6216"
+          },
+          {
+            "wave": "743.899170",
+            "measurement": "6106"
+          },
+          {
+            "wave": "746.596191",
+            "measurement": "6029"
+          },
+          {
+            "wave": "749.293213",
+            "measurement": "6211"
+          },
+          {
+            "wave": "751.990234",
+            "measurement": "6038"
+          },
+          {
+            "wave": "754.687256",
+            "measurement": "6159"
+          },
+          {
+            "wave": "757.384277",
+            "measurement": "6103"
+          },
+          {
+            "wave": "760.081299",
+            "measurement": "6023"
+          },
+          {
+            "wave": "762.778320",
+            "measurement": "6229"
+          },
+          {
+            "wave": "765.475342",
+            "measurement": "6076"
+          },
+          {
+            "wave": "768.172363",
+            "measurement": "6029"
+          },
+          {
+            "wave": "770.869385",
+            "measurement": "6196"
+          },
+          {
+            "wave": "773.566406",
+            "measurement": "6018"
+          },
+          {
+            "wave": "776.263428",
+            "measurement": "6124"
+          },
+          {
+            "wave": "778.960449",
+            "measurement": "6105"
+          },
+          {
+            "wave": "781.657471",
+            "measurement": "6031"
+          },
+          {
+            "wave": "784.354492",
+            "measurement": "6111"
+          },
+          {
+            "wave": "787.051514",
+            "measurement": "6052"
+          },
+          {
+            "wave": "789.748535",
+            "measurement": "6007"
+          },
+          {
+            "wave": "792.445557",
+            "measurement": "6181"
+          },
+          {
+            "wave": "795.142578",
+            "measurement": "6083"
+          },
+          {
+            "wave": "797.839600",
+            "measurement": "6210"
+          },
+          {
+            "wave": "800.536621",
+            "measurement": "6258"
+          },
+          {
+            "wave": "803.233643",
+            "measurement": "6107"
+          },
+          {
             "wave": "805.930664",
-            "measurement": "6301"
+            "measurement": "6284"
           },
           {
             "wave": "808.627686",
-            "measurement": "6298"
+            "measurement": "6246"
           },
           {
             "wave": "811.324707",
-            "measurement": "6179"
+            "measurement": "6168"
           },
           {
             "wave": "814.021729",
-            "measurement": "6299"
+            "measurement": "6318"
           },
           {
             "wave": "816.718750",
-            "measurement": "6180"
+            "measurement": "6134"
           },
           {
             "wave": "819.415771",
-            "measurement": "6353"
+            "measurement": "6338"
           },
           {
             "wave": "822.112793",
-            "measurement": "6363"
+            "measurement": "6335"
           },
           {
             "wave": "824.809814",
-            "measurement": "6324"
+            "measurement": "6279"
           },
           {
             "wave": "827.506836",
-            "measurement": "6492"
+            "measurement": "6494"
           },
           {
             "wave": "830.203857",
-            "measurement": "6447"
+            "measurement": "6425"
           },
           {
             "wave": "832.900879",
-            "measurement": "6403"
+            "measurement": "6370"
           },
           {
             "wave": "835.597900",
-            "measurement": "6701"
+            "measurement": "6623"
           },
           {
             "wave": "838.294922",
-            "measurement": "6491"
+            "measurement": "6466"
           },
           {
             "wave": "840.991943",
-            "measurement": "6611"
+            "measurement": "6590"
           },
           {
             "wave": "843.688965",
-            "measurement": "6704"
+            "measurement": "6668"
           },
           {
             "wave": "846.385986",
-            "measurement": "6618"
+            "measurement": "6591"
           },
           {
             "wave": "849.083008",
-            "measurement": "6751"
+            "measurement": "6730"
           },
           {
             "wave": "851.780029",
-            "measurement": "6791"
+            "measurement": "6759"
           },
           {
             "wave": "854.477051",
-            "measurement": "6703"
+            "measurement": "6654"
           },
           {
             "wave": "857.174072",
-            "measurement": "6740"
+            "measurement": "6736"
           },
           {
             "wave": "859.871094",
-            "measurement": "6645"
+            "measurement": "6644"
           },
           {
             "wave": "862.568115",
-            "measurement": "6740"
+            "measurement": "6696"
           },
           {
             "wave": "865.265137",
-            "measurement": "6752"
+            "measurement": "6739"
           },
           {
             "wave": "867.962158",
-            "measurement": "6807"
+            "measurement": "6802"
           },
           {
             "wave": "870.659180",
-            "measurement": "7051"
+            "measurement": "6999"
           },
           {
             "wave": "873.356201",
-            "measurement": "6944"
+            "measurement": "6938"
           },
           {
             "wave": "876.053223",
-            "measurement": "7078"
+            "measurement": "7033"
           },
           {
             "wave": "878.750244",
@@ -18643,43 +18646,43 @@
           },
           {
             "wave": "881.447266",
-            "measurement": "7219"
+            "measurement": "7186"
           },
           {
             "wave": "884.144287",
-            "measurement": "7334"
+            "measurement": "7296"
           },
           {
             "wave": "886.841309",
-            "measurement": "7390"
+            "measurement": "7375"
           },
           {
             "wave": "889.538330",
-            "measurement": "7261"
+            "measurement": "7219"
           },
           {
             "wave": "892.235352",
-            "measurement": "7421"
+            "measurement": "7404"
           },
           {
             "wave": "894.932373",
-            "measurement": "7451"
+            "measurement": "7419"
           },
           {
             "wave": "897.629395",
-            "measurement": "7360"
+            "measurement": "7330"
           },
           {
             "wave": "900.326416",
-            "measurement": "7515"
+            "measurement": "7495"
           },
           {
             "wave": "903.023438",
-            "measurement": "7364"
+            "measurement": "7358"
           },
           {
             "wave": "905.720459",
-            "measurement": "7370"
+            "measurement": "7397"
           },
           {
             "wave": "908.417480",
@@ -18687,279 +18690,279 @@
           },
           {
             "wave": "911.114502",
-            "measurement": "7361"
+            "measurement": "7307"
           },
           {
             "wave": "913.811523",
-            "measurement": "7451"
+            "measurement": "7439"
           },
           {
             "wave": "916.508545",
-            "measurement": "7424"
+            "measurement": "7456"
           },
           {
             "wave": "919.205566",
-            "measurement": "7301"
+            "measurement": "7330"
           },
           {
             "wave": "921.902588",
-            "measurement": "7471"
+            "measurement": "7450"
           },
           {
             "wave": "924.599609",
-            "measurement": "7255"
+            "measurement": "7281"
           },
           {
             "wave": "927.296631",
-            "measurement": "7432"
+            "measurement": "7419"
           },
           {
             "wave": "929.993652",
-            "measurement": "7413"
+            "measurement": "7402"
           },
           {
             "wave": "932.690674",
-            "measurement": "7255"
+            "measurement": "7253"
           },
           {
             "wave": "935.387695",
-            "measurement": "7463"
+            "measurement": "7432"
           },
           {
             "wave": "938.084717",
-            "measurement": "7326"
+            "measurement": "7374"
           },
           {
             "wave": "940.781738",
-            "measurement": "7322"
+            "measurement": "7308"
           },
           {
             "wave": "943.478760",
-            "measurement": "7410"
+            "measurement": "7407"
           },
           {
             "wave": "946.175781",
-            "measurement": "7199"
+            "measurement": "7172"
           },
           {
             "wave": "948.872803",
-            "measurement": "7243"
+            "measurement": "7254"
           },
           {
             "wave": "951.569824",
-            "measurement": "7228"
+            "measurement": "7234"
           },
           {
             "wave": "954.266846",
-            "measurement": "7104"
+            "measurement": "7070"
           },
           {
             "wave": "956.963867",
-            "measurement": "7163"
+            "measurement": "7161"
           },
           {
             "wave": "959.660889",
-            "measurement": "7141"
+            "measurement": "7123"
           },
           {
             "wave": "962.357910",
-            "measurement": "6929"
+            "measurement": "6912"
           },
           {
             "wave": "965.054932",
-            "measurement": "7086"
+            "measurement": "7066"
           },
           {
             "wave": "967.751953",
-            "measurement": "7021"
+            "measurement": "6983"
           },
           {
             "wave": "970.448975",
-            "measurement": "7020"
+            "measurement": "7035"
           },
           {
             "wave": "973.145996",
-            "measurement": "7099"
+            "measurement": "7072"
           },
           {
             "wave": "975.843018",
-            "measurement": "6957"
+            "measurement": "6958"
           },
           {
             "wave": "978.540039",
-            "measurement": "7063"
+            "measurement": "7037"
           },
           {
             "wave": "981.237061",
-            "measurement": "6978"
+            "measurement": "6981"
           },
           {
             "wave": "983.934082",
-            "measurement": "6943"
+            "measurement": "6958"
           },
           {
             "wave": "986.631104",
-            "measurement": "7144"
+            "measurement": "7129"
           },
           {
             "wave": "989.328125",
-            "measurement": "6974"
+            "measurement": "6983"
           },
           {
             "wave": "992.025146",
-            "measurement": "6996"
+            "measurement": "6978"
           },
           {
             "wave": "994.722168",
-            "measurement": "7017"
+            "measurement": "7027"
           },
           {
             "wave": "997.419189",
-            "measurement": "6943"
+            "measurement": "6914"
           },
           {
             "wave": "1000.116211",
-            "measurement": "7031"
+            "measurement": "7021"
           },
           {
             "wave": "1002.813232",
-            "measurement": "6936"
+            "measurement": "6907"
           },
           {
             "wave": "1005.510254",
-            "measurement": "6835"
+            "measurement": "6839"
           },
           {
             "wave": "1008.207275",
-            "measurement": "6986"
+            "measurement": "6949"
           },
           {
             "wave": "1010.904297",
-            "measurement": "6909"
+            "measurement": "6906"
           },
           {
             "wave": "1013.601318",
-            "measurement": "6910"
+            "measurement": "6872"
           },
           {
             "wave": "1016.298340",
-            "measurement": "6902"
+            "measurement": "6880"
           },
           {
             "wave": "1018.995361",
-            "measurement": "6786"
+            "measurement": "6765"
           },
           {
             "wave": "1021.692383",
-            "measurement": "6927"
+            "measurement": "6906"
           },
           {
             "wave": "1024.389404",
-            "measurement": "6892"
+            "measurement": "6856"
           },
           {
             "wave": "1027.086426",
-            "measurement": "6782"
+            "measurement": "6755"
           },
           {
             "wave": "1029.783447",
-            "measurement": "6963"
+            "measurement": "6948"
           },
           {
             "wave": "1032.480469",
-            "measurement": "6687"
+            "measurement": "6689"
           },
           {
             "wave": "1035.177490",
-            "measurement": "6738"
+            "measurement": "6699"
           },
           {
             "wave": "1037.874512",
-            "measurement": "6806"
+            "measurement": "6791"
           },
           {
             "wave": "1040.571533",
-            "measurement": "6721"
-          },
-          {
-            "wave": "1043.268555",
-            "measurement": "6801"
-          },
-          {
-            "wave": "1045.965576",
             "measurement": "6734"
           },
           {
+            "wave": "1043.268555",
+            "measurement": "6811"
+          },
+          {
+            "wave": "1045.965576",
+            "measurement": "6702"
+          },
+          {
             "wave": "1048.662598",
-            "measurement": "6656"
+            "measurement": "6639"
           },
           {
             "wave": "1051.359619",
-            "measurement": "6803"
+            "measurement": "6734"
           },
           {
             "wave": "1054.056641",
-            "measurement": "6680"
+            "measurement": "6679"
           },
           {
             "wave": "1056.753662",
-            "measurement": "6790"
+            "measurement": "6774"
           },
           {
             "wave": "1059.450684",
-            "measurement": "6747"
+            "measurement": "6713"
           },
           {
             "wave": "1062.147705",
-            "measurement": "6554"
+            "measurement": "6542"
           },
           {
             "wave": "1064.844727",
-            "measurement": "6718"
+            "measurement": "6681"
           },
           {
             "wave": "1067.541748",
-            "measurement": "6692"
+            "measurement": "6656"
           },
           {
             "wave": "1070.238770",
-            "measurement": "6568"
+            "measurement": "6561"
           },
           {
             "wave": "1072.935791",
-            "measurement": "6706"
+            "measurement": "6674"
           },
           {
             "wave": "1075.632812",
-            "measurement": "6524"
+            "measurement": "6517"
           },
           {
             "wave": "1078.329834",
-            "measurement": "6574"
+            "measurement": "6570"
           },
           {
             "wave": "1081.026855",
-            "measurement": "6680"
+            "measurement": "6647"
           },
           {
             "wave": "1083.723877",
-            "measurement": "6513"
+            "measurement": "6491"
           },
           {
             "wave": "1086.420898",
-            "measurement": "6628"
+            "measurement": "6588"
           },
           {
             "wave": "1089.117920",
-            "measurement": "6566"
+            "measurement": "6572"
           },
           {
             "wave": "1091.814941",
-            "measurement": "6424"
+            "measurement": "6415"
           },
           {
             "wave": "1094.511963",
-            "measurement": "6651"
+            "measurement": "6594"
           }
         ]
       }
