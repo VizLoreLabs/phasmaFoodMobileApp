@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -68,30 +67,23 @@ public class TestingUtils {
 			activity.startActivity(intent);
 		} else {
 			dialog.show();
+			model.createMeasurementRequest(Utils.getUserId(), measurement.getResponse().getSample(),
+				Utils.getBluetoothDeviceUUID(), true) // TODO: 9/11/18 fix)
+				.observe(activity, result -> {
+					if (result == null) {
+						Toast.makeText(activity, "Result null! Contact support", Toast.LENGTH_SHORT).show();
+						return;
+					}
 
-			Log.d(TAG, "performTestMeasurement: user id: " + Utils.getUserId());
-			deviceViewModel.createDevice().observe(activity, res -> {
-
-				Log.d(TAG, "performTestMeasurement: create device result: " + res);
-
-				model.createMeasurementRequest(Utils.getUserId(), measurement.getResponse().getSample(),
-					"90:70:65:EF:4A:CE", true) // TODO: 9/11/18 fix)
-					.observe(activity, result -> {
-						if (result == null) {
-							Toast.makeText(activity, "Result null! Contact support", Toast.LENGTH_SHORT).show();
-							return;
-						}
-
-						if (result.status == Resource.Status.ERROR) {
-							//Toast.makeText(activity, "Examination request failed!", Toast.LENGTH_SHORT).show();
-							Toast.makeText(activity, "Failure! Error: " + result.message, Toast.LENGTH_SHORT).show();
-						} else {
-							Toast.makeText(activity, result.message, Toast.LENGTH_SHORT).show();
-							activity.startActivity(intent);
-						}
-						dialog.dismiss();
-					});
-			});
+					if (result.status == Resource.Status.ERROR) {
+						//Toast.makeText(activity, "Examination request failed!", Toast.LENGTH_SHORT).show();
+						Toast.makeText(activity, "Failure! Error: " + result.message, Toast.LENGTH_SHORT).show();
+					} else {
+						Toast.makeText(activity, result.message, Toast.LENGTH_SHORT).show();
+						activity.startActivity(intent);
+					}
+					dialog.dismiss();
+				});
 		}
 	}
 

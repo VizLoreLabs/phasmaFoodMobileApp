@@ -8,7 +8,6 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.vizlore.phasmafood.MyApplication;
@@ -55,7 +54,6 @@ public class Utils {
 			Settings.Secure.ANDROID_ID);
 	}
 
-	@Nullable
 	public synchronized static String getBluetoothDeviceUUID() {
 //		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getInstance());
 //		final boolean isDebugMode = prefs.getBoolean(DEBUG_MODE_KEY, false);

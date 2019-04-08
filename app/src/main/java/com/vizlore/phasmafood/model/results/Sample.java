@@ -164,6 +164,11 @@ public class Sample {
 	@Nullable
 	private String dilutedPct;
 
+	@SerializedName("lightsOnDuration")
+	@Expose
+	@Nullable
+	private String lightsOnDuration;
+
 	@SerializedName("VIS")
 	@Expose
 	private VIS vIS;
@@ -489,6 +494,15 @@ public class Sample {
 
 	public void setDilutedPct(@Nullable String dilutedPct) {
 		this.dilutedPct = dilutedPct;
+	}
+
+	@Nullable
+	public String getLightsOnDuration() {
+		return lightsOnDuration;
+	}
+
+	public void setLightsOnDuration(@Nullable String lightsOnDuration) {
+		this.lightsOnDuration = lightsOnDuration;
 	}
 
 	public VIS getvIS() {

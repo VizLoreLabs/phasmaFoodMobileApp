@@ -102,6 +102,7 @@ public class ConfigurationActivity extends BaseActivity {
 	private static final String USE_CASE_3_PARAM_DILUTED_PCT = "dilutedPct";
 
 	private static final String USE_CASE_WHITE_REF_PARAM_1 = "timestamp";
+	private static final String USE_CASE_TEST_LIGHTS_ON_DURATION = "lightsOnDuration";
 
 	private MeasurementViewModel measurementViewModel;
 	private JSONObject wizardJsonObject = null;
@@ -192,6 +193,12 @@ public class ConfigurationActivity extends BaseActivity {
 	EditText cameraExposureTime;
 	@BindView(R.id.drivingVoltage)
 	EditText cameraVoltage;
+
+	//test configuration
+	@BindView(R.id.useCaseTestLabelsGroup)
+	LinearLayout useCaseTestLabelsGroup;
+	@BindView(R.id.lightsOnDuration)
+	EditText lightsOnDuration;
 
 	// NIR
 	@BindView(R.id.nirGroup)
@@ -290,6 +297,9 @@ public class ConfigurationActivity extends BaseActivity {
 			case Constants.USE_CASE_WHITE_REF:
 				wizardJsonObject.put(USE_CASE_WHITE_REF_PARAM_1, String.valueOf(new Date().getTime()));
 				break;
+			case Constants.USE_CASE_TEST:
+				wizardJsonObject.put(USE_CASE_TEST_LIGHTS_ON_DURATION, lightsOnDuration.getText().toString());
+				break;
 		}
 
 		//add config parameters to json request (camera, nir, vis)
@@ -387,6 +397,7 @@ public class ConfigurationActivity extends BaseActivity {
 					break;
 				case Constants.USE_CASE_TEST:
 					testSample = wizardJsonObject.getString(Constants.USE_CASE_TEST);
+					useCaseTestLabelsGroup.setVisibility(View.VISIBLE);
 					if (testSample.contains(Constants.USE_CASE_TEST_NIR)) {
 						nirGroup.setVisibility(View.VISIBLE);
 					}

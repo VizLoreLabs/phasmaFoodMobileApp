@@ -47,7 +47,6 @@ public class MeasurementViewModel extends ViewModel {
 
 	public LiveData<Resource<String>> createMeasurementRequest(final String userId, final Sample sample,
 															   final String deviceId, boolean shouldAnalyze) {
-		Log.d(TAG, "createMeasurementRequest: CREATEEEEEEEEEEEEEEEEEEE mobile id: " + Utils.getMobileUUID());
 		if (measurementLiveData == null) {
 			measurementLiveData = new SingleLiveEvent<>();
 		}
@@ -62,10 +61,6 @@ public class MeasurementViewModel extends ViewModel {
 		sample.setDeviceID(deviceId);
 		sample.setMobileID(Utils.getMobileUUID());
 		sample.setConfiguration(measurementRepository.getConfiguration());
-
-
-		Log.d(TAG, "createMeasurementRequest: set mid: " + sample.getMobileID());
-		Log.d(TAG, "createMeasurementRequest: whole sample: " + sample.toString());
 
 		disposable = measurementRepository.createMeasurementRequest(sample, shouldAnalyze)
 			.subscribeOn(Schedulers.io())

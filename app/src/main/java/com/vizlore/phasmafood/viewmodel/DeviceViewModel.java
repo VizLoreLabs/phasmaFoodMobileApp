@@ -3,7 +3,6 @@ package com.vizlore.phasmafood.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -29,7 +28,7 @@ import io.reactivex.schedulers.Schedulers;
 public class DeviceViewModel extends AndroidViewModel {
 
 	private SingleLiveEvent<Boolean> createDeviceLiveData;
-	private MutableLiveData<Boolean> readDeviceLiveData;
+	private SingleLiveEvent<Boolean> readDeviceLiveData;
 
 	private Disposable disposable;
 
@@ -65,7 +64,7 @@ public class DeviceViewModel extends AndroidViewModel {
 
 	public LiveData<Boolean> readDevice() {
 		if (readDeviceLiveData == null) {
-			readDeviceLiveData = new MutableLiveData<>();
+			readDeviceLiveData = new SingleLiveEvent<>();
 		}
 
 		deviceApi.readDevice(getDeviceID())
