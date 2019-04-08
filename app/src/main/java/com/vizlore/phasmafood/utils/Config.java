@@ -87,4 +87,9 @@ public class Config {
 	public static final int MAX_VIS_BINNING_FLUORESCENCE = 4;
 	public static final int MIN_VIS_UV_LEDS_CURRENT = 0;
 	public static final int MAX_VIS_UV_LEDS_CURRENT = 350;
+
+	// Test use case - lights on duration
+	public static final int MIN_LIGHTS_ON_DURATION = 5;
+	public static final int MAX_LIGHTS_ON_DURATION = 300;
+
 }

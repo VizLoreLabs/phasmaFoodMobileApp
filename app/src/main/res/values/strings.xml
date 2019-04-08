@@ -99,6 +99,6 @@
     <string name="dilution1Percent">Dilution 1 %:</string>
     <string name="dilution2">Dilution 2 (source):</string>
     <string name="dilution2Percent">Dilution 2 (%):</string>
-    <string name="lightsOnDurationTime">Lights ON duration</string>
+    <string name="lightsOnDurationTime">Lights ON duration [s]</string>
     <string name="useCaseTestLabelsTitle">Test params</string>
 </resources>

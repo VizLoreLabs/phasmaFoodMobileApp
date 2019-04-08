@@ -368,6 +368,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:hint="@string/enterValue"
+                        android:text="5"
                         android:textColor="@color/white" />
                 </LinearLayout>
             </LinearLayout>

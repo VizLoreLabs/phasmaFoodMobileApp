@@ -59,6 +59,7 @@ import static com.vizlore.phasmafood.utils.Config.KEY_VIS_UV_LEDS_VOLTAGE;
 import static com.vizlore.phasmafood.utils.Config.KEY_VIS_WHITE_LEDS_VOLTAGE;
 import static com.vizlore.phasmafood.utils.Config.MAX_CAMERA_EXPOSURE_TIME;
 import static com.vizlore.phasmafood.utils.Config.MAX_CAMERA_VOLTAGE_TIME;
+import static com.vizlore.phasmafood.utils.Config.MAX_LIGHTS_ON_DURATION;
 import static com.vizlore.phasmafood.utils.Config.MAX_NIR_MICROLAMPS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.MAX_NIR_MICROLAMPS_WARMING_TIME;
 import static com.vizlore.phasmafood.utils.Config.MAX_NIR_SPEC_AVERAGES;
@@ -68,6 +69,7 @@ import static com.vizlore.phasmafood.utils.Config.MAX_VIS_UV_LEDS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.MAX_VIS_WHITE_LEDS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.MIN_CAMERA_EXPOSURE_TIME;
 import static com.vizlore.phasmafood.utils.Config.MIN_CAMERA_VOLTAGE_TIME;
+import static com.vizlore.phasmafood.utils.Config.MIN_LIGHTS_ON_DURATION;
 import static com.vizlore.phasmafood.utils.Config.MIN_NIR_MICROLAMPS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.MIN_NIR_MICROLAMPS_WARMING_TIME;
 import static com.vizlore.phasmafood.utils.Config.MIN_NIR_SPEC_AVERAGES;
@@ -249,6 +251,8 @@ public class ConfigurationActivity extends BaseActivity {
 
 	private void sendRequest() throws JSONException {
 
+		boolean areAllInputsValid = true;
+
 		switch (wizardJsonObject.getString(Constants.USE_CASE_KEY)) {
 			case Constants.USE_CASE_1:
 				wizardJsonObject.put(USE_CASE_1_PARAM_1, alfatoxinName.getText().toString());
@@ -298,8 +302,17 @@ public class ConfigurationActivity extends BaseActivity {
 				wizardJsonObject.put(USE_CASE_WHITE_REF_PARAM_1, String.valueOf(new Date().getTime()));
 				break;
 			case Constants.USE_CASE_TEST:
+				if (!isWithinBounds(getValue(lightsOnDuration), MIN_LIGHTS_ON_DURATION, MAX_LIGHTS_ON_DURATION)) {
+					showError(lightsOnDuration);
+					areAllInputsValid = false;
+					break;
+				}
 				wizardJsonObject.put(USE_CASE_TEST_LIGHTS_ON_DURATION, lightsOnDuration.getText().toString());
 				break;
+		}
+
+		if (!areAllInputsValid) {
+			return; //some of the input values are not okay, do not send request
 		}
 
 		//add config parameters to json request (camera, nir, vis)
@@ -607,7 +620,11 @@ public class ConfigurationActivity extends BaseActivity {
 	private int getValue(EditText editText) {
 		final String text = editText.getText().toString();
 		if (!text.isEmpty()) {
-			return Integer.parseInt(editText.getText().toString());
+			try {
+				return Integer.parseInt(editText.getText().toString());
+			} catch (NumberFormatException e) {
+				return -1;
+			}
 		}
 		return -1; //value not added (empty field)
 	}
