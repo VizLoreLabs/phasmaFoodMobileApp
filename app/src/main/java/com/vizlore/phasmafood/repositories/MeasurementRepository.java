@@ -2,6 +2,8 @@ package com.vizlore.phasmafood.repositories;
 
 import android.support.annotation.NonNull;
 
+import com.vizlore.phasmafood.model.DebugError;
+import com.vizlore.phasmafood.model.DebugMeasurement;
 import com.vizlore.phasmafood.model.configuration.Configuration;
 import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.model.results.Sample;
@@ -13,6 +15,10 @@ import io.reactivex.Completable;
 public interface MeasurementRepository {
 
 	Completable createMeasurementRequest(@NonNull Sample measurement, boolean shouldAnalyze);
+
+	Completable postMeasurementString(@NonNull DebugMeasurement debugMeasurement);
+
+	Completable postError(@NonNull DebugError debugError);
 
 	//save locally for now
 	// TODO: 11/23/18 implement Room db

@@ -310,6 +310,9 @@ public class CommunicationController {
 		private int state;
 		private String dataType;
 
+		//debug
+		private int fullSize = 0;
+
 		public ReadWriteThread(BluetoothSocket socket) {
 			this.bluetoothSocket = socket;
 			InputStream tmpIn = null;
@@ -342,6 +345,11 @@ public class CommunicationController {
 			// Keep listening to the InputStream
 			while (true) {
 				try {
+					try {
+						sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 					// Read from the InputStream
 					bytes = inputStream.read(buffer);
 					final String readMessage = new String(buffer, 0, bytes);
@@ -380,13 +388,17 @@ public class CommunicationController {
 							dataFlag = 0;
 							endFlag = 6;
 						}
-						if (readMessage.equals("End of Response")) {
+						if (readMessage.contains("End of Response")) {
+
+							int position = readMessage.indexOf()
+
 							Log.d(TAG, "run: end of response");
 							state = 0; //reset state
 							handler.obtainMessage(BluetoothService.MESSAGE_READ, outputStream.toByteArray().length,
 								endFlag, outputStream.toByteArray()).sendToTarget();
 							outputStream = new ByteArrayOutputStream();
 							stage = 0;
+							fullSize = 0;
 						} else {
 							outputStream.write(buffer, 0, bytes);
 							double percentage = ((double) outputStream.size() / dataSize) * 100;
@@ -443,6 +455,8 @@ public class CommunicationController {
 				dataSize = response.getInt("size");
 				dataType = response.getString("datatype");
 
+				fullSize += dataSize;
+
 				Log.d(TAG, "decode: status: " + status + ", type: " + type + ", size: " + dataType + ", datatype: " + dataType);
 
 				return true;
@@ -469,6 +483,13 @@ public class CommunicationController {
 				return false;
 			}
 		}
+	}
+
+	public int getFullSize() {
+		if (connectedThread != null) {
+			return connectedThread.fullSize;
+		}
+		return 0;
 	}
 }
 

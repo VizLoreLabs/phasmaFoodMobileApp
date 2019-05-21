@@ -29,6 +29,7 @@ import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.TestingUtils;
 import com.vizlore.phasmafood.api.DeviceApi;
+import com.vizlore.phasmafood.model.DebugMeasurement;
 import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.repositories.MeasurementRepository;
 import com.vizlore.phasmafood.ui.CancelMeasurementActivity;
@@ -43,6 +44,7 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -230,7 +232,7 @@ public class BluetoothService extends Service {
 	private void saveMeasurement(@NonNull final String data) {
 		Log.d(TAG, "saveMeasurement - string size: " + data.length());
 		final Gson gson = new GsonBuilder().create();
-
+		int fullSize = bluetoothController.getFullSize(); //debug only
 		Measurement measurement;
 		try {
 			measurement = gson.fromJson(data, Measurement.class);
@@ -239,8 +241,14 @@ public class BluetoothService extends Service {
 			Toast.makeText(getApplicationContext(), "Parsing examination failed. Wrong JSON format", Toast.LENGTH_SHORT).show();
 			notificationManager.cancel(notificationId);
 			isMeasurementStarted = false;
+
+			//DEBUG send string to server and report failure
+			postMeasurementString(data, false, fullSize, data.length());
 			return;
 		}
+
+		//DEBUG send string to server and report success
+		postMeasurementString(data, true, fullSize, data.length());
 
 		// received message parsed successfully
 		if (measurement != null && measurement.getResponse() != null) {
@@ -255,6 +263,23 @@ public class BluetoothService extends Service {
 				"Measurement response is null!");
 		}
 	}
+
+	//DEBUG TODO remove SMEDIC
+	public void postMeasurementString(@NonNull String rawData, boolean status, int expectedSize,
+									  int receivedSize) {
+		final DebugMeasurement debugMeasurement = new DebugMeasurement();
+		debugMeasurement.setRawdata(rawData);
+		debugMeasurement.setStatus(status);
+		debugMeasurement.setExpectedSize(String.valueOf(expectedSize));
+		debugMeasurement.setReceivedSize(String.valueOf(receivedSize));
+		debugMeasurement.setPercentage(String.valueOf(100));
+		disposable.add(measurementRepository.postMeasurementString(debugMeasurement)
+			.subscribeOn(Schedulers.io())
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribe(() -> Log.d(TAG, "postMeasurementString: SUCCESS"),
+				error -> Log.d(TAG, "postMeasurementString onError: " + error.toString())));
+	}
+
 
 	/**
 	 * Notify when measurement is completed
@@ -314,7 +339,7 @@ public class BluetoothService extends Service {
 
 	// mock sending a message (testing)
 	public Single<Measurement> sendFakeMessage(@NonNull final String jsonFileName) {
-		final Measurement measurement = TestingUtils.readMeasurementFromJson(jsonFileName);
+		final Measurement measurement = new TestingUtils().readMeasurementFromJson(jsonFileName);
 
 		return Single.just(measurement)
 			.delay(2000, TimeUnit.MILLISECONDS);

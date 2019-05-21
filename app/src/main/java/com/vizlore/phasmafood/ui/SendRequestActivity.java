@@ -41,7 +41,7 @@ public class SendRequestActivity extends BaseActivity {
 
 	//private static final String USE_CASE_1_JSON = "measurements_10_sample_full.json";
 
-	private static final String USE_CASE_1_JSON = "output_micotoxins_detection.json";
+	private static final String USE_CASE_1_JSON = "mdebug.json";
 	private static final String USE_CASE_2_JSON = "usecase2_updated_response.json";
 	private static final String USE_CASE_3_JSON = "use_case_3_sample.json";
 

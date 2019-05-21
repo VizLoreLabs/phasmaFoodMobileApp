@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.vizlore.phasmafood.MyApplication;
+import com.vizlore.phasmafood.model.DebugError;
 import com.vizlore.phasmafood.model.configuration.Configuration;
 import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.model.results.Sample;
@@ -14,6 +15,7 @@ import com.vizlore.phasmafood.utils.Resource;
 import com.vizlore.phasmafood.utils.SingleLiveEvent;
 import com.vizlore.phasmafood.utils.Utils;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -23,6 +25,7 @@ import javax.inject.Inject;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.HttpException;
 
 /**
  * Created by smedic on 2/10/18.
@@ -68,9 +71,33 @@ public class MeasurementViewModel extends ViewModel {
 			.subscribe(() -> measurementLiveData.postValue(Resource.success("Success!")),
 				error -> {
 					Log.d(TAG, "onError: " + error.toString());
+					reportError(error);
 					measurementLiveData.postValue(Resource.error(error.toString(), null));
 				});
 		return measurementLiveData;
+	}
+
+	private void reportError(Throwable throwable) {
+		if (throwable instanceof HttpException) {
+			HttpException exception = (HttpException) throwable;
+
+			String body = "";
+			if (exception.response() != null && exception.response().errorBody() != null) {
+				try {
+					body = exception.response().errorBody().string();
+				} catch (IOException e) {
+					body = "";
+					e.printStackTrace();
+				}
+			}
+
+			disposable = measurementRepository.postError(new DebugError(exception.code() + " - " + exception.message() +
+				body))
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(() -> Log.d(TAG, "reportError: REPORTED!!!"),
+					error -> Log.d(TAG, "ERROR REPORTING?!?! " + error.toString()));
+		}
 	}
 
 	@Override

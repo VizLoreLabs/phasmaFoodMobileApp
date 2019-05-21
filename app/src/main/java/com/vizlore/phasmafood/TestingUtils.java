@@ -5,11 +5,13 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vizlore.phasmafood.api.AutoValueGsonFactory;
+import com.vizlore.phasmafood.model.DebugMeasurement;
 import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.repositories.MeasurementRepository;
 import com.vizlore.phasmafood.ui.results.MeasurementResultsActivity;
@@ -22,6 +24,9 @@ import com.vizlore.phasmafood.viewmodel.MeasurementViewModel;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
 
 import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class TestingUtils {
 
@@ -52,6 +57,9 @@ public class TestingUtils {
 
 		final Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
 		final String json = new JsonFileLoader().fromAsset(WHITE_REF_MEASUREMENT_10_SAMPLES);
+
+		postMeasurementString(json, true);
+
 		final Measurement measurement = gson.fromJson(json, Measurement.class);
 
 		// TODO: 9/8/18 refactor
@@ -87,9 +95,23 @@ public class TestingUtils {
 		}
 	}
 
-	public static Measurement readMeasurementFromJson(@NonNull final String jsonName) {
+	public Measurement readMeasurementFromJson(@NonNull final String jsonName) {
 		final Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
 		final String json = new JsonFileLoader().fromAsset(jsonName);
+		postMeasurementString(json, true);
 		return gson.fromJson(json, Measurement.class);
+	}
+
+	//DEBUG TODO remove SMEDIC
+	private void postMeasurementString(@NonNull String rawData, boolean status) {
+		Log.d(TAG, "postMeasurementString: -------------------");
+		final DebugMeasurement debugMeasurement = new DebugMeasurement();
+		debugMeasurement.setRawdata(rawData);
+		debugMeasurement.setStatus(status);
+		measurementRepository.postMeasurementString(debugMeasurement)
+			.subscribeOn(Schedulers.io())
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribe(() -> Log.d(TAG, "postMeasurementString: SUCCESS"),
+				error -> Log.d(TAG, "postMeasurementString onError: " + error.toString()));
 	}
 }

@@ -3,6 +3,8 @@ package com.vizlore.phasmafood.repositories;
 import android.support.annotation.NonNull;
 
 import com.vizlore.phasmafood.api.MeasurementApi;
+import com.vizlore.phasmafood.model.DebugError;
+import com.vizlore.phasmafood.model.DebugMeasurement;
 import com.vizlore.phasmafood.model.configuration.Configuration;
 import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.model.results.Sample;
@@ -24,6 +26,18 @@ public class MeasurementRepositoryImpl implements MeasurementRepository {
 	public Completable createMeasurementRequest(@NonNull final Sample measurement, boolean shouldAnalyze) {
 		String action = shouldAnalyze ? "analyze" : "store";
 		return measurementApi.createMeasurementRequest(measurement, action)
+			.subscribeOn(Schedulers.computation());
+	}
+
+	@Override
+	public Completable postMeasurementString(@NonNull DebugMeasurement debugMeasurement) {
+		return measurementApi.postMeasurementString(debugMeasurement)
+			.subscribeOn(Schedulers.computation());
+	}
+
+	@Override
+	public Completable postError(@NonNull DebugError debugError) {
+		return measurementApi.postError(debugError)
 			.subscribeOn(Schedulers.computation());
 	}
 
