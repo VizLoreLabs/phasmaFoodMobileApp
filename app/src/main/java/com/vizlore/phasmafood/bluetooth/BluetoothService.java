@@ -229,8 +229,9 @@ public class BluetoothService extends Service {
 		}
 	}
 
-	private void saveMeasurement(@NonNull final String data) {
+	private void saveMeasurement(@NonNull String data) {
 		Log.d(TAG, "saveMeasurement - string size: " + data.length());
+		//data = data.replace("End of Response", "");
 		final Gson gson = new GsonBuilder().create();
 		int fullSize = bluetoothController.getFullSize(); //debug only
 		Measurement measurement;

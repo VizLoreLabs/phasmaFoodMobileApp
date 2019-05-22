@@ -345,14 +345,16 @@ public class CommunicationController {
 			// Keep listening to the InputStream
 			while (true) {
 				try {
-					try {
-						sleep(100);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
+//					try {
+//						sleep(100);
+//					} catch (InterruptedException e) {
+//						e.printStackTrace();
+//					}
 					// Read from the InputStream
 					bytes = inputStream.read(buffer);
 					final String readMessage = new String(buffer, 0, bytes);
+
+					Log.d(TAG, "run: READ MESSAGE size:" + readMessage.length() + ", content:" + readMessage);
 
 					if (readMessage.equals("Cancelled")) {
 						handler.obtainMessage(BluetoothService.MESSAGE_READ, outputStream.toByteArray().length,
@@ -388,11 +390,35 @@ public class CommunicationController {
 							dataFlag = 0;
 							endFlag = 6;
 						}
-						if (readMessage.contains("End of Response")) {
+						if (readMessage.equals("End of Response")) {
 
-							int position = readMessage.indexOf()
-
-							Log.d(TAG, "run: end of response");
+//							Log.d(TAG, "run: ----------------------------- ");
+//							Log.d(TAG, "run: LAST MESSAGE:" + readMessage);
+//							int position = readMessage.indexOf("End of Response");
+//							Log.d(TAG, "run: INDEX OF END OF RESPONSE: " + position);
+//
+//							if (position > 0) {
+//								String substring = readMessage.substring(0, position);
+//								Log.d(TAG, "run: END OF RESPONSE HAS SOMETHING BEFORE: " + substring);
+//								Log.d(TAG, "run: JOINING PART BEFORE...");
+//								outputStream.write(buffer, 0, bytes);
+//								double percentage = ((double) outputStream.size() / dataSize) * 100;
+//
+//								boolean flag = false;
+//								for (int stage1 : stages) {
+//									if (percentage >= stage1) {
+//										if (stage < stage1) {
+//											stage = stage1;
+//											flag = true;
+//										}
+//									}
+//								}
+//								if (flag) {
+//									handler.obtainMessage(BluetoothService.MESSAGE_READ, outputStream.toByteArray().length,
+//										dataFlag, stage).sendToTarget();
+//								}
+//							}
+							Log.d(TAG, "run: END OF RESPONSE, NOTIFY ABOUT EVENT AND SAVE MEASUREMENT.");
 							state = 0; //reset state
 							handler.obtainMessage(BluetoothService.MESSAGE_READ, outputStream.toByteArray().length,
 								endFlag, outputStream.toByteArray()).sendToTarget();
@@ -457,7 +483,7 @@ public class CommunicationController {
 
 				fullSize += dataSize;
 
-				Log.d(TAG, "decode: status: " + status + ", type: " + type + ", size: " + dataType + ", datatype: " + dataType);
+				Log.d(TAG, "decode: status: " + status + ", type: " + type + ", size: " + dataSize + ", datatype: " + dataType);
 
 				return true;
 			} catch (JSONException e) {
@@ -475,7 +501,7 @@ public class CommunicationController {
 				dataSize = response.getInt("size");
 				dataType = response.getString("datatype");
 
-				Log.d(TAG, "decode: status: " + status + ", type: " + type + ", size: " + dataType + ", datatype: " + dataType);
+				Log.d(TAG, "decode: status: " + status + ", type: " + type + ", size: " + dataSize + ", datatype: " + dataType);
 
 				return true;
 			} catch (JSONException e) {
