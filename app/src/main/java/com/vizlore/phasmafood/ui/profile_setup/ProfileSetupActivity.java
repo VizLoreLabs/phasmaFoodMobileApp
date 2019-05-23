@@ -56,10 +56,11 @@ public class ProfileSetupActivity extends BaseActivity implements YourProfileFra
 				switch (actionSelection) {
 					case SIGNED_IN:
 
-						if (ContextCompat.checkSelfPermission(this,
-							android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+						if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+							+ ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+							!= PackageManager.PERMISSION_GRANTED) {
 							ActivityCompat.requestPermissions(this,
-								new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
+								new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE},
 								REQUEST_PERMISSION_COARSE_LOCATION);
 						} else {
 							replaceBaseFragment2(new ProfileHomeScreenFragment());

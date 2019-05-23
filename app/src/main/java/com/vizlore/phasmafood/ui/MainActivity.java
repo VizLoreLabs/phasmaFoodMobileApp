@@ -1,5 +1,6 @@
 package com.vizlore.phasmafood.ui;
 
+import android.Manifest;
 import android.arch.lifecycle.ViewModelProviders;
 import android.bluetooth.BluetoothDevice;
 import android.content.pm.PackageManager;
@@ -18,7 +19,6 @@ import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.bluetooth.exceptions.ConnectionErrorException;
 import com.vizlore.phasmafood.utils.Utils;
 import com.vizlore.phasmafood.viewmodel.BluetoothViewModel;
-import com.vizlore.phasmafood.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
 		bondedAdapter = new ArrayAdapter<>(this, R.layout.list_item, bondedList);
 		bondedListView.setAdapter(bondedAdapter);
 
-		UserViewModel userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
-
 		// bluetooth view model
 		bluetoothViewModel = ViewModelProviders.of(this).get(BluetoothViewModel.class);
 
@@ -104,11 +102,10 @@ public class MainActivity extends AppCompatActivity {
 
 		// start discovery
 		startDiscovery.setOnClickListener(v -> {
-
 			devices.clear();
 			//setAdapter(devices);
-			if (ContextCompat.checkSelfPermission(MainActivity.this,
-				android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+			if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+				!= PackageManager.PERMISSION_GRANTED) {
 				Log.d(TAG, "onClick: request permissions");
 				ActivityCompat.requestPermissions(MainActivity.this,
 					new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
