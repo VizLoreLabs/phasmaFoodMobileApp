@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fruits">
@@ -99,7 +100,7 @@
                 android:id="@+id/chart"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/samplesRadioGroup" />
@@ -147,28 +148,6 @@
                 app:layout_constraintStart_toEndOf="@+id/sample"
                 app:layout_constraintTop_toTopOf="@+id/sample" />
 
-            <TextView
-                android:id="@+id/param1Title"
-                style="@style/PFTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="4dp"
-                android:text="Granularity:"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sample" />
-
-            <TextView
-                android:id="@+id/param1Value"
-                style="@style/PFTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/na"
-                app:layout_constraintBottom_toBottomOf="@+id/param1Title"
-                app:layout_constraintStart_toEndOf="@+id/param1Title"
-                app:layout_constraintTop_toTopOf="@+id/param1Title" />
-
             <android.support.constraint.Group
                 android:id="@+id/resultsGroup"
                 android:layout_width="wrap_content"
@@ -185,7 +164,7 @@
                 android:layout_marginTop="4dp"
                 android:text="@string/visAnalysis"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/param1Value" />
+                app:layout_constraintTop_toBottomOf="@+id/sampleValue" />
 
             <TextView
                 android:id="@+id/nirTitle"
@@ -479,11 +458,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toTopOf="@+id/chart"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/samplesRadioGroup"
                 tools:text="25.05.2018. 10:55:00" />
+
+            <TextView
+                android:id="@+id/sampleId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="SampleId: 5"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/samplesRadioGroup"
+                app:layout_constraintEnd_toEndOf="parent" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 

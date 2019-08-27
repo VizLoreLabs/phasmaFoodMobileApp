@@ -394,6 +394,16 @@
                 layout="@layout/configuration_use_case_3_param_4"
                 android:visibility="gone" />
 
+            <include
+                android:id="@+id/uc3paramOnlyAdulterationSampleId"
+                layout="@layout/configuration_use_case_3_only_adulteration_sample_id"
+                android:visibility="gone" />
+
+            <include
+                android:id="@+id/uc3paramSpirits"
+                layout="@layout/configuration_use_case_3_spirits"
+                android:visibility="gone" />
+
             <!--CAMERA PARAMS-->
             <TextView
                 android:layout_width="match_parent"

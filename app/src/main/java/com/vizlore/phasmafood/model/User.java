@@ -7,6 +7,8 @@ import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.SerializedName;
 
+import javax.annotation.Nullable;
+
 @AutoValue
 public abstract class User {
 
@@ -16,11 +18,16 @@ public abstract class User {
 	@SerializedName("last_name")
 	public abstract String lastName();
 
+	public abstract String email();
+
 	public abstract String username();
 
 	public abstract String company();
 
 	public abstract String id();
+
+	@Nullable
+	public abstract String type();
 
 	public static Builder builder() {
 		return new AutoValue_User.Builder();
@@ -37,6 +44,10 @@ public abstract class User {
 		public abstract Builder company(String company);
 
 		public abstract Builder id(String id);
+
+		public abstract Builder email(String email);
+
+		public abstract Builder type(String type);
 
 		public abstract User build();
 	}

@@ -58,7 +58,7 @@ public class TestingUtils {
 		final Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
 		final String json = new JsonFileLoader().fromAsset(WHITE_REF_MEASUREMENT_10_SAMPLES);
 
-		postMeasurementString(json, true);
+		//postMeasurementString(json, true);
 
 		final Measurement measurement = gson.fromJson(json, Measurement.class);
 
@@ -98,7 +98,7 @@ public class TestingUtils {
 	public Measurement readMeasurementFromJson(@NonNull final String jsonName) {
 		final Gson gson = new GsonBuilder().registerTypeAdapterFactory(AutoValueGsonFactory.create()).create();
 		final String json = new JsonFileLoader().fromAsset(jsonName);
-		postMeasurementString(json, true);
+		//postMeasurementString(json, true);
 		return gson.fromJson(json, Measurement.class);
 	}
 

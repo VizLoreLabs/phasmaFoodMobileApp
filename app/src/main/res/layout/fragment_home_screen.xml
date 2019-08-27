@@ -82,24 +82,14 @@
         style="@style/PFButtonWhite"
         android:layout_width="0dp"
         android:layout_height="@dimen/buttonHeight"
-        android:layout_marginBottom="@dimen/buttonsSpacing"
+        android:layout_marginBottom="50dp"
         android:text="Start measurement"
-        app:layout_constraintBottom_toTopOf="@+id/measurementHistory"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <Button
-        android:id="@+id/measurementHistory"
-        style="@style/PFButtonWhite"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/buttonHeight"
-        android:text="Testing cloud"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:layout_constraintVertical_bias="0.39" />
 
     <Button
         android:id="@+id/yourProfile"
@@ -111,7 +101,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/measurementHistory" />
+        app:layout_constraintTop_toBottomOf="@+id/startMeasurement" />
 
     <TextView
         android:id="@+id/learnMore"
@@ -120,6 +110,7 @@
         android:layout_marginBottom="32dp"
         android:text="Learn more"
         android:textColor="@color/light_grey"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

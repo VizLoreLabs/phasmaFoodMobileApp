@@ -41,7 +41,7 @@ public class Config {
 	//camera
 	public static final int DEFAULT_CAMERA_EXPOSURE_TIME = 100000; // TODO: 4/22/18 check
 	public static final int DEFAULT_CAMERA_VOLTAGE = 3000;
-	public static final int DEFAULT_NIR_SPEC_AVERAGES = 500;
+	public static final int DEFAULT_NIR_SPEC_AVERAGES = 100;
 	public static final int DEFAULT_NIR_MICROLAMPS_CURRENT = 50;
 	public static final int DEFAULT_NIR_MICROLAMPS_WARMING_TIME = 500;
 
@@ -50,7 +50,7 @@ public class Config {
 	// NIR
 	public static final int DEFAULT_VIS_EXPOSURE_TIME_REFLECTANCE = 100000;
 	public static final int DEFAULT_VIS_BINNING_REFLECTANCE = 2;
-	public static final int DEFAULT_VIS_WHITE_LEDS_CURRENT = 50;
+	public static final int DEFAULT_VIS_WHITE_LEDS_CURRENT = 1;
 
 	// VIS
 	public static final int DEFAULT_VIS_EXPOSURE_TIME_FLUORESCENCE = 100000;
@@ -58,13 +58,13 @@ public class Config {
 
 	// Camera
 	public static final int MIN_CAMERA_EXPOSURE_TIME = 0; // TODO: 4/22/18 check
-	public static final int MAX_CAMERA_EXPOSURE_TIME = 300000; // TODO: 4/22/18 check
+	public static final int MAX_CAMERA_EXPOSURE_TIME = 1_500_000; // TODO: 4/22/18 check
 	public static final int MIN_CAMERA_VOLTAGE_TIME = 0;
 	public static final int MAX_CAMERA_VOLTAGE_TIME = 4500;
 
 	// NIR
 	public static final int MIN_NIR_SPEC_AVERAGES = 1;
-	public static final int MAX_NIR_SPEC_AVERAGES = 1000;
+	public static final int MAX_NIR_SPEC_AVERAGES = 500;
 	public static final int MIN_NIR_MICROLAMPS_CURRENT = 1;
 	public static final int MAX_NIR_MICROLAMPS_CURRENT = 160;
 	public static final int MIN_NIR_MICROLAMPS_WARMING_TIME = 10;
@@ -73,18 +73,10 @@ public class Config {
 	// VIS
 	public static final int MIN_VIS_EXPOSURE_TIME_REFLECTANCE = 1;
 	public static final int MAX_VIS_EXPOSURE_TIME_REFLECTANCE = 300000;
-	public static final int MIN_VIS_GAIN_REFLECTANCE = 1;
-	public static final int MAX_VIS_GAIN_REFLECTANCE = 10;
-	public static final int MIN_VIS_BINNING_REFLECTANCE = 1;
-	public static final int MAX_VIS_BINNING_REFLECTANCE = 4;
 	public static final int MIN_VIS_WHITE_LEDS_CURRENT = 0;
 	public static final int MAX_VIS_WHITE_LEDS_CURRENT = 100;
 	public static final int MIN_VIS_EXPOSURE_TIME_FLUORESCENCE = 1;
 	public static final int MAX_VIS_EXPOSURE_TIME_FLUORESCENCE = 300000;
-	public static final int MIN_VIS_GAIN_FLUORESCENCE = 1;
-	public static final int MAX_VIS_GAIN_FLUORESCENCE = 10;
-	public static final int MIN_VIS_BINNING_FLUORESCENCE = 1;
-	public static final int MAX_VIS_BINNING_FLUORESCENCE = 4;
 	public static final int MIN_VIS_UV_LEDS_CURRENT = 0;
 	public static final int MAX_VIS_UV_LEDS_CURRENT = 350;
 

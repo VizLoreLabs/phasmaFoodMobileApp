@@ -10,7 +10,6 @@ import wizardpager.model.MultipleFixedChoicePage;
 import wizardpager.model.NumberPage;
 import wizardpager.model.PageList;
 import wizardpager.model.SingleFixedChoicePage;
-import wizardpager.model.TextPage;
 
 public class PhasmaFoodWizardModel extends AbstractWizardModel {
 
@@ -67,22 +66,30 @@ public class PhasmaFoodWizardModel extends AbstractWizardModel {
 					new BranchPage(this, "3!Food type")
 						.addBranch("Alcoholic beverages", new BranchPage(this, "Alcoholic beverages")
 							.addBranch("Spirits",
-								new SingleFixedChoicePage(this, "9!foodSubtype")
-									.setChoices("Whiskey", "Vodka", "Dutch gin", "gin", "bourbon", "tequila", "cognac", "grappa"),
-								new TextPage(this, "alcoholLabel"))
+								new SingleFixedChoicePage(this, "9!Sample")
+									.setChoices("Authentic", "Adulterated", "Unknown").setRequired(true))
 							.addBranch("Wines and beers",
-								new SingleFixedChoicePage(this, "10!foodSubtype")
-									.setChoices("Sugar", "Acid", "Alcohol (alcohol by volume)"))
+								new SingleFixedChoicePage(this, "10!Sample")
+									.setChoices("Authentic", "Adulterated", "Unknown").setRequired(true))
+							.addBranch("Other")
 						)
-						.addBranch("Edible oils",
-							new SingleFixedChoicePage(this, "11!foodSubtype")
-								.setChoices("Olive oil", "Sunflower Oil (refined)"))
+						.addBranch("Edible oils", new BranchPage(this, "Edible oils")
+							.addBranch("Olive oil",
+								new SingleFixedChoicePage(this, "11!Sample")
+									.setChoices("Authentic", "Adulterated", "Unknown").setRequired(true))
+							.addBranch("Sunflower oil",
+								new SingleFixedChoicePage(this, "12!Sample")
+									.setChoices("Authentic", "Adulterated", "Unknown").setRequired(true))
+							.addBranch("Other")
+						)
 						.addBranch("Skimmed milk powder",
-							new SingleFixedChoicePage(this, "12!foodSubtype")
-								.setChoices("Milk powder dilution", "Nitrogen enhancers"))
+							new SingleFixedChoicePage(this, "13!Sample")
+								.setChoices("Authentic", "Adulterated", "Unknown").setRequired(true))
+
 						.addBranch("Minced raw meat",
-							new SingleFixedChoicePage(this, "13!foodSubtype")
-								.setChoices("Chicken", "Beef", "Pork", "Horse"))
+							new SingleFixedChoicePage(this, "14!Analysis type")
+								.setChoices("Adulteration with unspecified meat species", "Adulteration with Low value additives")
+								.setRequired(true))
 				)
 				.addBranch(Constants.USE_CASE_WHITE_REF,
 					new SingleFixedChoicePage(this, "type")

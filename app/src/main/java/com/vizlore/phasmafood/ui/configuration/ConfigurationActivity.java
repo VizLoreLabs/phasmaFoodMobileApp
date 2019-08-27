@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -37,18 +38,15 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_CAMERA_EXPOSURE_TIME;
-import static com.vizlore.phasmafood.utils.Config.DEFAULT_CAMERA_VOLTAGE;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_MICROBIOLOGICAL_UNIT;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_NIR_MICROLAMPS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_NIR_MICROLAMPS_WARMING_TIME;
-import static com.vizlore.phasmafood.utils.Config.DEFAULT_NIR_SPEC_AVERAGES;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_EXPOSURE_TIME_FLUORESCENCE;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_EXPOSURE_TIME_REFLECTANCE;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_UV_LEDS_VOLTAGE;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_WHITE_LEDS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.KEY_CAMERA_EXPOSURE_TIME;
 import static com.vizlore.phasmafood.utils.Config.KEY_CAMERA_VOLTAGE;
-import static com.vizlore.phasmafood.utils.Config.KEY_MICROBIOLOGICAL_UNIT;
 import static com.vizlore.phasmafood.utils.Config.KEY_NIR_MICROLAMPS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.KEY_NIR_MICROLAMPS_WARMING_TIME;
 import static com.vizlore.phasmafood.utils.Config.KEY_NIR_SINGLE_SHOT;
@@ -77,6 +75,7 @@ import static com.vizlore.phasmafood.utils.Config.MIN_VIS_EXPOSURE_TIME_FLUORESC
 import static com.vizlore.phasmafood.utils.Config.MIN_VIS_EXPOSURE_TIME_REFLECTANCE;
 import static com.vizlore.phasmafood.utils.Config.MIN_VIS_UV_LEDS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.MIN_VIS_WHITE_LEDS_CURRENT;
+import static com.vizlore.phasmafood.utils.Constants.USE_CASE_3_PARAM_1;
 
 public class ConfigurationActivity extends BaseActivity {
 
@@ -102,6 +101,8 @@ public class ConfigurationActivity extends BaseActivity {
 	private static final String USE_CASE_3_PARAM_HAZARD_2_PCT = "hazardTwoPct";
 	private static final String USE_CASE_3_PARAM_OTHER_SPECIES = "otherSpecies";
 	private static final String USE_CASE_3_PARAM_DILUTED_PCT = "dilutedPct";
+	private static final String USE_CASE_3_PARAM_ALCOHOL_LABEL = "alcoholLabel";
+	private static final String USE_CASE_3_PARAM_SPIRIT_TYPE = "foodSubType";
 
 	private static final String USE_CASE_WHITE_REF_PARAM_1 = "timestamp";
 	private static final String USE_CASE_TEST_LIGHTS_ON_DURATION = "lightsOnDuration";
@@ -133,14 +134,27 @@ public class ConfigurationActivity extends BaseActivity {
 	@BindView(R.id.packageParam)
 	EditText packageParam;
 
-	//use case 3
-	//param 1 - spirits
+	@BindView(R.id.uc3paramOnlyAdulterationSampleId)
+	LinearLayout uc3paramOnlyAdulterationSampleId;
+
+	@BindView(R.id.adulterationSampleIdOnly)
+	EditText adulterationSampleIdOnly;
+
+	@BindView(R.id.uc3paramSpirits)
+	LinearLayout uc3paramSpiritsHolder;
+
+	//spirits only (label + type)
+	@BindView(R.id.alcoholLabel)
+	EditText alcoholLabel;
+
+	@BindView(R.id.spiritType)
+	EditText spiritType;
+
+	//param 1 - Alcoholic beverages
 	@BindView(R.id.uc3param1)
 	LinearLayout uc3param1Holder;
 	@BindView(R.id.adulterationSampleID)
 	EditText adulterationSampleID;
-	@BindView(R.id.authentic)
-	EditText authentic;
 	@BindView(R.id.diluted)
 	EditText diluted;
 	@BindView(R.id.hazard1)
@@ -152,13 +166,11 @@ public class ConfigurationActivity extends BaseActivity {
 	@BindView(R.id.hazard2Percent)
 	EditText hazard2Percent;
 
-	//param 2 - Minced raw meat
+	//param 2 - Edible oils
 	@BindView(R.id.uc3param2)
 	LinearLayout uc3param2Holder;
 	@BindView(R.id.adulterationSampleIDParam2)
 	EditText adulterationSampleIDParam2;
-	@BindView(R.id.authenticParam2)
-	EditText authenticParam2;
 	@BindView(R.id.dilution1)
 	EditText dilution1;
 	@BindView(R.id.dilution1Percent)
@@ -168,7 +180,7 @@ public class ConfigurationActivity extends BaseActivity {
 	@BindView(R.id.dilution2Percent)
 	EditText dilution2Percent;
 
-	//param 3 - Edible oils
+	//param 3 - Skimmed milk powder
 	@BindView(R.id.uc3param3)
 	LinearLayout uc3param3Holder;
 	@BindView(R.id.adulterationSampleIDParam3)
@@ -180,15 +192,15 @@ public class ConfigurationActivity extends BaseActivity {
 	@BindView(R.id.nitrogenEnhancer)
 	EditText nitrogenEnhancer;
 
-	//param 4 - Skimmed milk powder
+	//param 4 - Minced raw meat
 	@BindView(R.id.uc3param4)
 	LinearLayout uc3param4Holder;
 	@BindView(R.id.adulterationSampleIDParam4)
 	EditText adulterationSampleIDParam4;
-	@BindView(R.id.authenticParam4)
-	EditText authenticParam4;
 	@BindView(R.id.otherSpecies)
 	EditText otherSpecies;
+	@BindView(R.id.authenticParam)
+	EditText authenticParam;
 
 	//camera configuration
 	@BindView(R.id.exposureTime)
@@ -208,7 +220,7 @@ public class ConfigurationActivity extends BaseActivity {
 	@BindView(R.id.singleShotRadioGroup)
 	RadioGroup singleShotRadioGroup;
 	@BindView(R.id.averagesEditText)
-	EditText averagesEditText;
+	EditText nirSpectometerAveragesEditText;
 	@BindView(R.id.nirMicrolampsCurrent)
 	EditText nirMicrolampsCurrent;
 	@BindView(R.id.nirMicrolampsWarmingTime)
@@ -268,34 +280,59 @@ public class ConfigurationActivity extends BaseActivity {
 			case Constants.USE_CASE_3:
 				final String useCase3Param = wizardJsonObject.getString(Constants.USE_CASE_3_FOOD_TYPE);
 				switch (useCase3Param) {
-					case Constants.USE_CASE_3_PARAM_1:
-						wizardJsonObject.put(USE_CASE_3_PARAM_ADULTERATION_SAMPLE_ID, adulterationSampleID.getText().toString());
-						wizardJsonObject.put(USE_CASE_3_PARAM_AUTHENTIC, authentic.getText().toString());
-						wizardJsonObject.put(USE_CASE_3_PARAM_DILUTED_PCT, diluted.getText().toString());
-						wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_1_NAME, hazard1.getText().toString());
-						wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_1_PCT, hazard1Percent.getText().toString());
-						wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_2_NAME, hazard2.getText().toString());
-						wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_2_PCT, hazard2Percent.getText().toString());
+					case USE_CASE_3_PARAM_1:
+						if (!isAuthenticNone()) {
+							wizardJsonObject.put(USE_CASE_3_PARAM_ADULTERATION_SAMPLE_ID, adulterationSampleID.getText().toString());
+							wizardJsonObject.put(USE_CASE_3_PARAM_DILUTED_PCT, diluted.getText().toString());
+							wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_1_NAME, hazard1.getText().toString());
+							wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_1_PCT, hazard1Percent.getText().toString());
+							wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_2_NAME, hazard2.getText().toString());
+							wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_2_PCT, hazard2Percent.getText().toString());
+						} else {
+							wizardJsonObject.put(USE_CASE_3_PARAM_ADULTERATION_SAMPLE_ID, adulterationSampleIdOnly.getText().toString());
+						}
+
+						if (wizardJsonObject.getString(Constants.USE_CASE_3_PARAM_1).equals("Spirits")) {
+							wizardJsonObject.put(USE_CASE_3_PARAM_ALCOHOL_LABEL, alcoholLabel.getText().toString());
+							wizardJsonObject.put(USE_CASE_3_PARAM_SPIRIT_TYPE, spiritType.getText().toString());
+						}
 						break;
 					case Constants.USE_CASE_3_PARAM_2:
-						wizardJsonObject.put(USE_CASE_3_PARAM_ADULTERATION_SAMPLE_ID, adulterationSampleIDParam2.getText().toString());
-						wizardJsonObject.put(USE_CASE_3_PARAM_AUTHENTIC, authenticParam2.getText().toString());
-						wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_1_NAME, dilution1.getText().toString());
-						wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_1_PCT, dilution1Percent.getText().toString());
-						wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_2_NAME, dilution2.getText().toString());
-						wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_2_PCT, dilution2Percent.getText().toString());
+						if (!isAuthenticNone()) {
+							wizardJsonObject.put(USE_CASE_3_PARAM_ADULTERATION_SAMPLE_ID, adulterationSampleIDParam2.getText().toString());
+							wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_1_NAME, dilution1.getText().toString());
+							wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_1_PCT, dilution1Percent.getText().toString());
+							wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_2_NAME, dilution2.getText().toString());
+							wizardJsonObject.put(USE_CASE_3_PARAM_HAZARD_2_PCT, dilution2Percent.getText().toString());
+						} else {
+							wizardJsonObject.put(USE_CASE_3_PARAM_ADULTERATION_SAMPLE_ID, adulterationSampleIdOnly.getText().toString());
+						}
 						break;
 					case Constants.USE_CASE_3_PARAM_3:
-						wizardJsonObject.put(USE_CASE_3_PARAM_ADULTERATION_SAMPLE_ID, adulterationSampleIDParam3.getText().toString());
-						wizardJsonObject.put(USE_CASE_3_PARAM_PURITY_SMP, purity.getText().toString());
-						wizardJsonObject.put(USE_CASE_3_PARAM_LOW_VALUE_FILLER, lowValueFiller.getText().toString());
-						wizardJsonObject.put(USE_CASE_3_PARAM_NITROGEN_ENHANCER, nitrogenEnhancer.getText().toString());
+						if (!isAuthenticNone()) {
+							wizardJsonObject.put(USE_CASE_3_PARAM_ADULTERATION_SAMPLE_ID, adulterationSampleIDParam3.getText().toString());
+							wizardJsonObject.put(USE_CASE_3_PARAM_PURITY_SMP, purity.getText().toString());
+							wizardJsonObject.put(USE_CASE_3_PARAM_LOW_VALUE_FILLER, lowValueFiller.getText().toString());
+							wizardJsonObject.put(USE_CASE_3_PARAM_NITROGEN_ENHANCER, nitrogenEnhancer.getText().toString());
+						} else {
+							wizardJsonObject.put(USE_CASE_3_PARAM_ADULTERATION_SAMPLE_ID, adulterationSampleIdOnly.getText().toString());
+						}
 						break;
 					case Constants.USE_CASE_3_PARAM_4:
 						wizardJsonObject.put(USE_CASE_3_PARAM_ADULTERATION_SAMPLE_ID, adulterationSampleIDParam4.getText().toString());
-						wizardJsonObject.put(USE_CASE_3_PARAM_AUTHENTIC, authenticParam4.getText().toString());
 						wizardJsonObject.put(USE_CASE_3_PARAM_OTHER_SPECIES, otherSpecies.getText().toString());
+						wizardJsonObject.put(USE_CASE_3_PARAM_AUTHENTIC, authenticParam.getText().toString());
 						break;
+				}
+				final String sample = wizardJsonObject.getString(Constants.USE_CASE_3_PARAM_SAMPLE);
+				if (sample != null && !sample.isEmpty()) {
+					if (sample.equals(Constants.USE_CASE_3_PARAM_AUTHENTIC)) {
+						wizardJsonObject.put(USE_CASE_3_PARAM_AUTHENTIC, "yes");
+					} else if (sample.equals(Constants.USE_CASE_3_PARAM_ADULTERATED)) {
+						wizardJsonObject.put(USE_CASE_3_PARAM_AUTHENTIC, "no");
+					} else {
+						wizardJsonObject.put(USE_CASE_3_PARAM_AUTHENTIC, "none");
+					}
 				}
 				break;
 			case Constants.USE_CASE_WHITE_REF:
@@ -335,6 +372,23 @@ public class ConfigurationActivity extends BaseActivity {
 		}
 	}
 
+	private boolean isAuthenticNone() {
+		final String sample;
+		try {
+			sample = wizardJsonObject.getString(Constants.USE_CASE_3_PARAM_SAMPLE);
+			if (sample != null && !sample.isEmpty()) {
+				if (!sample.equals(Constants.USE_CASE_3_PARAM_AUTHENTIC) &&
+					!sample.equals(Constants.USE_CASE_3_PARAM_ADULTERATED)) {
+					return true;
+				}
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return false;
+	}
+
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_configuration;
@@ -347,9 +401,6 @@ public class ConfigurationActivity extends BaseActivity {
 		measurementViewModel = ViewModelProviders.of(this).get(MeasurementViewModel.class);
 
 		prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-		// load from preferences or set defaults
-		loadStartingValues();
 
 		readWizardJson();
 	}
@@ -386,19 +437,35 @@ public class ConfigurationActivity extends BaseActivity {
 				case Constants.USE_CASE_3:
 					final String useCase3Param = wizardJsonObject.getString(Constants.USE_CASE_3_FOOD_TYPE);
 					switch (useCase3Param) {
-						case Constants.USE_CASE_3_PARAM_1:
-							uc3param1Holder.setVisibility(View.VISIBLE);
+						case USE_CASE_3_PARAM_1:
+							if (!isAuthenticNone()) {
+								uc3param1Holder.setVisibility(View.VISIBLE);
+							} else {
+								uc3paramOnlyAdulterationSampleId.setVisibility(View.VISIBLE);
+							}
+							if (wizardJsonObject.getString(Constants.USE_CASE_3_PARAM_1).equals("Spirits")) {
+								uc3paramSpiritsHolder.setVisibility(View.VISIBLE);
+							}
 							break;
 						case Constants.USE_CASE_3_PARAM_2:
-							uc3param2Holder.setVisibility(View.VISIBLE);
+							if (!isAuthenticNone()) {
+								uc3param2Holder.setVisibility(View.VISIBLE);
+							} else {
+								uc3paramOnlyAdulterationSampleId.setVisibility(View.VISIBLE);
+							}
 							break;
 						case Constants.USE_CASE_3_PARAM_3:
-							uc3param3Holder.setVisibility(View.VISIBLE);
+							if (!isAuthenticNone()) {
+								uc3param3Holder.setVisibility(View.VISIBLE);
+							} else {
+								uc3paramOnlyAdulterationSampleId.setVisibility(View.VISIBLE);
+							}
 							break;
 						case Constants.USE_CASE_3_PARAM_4:
 							uc3param4Holder.setVisibility(View.VISIBLE);
 							break;
 					}
+
 					nirGroup.setVisibility(View.VISIBLE);
 					visGroup.setVisibility(View.VISIBLE);
 					fluoGroup.setVisibility(View.VISIBLE);
@@ -433,6 +500,9 @@ public class ConfigurationActivity extends BaseActivity {
 			e.printStackTrace();
 			riseError(e.getMessage());
 		}
+
+		// load from preferences or set defaults
+		setDefaults();
 	}
 
 	private void riseError(@NonNull final String error) {
@@ -440,44 +510,121 @@ public class ConfigurationActivity extends BaseActivity {
 		finish();
 	}
 
-	private void loadStartingValues() {
-		// use case 2
-		microbiologicalUnit.setText(String.valueOf(prefs.getString(KEY_MICROBIOLOGICAL_UNIT, DEFAULT_MICROBIOLOGICAL_UNIT)));
-		// camera
-		cameraExposureTime.setText(String.valueOf(prefs.getInt(KEY_CAMERA_EXPOSURE_TIME, DEFAULT_CAMERA_EXPOSURE_TIME)));
-		cameraVoltage.setText(String.valueOf(prefs.getInt(KEY_CAMERA_VOLTAGE, DEFAULT_CAMERA_VOLTAGE)));
-		// nir
+	private void setDefaults() {
+
+		microbiologicalUnit.setText(DEFAULT_MICROBIOLOGICAL_UNIT);
 		int saveRadioButtonIndex = prefs.getInt(KEY_NIR_SINGLE_SHOT, 1); // 1 is no (N)
 		singleShotRadioGroup.check(singleShotRadioGroup.getChildAt(saveRadioButtonIndex).getId());
-		averagesEditText.setText(String.valueOf(prefs.getInt(KEY_NIR_SPEC_AVERAGES, DEFAULT_NIR_SPEC_AVERAGES)));
-		nirMicrolampsCurrent.setText(String.valueOf(prefs.getInt(KEY_NIR_MICROLAMPS_CURRENT, DEFAULT_NIR_MICROLAMPS_CURRENT)));
-		nirMicrolampsWarmingTime.setText(String.valueOf(prefs.getInt(KEY_NIR_MICROLAMPS_WARMING_TIME, DEFAULT_NIR_MICROLAMPS_WARMING_TIME)));
-		// vis
-		exposureTimeReflectance.setText(String.valueOf(prefs.getInt(KEY_VIS_EXPOSURE_TIME_REFLECTANCE, DEFAULT_VIS_EXPOSURE_TIME_REFLECTANCE)));
-		whiteLEDsCurrent.setText(String.valueOf(prefs.getInt(KEY_VIS_WHITE_LEDS_VOLTAGE, DEFAULT_VIS_WHITE_LEDS_CURRENT)));
-		// fluo
-		exposureTimeFluorescence.setText(String.valueOf(prefs.getInt(KEY_VIS_EXPOSURE_TIME_FLOURESCENCE, DEFAULT_VIS_EXPOSURE_TIME_FLUORESCENCE)));
-		UVLEDsCurrent.setText(String.valueOf(prefs.getInt(KEY_VIS_UV_LEDS_VOLTAGE, DEFAULT_VIS_UV_LEDS_VOLTAGE)));
+
+		try {
+			final String useCaseKey = wizardJsonObject.getString(Constants.USE_CASE_KEY);
+			switch (useCaseKey) {
+				case Constants.USE_CASE_1:
+					cameraExposureTime.setText(String.valueOf(100000));
+					cameraVoltage.setText(String.valueOf(3000));
+					//nir
+					nirSpectometerAveragesEditText.setText(String.valueOf(100));
+					nirMicrolampsCurrent.setText(String.valueOf(50));
+					nirMicrolampsWarmingTime.setText(String.valueOf(500));
+					//vis
+					exposureTimeReflectance.setText(String.valueOf(55));
+					whiteLEDsCurrent.setText(String.valueOf(1));
+					//fluo
+					exposureTimeFluorescence.setText(String.valueOf(55));
+					UVLEDsCurrent.setText(String.valueOf(15));
+					break;
+				case Constants.USE_CASE_2:
+					Log.d(TAG, "setDefaults: UC2");
+					cameraExposureTime.setText(String.valueOf(1500000));
+					cameraVoltage.setText(String.valueOf(3000));
+					//vis
+					exposureTimeReflectance.setText(String.valueOf(55));
+					whiteLEDsCurrent.setText(String.valueOf(1));
+					//nir
+					nirSpectometerAveragesEditText.setText(String.valueOf(100));
+					nirMicrolampsCurrent.setText(String.valueOf(160));
+					nirMicrolampsWarmingTime.setText(String.valueOf(500));
+					//fluo
+					if (wizardJsonObject.getString(Constants.USE_CASE_3_FOOD_TYPE).contains("Minced pork")
+						|| wizardJsonObject.getString(Constants.USE_CASE_3_FOOD_TYPE).contains("Fish")
+						|| wizardJsonObject.getString(Constants.USE_CASE_3_FOOD_TYPE).contains("Ready to eat baby spinach")
+						|| wizardJsonObject.getString(Constants.USE_CASE_3_FOOD_TYPE).contains("Ready to eat rocket salad")) {
+						exposureTimeFluorescence.setText(String.valueOf(100));
+					} else { //pineapple
+						exposureTimeFluorescence.setText(String.valueOf(55));
+					}
+					UVLEDsCurrent.setText(String.valueOf(10));
+					break;
+				case Constants.USE_CASE_3:
+					cameraExposureTime.setText(String.valueOf(1000000));
+					cameraVoltage.setText(String.valueOf(3000));
+
+					nirMicrolampsCurrent.setText(String.valueOf(50));
+					nirMicrolampsWarmingTime.setText(String.valueOf(500));
+
+					final String useCase3Param = wizardJsonObject.getString(Constants.USE_CASE_3_FOOD_TYPE);
+					switch (useCase3Param) {
+						case USE_CASE_3_PARAM_1:
+							nirSpectometerAveragesEditText.setText(String.valueOf(500));
+							exposureTimeFluorescence.setText(String.valueOf(55));
+							UVLEDsCurrent.setText(String.valueOf(8));
+							break;
+						case Constants.USE_CASE_3_PARAM_2:
+							nirSpectometerAveragesEditText.setText(String.valueOf(500));
+							exposureTimeFluorescence.setText(String.valueOf(55));
+							UVLEDsCurrent.setText(String.valueOf(30));
+							break;
+						case Constants.USE_CASE_3_PARAM_3:
+							nirSpectometerAveragesEditText.setText(String.valueOf(500));
+							exposureTimeFluorescence.setText(String.valueOf(55));
+							UVLEDsCurrent.setText(String.valueOf(10));
+							break;
+						case Constants.USE_CASE_3_PARAM_4:
+							nirSpectometerAveragesEditText.setText(String.valueOf(100));
+							exposureTimeFluorescence.setText(String.valueOf(100));
+							UVLEDsCurrent.setText(String.valueOf(10));
+							break;
+					}
+					//vis
+					exposureTimeReflectance.setText(String.valueOf(55));
+					whiteLEDsCurrent.setText(String.valueOf(1));
+					break;
+				default:
+					cameraExposureTime.setText(String.valueOf(DEFAULT_CAMERA_EXPOSURE_TIME));
+					nirMicrolampsCurrent.setText(String.valueOf(DEFAULT_NIR_MICROLAMPS_CURRENT));
+					nirMicrolampsWarmingTime.setText(String.valueOf(DEFAULT_NIR_MICROLAMPS_WARMING_TIME));
+					// vis
+					exposureTimeReflectance.setText(String.valueOf(DEFAULT_VIS_EXPOSURE_TIME_REFLECTANCE));
+					whiteLEDsCurrent.setText(String.valueOf(DEFAULT_VIS_WHITE_LEDS_CURRENT));
+					// fluo
+					exposureTimeFluorescence.setText(String.valueOf(DEFAULT_VIS_EXPOSURE_TIME_FLUORESCENCE));
+					UVLEDsCurrent.setText(String.valueOf(DEFAULT_VIS_UV_LEDS_VOLTAGE));
+					break;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+			riseError(e.getMessage());
+		}
 	}
 
-	private void setDefaults() {
-		//use case 2
-		microbiologicalUnit.setText(DEFAULT_MICROBIOLOGICAL_UNIT);
-		// camera
-		cameraExposureTime.setText(String.valueOf(DEFAULT_CAMERA_EXPOSURE_TIME));
-		cameraVoltage.setText(String.valueOf(DEFAULT_CAMERA_VOLTAGE));
-		// nir
-		singleShotRadioGroup.check(singleShotRadioGroup.getChildAt(1).getId());
-		averagesEditText.setText(String.valueOf(DEFAULT_NIR_SPEC_AVERAGES));
-		nirMicrolampsCurrent.setText(String.valueOf(DEFAULT_NIR_MICROLAMPS_CURRENT));
-		nirMicrolampsWarmingTime.setText(String.valueOf(DEFAULT_NIR_MICROLAMPS_WARMING_TIME));
-		// vis
-		exposureTimeReflectance.setText(String.valueOf(DEFAULT_VIS_EXPOSURE_TIME_REFLECTANCE));
-		whiteLEDsCurrent.setText(String.valueOf(DEFAULT_VIS_WHITE_LEDS_CURRENT));
-		//fluo
-		exposureTimeFluorescence.setText(String.valueOf(DEFAULT_VIS_EXPOSURE_TIME_FLUORESCENCE));
-		UVLEDsCurrent.setText(String.valueOf(DEFAULT_VIS_UV_LEDS_VOLTAGE));
-	}
+//	private void setDefaults() {
+//		//use case 2
+//		microbiologicalUnit.setText(DEFAULT_MICROBIOLOGICAL_UNIT);
+//		// camera
+//		cameraExposureTime.setText(String.valueOf(DEFAULT_CAMERA_EXPOSURE_TIME));
+//		cameraVoltage.setText(String.valueOf(DEFAULT_CAMERA_VOLTAGE));
+//		// nir
+//		singleShotRadioGroup.check(singleShotRadioGroup.getChildAt(1).getId());
+//		nirSpectometerAveragesEditText.setText(String.valueOf(DEFAULT_NIR_SPEC_AVERAGES));
+//		nirMicrolampsCurrent.setText(String.valueOf(DEFAULT_NIR_MICROLAMPS_CURRENT));
+//		nirMicrolampsWarmingTime.setText(String.valueOf(DEFAULT_NIR_MICROLAMPS_WARMING_TIME));
+//		// vis
+//		exposureTimeReflectance.setText(String.valueOf(DEFAULT_VIS_EXPOSURE_TIME_REFLECTANCE));
+//		whiteLEDsCurrent.setText(String.valueOf(DEFAULT_VIS_WHITE_LEDS_CURRENT));
+//		//fluo
+//		exposureTimeFluorescence.setText(String.valueOf(DEFAULT_VIS_EXPOSURE_TIME_FLUORESCENCE));
+//		UVLEDsCurrent.setText(String.valueOf(DEFAULT_VIS_UV_LEDS_VOLTAGE));
+//	}
 
 	private void saveParamsState() {
 		final SharedPreferences.Editor editor = prefs.edit();
@@ -488,7 +635,7 @@ public class ConfigurationActivity extends BaseActivity {
 		final View radioButton = singleShotRadioGroup.findViewById(radioButtonID);
 		final int idx = singleShotRadioGroup.indexOfChild(radioButton);
 		editor.putInt(KEY_NIR_SINGLE_SHOT, idx);
-		editor.putInt(KEY_NIR_SPEC_AVERAGES, getValue(averagesEditText));
+		editor.putInt(KEY_NIR_SPEC_AVERAGES, getValue(nirSpectometerAveragesEditText));
 		editor.putInt(KEY_NIR_MICROLAMPS_CURRENT, getValue(nirMicrolampsCurrent));
 		editor.putInt(KEY_NIR_MICROLAMPS_WARMING_TIME, getValue(nirMicrolampsWarmingTime));
 
@@ -510,8 +657,8 @@ public class ConfigurationActivity extends BaseActivity {
 			showError(cameraVoltage);
 			return null;
 		}
-		if (!isWithinBounds(getValue(averagesEditText), MIN_NIR_SPEC_AVERAGES, MAX_NIR_SPEC_AVERAGES)) {
-			showError(averagesEditText);
+		if (!isWithinBounds(getValue(nirSpectometerAveragesEditText), MIN_NIR_SPEC_AVERAGES, MAX_NIR_SPEC_AVERAGES)) {
+			showError(nirSpectometerAveragesEditText);
 			return null;
 		}
 		if (!isWithinBounds(getValue(nirMicrolampsCurrent), MIN_NIR_MICROLAMPS_CURRENT, MAX_NIR_MICROLAMPS_CURRENT)) {
@@ -526,6 +673,7 @@ public class ConfigurationActivity extends BaseActivity {
 			showError(exposureTimeReflectance);
 			return null;
 		}
+
 		if (!isWithinBounds(getValue(whiteLEDsCurrent), MIN_VIS_WHITE_LEDS_CURRENT, MAX_VIS_WHITE_LEDS_CURRENT)) {
 			showError(whiteLEDsCurrent);
 			return null;
@@ -558,7 +706,7 @@ public class ConfigurationActivity extends BaseActivity {
 			nirMicrolamps.setVNir(getValue(nirMicrolampsCurrent));
 
 			final String selectedOption = singleShotRadioGroup.getCheckedRadioButtonId() == R.id.yes ? "Y" : "N";
-			final NirSpectrometer nirSpectrometer = new NirSpectrometer(selectedOption, getValue(averagesEditText), nirMicrolamps);
+			final NirSpectrometer nirSpectrometer = new NirSpectrometer(selectedOption, getValue(nirSpectometerAveragesEditText), nirMicrolamps);
 			configuration.setNirSpectrometer(nirSpectrometer);
 			isNirAvailable = true;
 		}

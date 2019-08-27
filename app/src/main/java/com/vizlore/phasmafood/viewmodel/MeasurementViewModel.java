@@ -71,7 +71,7 @@ public class MeasurementViewModel extends ViewModel {
 			.subscribe(() -> measurementLiveData.postValue(Resource.success("Success!")),
 				error -> {
 					Log.d(TAG, "onError: " + error.toString());
-					reportError(error);
+					//reportError(error);
 					measurementLiveData.postValue(Resource.error(error.toString(), null));
 				});
 		return measurementLiveData;
@@ -130,5 +130,13 @@ public class MeasurementViewModel extends ViewModel {
 
 	public void saveConfigurationParams(@NonNull final Configuration configuration) {
 		measurementRepository.saveConfiguration(configuration);
+	}
+
+	public void saveProcessingRequestType(MeasurementRepository.ProcessingRequestType type) {
+		measurementRepository.saveProcessingRequestType(type);
+	}
+
+	public MeasurementRepository.ProcessingRequestType getProcessingRequestType() {
+		return measurementRepository.getProcessingRequestType();
 	}
 }

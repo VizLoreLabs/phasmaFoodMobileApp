@@ -4,17 +4,14 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.api.UserApi;
 import com.vizlore.phasmafood.model.User;
+import com.vizlore.phasmafood.utils.Resource;
 import com.vizlore.phasmafood.utils.SingleLiveEvent;
 import com.vizlore.phasmafood.utils.Utils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,7 +36,7 @@ public class UserViewModel extends ViewModel {
 	private CompositeDisposable disposable = new CompositeDisposable();
 
 	private SingleLiveEvent<Boolean> createAccountLiveData;
-	private SingleLiveEvent<String> getTokenLiveData;
+	private SingleLiveEvent<Resource<String>> getTokenLiveData;
 	private SingleLiveEvent<User> getProfileLiveData;
 	private SingleLiveEvent<Boolean> updateProfileLiveData;
 
@@ -62,6 +59,10 @@ public class UserViewModel extends ViewModel {
 
 	private void clearToken() {
 		sharedPreferences.edit().remove(TOKEN_KEY).apply();
+	}
+
+	private void clearUser() {
+		sharedPreferences.edit().remove(USER_ID_KEY).apply();
 	}
 
 	/**
@@ -87,7 +88,6 @@ public class UserViewModel extends ViewModel {
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribe(() -> createAccountLiveData.postValue(true),
 				error -> {
-					Log.d(TAG, "onError: " + error.getMessage());
 					createAccountLiveData.postValue(false);
 				}
 			));
@@ -98,7 +98,7 @@ public class UserViewModel extends ViewModel {
 	/**
 	 * Login user and returns auth token
 	 */
-	public LiveData<String> login(@NonNull final String email, @NonNull final String password) {
+	public LiveData<Resource<String>> login(@NonNull final String email, @NonNull final String password) {
 
 		if (getTokenLiveData == null) {
 			getTokenLiveData = new SingleLiveEvent<>();
@@ -111,35 +111,14 @@ public class UserViewModel extends ViewModel {
 		disposable.add(userApi.login(requestBody)
 			.subscribeOn(Schedulers.io())
 			.observeOn(AndroidSchedulers.mainThread())
-			.doOnSuccess(responseBody -> getProfile())
-			.subscribe(responseBody -> {
-					final JSONObject jsonObject = new JSONObject(responseBody.string());
-					if (jsonObject.has("token")) {
-						try {
-							final String token = jsonObject.getString("token");
-							// save received token
-							Utils.saveAuthToken(token);
-							getTokenLiveData.postValue(token);
-						} catch (JSONException e) {
-							e.printStackTrace();
-							getTokenLiveData.postValue(null);
-						}
-					}
+			.subscribe(response -> {
+					Utils.saveAuthToken(response.getToken());
+					Utils.saveUserId(response.getUser().id());
+					getTokenLiveData.postValue(Resource.success("Success"));
 				},
-				error -> {
-					Log.d(TAG, "onError: " + error.toString());
-					getTokenLiveData.postValue(null);
-				}));
+				error -> getTokenLiveData.postValue(Resource.error(error.getMessage(), null))));
 
 		return getTokenLiveData;
-	}
-
-	private void getProfile() {
-		disposable.add(userApi.getCurrentProfile()
-			.subscribeOn(Schedulers.io())
-			.observeOn(AndroidSchedulers.mainThread())
-			.subscribe(user -> Utils.saveUserId(user.id()),
-				error -> Log.d(TAG, "onError: " + error.toString())));
 	}
 
 	/**
@@ -161,10 +140,7 @@ public class UserViewModel extends ViewModel {
 			.subscribeOn(Schedulers.io())
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribe(user -> getProfileLiveData.postValue(user),
-				error -> {
-					Log.d(TAG, "onError: " + error.toString());
-					getProfileLiveData.postValue(null);
-				}));
+				error -> getProfileLiveData.postValue(null)));
 
 		return getProfileLiveData;
 	}
@@ -193,11 +169,7 @@ public class UserViewModel extends ViewModel {
 		disposable.add(userApi.updateProfile(requestBody)
 			.subscribeOn(Schedulers.io())
 			.observeOn(AndroidSchedulers.mainThread())
-			.subscribe(() -> updateProfileLiveData.postValue(true),
-				error -> {
-					Log.d(TAG, "onError: " + error.toString());
-					updateProfileLiveData.postValue(false);
-				}));
+			.subscribe(() -> updateProfileLiveData.postValue(true), error -> updateProfileLiveData.postValue(false)));
 
 		return updateProfileLiveData;
 	}
@@ -206,6 +178,7 @@ public class UserViewModel extends ViewModel {
 	 * Sign out and remove token
 	 */
 	public void signOut() {
+		clearUser();
 		clearToken();
 		Utils.clearUuids();
 	}

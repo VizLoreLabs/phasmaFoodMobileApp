@@ -14,6 +14,11 @@ import io.reactivex.Completable;
 
 public interface MeasurementRepository {
 
+	enum ProcessingRequestType {
+		STORE,
+		STORE_AND_ANALYZE
+	}
+
 	Completable createMeasurementRequest(@NonNull Sample measurement, boolean shouldAnalyze);
 
 	Completable postMeasurementString(@NonNull DebugMeasurement debugMeasurement);
@@ -35,4 +40,8 @@ public interface MeasurementRepository {
 	void saveConfiguration(@NonNull Configuration configuration);
 
 	Configuration getConfiguration();
+
+	void saveProcessingRequestType(ProcessingRequestType type);
+
+	ProcessingRequestType getProcessingRequestType();
 }

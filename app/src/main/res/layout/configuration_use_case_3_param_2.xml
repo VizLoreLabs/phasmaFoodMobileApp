@@ -54,33 +54,6 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:gravity="center_vertical"
-            android:text="@string/authentic"
-            android:textColor="@color/white" />
-
-        <EditText
-            android:id="@+id/authenticParam2"
-            style="@style/PFEditTextLetters"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:hint="@string/enterValue"
-            android:textColor="@color/white" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/configurationTowHeight"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/configurationHorizontalRowPadding"
-        android:paddingTop="@dimen/configurationVerticalRowPadding"
-        android:paddingEnd="@dimen/configurationHorizontalRowPadding"
-        android:paddingBottom="@dimen/configurationVerticalRowPadding">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center_vertical"
             android:text="@string/dilution1"
             android:textColor="@color/white" />
 

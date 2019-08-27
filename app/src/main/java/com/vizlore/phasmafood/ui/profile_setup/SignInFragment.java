@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.utils.ConnectivityChecker;
+import com.vizlore.phasmafood.utils.Resource;
 import com.vizlore.phasmafood.utils.Validator;
 import com.vizlore.phasmafood.viewmodel.UserViewModel;
 
@@ -29,6 +30,9 @@ public class SignInFragment extends ProfileBaseFragment {
 	@BindView(R.id.password)
 	EditText password;
 
+	private static final String TAG = "SMEDIC";
+
+
 	@OnClick(R.id.logIn)
 	void onLogInClicked() {
 
@@ -43,11 +47,11 @@ public class SignInFragment extends ProfileBaseFragment {
 			final String emailText = email.getText().toString();
 			final String passwordText = password.getText().toString();
 
-			userViewModel.login(emailText, passwordText).observe(this, receivedToken -> {
-				if (receivedToken != null) {
+			userViewModel.login(emailText, passwordText).observe(this, response -> {
+				if (response.status == Resource.Status.SUCCESS) {
 					profileSetupViewModel.setSelected(ProfileAction.SIGNED_IN);
 				} else {
-					Toast.makeText(getContext(), getString(R.string.signingInError), Toast.LENGTH_SHORT).show();
+					Toast.makeText(getContext(), response.message, Toast.LENGTH_SHORT).show();
 				}
 			});
 		}
@@ -83,7 +87,7 @@ public class SignInFragment extends ProfileBaseFragment {
 		userViewModel = ViewModelProviders.of(getActivity()).get(UserViewModel.class);
 
 		// testing values
-		email.setText("vanste25@gmail.com");
-		password.setText("username123");
+//		email.setText("vanste25@gmail.com"); // TODO: 2019-08-27 Remove before uploading to Play
+//		password.setText("username123");
 	}
 }

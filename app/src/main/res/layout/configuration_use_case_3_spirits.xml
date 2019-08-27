@@ -4,14 +4,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/configurationTitleHeight"
-        android:gravity="center"
-        android:text="@string/useCase3Title"
-        android:textColor="@color/white"
-        android:textSize="18sp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/configurationTowHeight"
@@ -26,11 +18,11 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:gravity="center_vertical"
-            android:text="@string/adulterationSampleID"
+            android:text="@string/alcoholLabel"
             android:textColor="@color/white" />
 
         <EditText
-            android:id="@+id/adulterationSampleIDParam4"
+            android:id="@+id/alcoholLabel"
             style="@style/PFEditTextLetters"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -53,11 +45,11 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:gravity="center_vertical"
-            android:text="@string/authentic"
+            android:text="@string/spiritType"
             android:textColor="@color/white" />
 
         <EditText
-            android:id="@+id/authenticParam"
+            android:id="@+id/spiritType"
             style="@style/PFEditTextLetters"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -65,32 +57,4 @@
             android:hint="@string/enterValue"
             android:textColor="@color/white" />
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/configurationTowHeight"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/configurationHorizontalRowPadding"
-        android:paddingTop="@dimen/configurationVerticalRowPadding"
-        android:paddingEnd="@dimen/configurationHorizontalRowPadding"
-        android:paddingBottom="@dimen/configurationVerticalRowPadding">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center_vertical"
-            android:text="@string/otherSpecies"
-            android:textColor="@color/white" />
-
-        <EditText
-            android:id="@+id/otherSpecies"
-            style="@style/PFEditTextLetters"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:hint="@string/enterValue"
-            android:textColor="@color/white" />
-    </LinearLayout>
-
 </LinearLayout>

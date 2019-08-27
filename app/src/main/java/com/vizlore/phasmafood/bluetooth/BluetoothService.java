@@ -217,8 +217,11 @@ public class BluetoothService extends Service {
 				notifyFinishedStatus("Measurement completed!", "");
 				Log.d(TAG, "handleMessageRead: Measurement data received");
 				final byte[] readBufImage = (byte[]) param;
-				final String measurementDataResponse = new String(readBufImage);
+				String measurementDataResponse = new String(readBufImage);
 				Log.d(TAG, "handleMessageRead: data: " + measurementDataResponse);
+				if (measurementDataResponse.contains("End of Response")) {
+					measurementDataResponse = measurementDataResponse.replace("End of Response", "");
+				}
 				saveMeasurement(measurementDataResponse);
 				startResultsActivity();
 				break;
@@ -244,12 +247,12 @@ public class BluetoothService extends Service {
 			isMeasurementStarted = false;
 
 			//DEBUG send string to server and report failure
-			postMeasurementString(data, false, fullSize, data.length());
+			//postMeasurementString(data, false, fullSize, data.length());
 			return;
 		}
 
 		//DEBUG send string to server and report success
-		postMeasurementString(data, true, fullSize, data.length());
+		//postMeasurementString(data, true, fullSize, data.length());
 
 		// received message parsed successfully
 		if (measurement != null && measurement.getResponse() != null) {

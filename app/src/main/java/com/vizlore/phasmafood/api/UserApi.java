@@ -1,5 +1,6 @@
 package com.vizlore.phasmafood.api;
 
+import com.vizlore.phasmafood.model.LoginResponse;
 import com.vizlore.phasmafood.model.User;
 
 import java.util.Map;
@@ -23,7 +24,7 @@ public interface UserApi {
 	Completable createAccount(@Body Map<String, String> body);
 
 	@POST("/api/v1/auth/jwt/create/")
-	Single<ResponseBody> login(@Body Map<String, String> body);
+	Single<LoginResponse> login(@Body Map<String, String> body);
 
 	@Headers("Content-Type: application/json")
 	@POST("/api/v1/auth/jwt/refresh/")

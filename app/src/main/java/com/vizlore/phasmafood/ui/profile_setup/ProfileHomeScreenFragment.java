@@ -12,7 +12,6 @@ import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.utils.ConnectivityChecker;
 import com.vizlore.phasmafood.viewmodel.FcmMobileViewModel;
 
-import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -23,10 +22,10 @@ public class ProfileHomeScreenFragment extends ProfileBaseFragment {
 
 	private FcmMobileViewModel configViewModel;
 
-	@BindView(R.id.measurementHistory)
-	Button measurementHistory;
+//	@BindView(R.id.measurementHistory)
+//	Button measurementHistory;
 
-	@OnClick({R.id.startMeasurement, R.id.measurementHistory, R.id.yourProfile})
+	@OnClick({R.id.startMeasurement, R.id.yourProfile})
 	void onClick(Button button) {
 		switch (button.getId()) {
 			case R.id.startMeasurement:
@@ -36,13 +35,13 @@ public class ProfileHomeScreenFragment extends ProfileBaseFragment {
 				}
 				profileSetupViewModel.setSelected(ProfileAction.START_MEASUREMENT_CLICKED);
 				break;
-			case R.id.measurementHistory:
-				if (!ConnectivityChecker.isNetworkEnabled(getActivity())) {
-					Toast.makeText(getActivity(), getString(R.string.networkNotEnabled), Toast.LENGTH_SHORT).show();
-					return;
-				}
-				profileSetupViewModel.setSelected(ProfileAction.MEASUREMENT_HISTORY_CLICKED);
-				break;
+//			case R.id.measurementHistory:
+//				if (!ConnectivityChecker.isNetworkEnabled(getActivity())) {
+//					Toast.makeText(getActivity(), getString(R.string.networkNotEnabled), Toast.LENGTH_SHORT).show();
+//					return;
+//				}
+//				profileSetupViewModel.setSelected(ProfileAction.MEASUREMENT_HISTORY_CLICKED);
+//				break;
 			case R.id.yourProfile:
 				if (!ConnectivityChecker.isNetworkEnabled(getActivity())) {
 					Toast.makeText(getActivity(), getString(R.string.networkNotEnabled), Toast.LENGTH_SHORT).show();
@@ -79,7 +78,7 @@ public class ProfileHomeScreenFragment extends ProfileBaseFragment {
 	public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
-		measurementHistory.setEnabled(false);
+		//measurementHistory.setEnabled(false);
 	}
 
 	@Override

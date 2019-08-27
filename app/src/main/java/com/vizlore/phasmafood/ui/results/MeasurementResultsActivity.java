@@ -35,6 +35,7 @@ import com.vizlore.phasmafood.model.results.Measurement;
 import com.vizlore.phasmafood.model.results.NIR;
 import com.vizlore.phasmafood.model.results.Sample;
 import com.vizlore.phasmafood.model.results.VIS;
+import com.vizlore.phasmafood.repositories.MeasurementRepository;
 import com.vizlore.phasmafood.ui.BaseActivity;
 import com.vizlore.phasmafood.ui.view.ChartMarkerView;
 import com.vizlore.phasmafood.utils.ConnectivityChecker;
@@ -87,6 +88,9 @@ public class MeasurementResultsActivity extends BaseActivity {
 	@BindView(R.id.completedOn)
 	TextView completedOn;
 
+	@BindView(R.id.sampleId)
+	TextView sampleId;
+
 	@BindView(R.id.resultsGroup)
 	Group resultsGroup;
 
@@ -96,9 +100,6 @@ public class MeasurementResultsActivity extends BaseActivity {
 	@BindView(R.id.sampleValue)
 	TextView sampleValue;
 
-	@BindView(R.id.param1Value)
-	TextView param1Value;
-
 	@BindView(R.id.visValue)
 	TextView visValue;
 
@@ -107,10 +108,6 @@ public class MeasurementResultsActivity extends BaseActivity {
 
 	@BindView(R.id.fluoValue)
 	TextView fluoValue;
-
-	//keys changed for testing purposes // FIXME: 3/5/18
-	@BindView(R.id.param1Title)
-	TextView param1Title;
 
 	@BindView(R.id.chart)
 	LineChart lineChart;
@@ -269,7 +266,17 @@ public class MeasurementResultsActivity extends BaseActivity {
 
 			if (bundle.containsKey(IS_FROM_SERVER)) {
 				final boolean isFromServer = bundle.getBoolean(IS_FROM_SERVER);
-				title.setText(isFromServer ? resultsFromServer : resultsFromBtDevice);
+
+				if (isFromServer) {
+					if (measurementViewModel.getProcessingRequestType() == MeasurementRepository.ProcessingRequestType.STORE) {
+						title.setText(R.string.successfullyStoredInCloud);
+					} else {
+						title.setText(resultsFromServer);
+					}
+				} else {
+					title.setText(resultsFromBtDevice);
+				}
+
 				storeOnServer.setVisibility(isFromServer ? View.GONE : View.VISIBLE);
 				storeOnServerAndAnalyze.setVisibility(isFromServer ? View.GONE : View.VISIBLE);
 				previousButton.setVisibility(isFromServer ? View.GONE : View.VISIBLE);
@@ -315,16 +322,9 @@ public class MeasurementResultsActivity extends BaseActivity {
 			}
 
 			completedOn.setText(measurementViewModel.getSuccessfulMeasurementTime());
+			sampleId.setText(getString(R.string.sampleId, sample.getSampleID()));
 			useCaseValue.setText(sample.getUseCase());
 			sampleValue.setText(sample.getFoodType());
-
-			if (sample.getGranularity() != null) {
-				param1Title.setText(granularityString);
-				param1Value.setText(sample.getGranularity());
-			} else {
-				param1Title.setText(temperatureString);
-				param1Value.setText(sample.getTemperature());
-			}
 
 			//only white ref contains timestamp
 			if (sample.getTimestamp() != null) {
@@ -540,6 +540,9 @@ public class MeasurementResultsActivity extends BaseActivity {
 	}
 
 	private void sendMeasurementToServer(@NonNull final Sample sample, boolean shouldAnalyze) {
+
+		Log.d(TAG, "sendMeasurementToServer: SHOULD ANALYZE: " + shouldAnalyze);
+
 		final String deviceId = deviceViewModel.getDeviceID();
 		Log.d(TAG, "sendMeasurementToServer: device id: " + deviceId);
 		if (deviceId != null) {
@@ -548,6 +551,10 @@ public class MeasurementResultsActivity extends BaseActivity {
 			Toast.makeText(this, R.string.processingRequestSent, Toast.LENGTH_LONG).show();
 			//disable so user could not send multiple requests or navigate through app while measurement in progress
 			disableInteraction();
+
+			measurementViewModel.saveProcessingRequestType(shouldAnalyze ?
+				MeasurementRepository.ProcessingRequestType.STORE_AND_ANALYZE :
+				MeasurementRepository.ProcessingRequestType.STORE);
 
 			measurementViewModel.createMeasurementRequest(Utils.getUserId(), sample, deviceId, shouldAnalyze).observe(this,
 				result -> {
@@ -564,7 +571,13 @@ public class MeasurementResultsActivity extends BaseActivity {
 						//Toast.makeText(activity, "Examination request failed!", Toast.LENGTH_SHORT).show();
 						Toast.makeText(this, "Failure! Error: " + result.message, Toast.LENGTH_SHORT).show();
 					} else {
-						Toast.makeText(this, "Processing successfully completed", Toast.LENGTH_SHORT).show();
+						if (measurementViewModel.getProcessingRequestType() == MeasurementRepository.ProcessingRequestType.STORE_AND_ANALYZE) {
+							Log.d(TAG, "sendMeasurementToServer: ANALYZE");
+							Toast.makeText(this, "Analyzing successfully completed", Toast.LENGTH_SHORT).show();
+						} else {
+							Log.d(TAG, "sendMeasurementToServer: ONLY STORE");
+							Toast.makeText(this, R.string.successfullyStoredInCloud, Toast.LENGTH_SHORT).show();
+						}
 					}
 					//hideDialog();
 				});

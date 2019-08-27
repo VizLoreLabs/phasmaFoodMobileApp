@@ -45,11 +45,11 @@
     <string name="white">White ref</string>
     <string name="showAll">Show all</string>
     <string name="homeScreenTitle">Welcome!</string>
-    <string name="alfatoxinName">alfatoxinName</string>
-    <string name="alfatoxinValue">alfatoxinValue</string>
-    <string name="alfatoxinUnit">alfatoxinUnit</string>
-    <string name="microbiologicalUnit">microbiologicalUnit</string>
-    <string name="microbiologicalValue">microbiologicalValue</string>
+    <string name="alfatoxinName">Alfatoxin Name</string>
+    <string name="alfatoxinValue">Alfatoxin Value</string>
+    <string name="alfatoxinUnit">Alfatoxin Unit</string>
+    <string name="microbiologicalUnit">Microbiological Unit</string>
+    <string name="microbiologicalValue">Microbiological Value</string>
     <string name="channel_name">channelPhasmaFood</string>
     <string name="channel_description">Receiving data from BLE device</string>
     <string name="rawData">Raw data</string>
@@ -69,8 +69,8 @@
     <string name="useCase2LabelsTitle">Configure use case 2 labels</string>
     <string name="granularity">Granularity:</string>
     <string name="temperatureString">Temperature</string>
-    <string name="resultsFromServer">Results from server</string>
-    <string name="resultsFromBtDevice">Results from BT device</string>
+    <string name="resultsFromServer">Food Analysis Finished!</string>
+    <string name="resultsFromBtDevice">Measurement data from PhasmaFood device</string>
     <string name="sendRequestToBtDevice">Send request to\nBluetooth device</string>
     <string name="sendRequestInfo">Parameters selected in wizard\nwill be sent to a connected\nPhasma food bluetooth device.\nMeasurement progress can be\nobserved in a notification bar.</string>
     <string name="timestamp">Timestamp:</string>
@@ -84,8 +84,7 @@
     <string name="microbioSampleId">Microb. Sample ID</string>
     <string name="packageParam">Package</string>
     <string name="useCase3Title">Food adulteration params</string>
-    <string name="adulterationSampleID">adulterationSampleID:</string>
-    <string name="authentic">Authentic:</string>
+    <string name="adulterationSampleID">Adulteration Sample ID:</string>
     <string name="diluted">Diluted %:</string>
     <string name="hazard1">Hazard 1 name:</string>
     <string name="hazard1Percent">Hazard 1 %:</string>
@@ -101,4 +100,9 @@
     <string name="dilution2Percent">Dilution 2 (%):</string>
     <string name="lightsOnDurationTime">Lights ON duration [s]</string>
     <string name="useCaseTestLabelsTitle">Test params</string>
+    <string name="sampleId">Sample ID: %s</string>
+    <string name="successfullyStoredInCloud">Successfuly Stored in the Cloud DB</string>
+    <string name="alcoholLabel">Alcohol label:</string>
+    <string name="spiritType">Spirit type:</string>
+    <string name="authentic">Authentic:</string>
 </resources>

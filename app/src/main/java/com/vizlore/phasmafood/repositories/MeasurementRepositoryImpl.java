@@ -16,7 +16,9 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MeasurementRepositoryImpl implements MeasurementRepository {
 
-	final MeasurementApi measurementApi;
+	private final MeasurementApi measurementApi;
+
+	private ProcessingRequestType processingRequestType = ProcessingRequestType.STORE;
 
 	public MeasurementRepositoryImpl(@NonNull final MeasurementApi measurementApi) {
 		this.measurementApi = measurementApi;
@@ -80,5 +82,15 @@ public class MeasurementRepositoryImpl implements MeasurementRepository {
 	@Override
 	public Configuration getConfiguration() {
 		return configuration;
+	}
+
+	@Override
+	public void saveProcessingRequestType(ProcessingRequestType type) {
+		processingRequestType = type;
+	}
+
+	@Override
+	public ProcessingRequestType getProcessingRequestType() {
+		return processingRequestType;
 	}
 }

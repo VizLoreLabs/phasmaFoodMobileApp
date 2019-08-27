@@ -14,15 +14,9 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.UUID;
 
 public class CommunicationController {
@@ -317,8 +311,8 @@ public class CommunicationController {
 		private String dataType;
 
 		//debug
-		private int fullSize = 0;
-		private String outputFileName;
+		//private int fullSize = 0;
+		//private String outputFileName;
 
 
 		public ReadWriteThread(BluetoothSocket socket) {
@@ -391,17 +385,9 @@ public class CommunicationController {
 									state = 1;
 
 									if (readMessage.contains("}}{")) {
-										Log.d(TAG, "run: NOT REGULAR DATA PREAMBLE");
-										saveToFile("run: NOT REGULAR DATA PREAMBLE -> " + readMessage);
-
 										dataFlag = 0;
 										endFlag = 6;
-
 										final String newJsonCut = readMessage.substring(readMessage.indexOf("}}{") + 2);
-
-										Log.d(TAG, "run: NEW JSON PART TO STORE: " + newJsonCut);
-										saveToFile("run: NEW JSON PART TO STORE: " + newJsonCut);
-
 										outputStream.write(newJsonCut.getBytes(), 0, newJsonCut.getBytes().length);
 										double percentage = ((double) outputStream.size() / newJsonCut.getBytes().length) * 100;
 
@@ -425,8 +411,6 @@ public class CommunicationController {
 							}
 						}
 					} else if (state == 1) {
-						Log.d(TAG, "run: ---------------- STATE = 1");
-						saveToFile("run: ---------------- STATE = 1\n");
 						if (dataType.equals("Image")) {
 							dataFlag = 1;
 							endFlag = 5;
@@ -435,51 +419,15 @@ public class CommunicationController {
 							endFlag = 6;
 						}
 
-						Log.d(TAG, "run: ---------------- before End of Response");
-						saveToFile("run: ---------------- before End of Response\n");
 						if (readMessage.equals("End of Response")) {
-							Log.d(TAG, "run: ---------------- End of Response");
-							saveToFile("run: ---------------- End of Response\n");
-
-//							Log.d(TAG, "run: ----------------------------- ");
-//							Log.d(TAG, "run: LAST MESSAGE:" + readMessage);
-//							int position = readMessage.indexOf("End of Response");
-//							Log.d(TAG, "run: INDEX OF END OF RESPONSE: " + position);
-//
-//							if (position > 0) {
-//								String substring = readMessage.substring(0, position);
-//								Log.d(TAG, "run: END OF RESPONSE HAS SOMETHING BEFORE: " + substring);
-//								Log.d(TAG, "run: JOINING PART BEFORE...");
-//								outputStream.write(buffer, 0, bytes);
-//								double percentage = ((double) outputStream.size() / dataSize) * 100;
-//
-//								boolean flag = false;
-//								for (int stage1 : stages) {
-//									if (percentage >= stage1) {
-//										if (stage < stage1) {
-//											stage = stage1;
-//											flag = true;
-//										}
-//									}
-//								}
-//								if (flag) {
-//									handler.obtainMessage(BluetoothService.MESSAGE_READ, outputStream.toByteArray().length,
-//										dataFlag, stage).sendToTarget();
-//								}
-//							}
-							Log.d(TAG, "run: END OF RESPONSE, NOTIFY ABOUT EVENT AND SAVE MEASUREMENT.");
-
-							saveToFile("END OF RESPONSE, NOTIFY ABOUT EVENT AND SAVE MEASUREMENT.");
-							saveToFile("\n\n"); //make divider between new entries and old
-							//debug
-							outputFileName = null;
+							//outputFileName = null;
 
 							state = 0; //reset state
 							handler.obtainMessage(BluetoothService.MESSAGE_READ, outputStream.toByteArray().length,
 								endFlag, outputStream.toByteArray()).sendToTarget();
 							outputStream = new ByteArrayOutputStream();
 							stage = 0;
-							fullSize = 0;
+							//fullSize = 0;
 
 						} else {
 							outputStream.write(buffer, 0, bytes);
@@ -498,6 +446,15 @@ public class CommunicationController {
 							if (flag) {
 								handler.obtainMessage(BluetoothService.MESSAGE_READ, outputStream.toByteArray().length,
 									dataFlag, stage).sendToTarget();
+							}
+
+							if (readMessage.contains("End of Response")) {
+								Log.d(TAG, "run: HANDLING ANOTHER EDGE CASE...");
+								state = 0; //reset state
+								handler.obtainMessage(BluetoothService.MESSAGE_READ, outputStream.toByteArray().length,
+									endFlag, outputStream.toByteArray()).sendToTarget();
+								outputStream = new ByteArrayOutputStream();
+								stage = 0;
 							}
 						}
 					}
@@ -529,15 +486,9 @@ public class CommunicationController {
 		}
 
 		private boolean decode(final String jsonString) {
-			Log.d(TAG, "decode: DECODE...");
-			saveToFile("decode: DECODE...");
 			String json = jsonString;
 			if (jsonString.contains("}}{")) {
-				Log.d(TAG, "decode: WRONG PREAMBLE! -> jsonString: " + jsonString);
-				saveToFile("decode: WRONG PREAMBLE! -> jsonString: " + jsonString);
 				json = jsonString.substring(0, jsonString.indexOf("}}{") + 2);
-				Log.d(TAG, "decode: WRONG PREAMBLE! -> cut to: " + json);
-				saveToFile("decode: WRONG PREAMBLE! -> cut to: " + json);
 			}
 
 			try {
@@ -547,12 +498,6 @@ public class CommunicationController {
 				type = response.getString("type");
 				dataSize = response.getInt("size");
 				dataType = response.getString("datatype");
-
-				fullSize += dataSize;
-
-				Log.d(TAG, "decode: status: " + status + ", type: " + type + ", size: " + dataSize + ", datatype: " + dataType);
-				saveToFile("decode: status:" + status + ", type: " + type + ", size: " + dataSize + ", datatype: " + dataType + "\n");
-
 				return true;
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -578,36 +523,37 @@ public class CommunicationController {
 			}
 		}
 
-		private void saveToFile(String data) {
-			if (outputFileName == null) {
-				outputFileName = new SimpleDateFormat("dd_MM_yyyy_hh-mm-ss").format(new Date());
-			}
-			File file = new File("/sdcard/phasma_test_" + outputFileName + ".txt");
-			if (!file.exists()) {
-				try {
-					file.createNewFile();
-				} catch (IOException ioe) {
-					ioe.printStackTrace();
-				}
-			}
-			try {
-				FileOutputStream fileOutputStream = new FileOutputStream(file, true);
-				OutputStreamWriter writer = new OutputStreamWriter(fileOutputStream);
-				writer.append(data);
-				writer.close();
-				fileOutputStream.close();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		//DEBUG
+//		private void saveToFilee(String data) {
+//			if (outputFileName == null) {
+//				outputFileName = new SimpleDateFormat("dd_MM_yyyy_hh-mm-ss").format(new Date());
+//			}
+//			File file = new File("/sdcard/phasma_test_" + outputFileName + ".txt");
+//			if (!file.exists()) {
+//				try {
+//					file.createNewFile();
+//				} catch (IOException ioe) {
+//					ioe.printStackTrace();
+//				}
+//			}
+//			try {
+//				FileOutputStream fileOutputStream = new FileOutputStream(file, true);
+//				OutputStreamWriter writer = new OutputStreamWriter(fileOutputStream);
+//				writer.append(data);
+//				writer.close();
+//				fileOutputStream.close();
+//			} catch (FileNotFoundException e) {
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
 	}
 
 	public int getFullSize() {
-		if (connectedThread != null) {
-			return connectedThread.fullSize;
-		}
+//		if (connectedThread != null) {
+//			return connectedThread.fullSize;
+//		}
 		return 0;
 	}
 }
