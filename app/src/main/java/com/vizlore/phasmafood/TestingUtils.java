@@ -13,6 +13,7 @@ import com.google.gson.GsonBuilder;
 import com.vizlore.phasmafood.api.AutoValueGsonFactory;
 import com.vizlore.phasmafood.model.DebugMeasurement;
 import com.vizlore.phasmafood.model.results.Measurement;
+import com.vizlore.phasmafood.model.results.Sample;
 import com.vizlore.phasmafood.repositories.MeasurementRepository;
 import com.vizlore.phasmafood.ui.results.MeasurementResultsActivity;
 import com.vizlore.phasmafood.utils.Constants;
@@ -75,7 +76,11 @@ public class TestingUtils {
 			activity.startActivity(intent);
 		} else {
 			dialog.show();
-			model.createMeasurementRequest(Utils.getUserId(), measurement.getResponse().getSample(),
+
+			final Sample sample = measurement.getResponse().getSample();
+			sample.setSampleID(Utils.generateSampleId());
+
+			model.createMeasurementRequest(Utils.getUserId(), sample,
 				Utils.getBluetoothDeviceUUID(), true) // TODO: 9/11/18 fix)
 				.observe(activity, result -> {
 					if (result == null) {

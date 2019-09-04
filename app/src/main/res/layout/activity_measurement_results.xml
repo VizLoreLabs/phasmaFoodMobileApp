@@ -1,502 +1,508 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
+    android:id="@+id/myCoordinatorLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/fruits">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/overlay"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/background_gradient"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="130dp"
-        android:layout_height="45dp"
-        android:src="@drawable/phasma_food_logo"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6" />
-
-    <ImageView
-        android:id="@+id/header_divider"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:background="@drawable/header_gradient"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
-
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/ic_back"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintDimensionRatio="H,1:1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.11" />
-
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:background="@drawable/header_gradient"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- screen components -->
-
-    <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/header_divider">
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/title"
-                style="@style/PFTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/resultsReceived"
-                app:layout_constraintHorizontal_bias="0.502"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/chart"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/samplesRadioGroup" />
-
-            <TextView
-                android:id="@+id/useCase"
-                style="@style/PFTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:text="Use case:"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buttonRawData" />
-
-            <TextView
-                android:id="@+id/useCaseValue"
-                style="@style/PFTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/na"
-                app:layout_constraintBottom_toBottomOf="@+id/useCase"
-                app:layout_constraintStart_toEndOf="@+id/useCase"
-                app:layout_constraintTop_toTopOf="@+id/useCase" />
-
-            <TextView
-                android:id="@+id/sample"
-                style="@style/PFTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Sample/food:"
-                app:layout_constraintStart_toStartOf="@+id/useCase"
-                app:layout_constraintTop_toBottomOf="@+id/useCase" />
-
-            <TextView
-                android:id="@+id/sampleValue"
-                style="@style/PFTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/na"
-                app:layout_constraintBottom_toBottomOf="@+id/sample"
-                app:layout_constraintStart_toEndOf="@+id/sample"
-                app:layout_constraintTop_toTopOf="@+id/sample" />
-
-            <android.support.constraint.Group
-                android:id="@+id/resultsGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="visible"
-                app:constraint_referenced_ids="visTitle,nirTitle,fluoTitle,visValue,nirValue,fluoValue " />
-
-            <TextView
-                android:id="@+id/visTitle"
-                style="@style/PFTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="4dp"
-                android:text="@string/visAnalysis"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sampleValue" />
-
-            <TextView
-                android:id="@+id/nirTitle"
-                style="@style/PFTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="4dp"
-                android:text="@string/nirAnalysis"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/visTitle" />
-
-            <TextView
-                android:id="@+id/fluoTitle"
-                style="@style/PFTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="4dp"
-                android:text="@string/fluoAnalysis"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nirTitle" />
-
-            <TextView
-                android:id="@+id/visValue"
-                style="@style/PFTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                android:text="@string/na"
-                app:layout_constraintBottom_toBottomOf="@+id/visTitle"
-                app:layout_constraintStart_toEndOf="@+id/visTitle"
-                app:layout_constraintTop_toTopOf="@+id/visTitle"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <TextView
-                android:id="@+id/nirValue"
-                style="@style/PFTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                android:text="@string/na"
-                app:layout_constraintBottom_toBottomOf="@+id/nirTitle"
-                app:layout_constraintStart_toEndOf="@+id/nirTitle"
-                app:layout_constraintTop_toTopOf="@+id/nirTitle" />
-
-            <TextView
-                android:id="@+id/fluoValue"
-                style="@style/PFTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                android:text="@string/na"
-                app:layout_constraintBottom_toBottomOf="@+id/fluoTitle"
-                app:layout_constraintStart_toEndOf="@+id/fluoTitle"
-                app:layout_constraintTop_toTopOf="@+id/fluoTitle" />
-
-            <TextView
-                android:id="@+id/timestampTitle"
-                style="@style/PFTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="4dp"
-                android:text="@string/timestamp"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fluoTitle" />
-
-            <TextView
-                android:id="@+id/timestampValue"
-                style="@style/PFTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/timestampTitle"
-                app:layout_constraintStart_toEndOf="@+id/timestampTitle"
-                app:layout_constraintTop_toTopOf="@+id/timestampTitle" />
-
-            <ImageView
-                android:id="@+id/btDeviceCameraImage"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginTop="8dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/timestampTitle" />
-
-            <Button
-                android:id="@+id/buttonPreprocessed"
-                android:layout_width="@dimen/graphLegendButtonWidth"
-                android:layout_height="@dimen/graphLegendButtonHeight"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/vis_button_selector"
-                android:text="@string/preprocessed"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/chart" />
-
-            <Button
-                android:id="@+id/buttonDarkReference"
-                android:layout_width="@dimen/graphLegendButtonWidth"
-                android:layout_height="@dimen/graphLegendButtonHeight"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/vis_button_selector"
-                android:text="@string/dark"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/buttonPreprocessed"
-                app:layout_constraintTop_toBottomOf="@+id/chart" />
-
-            <Button
-                android:id="@+id/buttonWhiteReference"
-                android:layout_width="@dimen/graphLegendButtonWidth"
-                android:layout_height="@dimen/graphLegendButtonHeight"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/vis_button_selector"
-                android:text="@string/white"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/buttonDarkReference"
-                app:layout_constraintTop_toBottomOf="@+id/chart" />
-
-            <Button
-                android:id="@+id/buttonRawData"
-                android:layout_width="@dimen/graphLegendButtonWidth"
-                android:layout_height="@dimen/graphLegendButtonHeight"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/vis_button_selector"
-                android:text="@string/rawData"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buttonWhiteReference" />
-
-            <Button
-                android:id="@+id/buttonRawDark"
-                android:layout_width="@dimen/graphLegendButtonWidth"
-                android:layout_height="@dimen/graphLegendButtonHeight"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/vis_button_selector"
-                android:text="@string/rawDark"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/buttonRawData"
-                app:layout_constraintTop_toBottomOf="@+id/buttonWhiteReference" />
-
-            <Button
-                android:id="@+id/buttonRawWhite"
-                android:layout_width="@dimen/graphLegendButtonWidth"
-                android:layout_height="@dimen/graphLegendButtonHeight"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/vis_button_selector"
-                android:text="@string/rawWhite"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/buttonRawDark"
-                app:layout_constraintTop_toBottomOf="@+id/buttonWhiteReference" />
-
-            <Button
-                android:id="@+id/buttonShowAllSamples"
-                android:layout_width="@dimen/graphLegendButtonWidth"
-                android:layout_height="@dimen/graphLegendButtonHeight"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/vis_button_selector"
-                android:text="@string/showAll"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/chart" />
-
-            <RadioGroup
-                android:id="@+id/samplesRadioGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title">
-
-                <RadioButton
-                    android:id="@+id/visRadioButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/white"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="@string/vis"
-                    android:textColor="@color/white" />
-
-                <RadioButton
-                    android:id="@+id/nirRadioButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/white"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="@string/nir"
-                    android:textColor="@color/white" />
-
-                <RadioButton
-                    android:id="@+id/fluoRadioButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/white"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="@string/fluo"
-                    android:textColor="@color/white" />
-            </RadioGroup>
-
-            <ImageView
-                android:id="@+id/divider1"
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/header_gradient"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btDeviceCameraImage" />
-
-            <Button
-                android:id="@+id/storeOnServerAndAnalyze"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:background="@drawable/selectable_item_background"
-                android:shadowColor="@color/text_shadow"
-                android:shadowDx="1"
-                android:shadowDy="1"
-                android:shadowRadius="2"
-                android:text="@string/storeOnServerAndAnalyze"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/storeOnServer"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/previousButton"
-                app:layout_constraintTop_toBottomOf="@+id/divider1" />
-
-            <Button
-                android:id="@+id/storeOnServer"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:background="@drawable/selectable_item_background"
-                android:shadowColor="@color/text_shadow"
-                android:shadowDx="1"
-                android:shadowDy="1"
-                android:shadowRadius="2"
-                android:text="@string/storeOnServer"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/storeOnServerAndAnalyze"
-                app:layout_constraintTop_toBottomOf="@+id/divider1" />
-
-            <Button
-                android:id="@+id/previousButton"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:background="@drawable/selectable_item_background"
-                android:shadowColor="@color/text_shadow"
-                android:shadowDx="1"
-                android:shadowDy="1"
-                android:shadowRadius="2"
-                android:text="@string/goBackAndRetest"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toStartOf="@+id/storeOnServerAndAnalyze"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider1" />
-
-            <TextView
-                android:id="@+id/completedOn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/samplesRadioGroup"
-                tools:text="25.05.2018. 10:55:00" />
-
-            <TextView
-                android:id="@+id/sampleId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="SampleId: 5"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/samplesRadioGroup"
-                app:layout_constraintEnd_toEndOf="parent" />
-        </android.support.constraint.ConstraintLayout>
-    </ScrollView>
-
-    <RelativeLayout
-        android:id="@+id/loadingProgressBar"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:background="@drawable/fruits">
 
-        <View
-            android:id="@+id/background_dim"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#66000000" />
+        <ImageView
+            android:id="@+id/overlay"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/background_gradient"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="130dp"
+            android:layout_height="45dp"
+            android:src="@drawable/phasma_food_logo"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.6" />
+
+        <ImageView
+            android:id="@+id/header_divider"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@drawable/header_gradient"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/ic_back"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.6" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:indeterminate="true"
-            android:indeterminateTint="@color/orange"
-            android:indeterminateTintMode="src_atop" />
-    </RelativeLayout>
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.11" />
 
-</android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@drawable/header_gradient"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- screen components -->
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/header_divider">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/title"
+                    style="@style/PFTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/resultsReceived"
+                    app:layout_constraintHorizontal_bias="0.502"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/samplesRadioGroup" />
+
+                <TextView
+                    android:id="@+id/useCase"
+                    style="@style/PFTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Use case:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonRawData" />
+
+                <TextView
+                    android:id="@+id/useCaseValue"
+                    style="@style/PFTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/na"
+                    app:layout_constraintBottom_toBottomOf="@+id/useCase"
+                    app:layout_constraintStart_toEndOf="@+id/useCase"
+                    app:layout_constraintTop_toTopOf="@+id/useCase" />
+
+                <TextView
+                    android:id="@+id/sample"
+                    style="@style/PFTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Sample/food:"
+                    app:layout_constraintStart_toStartOf="@+id/useCase"
+                    app:layout_constraintTop_toBottomOf="@+id/useCase" />
+
+                <TextView
+                    android:id="@+id/sampleValue"
+                    style="@style/PFTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/na"
+                    app:layout_constraintBottom_toBottomOf="@+id/sample"
+                    app:layout_constraintStart_toEndOf="@+id/sample"
+                    app:layout_constraintTop_toTopOf="@+id/sample" />
+
+                <android.support.constraint.Group
+                    android:id="@+id/resultsGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    app:constraint_referenced_ids="visTitle,nirTitle,fluoTitle,visValue,nirValue,fluoValue " />
+
+                <TextView
+                    android:id="@+id/visTitle"
+                    style="@style/PFTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/visAnalysis"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sampleValue" />
+
+                <TextView
+                    android:id="@+id/nirTitle"
+                    style="@style/PFTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/nirAnalysis"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/visTitle" />
+
+                <TextView
+                    android:id="@+id/fluoTitle"
+                    style="@style/PFTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/fluoAnalysis"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/nirTitle" />
+
+                <TextView
+                    android:id="@+id/visValue"
+                    style="@style/PFTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/na"
+                    app:layout_constraintBottom_toBottomOf="@+id/visTitle"
+                    app:layout_constraintStart_toEndOf="@+id/visTitle"
+                    app:layout_constraintTop_toTopOf="@+id/visTitle"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <TextView
+                    android:id="@+id/nirValue"
+                    style="@style/PFTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/na"
+                    app:layout_constraintBottom_toBottomOf="@+id/nirTitle"
+                    app:layout_constraintStart_toEndOf="@+id/nirTitle"
+                    app:layout_constraintTop_toTopOf="@+id/nirTitle" />
+
+                <TextView
+                    android:id="@+id/fluoValue"
+                    style="@style/PFTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/na"
+                    app:layout_constraintBottom_toBottomOf="@+id/fluoTitle"
+                    app:layout_constraintStart_toEndOf="@+id/fluoTitle"
+                    app:layout_constraintTop_toTopOf="@+id/fluoTitle" />
+
+                <TextView
+                    android:id="@+id/timestampTitle"
+                    style="@style/PFTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/timestamp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fluoTitle" />
+
+                <TextView
+                    android:id="@+id/timestampValue"
+                    style="@style/PFTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/timestampTitle"
+                    app:layout_constraintStart_toEndOf="@+id/timestampTitle"
+                    app:layout_constraintTop_toTopOf="@+id/timestampTitle" />
+
+                <ImageView
+                    android:id="@+id/btDeviceCameraImage"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/timestampTitle" />
+
+                <Button
+                    android:id="@+id/buttonPreprocessed"
+                    android:layout_width="@dimen/graphLegendButtonWidth"
+                    android:layout_height="@dimen/graphLegendButtonHeight"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/vis_button_selector"
+                    android:text="@string/preprocessed"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/chart" />
+
+                <Button
+                    android:id="@+id/buttonDarkReference"
+                    android:layout_width="@dimen/graphLegendButtonWidth"
+                    android:layout_height="@dimen/graphLegendButtonHeight"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/vis_button_selector"
+                    android:text="@string/dark"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@+id/buttonPreprocessed"
+                    app:layout_constraintTop_toBottomOf="@+id/chart" />
+
+                <Button
+                    android:id="@+id/buttonWhiteReference"
+                    android:layout_width="@dimen/graphLegendButtonWidth"
+                    android:layout_height="@dimen/graphLegendButtonHeight"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/vis_button_selector"
+                    android:text="@string/white"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@+id/buttonDarkReference"
+                    app:layout_constraintTop_toBottomOf="@+id/chart" />
+
+                <Button
+                    android:id="@+id/buttonRawData"
+                    android:layout_width="@dimen/graphLegendButtonWidth"
+                    android:layout_height="@dimen/graphLegendButtonHeight"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/vis_button_selector"
+                    android:text="@string/rawData"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonWhiteReference" />
+
+                <Button
+                    android:id="@+id/buttonRawDark"
+                    android:layout_width="@dimen/graphLegendButtonWidth"
+                    android:layout_height="@dimen/graphLegendButtonHeight"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/vis_button_selector"
+                    android:text="@string/rawDark"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@+id/buttonRawData"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonWhiteReference" />
+
+                <Button
+                    android:id="@+id/buttonRawWhite"
+                    android:layout_width="@dimen/graphLegendButtonWidth"
+                    android:layout_height="@dimen/graphLegendButtonHeight"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/vis_button_selector"
+                    android:text="@string/rawWhite"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@+id/buttonRawDark"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonWhiteReference" />
+
+                <Button
+                    android:id="@+id/buttonShowAllSamples"
+                    android:layout_width="@dimen/graphLegendButtonWidth"
+                    android:layout_height="@dimen/graphLegendButtonHeight"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/vis_button_selector"
+                    android:text="@string/showAll"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/chart" />
+
+                <RadioGroup
+                    android:id="@+id/samplesRadioGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/title">
+
+                    <RadioButton
+                        android:id="@+id/visRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/white"
+                        android:onClick="onRadioButtonClicked"
+                        android:text="@string/vis"
+                        android:textColor="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/nirRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/white"
+                        android:onClick="onRadioButtonClicked"
+                        android:text="@string/nir"
+                        android:textColor="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/fluoRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/white"
+                        android:onClick="onRadioButtonClicked"
+                        android:text="@string/fluo"
+                        android:textColor="@color/white" />
+                </RadioGroup>
+
+                <ImageView
+                    android:id="@+id/divider1"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/header_gradient"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btDeviceCameraImage" />
+
+                <Button
+                    android:id="@+id/storeOnServerAndAnalyze"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/selectable_item_background"
+                    android:shadowColor="@color/text_shadow"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2"
+                    android:text="@string/storeOnServerAndAnalyze"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/storeOnServer"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/previousButton"
+                    app:layout_constraintTop_toBottomOf="@+id/divider1" />
+
+                <Button
+                    android:id="@+id/storeOnServer"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/selectable_item_background"
+                    android:shadowColor="@color/text_shadow"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2"
+                    android:text="@string/storeOnServer"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/storeOnServerAndAnalyze"
+                    app:layout_constraintTop_toBottomOf="@+id/divider1" />
+
+                <Button
+                    android:id="@+id/previousButton"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/selectable_item_background"
+                    android:shadowColor="@color/text_shadow"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2"
+                    android:text="@string/goBackAndRetest"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toStartOf="@+id/storeOnServerAndAnalyze"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider1" />
+
+                <TextView
+                    android:id="@+id/completedOn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/samplesRadioGroup"
+                    tools:text="25.05.2018. 10:55:00" />
+
+                <TextView
+                    android:id="@+id/sampleId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/samplesRadioGroup"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+        </ScrollView>
+
+        <RelativeLayout
+            android:id="@+id/loadingProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <View
+                android:id="@+id/background_dim"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#66000000" />
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/orange"
+                android:indeterminateTintMode="src_atop" />
+        </RelativeLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>

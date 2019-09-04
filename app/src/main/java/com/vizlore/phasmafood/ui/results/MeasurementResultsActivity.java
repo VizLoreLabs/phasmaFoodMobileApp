@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.Group;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -237,7 +238,10 @@ public class MeasurementResultsActivity extends BaseActivity {
 
 		final Measurement measurement = measurementViewModel.getSavedMeasurement();
 		final boolean shouldAnalyze = v.getId() == R.id.storeOnServerAndAnalyze;
-		sendMeasurementToServer(measurement.getResponse().getSample(), shouldAnalyze);
+
+		final Sample sample = measurement.getResponse().getSample();
+		sample.setSampleID(Utils.generateSampleId());
+		sendMeasurementToServer(sample, shouldAnalyze);
 	}
 
 	@OnClick(R.id.previousButton)
@@ -322,7 +326,12 @@ public class MeasurementResultsActivity extends BaseActivity {
 			}
 
 			completedOn.setText(measurementViewModel.getSuccessfulMeasurementTime());
-			sampleId.setText(getString(R.string.sampleId, sample.getSampleID()));
+//			if (sample.getSampleID() != null) {
+//				Log.d(TAG, "onCreate: SAMPLE ID: " + sample.getSampleID());
+//				sampleId.setText(getString(R.string.sampleId, sample.getSampleID()));
+//			} else {
+//				Log.d(TAG, "onCreate: SAMPLE ID NULLLLLLLLLLLLLLLLLLLLLLLLL");
+//			}
 			useCaseValue.setText(sample.getUseCase());
 			sampleValue.setText(sample.getFoodType());
 
@@ -543,6 +552,8 @@ public class MeasurementResultsActivity extends BaseActivity {
 
 		Log.d(TAG, "sendMeasurementToServer: SHOULD ANALYZE: " + shouldAnalyze);
 
+		sampleId.setText(getString(R.string.sampleId, sample.getSampleID()));
+
 		final String deviceId = deviceViewModel.getDeviceID();
 		Log.d(TAG, "sendMeasurementToServer: device id: " + deviceId);
 		if (deviceId != null) {
@@ -558,7 +569,6 @@ public class MeasurementResultsActivity extends BaseActivity {
 
 			measurementViewModel.createMeasurementRequest(Utils.getUserId(), sample, deviceId, shouldAnalyze).observe(this,
 				result -> {
-
 					//enable interaction again
 					enableInteraction();
 					loadingProgressBar.setVisibility(View.GONE);
@@ -573,17 +583,22 @@ public class MeasurementResultsActivity extends BaseActivity {
 					} else {
 						if (measurementViewModel.getProcessingRequestType() == MeasurementRepository.ProcessingRequestType.STORE_AND_ANALYZE) {
 							Log.d(TAG, "sendMeasurementToServer: ANALYZE");
-							Toast.makeText(this, "Analyzing successfully completed", Toast.LENGTH_SHORT).show();
+							showSnackBar(getString(R.string.analysis));
 						} else {
 							Log.d(TAG, "sendMeasurementToServer: ONLY STORE");
-							Toast.makeText(this, R.string.successfullyStoredInCloud, Toast.LENGTH_SHORT).show();
+							showSnackBar(getString(R.string.successfullyStoredInCloud));
 						}
 					}
-					//hideDialog();
 				});
 		} else {
 			Toast.makeText(this, "Device null! Not registered yet?", Toast.LENGTH_SHORT).show();
 		}
+	}
+
+	private void showSnackBar(final String message) {
+		final Snackbar snackBar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), message, Snackbar.LENGTH_LONG);
+		snackBar.setAction("Close", v -> snackBar.dismiss());
+		snackBar.show();
 	}
 
 	private void disableInteraction() {

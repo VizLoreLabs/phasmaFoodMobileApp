@@ -102,7 +102,7 @@ public class ConfigurationActivity extends BaseActivity {
 	private static final String USE_CASE_3_PARAM_OTHER_SPECIES = "otherSpecies";
 	private static final String USE_CASE_3_PARAM_DILUTED_PCT = "dilutedPct";
 	private static final String USE_CASE_3_PARAM_ALCOHOL_LABEL = "alcoholLabel";
-	private static final String USE_CASE_3_PARAM_SPIRIT_TYPE = "foodSubType";
+	private static final String USE_CASE_3_PARAM_SPIRIT_TYPE = "foodSubtype";
 
 	private static final String USE_CASE_WHITE_REF_PARAM_1 = "timestamp";
 	private static final String USE_CASE_TEST_LIGHTS_ON_DURATION = "lightsOnDuration";
@@ -220,7 +220,7 @@ public class ConfigurationActivity extends BaseActivity {
 	@BindView(R.id.singleShotRadioGroup)
 	RadioGroup singleShotRadioGroup;
 	@BindView(R.id.averagesEditText)
-	EditText nirSpectometerAveragesEditText;
+	EditText nirSpectrometerAveragesEditText;
 	@BindView(R.id.nirMicrolampsCurrent)
 	EditText nirMicrolampsCurrent;
 	@BindView(R.id.nirMicrolampsWarmingTime)
@@ -334,6 +334,7 @@ public class ConfigurationActivity extends BaseActivity {
 						wizardJsonObject.put(USE_CASE_3_PARAM_AUTHENTIC, "none");
 					}
 				}
+				Log.d(TAG, "sendRequest: SAMPLE: " + wizardJsonObject.toString());
 				break;
 			case Constants.USE_CASE_WHITE_REF:
 				wizardJsonObject.put(USE_CASE_WHITE_REF_PARAM_1, String.valueOf(new Date().getTime()));
@@ -523,7 +524,7 @@ public class ConfigurationActivity extends BaseActivity {
 					cameraExposureTime.setText(String.valueOf(100000));
 					cameraVoltage.setText(String.valueOf(3000));
 					//nir
-					nirSpectometerAveragesEditText.setText(String.valueOf(100));
+					nirSpectrometerAveragesEditText.setText(String.valueOf(100));
 					nirMicrolampsCurrent.setText(String.valueOf(50));
 					nirMicrolampsWarmingTime.setText(String.valueOf(500));
 					//vis
@@ -534,14 +535,13 @@ public class ConfigurationActivity extends BaseActivity {
 					UVLEDsCurrent.setText(String.valueOf(15));
 					break;
 				case Constants.USE_CASE_2:
-					Log.d(TAG, "setDefaults: UC2");
 					cameraExposureTime.setText(String.valueOf(1500000));
 					cameraVoltage.setText(String.valueOf(3000));
 					//vis
 					exposureTimeReflectance.setText(String.valueOf(55));
 					whiteLEDsCurrent.setText(String.valueOf(1));
 					//nir
-					nirSpectometerAveragesEditText.setText(String.valueOf(100));
+					nirSpectrometerAveragesEditText.setText(String.valueOf(100));
 					nirMicrolampsCurrent.setText(String.valueOf(160));
 					nirMicrolampsWarmingTime.setText(String.valueOf(500));
 					//fluo
@@ -564,23 +564,23 @@ public class ConfigurationActivity extends BaseActivity {
 
 					final String useCase3Param = wizardJsonObject.getString(Constants.USE_CASE_3_FOOD_TYPE);
 					switch (useCase3Param) {
-						case USE_CASE_3_PARAM_1:
-							nirSpectometerAveragesEditText.setText(String.valueOf(500));
-							exposureTimeFluorescence.setText(String.valueOf(55));
-							UVLEDsCurrent.setText(String.valueOf(8));
+						case Constants.USE_CASE_3_PARAM_1: //Alcoholic beverages
+							nirSpectrometerAveragesEditText.setText(String.valueOf(255));
+							exposureTimeFluorescence.setText(String.valueOf(30));
+							UVLEDsCurrent.setText(String.valueOf(10));
 							break;
-						case Constants.USE_CASE_3_PARAM_2:
-							nirSpectometerAveragesEditText.setText(String.valueOf(500));
+						case Constants.USE_CASE_3_PARAM_2: //Edible oils
+							nirSpectrometerAveragesEditText.setText(String.valueOf(255));
 							exposureTimeFluorescence.setText(String.valueOf(55));
 							UVLEDsCurrent.setText(String.valueOf(30));
 							break;
-						case Constants.USE_CASE_3_PARAM_3:
-							nirSpectometerAveragesEditText.setText(String.valueOf(500));
+						case Constants.USE_CASE_3_PARAM_3: // skimmed milk powder
+							nirSpectrometerAveragesEditText.setText(String.valueOf(255));
 							exposureTimeFluorescence.setText(String.valueOf(55));
-							UVLEDsCurrent.setText(String.valueOf(10));
+							UVLEDsCurrent.setText(String.valueOf(8));
 							break;
-						case Constants.USE_CASE_3_PARAM_4:
-							nirSpectometerAveragesEditText.setText(String.valueOf(100));
+						case Constants.USE_CASE_3_PARAM_4: //Minced raw meat
+							nirSpectrometerAveragesEditText.setText(String.valueOf(100));
 							exposureTimeFluorescence.setText(String.valueOf(100));
 							UVLEDsCurrent.setText(String.valueOf(10));
 							break;
@@ -615,7 +615,7 @@ public class ConfigurationActivity extends BaseActivity {
 //		cameraVoltage.setText(String.valueOf(DEFAULT_CAMERA_VOLTAGE));
 //		// nir
 //		singleShotRadioGroup.check(singleShotRadioGroup.getChildAt(1).getId());
-//		nirSpectometerAveragesEditText.setText(String.valueOf(DEFAULT_NIR_SPEC_AVERAGES));
+//		nirSpectrometerAveragesEditText.setText(String.valueOf(DEFAULT_NIR_SPEC_AVERAGES));
 //		nirMicrolampsCurrent.setText(String.valueOf(DEFAULT_NIR_MICROLAMPS_CURRENT));
 //		nirMicrolampsWarmingTime.setText(String.valueOf(DEFAULT_NIR_MICROLAMPS_WARMING_TIME));
 //		// vis
@@ -635,7 +635,7 @@ public class ConfigurationActivity extends BaseActivity {
 		final View radioButton = singleShotRadioGroup.findViewById(radioButtonID);
 		final int idx = singleShotRadioGroup.indexOfChild(radioButton);
 		editor.putInt(KEY_NIR_SINGLE_SHOT, idx);
-		editor.putInt(KEY_NIR_SPEC_AVERAGES, getValue(nirSpectometerAveragesEditText));
+		editor.putInt(KEY_NIR_SPEC_AVERAGES, getValue(nirSpectrometerAveragesEditText));
 		editor.putInt(KEY_NIR_MICROLAMPS_CURRENT, getValue(nirMicrolampsCurrent));
 		editor.putInt(KEY_NIR_MICROLAMPS_WARMING_TIME, getValue(nirMicrolampsWarmingTime));
 
@@ -657,8 +657,8 @@ public class ConfigurationActivity extends BaseActivity {
 			showError(cameraVoltage);
 			return null;
 		}
-		if (!isWithinBounds(getValue(nirSpectometerAveragesEditText), MIN_NIR_SPEC_AVERAGES, MAX_NIR_SPEC_AVERAGES)) {
-			showError(nirSpectometerAveragesEditText);
+		if (!isWithinBounds(getValue(nirSpectrometerAveragesEditText), MIN_NIR_SPEC_AVERAGES, MAX_NIR_SPEC_AVERAGES)) {
+			showError(nirSpectrometerAveragesEditText);
 			return null;
 		}
 		if (!isWithinBounds(getValue(nirMicrolampsCurrent), MIN_NIR_MICROLAMPS_CURRENT, MAX_NIR_MICROLAMPS_CURRENT)) {
@@ -706,7 +706,7 @@ public class ConfigurationActivity extends BaseActivity {
 			nirMicrolamps.setVNir(getValue(nirMicrolampsCurrent));
 
 			final String selectedOption = singleShotRadioGroup.getCheckedRadioButtonId() == R.id.yes ? "Y" : "N";
-			final NirSpectrometer nirSpectrometer = new NirSpectrometer(selectedOption, getValue(nirSpectometerAveragesEditText), nirMicrolamps);
+			final NirSpectrometer nirSpectrometer = new NirSpectrometer(selectedOption, getValue(nirSpectrometerAveragesEditText), nirMicrolamps);
 			configuration.setNirSpectrometer(nirSpectrometer);
 			isNirAvailable = true;
 		}

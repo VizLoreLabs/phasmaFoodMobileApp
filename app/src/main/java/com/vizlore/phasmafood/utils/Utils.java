@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Random;
 
 import static com.vizlore.phasmafood.utils.Config.BT_DEVICE_UUID_KEY;
 import static com.vizlore.phasmafood.utils.Config.MOBILE_DEVICE_UUID_KEY;
@@ -52,6 +53,14 @@ public class Utils {
 	public synchronized static String getMobileUUID() {
 		return Settings.Secure.getString(MyApplication.getInstance().getContentResolver(),
 			Settings.Secure.ANDROID_ID);
+	}
+
+	public static String generateSampleId() {
+		final Random rand = new Random();
+		final int randomValue = rand.nextInt(1000000);
+
+		final String sampleId = String.valueOf(randomValue);
+		return sampleId;
 	}
 
 	public synchronized static String getBluetoothDeviceUUID() {

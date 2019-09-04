@@ -30,10 +30,10 @@
     <string name="enterTime">Enter time</string>
     <string name="enterValue">Enter value</string>
     <string name="nir">NIR</string>
-    <string name="spectrometerSingleShot">Spectometer - single shot</string>
-    <string name="spectrometerAverages">Spectometer - averages</string>
+    <string name="spectrometerSingleShot">Spectrometer - single shot</string>
+    <string name="spectrometerAverages">Spectrometer - averages</string>
     <string name="microlampsDrivingCurrent">Microlamps - driving current [mA]</string>
-    <string name="microlampsWarmingTime">Spectometer - warming time [ms]</string>
+    <string name="microlampsWarmingTime">Spectrometer - warming time [ms]</string>
     <string name="vis">VIS</string>
     <string name="exposureTimeVisibleReflectance">Exposure time for visible reflectance spectra [us]</string>
     <string name="whiteLEDs">Driving current for visible reflectance measurements [mA]</string>
@@ -101,7 +101,8 @@
     <string name="lightsOnDurationTime">Lights ON duration [s]</string>
     <string name="useCaseTestLabelsTitle">Test params</string>
     <string name="sampleId">Sample ID: %s</string>
-    <string name="successfullyStoredInCloud">Successfuly Stored in the Cloud DB</string>
+    <string name="analysis">Analyzing successfully completed</string>
+    <string name="successfullyStoredInCloud">Successfully stored in cloud DB</string>
     <string name="alcoholLabel">Alcohol label:</string>
     <string name="spiritType">Spirit type:</string>
     <string name="authentic">Authentic:</string>

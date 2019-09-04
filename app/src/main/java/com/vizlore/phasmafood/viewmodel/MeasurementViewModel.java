@@ -18,7 +18,6 @@ import com.vizlore.phasmafood.utils.Utils;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -54,12 +53,6 @@ public class MeasurementViewModel extends ViewModel {
 			measurementLiveData = new SingleLiveEvent<>();
 		}
 
-		final Random rand = new Random();
-		final int randomValue = rand.nextInt(1000000);
-
-
-		final String sampleId = String.valueOf(randomValue);
-		sample.setSampleID(sampleId);
 		sample.setUserID(userId);
 		sample.setDeviceID(deviceId);
 		sample.setMobileID(Utils.getMobileUUID());
