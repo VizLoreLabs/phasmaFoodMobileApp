@@ -2,14 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.vizlore.phasmafood">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
     <application
         android:name=".MyApplication"
         android:allowBackup="false"
@@ -49,6 +41,19 @@
         <activity
             android:name=".ui.CancelMeasurementActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.results.DisplayImageActivity"
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="58379b9502342767c97648e66e7b2ce781fac866" />
+
+        <receiver android:name=".receivers.BluetoothDeviceResultsReceiver">
+            <intent-filter>
+                <action android:name="com.phasmafood.action.resultsReceived" />
+            </intent-filter>
+        </receiver>
 
         <service android:name=".services.MyFirebaseInstanceIDService">
             <intent-filter>
@@ -62,16 +67,16 @@
             </intent-filter>
 
         </service>
+
         <service android:name=".bluetooth.BluetoothService" />
-
-        <receiver android:name=".receivers.BluetoothDeviceResultsReceiver">
-            <intent-filter>
-                <action android:name="com.phasmafood.action.resultsReceived" />
-            </intent-filter>
-        </receiver>
-
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="58379b9502342767c97648e66e7b2ce781fac866" />
     </application>
+
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

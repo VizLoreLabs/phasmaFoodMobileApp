@@ -169,4 +169,14 @@ public class Utils {
 		}
 		return file.getAbsolutePath();
 	}
+
+	public static void deleteDirectory(final String directoryName) {
+		File dir = new File(directoryName);
+		if (dir.isDirectory()) {
+			String[] children = dir.list();
+			for (String child : children) {
+				new File(dir, child).delete();
+			}
+		}
+	}
 }

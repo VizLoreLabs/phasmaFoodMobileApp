@@ -1,15 +1,19 @@
 package com.vizlore.phasmafood.ui.results;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.Group;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -38,15 +42,19 @@ import com.vizlore.phasmafood.model.results.Sample;
 import com.vizlore.phasmafood.model.results.VIS;
 import com.vizlore.phasmafood.repositories.MeasurementRepository;
 import com.vizlore.phasmafood.ui.BaseActivity;
+import com.vizlore.phasmafood.ui.adapters.ZipImagesAdapter;
 import com.vizlore.phasmafood.ui.view.ChartMarkerView;
 import com.vizlore.phasmafood.utils.ConnectivityChecker;
 import com.vizlore.phasmafood.utils.Constants;
+import com.vizlore.phasmafood.utils.Decompress;
 import com.vizlore.phasmafood.utils.Resource;
 import com.vizlore.phasmafood.utils.Utils;
 import com.vizlore.phasmafood.viewmodel.DeviceViewModel;
 import com.vizlore.phasmafood.viewmodel.MeasurementViewModel;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -59,6 +67,8 @@ import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.vizlore.phasmafood.ui.results.DisplayImageActivity.IMAGE_PATH_EXTRA;
 
 public class MeasurementResultsActivity extends BaseActivity {
 
@@ -82,6 +92,13 @@ public class MeasurementResultsActivity extends BaseActivity {
 
 	private MeasurementViewModel measurementViewModel;
 	private DeviceViewModel deviceViewModel;
+
+	private static final String SD_CARD = Environment.getExternalStorageDirectory().getPath();
+	private static final String ZIP_LOCATION = SD_CARD + "/images.zip";
+	private static final String EXTRACTED_ZIP_LOCATION = SD_CARD + "/phasma";
+
+	@BindView(R.id.zipImagesList)
+	RecyclerView zipImagesList;
 
 	@BindView(R.id.title)
 	TextView title;
@@ -277,7 +294,8 @@ public class MeasurementResultsActivity extends BaseActivity {
 					} else {
 						title.setText(resultsFromServer);
 					}
-				} else {
+				} else { //from BT device, setup images
+					setupReceivedImages();
 					title.setText(resultsFromBtDevice);
 				}
 
@@ -389,6 +407,26 @@ public class MeasurementResultsActivity extends BaseActivity {
 			drawChart();
 			samplesRadioGroup.check(R.id.visRadioButton);
 			buttonShowAllSamples.setSelected(true);
+		}
+	}
+
+	/**
+	 * Load images received via Bluetooth
+	 */
+	private void setupReceivedImages() {
+		zipImagesList.setVisibility(View.VISIBLE);
+		zipImagesList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+		try {
+			final List<File> imagesList = Decompress.unzip(new FileInputStream(ZIP_LOCATION), EXTRACTED_ZIP_LOCATION);
+			final ZipImagesAdapter zipImagesAdapter = new ZipImagesAdapter(imagesList);
+			zipImagesAdapter.setOnImageClickListener(path -> {
+				final Intent intent = new Intent(MeasurementResultsActivity.this, DisplayImageActivity.class);
+				intent.putExtra(IMAGE_PATH_EXTRA, path);
+				startActivity(intent);
+			});
+			zipImagesList.setAdapter(zipImagesAdapter);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 

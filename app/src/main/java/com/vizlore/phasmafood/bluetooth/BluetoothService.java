@@ -199,6 +199,7 @@ public class BluetoothService extends Service {
 				notificationManager.notify(notificationId, notificationBuilder.build());
 				break;
 			case 5: // Image received
+				Log.d(TAG, "handleMessageRead: \n--------------- IMAGE ---------------");
 				final byte[] readBufData = (byte[]) param;
 				final Bitmap bitmap = BitmapFactory.decodeByteArray(readBufData, 0, readBufData.length);
 				if (bitmap != null) {
@@ -214,6 +215,7 @@ public class BluetoothService extends Service {
 				isMeasurementStarted = false;
 				break;
 			case 6:
+				Log.d(TAG, "handleMessageRead: \n------------- MEASUREMENT -------------");
 				notifyFinishedStatus("Measurement completed!", "");
 				Log.d(TAG, "handleMessageRead: Measurement data received");
 				final byte[] readBufImage = (byte[]) param;

@@ -9,6 +9,7 @@
     <dimen name="titleTextSize">26sp</dimen>
     <dimen name="subtitleTextSize">20sp</dimen>
     <dimen name="messageTextSize">18sp</dimen>
+    <dimen name="subtitleMediumTextSize">16sp</dimen>
     <dimen name="indicatorSize">20dp</dimen>
     <dimen name="indicatorMarginBottom">20dp</dimen>
     <dimen name="indicatorSpacing">8dp</dimen>
