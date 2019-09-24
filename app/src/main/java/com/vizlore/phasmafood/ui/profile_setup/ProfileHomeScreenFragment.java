@@ -1,20 +1,15 @@
 package com.vizlore.phasmafood.ui.profile_setup;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.vizlore.phasmafood.R;
-import com.vizlore.phasmafood.ZipUnzipActivity;
 import com.vizlore.phasmafood.utils.ConnectivityChecker;
 import com.vizlore.phasmafood.viewmodel.FcmMobileViewModel;
 
-import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -24,9 +19,6 @@ import butterknife.OnClick;
 public class ProfileHomeScreenFragment extends ProfileBaseFragment {
 
 	private FcmMobileViewModel configViewModel;
-
-	@BindView(R.id.button3)
-	Button button3;
 
 	@OnClick({R.id.startMeasurement, R.id.yourProfile})
 	void onClick(Button button) {
@@ -75,14 +67,6 @@ public class ProfileHomeScreenFragment extends ProfileBaseFragment {
 				Toast.makeText(getActivity(), "Token saved: " + sendResult, Toast.LENGTH_SHORT).show();
 			}
 		});
-	}
-
-	@Override
-	public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
-
-		//measurementHistory.setEnabled(false);
-		button3.setOnClickListener(view2 -> startActivity(new Intent(getActivity(), ZipUnzipActivity.class)));
 	}
 
 	@Override

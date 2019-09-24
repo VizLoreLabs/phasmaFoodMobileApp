@@ -348,16 +348,11 @@ public class CommunicationController {
 			// Keep listening to the InputStream
 			while (true) {
 				try {
-//					try {
-//						sleep(100);
-//					} catch (InterruptedException e) {
-//						e.printStackTrace();
-//					}
 					// Read from the InputStream
 					bytes = inputStream.read(buffer);
 					final String readMessage = new String(buffer, 0, bytes);
 
-					Log.d(TAG, "run: READ MESSAGE size:" + readMessage.length() + ", content:" + readMessage);
+					//Log.d(TAG, "run: READ MESSAGE size:" + readMessage.length() + ", content:" + readMessage);
 					//saveToFile(readMessage);
 
 					if (readMessage.equals("Cancelled")) {

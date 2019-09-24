@@ -94,7 +94,7 @@ public class MeasurementResultsActivity extends BaseActivity {
 	private DeviceViewModel deviceViewModel;
 
 	private static final String SD_CARD = Environment.getExternalStorageDirectory().getPath();
-	private static final String ZIP_LOCATION = SD_CARD + "/images.zip";
+	private static final String ZIP_LOCATION = SD_CARD + "/phasma/images.zip";
 	private static final String EXTRACTED_ZIP_LOCATION = SD_CARD + "/phasma";
 
 	@BindView(R.id.zipImagesList)
@@ -414,18 +414,22 @@ public class MeasurementResultsActivity extends BaseActivity {
 	 * Load images received via Bluetooth
 	 */
 	private void setupReceivedImages() {
+		Log.d(TAG, "setupReceivedImages: ---------");
 		zipImagesList.setVisibility(View.VISIBLE);
 		zipImagesList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 		try {
 			final List<File> imagesList = Decompress.unzip(new FileInputStream(ZIP_LOCATION), EXTRACTED_ZIP_LOCATION);
+			Log.d(TAG, "setupReceivedImages: size: " + imagesList.size());
 			final ZipImagesAdapter zipImagesAdapter = new ZipImagesAdapter(imagesList);
 			zipImagesAdapter.setOnImageClickListener(path -> {
 				final Intent intent = new Intent(MeasurementResultsActivity.this, DisplayImageActivity.class);
 				intent.putExtra(IMAGE_PATH_EXTRA, path);
 				startActivity(intent);
 			});
+			Log.d(TAG, "setupReceivedImages: set adapter");
 			zipImagesList.setAdapter(zipImagesAdapter);
 		} catch (FileNotFoundException e) {
+			Log.d(TAG, "setupReceivedImages: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}

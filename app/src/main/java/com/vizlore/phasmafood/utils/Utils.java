@@ -179,4 +179,19 @@ public class Utils {
 			}
 		}
 	}
+
+	public static void writeToFile(byte[] data) {
+		File sdCard = Environment.getExternalStorageDirectory();
+		File dir = new File(sdCard.getAbsolutePath() + "/phasma");
+		dir.mkdirs();
+		File file = new File(dir, "images.zip");
+		try {
+			FileOutputStream f = new FileOutputStream(file);
+			f.write(data);
+			f.flush();
+			f.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -9,8 +9,6 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
@@ -201,17 +199,10 @@ public class BluetoothService extends Service {
 			case 5: // Image received
 				Log.d(TAG, "handleMessageRead: \n--------------- IMAGE ---------------");
 				final byte[] readBufData = (byte[]) param;
-				final Bitmap bitmap = BitmapFactory.decodeByteArray(readBufData, 0, readBufData.length);
-				if (bitmap != null) {
-					final String savedImagePath = Utils.tempFileImage(getApplicationContext(), bitmap, "captured_image");
-					measurementRepository.saveMeasurementImagePath(savedImagePath);
-					Log.d(TAG, "handleMessageRead: image path: " + savedImagePath);
-					Log.e(TAG, "handleMessageRead: image size: " + readBufData.length);
-				}
-
-				//saveMeasurement(measurementDataResponse);
-				//startResultsActivity();
-
+				Log.d(TAG, "handleMessageRead: size: " + readBufData.length);
+				Utils.writeToFile(readBufData);
+				//measurementRepository.saveMeasurementImagePath();
+				startResultsActivity();
 				isMeasurementStarted = false;
 				break;
 			case 6:
@@ -225,7 +216,6 @@ public class BluetoothService extends Service {
 					measurementDataResponse = measurementDataResponse.replace("End of Response", "");
 				}
 				saveMeasurement(measurementDataResponse);
-				startResultsActivity();
 				break;
 			case 7:
 				Log.d(TAG, "handleMessageRead: Cancel");
@@ -311,6 +301,7 @@ public class BluetoothService extends Service {
 
 	private void startResultsActivity() {
 		final Intent intent = new Intent(BluetoothService.this, MeasurementResultsActivity.class);
+		intent.putExtra(MeasurementResultsActivity.IS_FROM_SERVER, false);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(intent);
 	}
