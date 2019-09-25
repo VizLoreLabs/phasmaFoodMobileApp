@@ -5,33 +5,57 @@ import com.google.gson.annotations.SerializedName;
 
 public class Camera {
 
-	@SerializedName("t_cam")
-	public Integer tCam;
+	@SerializedName("capture_image")
+	public String captureImage;
 
-	@SerializedName("vw_cam")
-	public Integer vwCam;
+	@SerializedName("t_cam_white")
+	public Integer tCamWhite;
+
+	@SerializedName("t_cam_uv")
+	public Integer tCamUv;
+
+	@SerializedName("t_cam_nir")
+	public Integer tCamNIR;
 
 	public Camera() {
 	}
 
-	public Camera(Integer tCam, Integer vwCam) {
-		this.tCam = tCam;
-		this.vwCam = vwCam;
+	public Camera(String captureImage, Integer tCamWhite, Integer tCamUv, Integer tCamNIR) {
+		this.captureImage = captureImage;
+		this.tCamWhite = tCamWhite;
+		this.tCamUv = tCamUv;
+		this.tCamNIR = tCamNIR;
 	}
 
-	public Integer gettCam() {
-		return tCam;
+	public String getCaptureImage() {
+		return captureImage;
 	}
 
-	public void settCam(Integer tCam) {
-		this.tCam = tCam;
+	public void setCaptureImage(String captureImage) {
+		this.captureImage = captureImage;
 	}
 
-	public Integer getVwCam() {
-		return vwCam;
+	public Integer gettCamWhite() {
+		return tCamWhite;
 	}
 
-	public void setVwCam(Integer vwCam) {
-		this.vwCam = vwCam;
+	public void settCamWhite(Integer tCamWhite) {
+		this.tCamWhite = tCamWhite;
+	}
+
+	public Integer gettCamUv() {
+		return tCamUv;
+	}
+
+	public void settCamUv(Integer tCamUv) {
+		this.tCamUv = tCamUv;
+	}
+
+	public Integer gettCamNIR() {
+		return tCamNIR;
+	}
+
+	public void settCamNIR(Integer tCamNIR) {
+		this.tCamNIR = tCamNIR;
 	}
 }

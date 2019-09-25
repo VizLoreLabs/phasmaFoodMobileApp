@@ -37,7 +37,6 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-import static com.vizlore.phasmafood.utils.Config.DEFAULT_CAMERA_EXPOSURE_TIME;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_MICROBIOLOGICAL_UNIT;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_NIR_MICROLAMPS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_NIR_MICROLAMPS_WARMING_TIME;
@@ -45,8 +44,9 @@ import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_EXPOSURE_TIME_FLUO
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_EXPOSURE_TIME_REFLECTANCE;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_UV_LEDS_VOLTAGE;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_WHITE_LEDS_CURRENT;
-import static com.vizlore.phasmafood.utils.Config.KEY_CAMERA_EXPOSURE_TIME;
-import static com.vizlore.phasmafood.utils.Config.KEY_CAMERA_VOLTAGE;
+import static com.vizlore.phasmafood.utils.Config.KEY_CAMERA_EXPOSURE_TIME_NIR;
+import static com.vizlore.phasmafood.utils.Config.KEY_CAMERA_EXPOSURE_TIME_UV;
+import static com.vizlore.phasmafood.utils.Config.KEY_CAMERA_EXPOSURE_TIME_WHITE_LEDS;
 import static com.vizlore.phasmafood.utils.Config.KEY_NIR_MICROLAMPS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.KEY_NIR_MICROLAMPS_WARMING_TIME;
 import static com.vizlore.phasmafood.utils.Config.KEY_NIR_SINGLE_SHOT;
@@ -55,8 +55,6 @@ import static com.vizlore.phasmafood.utils.Config.KEY_VIS_EXPOSURE_TIME_FLOURESC
 import static com.vizlore.phasmafood.utils.Config.KEY_VIS_EXPOSURE_TIME_REFLECTANCE;
 import static com.vizlore.phasmafood.utils.Config.KEY_VIS_UV_LEDS_VOLTAGE;
 import static com.vizlore.phasmafood.utils.Config.KEY_VIS_WHITE_LEDS_VOLTAGE;
-import static com.vizlore.phasmafood.utils.Config.MAX_CAMERA_EXPOSURE_TIME;
-import static com.vizlore.phasmafood.utils.Config.MAX_CAMERA_VOLTAGE_TIME;
 import static com.vizlore.phasmafood.utils.Config.MAX_LIGHTS_ON_DURATION;
 import static com.vizlore.phasmafood.utils.Config.MAX_NIR_MICROLAMPS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.MAX_NIR_MICROLAMPS_WARMING_TIME;
@@ -66,7 +64,6 @@ import static com.vizlore.phasmafood.utils.Config.MAX_VIS_EXPOSURE_TIME_REFLECTA
 import static com.vizlore.phasmafood.utils.Config.MAX_VIS_UV_LEDS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.MAX_VIS_WHITE_LEDS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.MIN_CAMERA_EXPOSURE_TIME;
-import static com.vizlore.phasmafood.utils.Config.MIN_CAMERA_VOLTAGE_TIME;
 import static com.vizlore.phasmafood.utils.Config.MIN_LIGHTS_ON_DURATION;
 import static com.vizlore.phasmafood.utils.Config.MIN_NIR_MICROLAMPS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.MIN_NIR_MICROLAMPS_WARMING_TIME;
@@ -203,10 +200,21 @@ public class ConfigurationActivity extends BaseActivity {
 	EditText authenticParam;
 
 	//camera configuration
-	@BindView(R.id.exposureTime)
-	EditText cameraExposureTime;
-	@BindView(R.id.drivingVoltage)
-	EditText cameraVoltage;
+	@BindView(R.id.captureImageRadioGroup)
+	RadioGroup captureImageRadioGroup;
+	@BindView(R.id.exposureTimeWhiteLEDs)
+	EditText cameraExposureTimeWhiteLEDs;
+	@BindView(R.id.exposureTimeUV)
+	EditText cameraExposureTimeUV;
+	@BindView(R.id.exposureTimeNIR)
+	EditText cameraExposureTimeNIR;
+
+	@BindView(R.id.exposureTimeWhiteLEDsHolder)
+	LinearLayout cameraExposureTimeWhiteLEDsHolder;
+	@BindView(R.id.exposureTimeUVHolder)
+	LinearLayout cameraExposureTimeUVHolder;
+	@BindView(R.id.exposureTimeNIRHolder)
+	LinearLayout cameraExposureTimeNIRHolder;
 
 	//test configuration
 	@BindView(R.id.useCaseTestLabelsGroup)
@@ -479,13 +487,21 @@ public class ConfigurationActivity extends BaseActivity {
 				case Constants.USE_CASE_TEST:
 					testSample = wizardJsonObject.getString(Constants.USE_CASE_TEST);
 					useCaseTestLabelsGroup.setVisibility(View.VISIBLE);
+
+					cameraExposureTimeNIRHolder.setVisibility(View.GONE);
+					cameraExposureTimeWhiteLEDsHolder.setVisibility(View.GONE);
+					cameraExposureTimeUVHolder.setVisibility(View.GONE);
+
 					if (testSample.contains(Constants.USE_CASE_TEST_NIR)) {
+						cameraExposureTimeNIRHolder.setVisibility(View.VISIBLE);
 						nirGroup.setVisibility(View.VISIBLE);
 					}
 					if (testSample.contains(Constants.USE_CASE_TEST_VIS)) {
+						cameraExposureTimeWhiteLEDsHolder.setVisibility(View.VISIBLE);
 						visGroup.setVisibility(View.VISIBLE);
 					}
 					if (testSample.contains(Constants.USE_CASE_TEST_FLUO)) {
+						cameraExposureTimeUVHolder.setVisibility(View.VISIBLE);
 						fluoGroup.setVisibility(View.VISIBLE);
 					}
 					break;
@@ -517,12 +533,16 @@ public class ConfigurationActivity extends BaseActivity {
 		int saveRadioButtonIndex = prefs.getInt(KEY_NIR_SINGLE_SHOT, 1); // 1 is no (N)
 		singleShotRadioGroup.check(singleShotRadioGroup.getChildAt(saveRadioButtonIndex).getId());
 
+		captureImageRadioGroup.check(R.id.noCapture);
+
+		cameraExposureTimeWhiteLEDs.setText(String.valueOf(1000));
+		cameraExposureTimeUV.setText(String.valueOf(1000));
+		cameraExposureTimeNIR.setText(String.valueOf(1000));
+
 		try {
 			final String useCaseKey = wizardJsonObject.getString(Constants.USE_CASE_KEY);
 			switch (useCaseKey) {
 				case Constants.USE_CASE_1:
-					cameraExposureTime.setText(String.valueOf(100000));
-					cameraVoltage.setText(String.valueOf(3000));
 					//nir
 					nirSpectrometerAveragesEditText.setText(String.valueOf(100));
 					nirMicrolampsCurrent.setText(String.valueOf(50));
@@ -535,8 +555,6 @@ public class ConfigurationActivity extends BaseActivity {
 					UVLEDsCurrent.setText(String.valueOf(15));
 					break;
 				case Constants.USE_CASE_2:
-					cameraExposureTime.setText(String.valueOf(1500000));
-					cameraVoltage.setText(String.valueOf(3000));
 					//vis
 					exposureTimeReflectance.setText(String.valueOf(55));
 					whiteLEDsCurrent.setText(String.valueOf(1));
@@ -556,9 +574,6 @@ public class ConfigurationActivity extends BaseActivity {
 					UVLEDsCurrent.setText(String.valueOf(10));
 					break;
 				case Constants.USE_CASE_3:
-					cameraExposureTime.setText(String.valueOf(1000000));
-					cameraVoltage.setText(String.valueOf(3000));
-
 					nirMicrolampsCurrent.setText(String.valueOf(50));
 					nirMicrolampsWarmingTime.setText(String.valueOf(500));
 
@@ -590,7 +605,6 @@ public class ConfigurationActivity extends BaseActivity {
 					whiteLEDsCurrent.setText(String.valueOf(1));
 					break;
 				default:
-					cameraExposureTime.setText(String.valueOf(DEFAULT_CAMERA_EXPOSURE_TIME));
 					nirMicrolampsCurrent.setText(String.valueOf(DEFAULT_NIR_MICROLAMPS_CURRENT));
 					nirMicrolampsWarmingTime.setText(String.valueOf(DEFAULT_NIR_MICROLAMPS_WARMING_TIME));
 					// vis
@@ -628,8 +642,9 @@ public class ConfigurationActivity extends BaseActivity {
 
 	private void saveParamsState() {
 		final SharedPreferences.Editor editor = prefs.edit();
-		editor.putInt(KEY_CAMERA_EXPOSURE_TIME, getValue(cameraExposureTime));
-		editor.putInt(KEY_CAMERA_VOLTAGE, getValue(cameraVoltage));
+		editor.putInt(KEY_CAMERA_EXPOSURE_TIME_WHITE_LEDS, getValue(cameraExposureTimeWhiteLEDs));
+		editor.putInt(KEY_CAMERA_EXPOSURE_TIME_UV, getValue(cameraExposureTimeUV));
+		editor.putInt(KEY_CAMERA_EXPOSURE_TIME_NIR, getValue(cameraExposureTimeNIR));
 
 		final int radioButtonID = singleShotRadioGroup.getCheckedRadioButtonId();
 		final View radioButton = singleShotRadioGroup.findViewById(radioButtonID);
@@ -649,12 +664,16 @@ public class ConfigurationActivity extends BaseActivity {
 	}
 
 	private Configuration getConfiguration() {
-		if (!isWithinBounds(getValue(cameraExposureTime), MIN_CAMERA_EXPOSURE_TIME, MAX_CAMERA_EXPOSURE_TIME)) {
-			showError(cameraExposureTime);
+		if (!isWithinBounds(getValue(cameraExposureTimeWhiteLEDs), MIN_CAMERA_EXPOSURE_TIME, Integer.MAX_VALUE)) {
+			showError(cameraExposureTimeWhiteLEDs);
 			return null;
 		}
-		if (!isWithinBounds(getValue(cameraVoltage), MIN_CAMERA_VOLTAGE_TIME, MAX_CAMERA_VOLTAGE_TIME)) {
-			showError(cameraVoltage);
+		if (!isWithinBounds(getValue(cameraExposureTimeUV), MIN_CAMERA_EXPOSURE_TIME, Integer.MAX_VALUE)) {
+			showError(cameraExposureTimeUV);
+			return null;
+		}
+		if (!isWithinBounds(getValue(cameraExposureTimeNIR), MIN_CAMERA_EXPOSURE_TIME, Integer.MAX_VALUE)) {
+			showError(cameraExposureTimeNIR);
 			return null;
 		}
 		if (!isWithinBounds(getValue(nirSpectrometerAveragesEditText), MIN_NIR_SPEC_AVERAGES, MAX_NIR_SPEC_AVERAGES)) {
@@ -690,8 +709,14 @@ public class ConfigurationActivity extends BaseActivity {
 
 		final Configuration configuration = new Configuration();
 
+		final String selectedCaptureOption = captureImageRadioGroup.getCheckedRadioButtonId() == R.id.yesCapture ? "YES" : "NO";
 		// Camera
-		final Camera camera = new Camera(getValue(cameraExposureTime), getValue(cameraVoltage));
+		final Camera camera = new Camera(
+			selectedCaptureOption,
+			getValue(cameraExposureTimeWhiteLEDs),
+			getValue(cameraExposureTimeUV),
+			getValue(cameraExposureTimeNIR)
+		);
 		configuration.setCamera(camera);
 
 		boolean isNirAvailable = false;

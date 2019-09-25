@@ -427,20 +427,38 @@
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:gravity="center_vertical"
-                    android:text="@string/exposureTime"
+                    android:text="@string/captureImage"
                     android:textColor="@color/white" />
 
-                <EditText
-                    android:id="@+id/exposureTime"
-                    style="@style/PFEditTextDigits"
+                <RadioGroup
+                    android:id="@+id/captureImageRadioGroup"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:hint="@string/enterTime"
-                    android:textColor="@color/white" />
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:textColor="@color/white">
+
+                    <RadioButton
+                        android:id="@+id/yesCapture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/white"
+                        android:text="YES"
+                        android:textColor="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/noCapture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/white"
+                        android:text="NO"
+                        android:textColor="@color/white" />
+                </RadioGroup>
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/exposureTimeWhiteLEDsHolder"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/configurationTowHeight"
                 android:orientation="horizontal"
@@ -450,21 +468,79 @@
                 android:paddingBottom="@dimen/configurationVerticalRowPadding">
 
                 <TextView
-                    android:id="@+id/cameraVoltageEditText"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:gravity="center_vertical"
-                    android:text="@string/cameraVoltage"
+                    android:text="@string/exposureTimeWhiteLeds"
                     android:textColor="@color/white" />
 
                 <EditText
-                    android:id="@+id/drivingVoltage"
+                    android:id="@+id/exposureTimeWhiteLEDs"
                     style="@style/PFEditTextDigits"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:hint="0-4500"
+                    android:hint="@string/enterTime"
+                    android:text="1000"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/exposureTimeUVHolder"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/configurationTowHeight"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/configurationHorizontalRowPadding"
+                android:paddingTop="@dimen/configurationVerticalRowPadding"
+                android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+                android:paddingBottom="@dimen/configurationVerticalRowPadding">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="@string/exposureTimeUV"
+                    android:textColor="@color/white" />
+
+                <EditText
+                    android:id="@+id/exposureTimeUV"
+                    style="@style/PFEditTextDigits"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="1000"
+                    android:hint="@string/enterTime"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/exposureTimeNIRHolder"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/configurationTowHeight"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/configurationHorizontalRowPadding"
+                android:paddingTop="@dimen/configurationVerticalRowPadding"
+                android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+                android:paddingBottom="@dimen/configurationVerticalRowPadding">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="@string/exposureTimeNIR"
+                    android:textColor="@color/white" />
+
+                <EditText
+                    android:id="@+id/exposureTimeNIR"
+                    style="@style/PFEditTextDigits"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="1000"
+                    android:hint="@string/enterTime"
                     android:textColor="@color/white" />
             </LinearLayout>
 

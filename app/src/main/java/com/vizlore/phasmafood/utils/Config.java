@@ -19,8 +19,10 @@ public class Config {
 	//configuration
 
 	// preferences
-	public static final String KEY_CAMERA_EXPOSURE_TIME = "camera_exposure_time";
-	public static final String KEY_CAMERA_VOLTAGE = "camera_voltage";
+	public static final String KEY_CAMERA_EXPOSURE_TIME_WHITE_LEDS = "t_cam_white";
+	public static final String KEY_CAMERA_EXPOSURE_TIME_UV = "t_cam_uv";
+	public static final String KEY_CAMERA_EXPOSURE_TIME_NIR = "t_cam_nir";
+	public static final String KEY_CAMERA_CAPTURE_IMAGE = "capture_image";
 
 	public static final String KEY_NIR_SINGLE_SHOT = "nir_single_shot";
 	public static final String KEY_NIR_SPEC_AVERAGES = "nir_spec_averages";
@@ -57,10 +59,7 @@ public class Config {
 	public static final int DEFAULT_VIS_UV_LEDS_VOLTAGE = 200;
 
 	// Camera
-	public static final int MIN_CAMERA_EXPOSURE_TIME = 0; // TODO: 4/22/18 check
-	public static final int MAX_CAMERA_EXPOSURE_TIME = 1_500_000; // TODO: 4/22/18 check
-	public static final int MIN_CAMERA_VOLTAGE_TIME = 0;
-	public static final int MAX_CAMERA_VOLTAGE_TIME = 4500;
+	public static final int MIN_CAMERA_EXPOSURE_TIME = 1000; // TODO: 4/22/18 check
 
 	// NIR
 	public static final int MIN_NIR_SPEC_AVERAGES = 1;

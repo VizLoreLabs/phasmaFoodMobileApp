@@ -18,8 +18,6 @@ import butterknife.OnClick;
 
 public class ProfileHomeScreenFragment extends ProfileBaseFragment {
 
-	private FcmMobileViewModel configViewModel;
-
 	@OnClick({R.id.startMeasurement, R.id.yourProfile})
 	void onClick(Button button) {
 		switch (button.getId()) {
@@ -60,7 +58,7 @@ public class ProfileHomeScreenFragment extends ProfileBaseFragment {
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		configViewModel = ViewModelProviders.of(getActivity()).get(FcmMobileViewModel.class);
+		final FcmMobileViewModel configViewModel = ViewModelProviders.of(getActivity()).get(FcmMobileViewModel.class);
 
 		configViewModel.sendFcmToken().observe(this, sendResult -> {
 			if (!sendResult) {

@@ -87,7 +87,7 @@ public class SignInFragment extends ProfileBaseFragment {
 		userViewModel = ViewModelProviders.of(getActivity()).get(UserViewModel.class);
 
 		// testing values
-		email.setText("vanste25@gmail.com"); // TODO: 2019-08-27 Remove before uploading to Play
-		password.setText("username123");
+//		email.setText("vanste25@gmail.com"); // TODO: 2019-08-27 Remove before uploading to Play
+//		password.setText("username123");
 	}
 }
