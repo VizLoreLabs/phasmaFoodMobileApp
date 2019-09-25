@@ -26,8 +26,6 @@ public class Config {
 
 	public static final String KEY_NIR_SINGLE_SHOT = "nir_single_shot";
 	public static final String KEY_NIR_SPEC_AVERAGES = "nir_spec_averages";
-	public static final String KEY_NIR_MICROLAMPS_CURRENT = "nir_microlamps_voltage";
-	public static final String KEY_NIR_MICROLAMPS_WARMING_TIME = "nir_mirolamps_warming_time";
 
 	// NIR
 	public static final String KEY_VIS_EXPOSURE_TIME_REFLECTANCE = "vis_exposure_time_reflectence";
@@ -64,10 +62,6 @@ public class Config {
 	// NIR
 	public static final int MIN_NIR_SPEC_AVERAGES = 1;
 	public static final int MAX_NIR_SPEC_AVERAGES = 500;
-	public static final int MIN_NIR_MICROLAMPS_CURRENT = 1;
-	public static final int MAX_NIR_MICROLAMPS_CURRENT = 160;
-	public static final int MIN_NIR_MICROLAMPS_WARMING_TIME = 10;
-	public static final int MAX_NIR_MICROLAMPS_WARMING_TIME = 1000;
 
 	// VIS
 	public static final int MIN_VIS_EXPOSURE_TIME_REFLECTANCE = 1;

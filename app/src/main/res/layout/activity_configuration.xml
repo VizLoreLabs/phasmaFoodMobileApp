@@ -634,63 +634,6 @@
                         android:hint="1-1000"
                         android:textColor="@color/white" />
                 </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/nirParam3"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/configurationTowHeight"
-                    android:orientation="horizontal"
-                    android:paddingStart="@dimen/configurationHorizontalRowPadding"
-                    android:paddingTop="@dimen/configurationVerticalRowPadding"
-                    android:paddingEnd="@dimen/configurationHorizontalRowPadding"
-                    android:paddingBottom="@dimen/configurationVerticalRowPadding">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:gravity="center_vertical"
-                        android:text="@string/microlampsDrivingCurrent"
-                        android:textColor="@color/white" />
-
-                    <EditText
-                        android:id="@+id/nirMicrolampsCurrent"
-                        style="@style/PFEditTextDigits"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:hint="1-160"
-                        android:textColor="@color/white" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/nirParam4"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/configurationTowHeight"
-                    android:orientation="horizontal"
-                    android:paddingStart="@dimen/configurationHorizontalRowPadding"
-                    android:paddingTop="@dimen/configurationVerticalRowPadding"
-                    android:paddingEnd="@dimen/configurationHorizontalRowPadding"
-                    android:paddingBottom="@dimen/configurationVerticalRowPadding">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:gravity="center_vertical"
-                        android:text="@string/microlampsWarmingTime"
-                        android:textColor="@color/white" />
-
-                    <EditText
-                        android:id="@+id/nirMicrolampsWarmingTime"
-                        style="@style/PFEditTextDigits"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:hint="10-1000"
-                        android:textColor="@color/white" />
-                </LinearLayout>
-
             </LinearLayout>
 
             <!--VIS-->

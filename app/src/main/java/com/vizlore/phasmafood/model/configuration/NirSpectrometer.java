@@ -11,13 +11,9 @@ public class NirSpectrometer {
 	@SerializedName("av_NIR")
 	public Integer avNIRm;
 
-	@SerializedName("NirMicrolamps")
-	public NirMicrolamps nirMicrolamps;
-
-	public NirSpectrometer(String single, Integer avNIRm, NirMicrolamps nirMicrolamps) {
+	public NirSpectrometer(String single, Integer avNIRm) {
 		this.single = single;
 		this.avNIRm = avNIRm;
-		this.nirMicrolamps = nirMicrolamps;
 	}
 
 	public NirSpectrometer() {
@@ -37,13 +33,5 @@ public class NirSpectrometer {
 
 	public void setAvNIRm(Integer avNIRm) {
 		this.avNIRm = avNIRm;
-	}
-
-	public NirMicrolamps getNirMicrolamps() {
-		return nirMicrolamps;
-	}
-
-	public void setNirMicrolamps(NirMicrolamps nirMicrolamps) {
-		this.nirMicrolamps = nirMicrolamps;
 	}
 }

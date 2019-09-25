@@ -20,7 +20,6 @@ import com.google.gson.Gson;
 import com.vizlore.phasmafood.R;
 import com.vizlore.phasmafood.model.configuration.Camera;
 import com.vizlore.phasmafood.model.configuration.Configuration;
-import com.vizlore.phasmafood.model.configuration.NirMicrolamps;
 import com.vizlore.phasmafood.model.configuration.NirSpectrometer;
 import com.vizlore.phasmafood.model.configuration.VisLeds;
 import com.vizlore.phasmafood.model.configuration.VisSpectrometer;
@@ -38,8 +37,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_MICROBIOLOGICAL_UNIT;
-import static com.vizlore.phasmafood.utils.Config.DEFAULT_NIR_MICROLAMPS_CURRENT;
-import static com.vizlore.phasmafood.utils.Config.DEFAULT_NIR_MICROLAMPS_WARMING_TIME;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_EXPOSURE_TIME_FLUORESCENCE;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_EXPOSURE_TIME_REFLECTANCE;
 import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_UV_LEDS_VOLTAGE;
@@ -47,8 +44,6 @@ import static com.vizlore.phasmafood.utils.Config.DEFAULT_VIS_WHITE_LEDS_CURRENT
 import static com.vizlore.phasmafood.utils.Config.KEY_CAMERA_EXPOSURE_TIME_NIR;
 import static com.vizlore.phasmafood.utils.Config.KEY_CAMERA_EXPOSURE_TIME_UV;
 import static com.vizlore.phasmafood.utils.Config.KEY_CAMERA_EXPOSURE_TIME_WHITE_LEDS;
-import static com.vizlore.phasmafood.utils.Config.KEY_NIR_MICROLAMPS_CURRENT;
-import static com.vizlore.phasmafood.utils.Config.KEY_NIR_MICROLAMPS_WARMING_TIME;
 import static com.vizlore.phasmafood.utils.Config.KEY_NIR_SINGLE_SHOT;
 import static com.vizlore.phasmafood.utils.Config.KEY_NIR_SPEC_AVERAGES;
 import static com.vizlore.phasmafood.utils.Config.KEY_VIS_EXPOSURE_TIME_FLOURESCENCE;
@@ -56,8 +51,6 @@ import static com.vizlore.phasmafood.utils.Config.KEY_VIS_EXPOSURE_TIME_REFLECTA
 import static com.vizlore.phasmafood.utils.Config.KEY_VIS_UV_LEDS_VOLTAGE;
 import static com.vizlore.phasmafood.utils.Config.KEY_VIS_WHITE_LEDS_VOLTAGE;
 import static com.vizlore.phasmafood.utils.Config.MAX_LIGHTS_ON_DURATION;
-import static com.vizlore.phasmafood.utils.Config.MAX_NIR_MICROLAMPS_CURRENT;
-import static com.vizlore.phasmafood.utils.Config.MAX_NIR_MICROLAMPS_WARMING_TIME;
 import static com.vizlore.phasmafood.utils.Config.MAX_NIR_SPEC_AVERAGES;
 import static com.vizlore.phasmafood.utils.Config.MAX_VIS_EXPOSURE_TIME_FLUORESCENCE;
 import static com.vizlore.phasmafood.utils.Config.MAX_VIS_EXPOSURE_TIME_REFLECTANCE;
@@ -65,8 +58,6 @@ import static com.vizlore.phasmafood.utils.Config.MAX_VIS_UV_LEDS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.MAX_VIS_WHITE_LEDS_CURRENT;
 import static com.vizlore.phasmafood.utils.Config.MIN_CAMERA_EXPOSURE_TIME;
 import static com.vizlore.phasmafood.utils.Config.MIN_LIGHTS_ON_DURATION;
-import static com.vizlore.phasmafood.utils.Config.MIN_NIR_MICROLAMPS_CURRENT;
-import static com.vizlore.phasmafood.utils.Config.MIN_NIR_MICROLAMPS_WARMING_TIME;
 import static com.vizlore.phasmafood.utils.Config.MIN_NIR_SPEC_AVERAGES;
 import static com.vizlore.phasmafood.utils.Config.MIN_VIS_EXPOSURE_TIME_FLUORESCENCE;
 import static com.vizlore.phasmafood.utils.Config.MIN_VIS_EXPOSURE_TIME_REFLECTANCE;
@@ -229,10 +220,6 @@ public class ConfigurationActivity extends BaseActivity {
 	RadioGroup singleShotRadioGroup;
 	@BindView(R.id.averagesEditText)
 	EditText nirSpectrometerAveragesEditText;
-	@BindView(R.id.nirMicrolampsCurrent)
-	EditText nirMicrolampsCurrent;
-	@BindView(R.id.nirMicrolampsWarmingTime)
-	EditText nirMicrolampsWarmingTime;
 
 	// VIS
 	@BindView(R.id.visGroup)
@@ -545,8 +532,6 @@ public class ConfigurationActivity extends BaseActivity {
 				case Constants.USE_CASE_1:
 					//nir
 					nirSpectrometerAveragesEditText.setText(String.valueOf(100));
-					nirMicrolampsCurrent.setText(String.valueOf(50));
-					nirMicrolampsWarmingTime.setText(String.valueOf(500));
 					//vis
 					exposureTimeReflectance.setText(String.valueOf(55));
 					whiteLEDsCurrent.setText(String.valueOf(1));
@@ -560,8 +545,6 @@ public class ConfigurationActivity extends BaseActivity {
 					whiteLEDsCurrent.setText(String.valueOf(1));
 					//nir
 					nirSpectrometerAveragesEditText.setText(String.valueOf(100));
-					nirMicrolampsCurrent.setText(String.valueOf(160));
-					nirMicrolampsWarmingTime.setText(String.valueOf(500));
 					//fluo
 					if (wizardJsonObject.getString(Constants.USE_CASE_3_FOOD_TYPE).contains("Minced pork")
 						|| wizardJsonObject.getString(Constants.USE_CASE_3_FOOD_TYPE).contains("Fish")
@@ -574,9 +557,6 @@ public class ConfigurationActivity extends BaseActivity {
 					UVLEDsCurrent.setText(String.valueOf(10));
 					break;
 				case Constants.USE_CASE_3:
-					nirMicrolampsCurrent.setText(String.valueOf(50));
-					nirMicrolampsWarmingTime.setText(String.valueOf(500));
-
 					final String useCase3Param = wizardJsonObject.getString(Constants.USE_CASE_3_FOOD_TYPE);
 					switch (useCase3Param) {
 						case Constants.USE_CASE_3_PARAM_1: //Alcoholic beverages
@@ -605,8 +585,6 @@ public class ConfigurationActivity extends BaseActivity {
 					whiteLEDsCurrent.setText(String.valueOf(1));
 					break;
 				default:
-					nirMicrolampsCurrent.setText(String.valueOf(DEFAULT_NIR_MICROLAMPS_CURRENT));
-					nirMicrolampsWarmingTime.setText(String.valueOf(DEFAULT_NIR_MICROLAMPS_WARMING_TIME));
 					// vis
 					exposureTimeReflectance.setText(String.valueOf(DEFAULT_VIS_EXPOSURE_TIME_REFLECTANCE));
 					whiteLEDsCurrent.setText(String.valueOf(DEFAULT_VIS_WHITE_LEDS_CURRENT));
@@ -651,8 +629,6 @@ public class ConfigurationActivity extends BaseActivity {
 		final int idx = singleShotRadioGroup.indexOfChild(radioButton);
 		editor.putInt(KEY_NIR_SINGLE_SHOT, idx);
 		editor.putInt(KEY_NIR_SPEC_AVERAGES, getValue(nirSpectrometerAveragesEditText));
-		editor.putInt(KEY_NIR_MICROLAMPS_CURRENT, getValue(nirMicrolampsCurrent));
-		editor.putInt(KEY_NIR_MICROLAMPS_WARMING_TIME, getValue(nirMicrolampsWarmingTime));
 
 		editor.putInt(KEY_VIS_EXPOSURE_TIME_REFLECTANCE, getValue(exposureTimeReflectance));
 		editor.putInt(KEY_VIS_UV_LEDS_VOLTAGE, getValue(UVLEDsCurrent));
@@ -678,14 +654,6 @@ public class ConfigurationActivity extends BaseActivity {
 		}
 		if (!isWithinBounds(getValue(nirSpectrometerAveragesEditText), MIN_NIR_SPEC_AVERAGES, MAX_NIR_SPEC_AVERAGES)) {
 			showError(nirSpectrometerAveragesEditText);
-			return null;
-		}
-		if (!isWithinBounds(getValue(nirMicrolampsCurrent), MIN_NIR_MICROLAMPS_CURRENT, MAX_NIR_MICROLAMPS_CURRENT)) {
-			showError(nirMicrolampsCurrent);
-			return null;
-		}
-		if (!isWithinBounds(getValue(nirMicrolampsWarmingTime), MIN_NIR_MICROLAMPS_WARMING_TIME, MAX_NIR_MICROLAMPS_WARMING_TIME)) {
-			showError(nirMicrolampsWarmingTime);
 			return null;
 		}
 		if (!isWithinBounds(getValue(exposureTimeReflectance), MIN_VIS_EXPOSURE_TIME_REFLECTANCE, MAX_VIS_EXPOSURE_TIME_REFLECTANCE)) {
@@ -726,12 +694,8 @@ public class ConfigurationActivity extends BaseActivity {
 		// NirMicrolamps
 		// Add if not test sample at all OR it's a NIR test sample
 		if (testSample == null || testSample.contains(Constants.USE_CASE_TEST_NIR)) {
-			final NirMicrolamps nirMicrolamps = new NirMicrolamps();
-			nirMicrolamps.setTNir(getValue(nirMicrolampsWarmingTime));
-			nirMicrolamps.setVNir(getValue(nirMicrolampsCurrent));
-
 			final String selectedOption = singleShotRadioGroup.getCheckedRadioButtonId() == R.id.yes ? "Y" : "N";
-			final NirSpectrometer nirSpectrometer = new NirSpectrometer(selectedOption, getValue(nirSpectrometerAveragesEditText), nirMicrolamps);
+			final NirSpectrometer nirSpectrometer = new NirSpectrometer(selectedOption, getValue(nirSpectrometerAveragesEditText));
 			configuration.setNirSpectrometer(nirSpectrometer);
 			isNirAvailable = true;
 		}
@@ -760,11 +724,7 @@ public class ConfigurationActivity extends BaseActivity {
 
 		// NIR not available, fill with zeroes
 		if (!isNirAvailable) {
-			final NirMicrolamps nirMicrolamps = new NirMicrolamps();
-			nirMicrolamps.setTNir(0);
-			nirMicrolamps.setVNir(0);
-			final NirSpectrometer nirSpectrometer = new NirSpectrometer("N", 0, nirMicrolamps);
-			configuration.setNirSpectrometer(nirSpectrometer);
+			configuration.setNirSpectrometer(new NirSpectrometer("N", 0));
 		}
 
 		// VIS not available, fill with zeroes
