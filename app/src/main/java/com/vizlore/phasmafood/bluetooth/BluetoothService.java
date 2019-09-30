@@ -101,7 +101,6 @@ public class BluetoothService extends Service {
 					switch (msg.arg1) {
 						case CommunicationController.STATE_CONNECTED:
 							Log.d(TAG, "Connected to: " + connectingDevice.getName());
-
 							registerBtDevice(connectingDevice);
 							break;
 						case CommunicationController.STATE_CONNECTING:
@@ -430,7 +429,7 @@ public class BluetoothService extends Service {
 		} else {
 			deviceUuid = "12345678910";
 		}
-		Map<String, String> requestBody = new HashMap<>();
+		final Map<String, String> requestBody = new HashMap<>();
 		requestBody.put(Config.DEVICE_MAC, deviceUuid);
 		requestBody.put(Config.DEVICE_UUID, "1234567890");
 		disposable.add(deviceApi.createDevice(requestBody)

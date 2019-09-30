@@ -112,7 +112,8 @@ public class BluetoothViewModel extends ViewModel {
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribeOn(Schedulers.computation())
 			.subscribe(bluetoothDevice -> {
-				Log.d(TAG, "getFoundDevices - Device found: " + bluetoothDevice.getAddress() + " - " + bluetoothDevice.getName());
+				Log.d(TAG, "getFoundDevices - Device found: " + bluetoothDevice.getAddress() + " - " +
+					bluetoothDevice.getName());
 				foundBluetoothDeviceLiveData.setValue(bluetoothDevice);
 			}));
 		return foundBluetoothDeviceLiveData;

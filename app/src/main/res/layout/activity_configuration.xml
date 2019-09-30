@@ -427,11 +427,11 @@
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:gravity="center_vertical"
-                    android:text="@string/captureImage"
+                    android:text="@string/captureImageWhite"
                     android:textColor="@color/white" />
 
                 <RadioGroup
-                    android:id="@+id/captureImageRadioGroup"
+                    android:id="@+id/captureImageWhiteRadioGroup"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -440,7 +440,7 @@
                     android:textColor="@color/white">
 
                     <RadioButton
-                        android:id="@+id/yesCapture"
+                        android:id="@+id/yesCaptureImageWhite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/white"
@@ -448,7 +448,95 @@
                         android:textColor="@color/white" />
 
                     <RadioButton
-                        android:id="@+id/noCapture"
+                        android:id="@+id/noCaptureImageWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/white"
+                        android:text="NO"
+                        android:textColor="@color/white" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/configurationTowHeight"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/configurationHorizontalRowPadding"
+                android:paddingTop="@dimen/configurationVerticalRowPadding"
+                android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+                android:paddingBottom="@dimen/configurationVerticalRowPadding">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="@string/captureImageUV"
+                    android:textColor="@color/white" />
+
+                <RadioGroup
+                    android:id="@+id/captureImageUVRadioGroup"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:textColor="@color/white">
+
+                    <RadioButton
+                        android:id="@+id/yesCaptureImageUV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/white"
+                        android:text="YES"
+                        android:textColor="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/noCaptureImageUV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/white"
+                        android:text="NO"
+                        android:textColor="@color/white" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/configurationTowHeight"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/configurationHorizontalRowPadding"
+                android:paddingTop="@dimen/configurationVerticalRowPadding"
+                android:paddingEnd="@dimen/configurationHorizontalRowPadding"
+                android:paddingBottom="@dimen/configurationVerticalRowPadding">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text="@string/captureImageNIR"
+                    android:textColor="@color/white" />
+
+                <RadioGroup
+                    android:id="@+id/captureImageNIRRadioGroup"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:textColor="@color/white">
+
+                    <RadioButton
+                        android:id="@+id/yesCaptureImageNIR"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/white"
+                        android:text="YES"
+                        android:textColor="@color/white" />
+
+                    <RadioButton
+                        android:id="@+id/noCaptureImageNIR"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/white"

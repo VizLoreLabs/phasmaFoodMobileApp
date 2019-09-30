@@ -5,8 +5,14 @@ import com.google.gson.annotations.SerializedName;
 
 public class Camera {
 
-	@SerializedName("capture_image")
-	public String captureImage;
+	@SerializedName("capture_image_white")
+	public String captureImageWhite;
+
+	@SerializedName("capture_image_uv")
+	public String captureImageUV;
+
+	@SerializedName("capture_image_nir")
+	public String captureImageNIR;
 
 	@SerializedName("t_cam_white")
 	public Integer tCamWhite;
@@ -20,19 +26,14 @@ public class Camera {
 	public Camera() {
 	}
 
-	public Camera(String captureImage, Integer tCamWhite, Integer tCamUv, Integer tCamNIR) {
-		this.captureImage = captureImage;
+	public Camera(String captureImageWhite, String captureImageUV, String captureImageNIR, Integer tCamWhite,
+				  Integer tCamUv, Integer tCamNIR) {
+		this.captureImageWhite = captureImageWhite;
+		this.captureImageUV = captureImageUV;
+		this.captureImageNIR = captureImageNIR;
 		this.tCamWhite = tCamWhite;
 		this.tCamUv = tCamUv;
 		this.tCamNIR = tCamNIR;
-	}
-
-	public String getCaptureImage() {
-		return captureImage;
-	}
-
-	public void setCaptureImage(String captureImage) {
-		this.captureImage = captureImage;
 	}
 
 	public Integer gettCamWhite() {
@@ -57,5 +58,17 @@ public class Camera {
 
 	public void settCamNIR(Integer tCamNIR) {
 		this.tCamNIR = tCamNIR;
+	}
+
+	public void setCaptureImageWhite(String captureImageWhite) {
+		this.captureImageWhite = captureImageWhite;
+	}
+
+	public void setCaptureImageUV(String captureImageUV) {
+		this.captureImageUV = captureImageUV;
+	}
+
+	public void setCaptureImageNIR(String captureImageNIR) {
+		this.captureImageNIR = captureImageNIR;
 	}
 }

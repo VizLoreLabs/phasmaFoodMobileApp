@@ -22,7 +22,9 @@ public class Config {
 	public static final String KEY_CAMERA_EXPOSURE_TIME_WHITE_LEDS = "t_cam_white";
 	public static final String KEY_CAMERA_EXPOSURE_TIME_UV = "t_cam_uv";
 	public static final String KEY_CAMERA_EXPOSURE_TIME_NIR = "t_cam_nir";
-	public static final String KEY_CAMERA_CAPTURE_IMAGE = "capture_image";
+	public static final String KEY_CAMERA_CAPTURE_IMAGE_WHITE = "capture_image_white";
+	public static final String KEY_CAMERA_CAPTURE_IMAGE_NIR = "capture_image_nir";
+	public static final String KEY_CAMERA_CAPTURE_IMAGE_UV = "capture_image_uv";
 
 	public static final String KEY_NIR_SINGLE_SHOT = "nir_single_shot";
 	public static final String KEY_NIR_SPEC_AVERAGES = "nir_spec_averages";

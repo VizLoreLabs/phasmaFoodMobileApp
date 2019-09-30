@@ -13,11 +13,13 @@ import android.util.Log;
 import com.vizlore.phasmafood.MyApplication;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
+import java.util.Base64;
 import java.util.List;
 import java.util.Random;
 
@@ -193,5 +195,20 @@ public class Utils {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static String encodeToBase64(final File file) {
+		String base64File = "";
+		try (FileInputStream imageInFile = new FileInputStream(file)) {
+			// Reading a file from file system
+			byte[] fileData = new byte[(int) file.length()];
+			imageInFile.read(fileData);
+			base64File = Base64.getEncoder().encodeToString(fileData);
+		} catch (FileNotFoundException e) {
+			Log.d(TAG, "encodeToBase64: File not found" + e);
+		} catch (IOException ioe) {
+			Log.d(TAG, "encodeToBase64: Exception while reading the file " + ioe);
+		}
+		return base64File;
 	}
 }

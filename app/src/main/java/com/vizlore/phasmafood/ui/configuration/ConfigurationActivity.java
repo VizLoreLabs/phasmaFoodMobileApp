@@ -191,8 +191,12 @@ public class ConfigurationActivity extends BaseActivity {
 	EditText authenticParam;
 
 	//camera configuration
-	@BindView(R.id.captureImageRadioGroup)
-	RadioGroup captureImageRadioGroup;
+	@BindView(R.id.captureImageWhiteRadioGroup)
+	RadioGroup captureImageWhiteRadioGroup;
+	@BindView(R.id.captureImageUVRadioGroup)
+	RadioGroup captureImageUVRadioGroup;
+	@BindView(R.id.captureImageNIRRadioGroup)
+	RadioGroup captureImageNIRRadioGroup;
 	@BindView(R.id.exposureTimeWhiteLEDs)
 	EditText cameraExposureTimeWhiteLEDs;
 	@BindView(R.id.exposureTimeUV)
@@ -520,7 +524,9 @@ public class ConfigurationActivity extends BaseActivity {
 		int saveRadioButtonIndex = prefs.getInt(KEY_NIR_SINGLE_SHOT, 1); // 1 is no (N)
 		singleShotRadioGroup.check(singleShotRadioGroup.getChildAt(saveRadioButtonIndex).getId());
 
-		captureImageRadioGroup.check(R.id.noCapture);
+		captureImageWhiteRadioGroup.check(R.id.noCaptureImageWhite);
+		captureImageUVRadioGroup.check(R.id.noCaptureImageUV);
+		captureImageNIRRadioGroup.check(R.id.noCaptureImageNIR);
 
 		cameraExposureTimeWhiteLEDs.setText(String.valueOf(1000));
 		cameraExposureTimeUV.setText(String.valueOf(1000));
@@ -585,6 +591,8 @@ public class ConfigurationActivity extends BaseActivity {
 					whiteLEDsCurrent.setText(String.valueOf(1));
 					break;
 				default:
+					//nir
+					nirSpectrometerAveragesEditText.setText(String.valueOf(100));
 					// vis
 					exposureTimeReflectance.setText(String.valueOf(DEFAULT_VIS_EXPOSURE_TIME_REFLECTANCE));
 					whiteLEDsCurrent.setText(String.valueOf(DEFAULT_VIS_WHITE_LEDS_CURRENT));
@@ -677,10 +685,20 @@ public class ConfigurationActivity extends BaseActivity {
 
 		final Configuration configuration = new Configuration();
 
-		final String selectedCaptureOption = captureImageRadioGroup.getCheckedRadioButtonId() == R.id.yesCapture ? "YES" : "NO";
+		final String selectedCaptureOptionWhite = captureImageWhiteRadioGroup.getCheckedRadioButtonId() ==
+			R.id.yesCaptureImageWhite ? "YES" : "";
+
+		final String selectedCaptureOptionUV = captureImageUVRadioGroup.getCheckedRadioButtonId() ==
+			R.id.yesCaptureImageUV ? "YES" : "";
+
+		final String selectedCaptureOptionNIR = captureImageNIRRadioGroup.getCheckedRadioButtonId() ==
+			R.id.yesCaptureImageNIR ? "YES" : "";
+
 		// Camera
 		final Camera camera = new Camera(
-			selectedCaptureOption,
+			selectedCaptureOptionWhite,
+			selectedCaptureOptionUV,
+			selectedCaptureOptionNIR,
 			getValue(cameraExposureTimeWhiteLEDs),
 			getValue(cameraExposureTimeUV),
 			getValue(cameraExposureTimeNIR)

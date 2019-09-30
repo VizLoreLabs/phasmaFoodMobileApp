@@ -25,7 +25,9 @@
     <string name="resultsReceived">Measurement completed!</string>
     <string name="seeYourResults">Results:</string>
     <string name="camera">Camera</string>
-    <string name="captureImage">Capture image</string>
+    <string name="captureImageWhite">Capture image - white LEDs</string>
+    <string name="captureImageUV">Capture image - UV</string>
+    <string name="captureImageNIR">Capture image - NIR</string>
     <string name="exposureTimeWhiteLeds">Exposure time - white LEDs [us]</string>
     <string name="exposureTimeUV">Exposure time - UV [us]</string>
     <string name="exposureTimeNIR">Exposure time - NIR [us]</string>

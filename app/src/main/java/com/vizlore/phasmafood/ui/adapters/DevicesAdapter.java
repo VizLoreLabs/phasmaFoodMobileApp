@@ -2,6 +2,7 @@ package com.vizlore.phasmafood.ui.adapters;
 
 import android.arch.lifecycle.LiveData;
 import android.bluetooth.BluetoothDevice;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -49,6 +50,7 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHold
 		this.devices = devices;
 	}
 
+	@NonNull
 	@Override
 	public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_device, parent, false);
@@ -56,7 +58,7 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHold
 	}
 
 	@Override
-	public void onBindViewHolder(ViewHolder holder, final int position) {
+	public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 		BluetoothDevice device = devices.get(position);
 
 		if (device != null && device.getName() != null) {
@@ -74,6 +76,7 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHold
 		if (adapterListType == PAIRED_DEVICES) {
 			holder.config.setText("Disconnect");
 		} else if (adapterListType == AdapterListType.AVAILABLE_DEVICES) {
+			holder.config.setVisibility(View.GONE);
 			holder.config.setText("Config");
 		}
 

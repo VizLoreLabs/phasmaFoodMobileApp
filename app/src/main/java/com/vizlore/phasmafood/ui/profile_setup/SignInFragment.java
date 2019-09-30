@@ -30,9 +30,6 @@ public class SignInFragment extends ProfileBaseFragment {
 	@BindView(R.id.password)
 	EditText password;
 
-	private static final String TAG = "SMEDIC";
-
-
 	@OnClick(R.id.logIn)
 	void onLogInClicked() {
 

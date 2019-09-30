@@ -8,6 +8,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.vizlore.phasmafood.model.configuration.Configuration;
 
+import java.util.List;
+
 public class Sample {
 
 	@SerializedName("sampleID")
@@ -182,6 +184,10 @@ public class Sample {
 	@SerializedName("configuration")
 	@Nullable
 	private Configuration configuration;
+
+	@SerializedName("camera")
+	@Expose
+	private List<CameraItem> cameraItems;
 
 	public String getSampleID() {
 		return sampleID;
@@ -532,6 +538,14 @@ public class Sample {
 	@Nullable
 	public Configuration getConfiguration() {
 		return configuration;
+	}
+
+	public List<CameraItem> getCameraItems() {
+		return cameraItems;
+	}
+
+	public void setCameraItems(List<CameraItem> cameraItems) {
+		this.cameraItems = cameraItems;
 	}
 
 	@Override

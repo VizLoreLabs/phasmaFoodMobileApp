@@ -47,8 +47,8 @@ public class NetworkModule {
 	@Singleton
 	OkHttpClient provideOkHttpClient(HttpLoggingInterceptor loggingInterceptor) {
 		return new OkHttpClient.Builder()
-			.writeTimeout(30, TimeUnit.SECONDS)
-			.readTimeout(30, TimeUnit.SECONDS)
+			.writeTimeout(60, TimeUnit.SECONDS)
+			.readTimeout(60, TimeUnit.SECONDS)
 			.addInterceptor(loggingInterceptor)
 			.addInterceptor(chain -> {
 				final Request original = chain.request();

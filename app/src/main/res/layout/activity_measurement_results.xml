@@ -67,28 +67,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <RelativeLayout
-            android:id="@+id/loadingProgressBar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone">
-
-            <ProgressBar
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:indeterminate="true"
-                android:indeterminateTint="@color/orange"
-                android:indeterminateTintMode="src_atop" />
-
-            <View
-                android:id="@+id/background_dim"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#66000000" />
-        </RelativeLayout>
-
         <!-- screen components -->
 
         <ScrollView
@@ -514,6 +492,28 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.11" />
+
+        <RelativeLayout
+            android:id="@+id/loadingProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/orange"
+                android:indeterminateTintMode="src_atop" />
+
+            <View
+                android:id="@+id/background_dim"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#66000000" />
+        </RelativeLayout>
 
     </android.support.constraint.ConstraintLayout>
 </android.support.design.widget.CoordinatorLayout>

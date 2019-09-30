@@ -15,7 +15,7 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/config"
         app:layout_constraintEnd_toStartOf="@+id/status"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/config" />
 
     <Button
