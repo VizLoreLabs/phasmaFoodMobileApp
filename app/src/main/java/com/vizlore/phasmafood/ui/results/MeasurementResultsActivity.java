@@ -611,13 +611,8 @@ public class MeasurementResultsActivity extends BaseActivity {
 			//prepare images
 			final List<CameraItem> cameraItems = new ArrayList<>();
 			for (final File file : imagesList) {
-				cameraItems.add(new CameraItem(Utils.encodeToBase64(file)));
+				cameraItems.add(new CameraItem(Utils.encodeToBase64(file), file.getName()));
 			}
-
-			for (CameraItem c : cameraItems) {
-				Log.d(TAG, "sendMeasurementToServer: item: " + c.getCamera());
-			}
-
 			sample.setCameraItems(cameraItems);
 
 			measurementViewModel.saveProcessingRequestType(shouldAnalyze ?
@@ -647,9 +642,8 @@ public class MeasurementResultsActivity extends BaseActivity {
 						}
 					}
 
-					// TODO: 2019-09-27 SMEDIC REMOVE IMAGES
 					// Images are successfully stored on server so delete them along with received images.zip
-					// Utils.deleteDirectory(EXTRACTED_ZIP_LOCATION);
+					Utils.deleteDirectory(EXTRACTED_ZIP_LOCATION);
 				});
 		} else {
 			Toast.makeText(this, "Device null! Not registered yet?", Toast.LENGTH_SHORT).show();

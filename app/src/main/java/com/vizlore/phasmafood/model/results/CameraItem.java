@@ -10,11 +10,16 @@ import com.google.gson.annotations.SerializedName;
  */
 public class CameraItem {
 
+	@SerializedName("name")
+	@Expose
+	private String name;
+
 	@SerializedName("camera")
 	@Expose
 	private String camera;
 
-	public CameraItem(String camera) {
+	public CameraItem(String name, String camera) {
+		this.name = name;
 		this.camera = camera;
 	}
 
@@ -24,5 +29,13 @@ public class CameraItem {
 
 	public void setCamera(String camera) {
 		this.camera = camera;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }
