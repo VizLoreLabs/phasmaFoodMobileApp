@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.os.ParcelUuid;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
@@ -45,8 +46,6 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-
-import static com.vizlore.phasmafood.utils.Config.BT_DEVICE_UUID_KEY;
 
 /**
  * Created by smedic on 2/17/18.
@@ -101,6 +100,21 @@ public class BluetoothService extends Service {
 					switch (msg.arg1) {
 						case CommunicationController.STATE_CONNECTED:
 							Log.d(TAG, "Connected to: " + connectingDevice.getName());
+
+							Log.d(TAG, "handleMessage: * * * * * * * * * * * * * * * *");
+							Log.d(TAG, "handleMessage: UUID SIZE: " + connectingDevice.getUuids().length);
+							for (ParcelUuid uid : connectingDevice.getUuids()) {
+								Log.d(TAG, "handleMessage: UUID PARCEL: " + uid.toString());
+							}
+
+							if (connectingDevice != null && connectingDevice.getUuids() != null && connectingDevice.getUuids()[0] != null) {
+								Log.d(TAG, "handleMessage UUID: " + connectingDevice.getUuids()[0].getUuid().toString());
+							} else {
+								Log.d(TAG, "handleMessage: DEVICE UUID NULL");
+							}
+							Log.d(TAG, "createNewDevice: DEVICE ADDRESS: " + connectingDevice.getAddress());
+							Log.d(TAG, "createNewDevice: DEVICE NAME: " + connectingDevice.getName());
+
 							registerBtDevice(connectingDevice);
 							break;
 						case CommunicationController.STATE_CONNECTING:
@@ -196,28 +210,23 @@ public class BluetoothService extends Service {
 				notificationManager.notify(notificationId, notificationBuilder.build());
 				break;
 			case 5: // Image received
-				Log.d(TAG, "handleMessageRead: \n--------------- IMAGE ---------------");
 				final byte[] readBufData = (byte[]) param;
-				Log.d(TAG, "handleMessageRead: size: " + readBufData.length);
 				Utils.writeToFile(readBufData);
 				//measurementRepository.saveMeasurementImagePath();
 				startResultsActivity();
 				isMeasurementStarted = false;
 				break;
 			case 6:
-				Log.d(TAG, "handleMessageRead: \n------------- MEASUREMENT -------------");
 				notifyFinishedStatus("Measurement completed!", "");
 				Log.d(TAG, "handleMessageRead: Measurement data received");
 				final byte[] readBufImage = (byte[]) param;
 				String measurementDataResponse = new String(readBufImage);
-				Log.d(TAG, "handleMessageRead: data: " + measurementDataResponse);
 				if (measurementDataResponse.contains("End of Response")) {
 					measurementDataResponse = measurementDataResponse.replace("End of Response", "");
 				}
 				saveMeasurement(measurementDataResponse);
 				break;
 			case 7:
-				Log.d(TAG, "handleMessageRead: Cancel");
 				notifyCanceledStatus("Measurement canceled!", "");
 				break;
 		}
@@ -379,6 +388,10 @@ public class BluetoothService extends Service {
 		MyApplication.getComponent().inject(this);
 		Log.d(TAG, "BluetoothService started! service: " + rxBluetooth);
 		bluetoothController = new CommunicationController(handler);
+
+		/////TEST TODO REMOVE SMEDIC
+		//https://35.198.85.188/api/v1/device/B8:27:EB:FD:C0:F4
+		//registerBtDeviceTest("0000110e-0000-1000-8000-00805f9b34fb", "B8:27:EB:FD:C0:F4");
 	}
 
 	@Override
@@ -412,32 +425,56 @@ public class BluetoothService extends Service {
 			bluetoothController = null;
 		}
 		isMeasurementStarted = false;
+
+		// on disconnect, remove device address from prefs
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getInstance());
+		prefs.edit().remove(Config.BT_DEVICE_ADDRESS_KEY).apply();
 	}
 
 	private void registerBtDevice(final BluetoothDevice device) {
 		disposable.add(deviceApi.readDevice(device.getAddress())
 			.subscribeOn(Schedulers.computation())
-			.subscribe(() -> { //completed
-				},
-				error -> createNewDevice(device)));
+			.subscribe(() -> {
+				//completed - save current device address
+				final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getInstance());
+				prefs.edit().putString(Config.BT_DEVICE_ADDRESS_KEY, device.getAddress()).apply();
+			}, error -> createNewDevice(device)));
 	}
 
-	private void createNewDevice(final BluetoothDevice device) {
-		final String deviceUuid;
-		if (device != null && device.getUuids() != null && device.getUuids()[0] != null) {
-			deviceUuid = device.getUuids()[0].getUuid().toString();
-		} else {
-			deviceUuid = "12345678910";
-		}
+//	private void registerBtDeviceTest(final String deviceUuid, String address) {
+//		Log.d(TAG, "registerBtDeviceTest: TEST TEST TEST TEST TEST TEST\n");
+//		disposable.add(deviceApi.readDevice(address)
+//			.subscribeOn(Schedulers.computation())
+//			.subscribe(() -> { //completed
+//				Log.d(TAG, "readDevice: COMPLETED!");
+//			}, error -> createNewDeviceTest(deviceUuid, address)));
+//	}
+//
+//	private void createNewDeviceTest(final String deviceUuid, String address) {
+//		Log.d(TAG, "createNewDeviceTest: CREAET NEW DEVICE");
+//		final Map<String, String> requestBody = new HashMap<>();
+//		requestBody.put(Config.DEVICE_MAC, deviceUuid);
+//		requestBody.put(Config.DEVICE_UUID, address);
+//		disposable.add(deviceApi.createDevice(requestBody)
+//			.subscribeOn(Schedulers.computation())
+//			.subscribe(() -> {
+//					Log.d(TAG, "onComplete: device created");
+//					final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getInstance());
+//					prefs.edit().putString(Config.BT_DEVICE_ADDRESS_KEY, address).apply();
+//				},
+//				error -> Log.d(TAG, "onError: device not created:" + error.getMessage())));
+//	}
+
+	private void createNewDevice(@NonNull final BluetoothDevice device) {
 		final Map<String, String> requestBody = new HashMap<>();
-		requestBody.put(Config.DEVICE_MAC, deviceUuid);
-		requestBody.put(Config.DEVICE_UUID, "1234567890");
+		requestBody.put(Config.DEVICE_MAC, device.getAddress());
+		requestBody.put(Config.DEVICE_NAME, device.getName());
 		disposable.add(deviceApi.createDevice(requestBody)
 			.subscribeOn(Schedulers.computation())
 			.subscribe(() -> {
 					Log.d(TAG, "onComplete: device created");
 					final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getInstance());
-					prefs.edit().putString(BT_DEVICE_UUID_KEY, deviceUuid).apply();
+					prefs.edit().putString(Config.BT_DEVICE_ADDRESS_KEY, device.getAddress()).apply();
 				},
 				error -> Log.d(TAG, "onError: device not created:" + error.getMessage())));
 	}

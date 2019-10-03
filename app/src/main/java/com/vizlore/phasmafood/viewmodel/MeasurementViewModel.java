@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModel;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.google.gson.Gson;
 import com.vizlore.phasmafood.MyApplication;
 import com.vizlore.phasmafood.model.DebugError;
 import com.vizlore.phasmafood.model.configuration.Configuration;
@@ -58,9 +57,6 @@ public class MeasurementViewModel extends ViewModel {
 		sample.setDeviceID(deviceId);
 		sample.setMobileID(Utils.getMobileUUID());
 		sample.setConfiguration(measurementRepository.getConfiguration());
-
-		final String sadmasdmas = new Gson().toJson(sample);
-		Log.d(TAG, "createMeasurementRequest: DJASDJASJDAS: " + sadmasdmas);
 
 		disposable = measurementRepository.createMeasurementRequest(sample, shouldAnalyze)
 			.subscribeOn(Schedulers.io())

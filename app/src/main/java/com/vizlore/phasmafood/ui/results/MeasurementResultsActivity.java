@@ -599,9 +599,9 @@ public class MeasurementResultsActivity extends BaseActivity {
 
 		sampleId.setText(getString(R.string.sampleId, sample.getSampleID()));
 
-		final String deviceId = deviceViewModel.getDeviceID();
-		Log.d(TAG, "sendMeasurementToServer: device id: " + deviceId);
-		if (deviceId != null) {
+		final String deviceAddress = deviceViewModel.getDeviceAddress();
+		Log.d(TAG, "sendMeasurementToServer: device address: " + deviceAddress);
+		if (deviceAddress != null) {
 
 			loadingProgressBar.setVisibility(View.VISIBLE);
 			Toast.makeText(this, R.string.processingRequestSent, Toast.LENGTH_LONG).show();
@@ -619,7 +619,7 @@ public class MeasurementResultsActivity extends BaseActivity {
 				MeasurementRepository.ProcessingRequestType.STORE_AND_ANALYZE :
 				MeasurementRepository.ProcessingRequestType.STORE);
 
-			measurementViewModel.createMeasurementRequest(Utils.getUserId(), sample, deviceId, shouldAnalyze).observe(this,
+			measurementViewModel.createMeasurementRequest(Utils.getUserId(), sample, deviceAddress, shouldAnalyze).observe(this,
 				result -> {
 					//enable interaction again
 					enableInteraction();
@@ -634,10 +634,8 @@ public class MeasurementResultsActivity extends BaseActivity {
 						Toast.makeText(this, "Failure! Error: " + result.message, Toast.LENGTH_SHORT).show();
 					} else {
 						if (measurementViewModel.getProcessingRequestType() == MeasurementRepository.ProcessingRequestType.STORE_AND_ANALYZE) {
-							Log.d(TAG, "sendMeasurementToServer: ANALYZE");
 							showSnackBar(getString(R.string.analysis));
 						} else {
-							Log.d(TAG, "sendMeasurementToServer: ONLY STORE");
 							showSnackBar(getString(R.string.successfullyStoredInCloud));
 						}
 					}
@@ -646,7 +644,7 @@ public class MeasurementResultsActivity extends BaseActivity {
 					Utils.deleteDirectory(EXTRACTED_ZIP_LOCATION);
 				});
 		} else {
-			Toast.makeText(this, "Device null! Not registered yet?", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Device null! Not connected yet?", Toast.LENGTH_SHORT).show();
 		}
 	}
 

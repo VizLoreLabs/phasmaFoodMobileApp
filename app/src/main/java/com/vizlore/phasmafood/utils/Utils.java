@@ -23,8 +23,7 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Random;
 
-import static com.vizlore.phasmafood.utils.Config.BT_DEVICE_UUID_KEY;
-import static com.vizlore.phasmafood.utils.Config.MOBILE_DEVICE_UUID_KEY;
+import static com.vizlore.phasmafood.ui.SendRequestActivity.DEBUG_MODE_KEY;
 import static com.vizlore.phasmafood.viewmodel.UserViewModel.TOKEN_KEY;
 import static com.vizlore.phasmafood.viewmodel.UserViewModel.USER_ID_KEY;
 
@@ -36,16 +35,12 @@ public class Utils {
 
 	private static final String TAG = "SMEDIC Utils";
 
-	private static String btDeviceUuid = null;
-	private static String mobileDeviceUuid = null;
-
 	public static void prettyPrintDevices(String title, List<BluetoothDevice> devices) {
 		Log.d(TAG, "\n-------------- " + title + " ---------------");
 		for (BluetoothDevice device : devices) {
 			Log.d(TAG, "" + device.getName() + " - " + device.getAddress() + " - " + device.getType());
 		}
 		Log.d(TAG, "-------------------------------------");
-
 	}
 
 	/**
@@ -59,29 +54,25 @@ public class Utils {
 
 	public static String generateSampleId() {
 		final Random rand = new Random();
-		final int randomValue = rand.nextInt(1000000);
-
-		final String sampleId = String.valueOf(randomValue);
-		return sampleId;
+		final int randomValue = rand.nextInt(100000000);
+		return String.valueOf(randomValue);
 	}
 
-	public synchronized static String getBluetoothDeviceUUID() {
-//		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getInstance());
-//		final boolean isDebugMode = prefs.getBoolean(DEBUG_MODE_KEY, false);
-//		if (isDebugMode) {
-//			return UUID.randomUUID().toString();
-//		}
-//		return prefs.getString(BT_DEVICE_UUID_KEY, null);
-		// TODO: 11/28/18 fix getting of id
-		return "90:70:65:EF:4A:CE";
+	//our BT device in Greece has this uuid: "90:70:65:EF:4A:CE"
+	public synchronized static String getBluetoothDeviceAddress() {
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getInstance());
+		final boolean isDebugMode = prefs.getBoolean(DEBUG_MODE_KEY, false);
+		if (isDebugMode) {
+			return "AA:AA:AA:AA:AA:AA";
+		}
+		return prefs.getString(Config.BT_DEVICE_ADDRESS_KEY, null);
 	}
 
 	//do on logout
 	public synchronized static void clearUuids() {
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getInstance());
 		final SharedPreferences.Editor editor = prefs.edit();
-		editor.remove(MOBILE_DEVICE_UUID_KEY);
-		editor.remove(BT_DEVICE_UUID_KEY);
+		editor.remove(Config.BT_DEVICE_ADDRESS_KEY);
 		editor.apply();
 	}
 

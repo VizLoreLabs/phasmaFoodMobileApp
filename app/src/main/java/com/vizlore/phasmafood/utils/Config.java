@@ -6,15 +6,13 @@ package com.vizlore.phasmafood.utils;
 
 public class Config {
 
-	public static final String BASE_URL = "https://35.198.85.188";
+	public static final String BASE_URL = "https://api.phasmafood.eu";
 	public static final String AUTH_SUBURL = "/api/v1/auth/";
 	public static final String USERS_URL = "users/create/";
 
-	public static final String BT_DEVICE_UUID_KEY = "BLUETOOTH_DEVICE_UUID";
-	public static final String MOBILE_DEVICE_UUID_KEY = "MOBILE_DEVICE_UUID";
-
+	public static final String BT_DEVICE_ADDRESS_KEY = "BLUETOOTH_DEVICE_ADDRESS";
 	public static final String DEVICE_MAC = "MAC";
-	public static final String DEVICE_UUID = "UUID";
+	public static final String DEVICE_NAME = "name";
 
 	//configuration
 

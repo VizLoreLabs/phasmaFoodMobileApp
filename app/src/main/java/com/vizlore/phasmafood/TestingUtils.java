@@ -81,7 +81,7 @@ public class TestingUtils {
 			sample.setSampleID(Utils.generateSampleId());
 
 			model.createMeasurementRequest(Utils.getUserId(), sample,
-				Utils.getBluetoothDeviceUUID(), true) // TODO: 9/11/18 fix)
+				Utils.getBluetoothDeviceAddress(), true) // TODO: 9/11/18 fix)
 				.observe(activity, result -> {
 					if (result == null) {
 						Toast.makeText(activity, "Result null! Contact support", Toast.LENGTH_SHORT).show();
