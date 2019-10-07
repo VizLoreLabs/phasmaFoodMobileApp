@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.util.Base64;
 import android.util.Log;
 
 import com.vizlore.phasmafood.MyApplication;
@@ -19,7 +20,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
-import java.util.Base64;
 import java.util.List;
 import java.util.Random;
 
@@ -194,7 +194,7 @@ public class Utils {
 			// Reading a file from file system
 			byte[] fileData = new byte[(int) file.length()];
 			imageInFile.read(fileData);
-			base64File = Base64.getEncoder().encodeToString(fileData);
+			base64File = Base64.encodeToString(fileData, Base64.DEFAULT);
 		} catch (FileNotFoundException e) {
 			Log.d(TAG, "encodeToBase64: File not found" + e);
 		} catch (IOException ioe) {

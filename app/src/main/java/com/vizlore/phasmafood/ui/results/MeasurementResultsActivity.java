@@ -98,7 +98,7 @@ public class MeasurementResultsActivity extends BaseActivity {
 	private static final String ZIP_LOCATION = SD_CARD + "/phasma/images.zip";
 	private static final String EXTRACTED_ZIP_LOCATION = SD_CARD + "/phasma";
 
-	private List<File> imagesList;
+	private List<CameraItem> cameraItems = new ArrayList<>();
 
 	@BindView(R.id.zipImagesList)
 	RecyclerView zipImagesList;
@@ -417,11 +417,14 @@ public class MeasurementResultsActivity extends BaseActivity {
 	 * Load images received via Bluetooth
 	 */
 	private void setupReceivedImages() {
-		Log.d(TAG, "setupReceivedImages: ---------");
 		zipImagesList.setVisibility(View.VISIBLE);
 		zipImagesList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 		try {
-			imagesList = Decompress.unzip(new FileInputStream(ZIP_LOCATION), EXTRACTED_ZIP_LOCATION);
+			final List<File> imagesList = Decompress.unzip(new FileInputStream(ZIP_LOCATION), EXTRACTED_ZIP_LOCATION);
+			//prepare images
+			for (final File file : imagesList) {
+				cameraItems.add(new CameraItem(Utils.encodeToBase64(file), file.getName()));
+			}
 			Log.d(TAG, "setupReceivedImages: size: " + imagesList.size());
 			final ZipImagesAdapter zipImagesAdapter = new ZipImagesAdapter(imagesList);
 			zipImagesAdapter.setOnImageClickListener(path -> {
@@ -429,8 +432,10 @@ public class MeasurementResultsActivity extends BaseActivity {
 				intent.putExtra(IMAGE_PATH_EXTRA, path);
 				startActivity(intent);
 			});
-			Log.d(TAG, "setupReceivedImages: set adapter");
 			zipImagesList.setAdapter(zipImagesAdapter);
+
+			// Images are successfully displayed so delete them along with received images.zip
+			Utils.deleteDirectory(EXTRACTED_ZIP_LOCATION);
 		} catch (FileNotFoundException e) {
 			Log.d(TAG, "setupReceivedImages: " + e.getMessage());
 			e.printStackTrace();
@@ -608,11 +613,6 @@ public class MeasurementResultsActivity extends BaseActivity {
 			//disable so user could not send multiple requests or navigate through app while measurement in progress
 			disableInteraction();
 
-			//prepare images
-			final List<CameraItem> cameraItems = new ArrayList<>();
-			for (final File file : imagesList) {
-				cameraItems.add(new CameraItem(Utils.encodeToBase64(file), file.getName()));
-			}
 			sample.setCameraItems(cameraItems);
 
 			measurementViewModel.saveProcessingRequestType(shouldAnalyze ?
@@ -639,9 +639,6 @@ public class MeasurementResultsActivity extends BaseActivity {
 							showSnackBar(getString(R.string.successfullyStoredInCloud));
 						}
 					}
-
-					// Images are successfully stored on server so delete them along with received images.zip
-					Utils.deleteDirectory(EXTRACTED_ZIP_LOCATION);
 				});
 		} else {
 			Toast.makeText(this, "Device null! Not connected yet?", Toast.LENGTH_SHORT).show();
