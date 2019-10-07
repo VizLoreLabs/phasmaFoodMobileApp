@@ -34,6 +34,8 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.vizlore.phasmafood.R;
+import com.vizlore.phasmafood.helpers.BitmapHolder;
+import com.vizlore.phasmafood.model.results.BitmapWrapper;
 import com.vizlore.phasmafood.model.results.CameraItem;
 import com.vizlore.phasmafood.model.results.FLUO;
 import com.vizlore.phasmafood.model.results.MeasuredSample;
@@ -68,8 +70,6 @@ import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.vizlore.phasmafood.ui.results.DisplayImageActivity.IMAGE_PATH_EXTRA;
 
 public class MeasurementResultsActivity extends BaseActivity {
 
@@ -425,12 +425,20 @@ public class MeasurementResultsActivity extends BaseActivity {
 			for (final File file : imagesList) {
 				cameraItems.add(new CameraItem(Utils.encodeToBase64(file), file.getName()));
 			}
-			Log.d(TAG, "setupReceivedImages: size: " + imagesList.size());
-			final ZipImagesAdapter zipImagesAdapter = new ZipImagesAdapter(imagesList);
-			zipImagesAdapter.setOnImageClickListener(path -> {
-				final Intent intent = new Intent(MeasurementResultsActivity.this, DisplayImageActivity.class);
-				intent.putExtra(IMAGE_PATH_EXTRA, path);
-				startActivity(intent);
+			Log.d(TAG, "setupReceivedImages size: " + imagesList.size());
+			Log.d(TAG, "camera items  size: " + cameraItems.size());
+
+			final List<BitmapWrapper> bitmaps = new ArrayList<>();
+
+			for (File file : imagesList) {
+				final BitmapWrapper bitmap = new BitmapWrapper(BitmapFactory.decodeFile(file.getPath()), file.getName());
+				bitmaps.add(bitmap);
+			}
+
+			final ZipImagesAdapter zipImagesAdapter = new ZipImagesAdapter(bitmaps);
+			zipImagesAdapter.setOnImageClickListener(bitmapWrapper -> {
+				BitmapHolder.getInstance().setBitmapWrapper(bitmapWrapper);
+				startActivity(new Intent(MeasurementResultsActivity.this, DisplayImageActivity.class));
 			});
 			zipImagesList.setAdapter(zipImagesAdapter);
 

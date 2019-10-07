@@ -64,7 +64,7 @@ public class SendRequestActivity extends BaseActivity {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		Log.d(TAG, "showSendActionDialog: SEND:\n" + jsonObjectRequest.toString());
+		Log.d(TAG, "showSendActionDialog: SEND: " + jsonObjectRequest.toString());
 		showSendActionDialog(jsonObjectRequest.toString());
 	}
 

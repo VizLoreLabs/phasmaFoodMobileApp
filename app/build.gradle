@@ -21,8 +21,8 @@ android {
         applicationId "com.vizlore.phasmafood"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 62
-        versionName "1.61"
+        versionCode 63
+        versionName "1.62"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -104,7 +104,6 @@ dependencies {
         transitive = true
     }
     implementation 'com.facebook.stetho:stetho:1.5.0'
-    implementation 'com.squareup.picasso:picasso:2.71828'
 }
 
 apply plugin: 'com.google.gms.google-services'

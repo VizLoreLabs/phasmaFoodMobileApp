@@ -8,10 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.vizlore.phasmafood.R;
+import com.vizlore.phasmafood.model.results.BitmapWrapper;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -21,11 +20,11 @@ import java.util.List;
  */
 public class ZipImagesAdapter extends RecyclerView.Adapter<ZipImagesAdapter.ViewHolder> {
 
-	private List<File> images;
+	private List<BitmapWrapper> images;
 	private OnImageClickListener onImageClickListener;
 
-	public ZipImagesAdapter(List<File> devices) {
-		this.images = devices;
+	public ZipImagesAdapter(List<BitmapWrapper> bitmaps) {
+		this.images = bitmaps;
 	}
 
 	@NonNull
@@ -37,12 +36,12 @@ public class ZipImagesAdapter extends RecyclerView.Adapter<ZipImagesAdapter.View
 
 	@Override
 	public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-		final File file = images.get(position);
-		Picasso.get().load(new File(file.getAbsolutePath())).into(holder.imageView);
-		holder.imageTitle.setText(file.getName());
-		holder.itemView.setOnClickListener(view -> {
+		final BitmapWrapper bitmapWrapper = images.get(position);
+		holder.imageTitle.setText(bitmapWrapper.getBitmapName());
+		holder.imageView.setImageBitmap(bitmapWrapper.getBitmap());
+		holder.imageView.setOnClickListener(view -> {
 			if (onImageClickListener != null) {
-				onImageClickListener.onImageClick(file.getAbsolutePath());
+				onImageClickListener.onImageClick(bitmapWrapper);
 			}
 		});
 	}
@@ -68,6 +67,6 @@ public class ZipImagesAdapter extends RecyclerView.Adapter<ZipImagesAdapter.View
 	}
 
 	public interface OnImageClickListener {
-		void onImageClick(String path);
+		void onImageClick(BitmapWrapper bitmap);
 	}
 }

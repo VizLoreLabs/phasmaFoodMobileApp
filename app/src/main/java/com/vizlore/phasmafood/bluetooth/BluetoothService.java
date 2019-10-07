@@ -14,7 +14,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.os.ParcelUuid;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
@@ -100,21 +99,8 @@ public class BluetoothService extends Service {
 					switch (msg.arg1) {
 						case CommunicationController.STATE_CONNECTED:
 							Log.d(TAG, "Connected to: " + connectingDevice.getName());
-
-							Log.d(TAG, "handleMessage: * * * * * * * * * * * * * * * *");
-							Log.d(TAG, "handleMessage: UUID SIZE: " + connectingDevice.getUuids().length);
-							for (ParcelUuid uid : connectingDevice.getUuids()) {
-								Log.d(TAG, "handleMessage: UUID PARCEL: " + uid.toString());
-							}
-
-							if (connectingDevice != null && connectingDevice.getUuids() != null && connectingDevice.getUuids()[0] != null) {
-								Log.d(TAG, "handleMessage UUID: " + connectingDevice.getUuids()[0].getUuid().toString());
-							} else {
-								Log.d(TAG, "handleMessage: DEVICE UUID NULL");
-							}
-							Log.d(TAG, "createNewDevice: DEVICE ADDRESS: " + connectingDevice.getAddress());
-							Log.d(TAG, "createNewDevice: DEVICE NAME: " + connectingDevice.getName());
-
+							Log.d(TAG, "Device address: " + connectingDevice.getAddress());
+							Log.d(TAG, "Device name: " + connectingDevice.getName());
 							registerBtDevice(connectingDevice);
 							break;
 						case CommunicationController.STATE_CONNECTING:

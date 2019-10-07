@@ -165,11 +165,19 @@ public class Utils {
 
 	public static void deleteDirectory(final String directoryName) {
 		File dir = new File(directoryName);
-		if (dir.isDirectory()) {
-			String[] children = dir.list();
-			for (String child : children) {
-				new File(dir, child).delete();
+		if (dir.exists()) {
+			File[] files = dir.listFiles();
+			for (File file : files) {
+				if (file.isDirectory()) {
+					deleteDirectory(file.getPath());
+				} else {
+					boolean wasSuccessful = file.delete();
+					if (wasSuccessful) {
+						Log.i("SMEDIC Deleted ", "successfully " + file.getName());
+					}
+				}
 			}
+			dir.delete();
 		}
 	}
 
