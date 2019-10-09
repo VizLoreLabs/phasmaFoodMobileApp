@@ -421,12 +421,11 @@ public class MeasurementResultsActivity extends BaseActivity {
 		zipImagesList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 		try {
 			final List<File> imagesList = Decompress.unzip(new FileInputStream(ZIP_LOCATION), EXTRACTED_ZIP_LOCATION);
+
 			//prepare images
 			for (final File file : imagesList) {
-				cameraItems.add(new CameraItem(Utils.encodeToBase64(file), file.getName()));
+				cameraItems.add(new CameraItem(file.getName(), Utils.encodeToBase64(file)));
 			}
-			Log.d(TAG, "setupReceivedImages size: " + imagesList.size());
-			Log.d(TAG, "camera items  size: " + cameraItems.size());
 
 			final List<BitmapWrapper> bitmaps = new ArrayList<>();
 

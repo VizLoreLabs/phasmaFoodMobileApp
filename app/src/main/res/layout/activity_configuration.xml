@@ -414,6 +414,7 @@
                 android:textSize="18sp" />
 
             <LinearLayout
+                android:id="@+id/captureImageWhiteHolder"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/configurationTowHeight"
                 android:orientation="horizontal"
@@ -458,6 +459,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/captureImageUVHolder"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/configurationTowHeight"
                 android:orientation="horizontal"
@@ -502,6 +504,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/captureImageNIRHolder"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/configurationTowHeight"
                 android:orientation="horizontal"

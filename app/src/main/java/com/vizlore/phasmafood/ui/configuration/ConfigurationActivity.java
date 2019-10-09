@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -191,6 +190,12 @@ public class ConfigurationActivity extends BaseActivity {
 	EditText authenticParam;
 
 	//camera configuration
+	@BindView(R.id.captureImageNIRHolder)
+	LinearLayout captureImageNIRHolder;
+	@BindView(R.id.captureImageUVHolder)
+	LinearLayout captureImageUVHolder;
+	@BindView(R.id.captureImageWhiteHolder)
+	LinearLayout captureImageWhiteHolder;
 	@BindView(R.id.captureImageWhiteRadioGroup)
 	RadioGroup captureImageWhiteRadioGroup;
 	@BindView(R.id.captureImageUVRadioGroup)
@@ -323,17 +328,21 @@ public class ConfigurationActivity extends BaseActivity {
 						wizardJsonObject.put(USE_CASE_3_PARAM_AUTHENTIC, authenticParam.getText().toString());
 						break;
 				}
-				final String sample = wizardJsonObject.getString(Constants.USE_CASE_3_PARAM_SAMPLE);
-				if (sample != null && !sample.isEmpty()) {
-					if (sample.equals(Constants.USE_CASE_3_PARAM_AUTHENTIC)) {
-						wizardJsonObject.put(USE_CASE_3_PARAM_AUTHENTIC, "yes");
-					} else if (sample.equals(Constants.USE_CASE_3_PARAM_ADULTERATED)) {
-						wizardJsonObject.put(USE_CASE_3_PARAM_AUTHENTIC, "no");
-					} else {
-						wizardJsonObject.put(USE_CASE_3_PARAM_AUTHENTIC, "none");
+
+				// handle "sample" (authentic, adulterated - yes, no)
+				// NOTE Minced raw meat does not have sample so skip it
+				if (wizardJsonObject.has(Constants.USE_CASE_3_PARAM_SAMPLE)) {
+					final String sample = wizardJsonObject.getString(Constants.USE_CASE_3_PARAM_SAMPLE);
+					if (sample != null && !sample.isEmpty()) {
+						if (sample.equals(Constants.USE_CASE_3_PARAM_AUTHENTIC)) {
+							wizardJsonObject.put(USE_CASE_3_PARAM_AUTHENTIC, "yes");
+						} else if (sample.equals(Constants.USE_CASE_3_PARAM_ADULTERATED)) {
+							wizardJsonObject.put(USE_CASE_3_PARAM_AUTHENTIC, "no");
+						} else {
+							wizardJsonObject.put(USE_CASE_3_PARAM_AUTHENTIC, "none");
+						}
 					}
 				}
-				Log.d(TAG, "sendRequest: SAMPLE: " + wizardJsonObject.toString());
 				break;
 			case Constants.USE_CASE_WHITE_REF:
 				wizardJsonObject.put(USE_CASE_WHITE_REF_PARAM_1, String.valueOf(new Date().getTime()));
@@ -483,16 +492,23 @@ public class ConfigurationActivity extends BaseActivity {
 					cameraExposureTimeWhiteLEDsHolder.setVisibility(View.GONE);
 					cameraExposureTimeUVHolder.setVisibility(View.GONE);
 
+					captureImageNIRHolder.setVisibility(View.GONE);
+					captureImageUVHolder.setVisibility(View.GONE);
+					captureImageWhiteHolder.setVisibility(View.GONE);
+
 					if (testSample.contains(Constants.USE_CASE_TEST_NIR)) {
 						cameraExposureTimeNIRHolder.setVisibility(View.VISIBLE);
+						captureImageNIRHolder.setVisibility(View.VISIBLE);
 						nirGroup.setVisibility(View.VISIBLE);
 					}
 					if (testSample.contains(Constants.USE_CASE_TEST_VIS)) {
 						cameraExposureTimeWhiteLEDsHolder.setVisibility(View.VISIBLE);
+						captureImageWhiteHolder.setVisibility(View.VISIBLE);
 						visGroup.setVisibility(View.VISIBLE);
 					}
 					if (testSample.contains(Constants.USE_CASE_TEST_FLUO)) {
 						cameraExposureTimeUVHolder.setVisibility(View.VISIBLE);
+						captureImageUVHolder.setVisibility(View.VISIBLE);
 						fluoGroup.setVisibility(View.VISIBLE);
 					}
 					break;
