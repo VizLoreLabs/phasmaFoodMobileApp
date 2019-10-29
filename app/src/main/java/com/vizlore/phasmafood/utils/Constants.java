@@ -13,6 +13,7 @@ public class Constants {
 	public static final String NIR = "NIR";
 	public static final String VIS = "VIS";
 	public static final String FLUO = "FLUO";
+	public static final String FUSION = "Fusion";
 
 	public static final String USE_CASE_KEY = "Use cases";
 	public static final String USE_CASE_1 = "Mycotoxins detection";

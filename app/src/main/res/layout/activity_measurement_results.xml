@@ -413,6 +413,28 @@
                     app:layout_constraintTop_toTopOf="@+id/fluoTitle" />
 
                 <TextView
+                    android:id="@+id/fusionTitle"
+                    style="@style/PFTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/fusion"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fluoTitle" />
+
+                <TextView
+                    android:id="@+id/fusionValue"
+                    style="@style/PFTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/na"
+                    app:layout_constraintBottom_toBottomOf="@+id/fusionTitle"
+                    app:layout_constraintStart_toEndOf="@+id/fusionTitle"
+                    app:layout_constraintTop_toTopOf="@+id/fusionTitle" />
+
+                <TextView
                     android:id="@+id/timestampTitle"
                     style="@style/PFTextView"
                     android:layout_width="wrap_content"
@@ -422,7 +444,7 @@
                     android:text="@string/timestamp"
                     android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/fluoTitle" />
+                    app:layout_constraintTop_toBottomOf="@+id/fusionTitle" />
 
                 <TextView
                     android:id="@+id/timestampValue"
@@ -462,7 +484,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="visible"
-                    app:constraint_referenced_ids="visTitle,nirTitle,fluoTitle,visValue,nirValue,fluoValue" />
+                    app:constraint_referenced_ids="visTitle,nirTitle,fluoTitle,visValue,nirValue,fluoValue,fusionTitle,fusionValue" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/zipImagesList"

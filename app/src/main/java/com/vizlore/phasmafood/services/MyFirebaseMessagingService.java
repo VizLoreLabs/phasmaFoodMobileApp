@@ -43,6 +43,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 				intent.putExtra(Constants.NIR, jsonObject.getString(Constants.NIR));
 			if (jsonObject.has(Constants.FLUO))
 				intent.putExtra(Constants.FLUO, jsonObject.getString(Constants.FLUO));
+			if (jsonObject.has(Constants.FUSION))
+				intent.putExtra(Constants.FUSION, jsonObject.getString(Constants.FUSION));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

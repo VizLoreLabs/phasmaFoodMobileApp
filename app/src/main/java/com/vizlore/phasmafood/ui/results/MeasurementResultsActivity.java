@@ -132,6 +132,12 @@ public class MeasurementResultsActivity extends BaseActivity {
 	@BindView(R.id.fluoValue)
 	TextView fluoValue;
 
+	@BindView(R.id.fusionTitle)
+	TextView fusionTitle;
+
+	@BindView(R.id.fusionValue)
+	TextView fusionValue;
+
 	@BindView(R.id.chart)
 	LineChart lineChart;
 
@@ -315,16 +321,16 @@ public class MeasurementResultsActivity extends BaseActivity {
 			}
 
 			if (bundle.containsKey(Constants.VIS)) {
-				visValue.setVisibility(View.VISIBLE);
 				visValue.setText(bundle.getString(Constants.VIS));
 			}
 			if (bundle.containsKey(Constants.NIR)) {
-				nirValue.setVisibility(View.VISIBLE);
 				nirValue.setText(bundle.getString(Constants.NIR));
 			}
 			if (bundle.containsKey(Constants.FLUO)) {
-				fluoValue.setVisibility(View.VISIBLE);
 				fluoValue.setText(bundle.getString(Constants.FLUO));
+			}
+			if (bundle.containsKey(Constants.FUSION)) {
+				fusionValue.setText(bundle.getString(Constants.FUSION));
 			}
 		}
 

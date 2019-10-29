@@ -24,6 +24,7 @@
     <string name="summary">Summary</string>
     <string name="resultsReceived">Measurement completed!</string>
     <string name="seeYourResults">Results:</string>
+    <string name="fusion">Data fusion:</string>
     <string name="camera">Camera</string>
     <string name="captureImageWhite">Capture image - white LEDs</string>
     <string name="captureImageUV">Capture image - UV</string>
