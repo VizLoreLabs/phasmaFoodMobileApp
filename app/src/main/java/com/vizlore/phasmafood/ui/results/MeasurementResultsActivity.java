@@ -61,8 +61,10 @@ import java.io.FileNotFoundException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindColor;
 import butterknife.BindString;
@@ -329,7 +331,6 @@ public class MeasurementResultsActivity extends BaseActivity {
 		// show saved image path
 		final String savedImagePath = measurementViewModel.getMeasurementImagePath();
 		if (savedImagePath != null) {
-			Log.d(TAG, "onCreate: image path: " + savedImagePath);
 			final File file = new File(savedImagePath);
 			final Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
 			if (bitmap != null) {
@@ -345,14 +346,7 @@ public class MeasurementResultsActivity extends BaseActivity {
 			if (sample == null) { //keep safe
 				return;
 			}
-
 			completedOn.setText(measurementViewModel.getSuccessfulMeasurementTime());
-//			if (sample.getSampleID() != null) {
-//				Log.d(TAG, "onCreate: SAMPLE ID: " + sample.getSampleID());
-//				sampleId.setText(getString(R.string.sampleId, sample.getSampleID()));
-//			} else {
-//				Log.d(TAG, "onCreate: SAMPLE ID NULLLLLLLLLLLLLLLLLLLLLLLLL");
-//			}
 			useCaseValue.setText(sample.getUseCase());
 			sampleValue.setText(sample.getFoodType());
 
@@ -502,24 +496,24 @@ public class MeasurementResultsActivity extends BaseActivity {
 		}
 
 		if (rawDataList != null) {
-			final List<MeasuredSample> averages = calculateAverages(rawDataList);
-			final LineDataSet dataSet = new LineDataSet(getMeasuredSamplesEntries(averages), SAMPLE_RAW_DATA_REFERENCE);
+			final List<MeasuredSample> medians = calculateMedian(rawDataList);
+			final LineDataSet dataSet = new LineDataSet(getMeasuredSamplesEntries(medians), SAMPLE_RAW_DATA_REFERENCE);
 			dataSet.setColor(blueColor);
 			dataSet.setCircleColor(blueColor);
 			dataSets.add(dataSet);
 		}
 
 		if (rawDarkList != null) {
-			final List<MeasuredSample> averages = calculateAverages(rawDarkList);
-			final LineDataSet dataSet = new LineDataSet(getMeasuredSamplesEntries(averages), SAMPLE_RAW_DARK_REFERENCE);
+			final List<MeasuredSample> medians = calculateMedian(rawDarkList);
+			final LineDataSet dataSet = new LineDataSet(getMeasuredSamplesEntries(medians), SAMPLE_RAW_DARK_REFERENCE);
 			dataSet.setColor(greenColor);
 			dataSet.setCircleColor(greenColor);
 			dataSets.add(dataSet);
 		}
 
 		if (rawWhiteList != null) {
-			final List<MeasuredSample> averages = calculateAverages(rawWhiteList);
-			final LineDataSet dataSet = new LineDataSet(getMeasuredSamplesEntries(averages), SAMPLE_RAW_WHITE_REFERENCE);
+			final List<MeasuredSample> medians = calculateMedian(rawWhiteList);
+			final LineDataSet dataSet = new LineDataSet(getMeasuredSamplesEntries(medians), SAMPLE_RAW_WHITE_REFERENCE);
 			dataSet.setColor(redColor);
 			dataSet.setCircleColor(redColor);
 			dataSets.add(dataSet);
@@ -528,12 +522,45 @@ public class MeasurementResultsActivity extends BaseActivity {
 	}
 
 	/**
+	 * Calculate median for input array of 10 measurements, each 288 numbers (variable size)
+	 */
+	private List<MeasuredSample> calculateMedian(@NonNull final List<List<MeasuredSample>> dataList) {
+
+		final List<MeasuredSample> measuredValues = new ArrayList<>();
+		final LinkedHashMap<String, List<MeasuredSample>> map = new LinkedHashMap<>();
+
+		for (List<MeasuredSample> listOf10 : dataList) { //10 here!
+			for (final MeasuredSample sample : listOf10) { //288 here!
+				final String wave = sample.getWave();
+				final List<MeasuredSample> measurements = map.containsKey(wave) ? map.get(wave) : new ArrayList<>();
+				measurements.add(new MeasuredSample(wave, sample.getMeasurement()));
+				map.put(wave, measurements);
+			}
+		}
+		for (Map.Entry<String, List<MeasuredSample>> preparedMap : map.entrySet()) {
+			final List<String> values = getRawDataMeasurements(preparedMap.getValue());
+			final String median = values.get(values.size() / 2);
+			measuredValues.add(new MeasuredSample(preparedMap.getKey(), median));
+		}
+		return measuredValues;
+	}
+
+	private List<String> getRawDataMeasurements(final List<MeasuredSample> listOfSamples) {
+		final List<String> measurementValues = new ArrayList<>();
+		for (int i = 0; i < listOfSamples.size(); i++) {
+			measurementValues.add(listOfSamples.get(i).getMeasurement());
+		}
+		return measurementValues;
+	}
+
+	/**
 	 * Calculate averages for input array of 10 measurements, each 288 numbers (variable size)
 	 */
 	private List<MeasuredSample> calculateAverages(@NonNull final List<List<MeasuredSample>> dataList) {
-		final int rawDataListSize = dataList.get(0).size(); //most likely high number (288 for instance)
+		final int rawDataListSize = dataList.get(0).size(); //most likely 288 (for instance)
 		final String[] waves = new String[rawDataListSize];
 		long[] measurementSums = new long[rawDataListSize];
+
 		for (List<MeasuredSample> listOf10 : dataList) { //10 here!
 			for (int i = 0; i < listOf10.size(); i++) { //288 here!
 				waves[i] = listOf10.get(i).getWave();
