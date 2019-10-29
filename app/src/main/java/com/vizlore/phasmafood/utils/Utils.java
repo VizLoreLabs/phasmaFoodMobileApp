@@ -63,7 +63,7 @@ public class Utils {
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getInstance());
 		final boolean isDebugMode = prefs.getBoolean(DEBUG_MODE_KEY, false);
 		if (isDebugMode) {
-			return "AA:AA:AA:AA:AA:AA";
+			return "90:70:65:EF:4A:CE";
 		}
 		return prefs.getString(Config.BT_DEVICE_ADDRESS_KEY, null);
 	}
