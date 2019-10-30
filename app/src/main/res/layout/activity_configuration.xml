@@ -406,6 +406,7 @@
 
             <!--CAMERA PARAMS-->
             <TextView
+                android:id="@+id/cameraParamsTitle"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/configurationTitleHeight"
                 android:gravity="center"
@@ -510,6 +511,7 @@
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/configurationHorizontalRowPadding"
                 android:paddingTop="@dimen/configurationVerticalRowPadding"
+                android:visibility="gone"
                 android:paddingEnd="@dimen/configurationHorizontalRowPadding"
                 android:paddingBottom="@dimen/configurationVerticalRowPadding">
 
@@ -614,7 +616,8 @@
                 android:paddingStart="@dimen/configurationHorizontalRowPadding"
                 android:paddingTop="@dimen/configurationVerticalRowPadding"
                 android:paddingEnd="@dimen/configurationHorizontalRowPadding"
-                android:paddingBottom="@dimen/configurationVerticalRowPadding">
+                android:paddingBottom="@dimen/configurationVerticalRowPadding"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="0dp"

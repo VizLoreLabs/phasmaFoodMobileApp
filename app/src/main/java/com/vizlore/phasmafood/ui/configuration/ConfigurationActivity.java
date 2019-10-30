@@ -13,6 +13,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -221,6 +222,9 @@ public class ConfigurationActivity extends BaseActivity {
 	LinearLayout useCaseTestLabelsGroup;
 	@BindView(R.id.lightsOnDuration)
 	EditText lightsOnDuration;
+
+	@BindView(R.id.cameraParamsTitle)
+	TextView cameraParamsTitle;
 
 	// NIR
 	@BindView(R.id.nirGroup)
@@ -497,17 +501,20 @@ public class ConfigurationActivity extends BaseActivity {
 					captureImageWhiteHolder.setVisibility(View.GONE);
 
 					if (testSample.contains(Constants.USE_CASE_TEST_NIR)) {
-						cameraExposureTimeNIRHolder.setVisibility(View.VISIBLE);
-						captureImageNIRHolder.setVisibility(View.VISIBLE);
+						//cameraExposureTimeNIRHolder.setVisibility(View.VISIBLE);
+						//captureImageNIRHolder.setVisibility(View.VISIBLE);
+						cameraParamsTitle.setVisibility(View.GONE);
 						nirGroup.setVisibility(View.VISIBLE);
 					}
 					if (testSample.contains(Constants.USE_CASE_TEST_VIS)) {
 						cameraExposureTimeWhiteLEDsHolder.setVisibility(View.VISIBLE);
 						captureImageWhiteHolder.setVisibility(View.VISIBLE);
+						cameraParamsTitle.setVisibility(View.VISIBLE);
 						visGroup.setVisibility(View.VISIBLE);
 					}
 					if (testSample.contains(Constants.USE_CASE_TEST_FLUO)) {
 						cameraExposureTimeUVHolder.setVisibility(View.VISIBLE);
+						cameraParamsTitle.setVisibility(View.VISIBLE);
 						captureImageUVHolder.setVisibility(View.VISIBLE);
 						fluoGroup.setVisibility(View.VISIBLE);
 					}
