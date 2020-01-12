@@ -123,20 +123,8 @@ public class MeasurementResultsActivity extends BaseActivity {
 	@BindView(R.id.sampleValue)
 	TextView sampleValue;
 
-	@BindView(R.id.visValue)
-	TextView visValue;
-
-	@BindView(R.id.nirValue)
-	TextView nirValue;
-
-	@BindView(R.id.fluoValue)
-	TextView fluoValue;
-
 	@BindView(R.id.fusionTitle)
 	TextView fusionTitle;
-
-	@BindView(R.id.fusionValue)
-	TextView fusionValue;
 
 	@BindView(R.id.chart)
 	LineChart lineChart;
@@ -313,6 +301,8 @@ public class MeasurementResultsActivity extends BaseActivity {
 				storeOnServer.setVisibility(isFromServer ? View.GONE : View.VISIBLE);
 				storeOnServerAndAnalyze.setVisibility(isFromServer ? View.GONE : View.VISIBLE);
 				previousButton.setVisibility(isFromServer ? View.GONE : View.VISIBLE);
+
+				//show only fusion (group will leave vis,nir,fluo invisible)
 				resultsGroup.setVisibility(isFromServer ? View.VISIBLE : View.GONE);
 			}
 
@@ -320,17 +310,26 @@ public class MeasurementResultsActivity extends BaseActivity {
 				title.setText(bundle.getString(TITLE));
 			}
 
-			if (bundle.containsKey(Constants.VIS)) {
-				visValue.setText(bundle.getString(Constants.VIS));
-			}
-			if (bundle.containsKey(Constants.NIR)) {
-				nirValue.setText(bundle.getString(Constants.NIR));
-			}
-			if (bundle.containsKey(Constants.FLUO)) {
-				fluoValue.setText(bundle.getString(Constants.FLUO));
-			}
+//			if (bundle.containsKey(Constants.VIS)) {
+//				visValue.setText(bundle.getString(Constants.VIS));
+//			}
+//			if (bundle.containsKey(Constants.NIR)) {
+//				nirValue.setText(bundle.getString(Constants.NIR));
+//			}
+//			if (bundle.containsKey(Constants.FLUO)) {
+//				fluoValue.setText(bundle.getString(Constants.FLUO));
+//			}
 			if (bundle.containsKey(Constants.FUSION)) {
-				fusionValue.setText(bundle.getString(Constants.FUSION));
+				final String fusionString = bundle.getString(Constants.FUSION);
+				fusionTitle.setText(fusionString);
+
+				if(fusionString.contains("safe") || fusionString.contains("authentic")) {
+					fusionTitle.setTextColor(greenColor);
+				} else if (fusionString.contains("unsafe") || fusionString.contains("adulterated")) {
+					fusionTitle.setTextColor(redColor);
+				} else {
+					//don't change text color
+				}
 			}
 		}
 

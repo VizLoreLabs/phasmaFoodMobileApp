@@ -352,6 +352,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="4dp"
+                    android:visibility="gone"
                     android:text="@string/visAnalysis"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/sampleValue" />
@@ -363,6 +364,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="4dp"
+                    android:visibility="gone"
                     android:text="@string/nirAnalysis"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/visTitle" />
@@ -375,6 +377,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="4dp"
                     android:text="@string/fluoAnalysis"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/nirTitle" />
 
@@ -385,6 +388,7 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="8dp"
                     android:text="@string/na"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/visTitle"
                     app:layout_constraintStart_toEndOf="@+id/visTitle"
                     app:layout_constraintTop_toTopOf="@+id/visTitle"
@@ -397,6 +401,7 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="8dp"
                     android:text="@string/na"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/nirTitle"
                     app:layout_constraintStart_toEndOf="@+id/nirTitle"
                     app:layout_constraintTop_toTopOf="@+id/nirTitle" />
@@ -408,6 +413,7 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="8dp"
                     android:text="@string/na"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/fluoTitle"
                     app:layout_constraintStart_toEndOf="@+id/fluoTitle"
                     app:layout_constraintTop_toTopOf="@+id/fluoTitle" />
@@ -484,7 +490,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="visible"
-                    app:constraint_referenced_ids="visTitle,nirTitle,fluoTitle,visValue,nirValue,fluoValue,fusionTitle,fusionValue" />
+                    app:constraint_referenced_ids="fusionTitle,fusionValue" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/zipImagesList"
