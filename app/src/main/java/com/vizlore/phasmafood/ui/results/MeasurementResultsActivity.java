@@ -286,7 +286,6 @@ public class MeasurementResultsActivity extends BaseActivity {
 
 			if (bundle.containsKey(IS_FROM_SERVER)) {
 				final boolean isFromServer = bundle.getBoolean(IS_FROM_SERVER);
-
 				if (isFromServer) {
 					if (measurementViewModel.getProcessingRequestType() == MeasurementRepository.ProcessingRequestType.STORE) {
 						title.setText(R.string.successfullyStoredInCloud);
@@ -351,6 +350,7 @@ public class MeasurementResultsActivity extends BaseActivity {
 			if (sample == null) { //keep safe
 				return;
 			}
+
 			completedOn.setText(measurementViewModel.getSuccessfulMeasurementTime());
 			useCaseValue.setText(sample.getUseCase());
 			sampleValue.setText(sample.getFoodType());
@@ -416,10 +416,15 @@ public class MeasurementResultsActivity extends BaseActivity {
 	 * Load images received via Bluetooth
 	 */
 	private void setupReceivedImages() {
-		zipImagesList.setVisibility(View.VISIBLE);
 		zipImagesList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 		try {
 			final List<File> imagesList = Decompress.unzip(new FileInputStream(ZIP_LOCATION), EXTRACTED_ZIP_LOCATION);
+
+			if(imagesList.isEmpty()) {
+				return;
+			}
+
+			zipImagesList.setVisibility(View.VISIBLE);
 
 			//prepare images
 			for (final File file : imagesList) {

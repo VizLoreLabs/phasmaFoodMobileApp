@@ -421,11 +421,13 @@
                 <TextView
                     android:id="@+id/fusionTitle"
                     style="@style/PFTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="24dp"
                     android:text="@string/fusion"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fluoTitle" />
 
@@ -436,6 +438,7 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="8dp"
                     android:text="@string/na"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/fusionTitle"
                     app:layout_constraintStart_toEndOf="@+id/fusionTitle"
                     app:layout_constraintTop_toTopOf="@+id/fusionTitle" />
@@ -490,7 +493,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="visible"
-                    app:constraint_referenced_ids="fusionTitle,fusionValue" />
+                    app:constraint_referenced_ids="fusionTitle" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/zipImagesList"

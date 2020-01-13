@@ -39,7 +39,7 @@ public class NetworkModule {
 	@Singleton
 	HttpLoggingInterceptor provideHttpLoggingInterceptor() {
 		HttpLoggingInterceptor logging = new HttpLoggingInterceptor(message -> Log.d("SMEDIC", "log: " + message));
-		logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+		logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
 		return logging;
 	}
 
