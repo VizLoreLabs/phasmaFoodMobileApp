@@ -322,10 +322,10 @@ public class MeasurementResultsActivity extends BaseActivity {
 				final String fusionString = bundle.getString(Constants.FUSION);
 				fusionTitle.setText(fusionString);
 
-				if(fusionString.contains("safe") || fusionString.contains("authentic")) {
-					fusionTitle.setTextColor(greenColor);
-				} else if (fusionString.contains("unsafe") || fusionString.contains("adulterated")) {
+				if (fusionString.contains("unsafe") || fusionString.contains("adulterated")) {
 					fusionTitle.setTextColor(redColor);
+				} else if(fusionString.contains("safe") || fusionString.contains("authentic")) {
+					fusionTitle.setTextColor(greenColor);
 				} else {
 					//don't change text color
 				}

@@ -43,9 +43,9 @@ public class SendRequestActivity extends BaseActivity {
 //	private static final String USE_CASE_2_JSON = "usecase2_updated_response.json";
 //	private static final String USE_CASE_3_JSON = "use_case_3_sample.json";
 
-	private static final String USE_CASE_1_JSON = "dummy_json_uc1_prototype_1.json";
-	private static final String USE_CASE_2_JSON = "dummy_json_uc2_prototype_1.json";
-	private static final String USE_CASE_3_JSON = "dummy_json_uc3_prototype_1.json";
+	private static final String USE_CASE_1_JSON = "dummy_json_uc1.json";
+	private static final String USE_CASE_2_JSON = "dummy_json_uc2.json";
+	private static final String USE_CASE_3_JSON = "dummy_json_uc3.json";
 
 	private UseCaseType useCaseType;
 	private JSONObject wizardJsonObject = null;

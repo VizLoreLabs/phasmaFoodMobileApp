@@ -21,8 +21,8 @@ android {
         applicationId "com.vizlore.phasmafood"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 69
-        versionName "1.68"
+        versionCode 70
+        versionName "1.69"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
