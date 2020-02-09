@@ -1,17 +1,9 @@
-Phasma Food v2
-==============
+Phasma FOOD mobile application for Android
+==========================================
 
 The main objective of the PhasmaFOOD is to design and implement a multi-target food sensitive mini-portable system for on-the-spot food quality sensing and shelf-life prediction.
 
-.. image:: https://img.shields.io/badge/django-success-green
-     :target: https://github.com/django/django
-     :alt: Built with Django
-.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
-     :target: https://github.com/ambv/black
-     :alt: Black code style
-
-
-:License: Apache Software License 2.0
+License: Apache Software License 2.0
 
 
 About
